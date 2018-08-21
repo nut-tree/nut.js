@@ -1,0 +1,63 @@
+{
+  "name": "native-ui-toolkit",
+  "version": "0.0.1",
+  "license": "MIT",
+  "main": "lib/nut.js",
+
+  "description": "Native system automation for node.js",
+
+  "author": {
+    "name": "Simon Hofmann",
+    "email": "mail@simon-hofmann.org",
+    "url": "https://simon-hofmann.org"
+  },
+
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/s1hofmann/native-ui-toolkit.git"
+  },
+
+  "bugs": {
+    "url": "https://github.com/s1hofmann/native-ui-toolkit/issues"
+  },
+
+  "os": [
+    "linux",
+    "darwin",
+    "win32"
+  ],
+
+  "cpu": [
+    "arm",
+    "x64",
+    "ia32"
+  ],
+
+  "keywords": [
+    "native",
+    "system",
+    "automation",
+    "testing",
+    "keyboard",
+    "mouse",
+    "process",
+    "memory",
+    "window",
+    "screen",
+    "monitor",
+    "display",
+    "timer",
+    "clock",
+    "clipboard"
+  ],
+
+  "dependencies": {
+    "bresenham": "0.0.4",
+    "opencv4nodejs": "^4.7.2",
+    "robot-js": "2.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.3.0",
+    "eslint-config-google": "^0.9.1"
+  }
+}
