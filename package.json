@@ -1,6 +1,6 @@
 {
   "name": "native-ui-toolkit",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "main": "lib/nut.js",
   "description": "Native system automation for node.js",
