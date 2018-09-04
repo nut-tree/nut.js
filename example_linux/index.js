@@ -2,16 +2,22 @@
 
 const nut = require("../lib/nut");
 
+nut.MATCH_PROB = 0.93;
+
 console.log(nut.Screen.location("./docker.png"));
 console.log(nut.Screen.width());
 console.log(nut.Screen.height());
+console.log("move to file");
 nut.Mouse.move(nut.Movement.straightTo(nut.Location.centerOf(nut.Screen.location("./file.png"))));
 nut.Mouse.leftClick();
+console.log("move to save");
 nut.Mouse.move(nut.Movement.straightTo(nut.Location.centerOf(nut.Screen.location("./save.png"))));
 nut.Mouse.leftClick();
-nut.Mouse.move(nut.Movement.straightTo(nut.Location.centerOf(nut.Screen.location("./cancel.png"))));
+console.log("move to cancel");
+nut.Mouse.move(nut.Movement.straightTo(nut.Location.centerOf(nut.Screen.location("./save_button.png"))));
 nut.Mouse.leftClick();
 
+console.log("move to docker");
 nut.Mouse.move(nut.Movement.straightTo(nut.Location.randomPointAt(nut.Screen.location("./docker.png"))));
 
 for (let idx = 0; idx < 5; ++idx) {
