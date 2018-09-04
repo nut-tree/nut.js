@@ -19,6 +19,8 @@ for (let idx = 0; idx < 5; ++idx) {
   nut.Mouse.leftClick();
 }
 
-console.log(nut.Assert.isVisible("./docker.png"));
-console.log(nut.Assert.isVisible("./docker.png", new nut.Area(100, 100, 100, 100)));
-console.log(nut.Assert.isVisible("../example_linux/save.png"));
+try {
+  nut.Assert.isVisible("./docker.png", new nut.Area(100, 100, 100, 100));
+} catch (err) {
+  console.log(err.message);
+}
