@@ -45,6 +45,7 @@
   ],
   "dependencies": {
     "bresenham": "0.0.4",
+    "lodash": "^4.17.10",
     "opencv4nodejs": "4.7.2",
     "robot-js": "2.0.0"
   },
