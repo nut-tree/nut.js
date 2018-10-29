@@ -71,3 +71,6 @@ typings/
 
 # Serverless directories
 .serverless
+
+.idea
+.vscode
