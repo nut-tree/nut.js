@@ -1,8 +1,5 @@
-'use strict';
-
-const Point = require('./point');
-const Area = require('./region');
-const checks = require('./util/checks');
+import {Region} from "./region.class";
+import {Point} from "./point.class";
 
 export class Location {
     constructor() {
