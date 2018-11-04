@@ -14,6 +14,7 @@ export class OpenCVAdapter {
         let needle = await this.visionProvider.loadImage(pathToNeedle);
         let haystack = await this.visionProvider.fromImageWithoutAlphaChannel(
             screen,
+            searchRegion,
         );
 
         if (matchProbability < 0.99) {

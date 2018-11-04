@@ -21,6 +21,7 @@ export {Point} from "./lib/point.class";
 export {Region} from "./lib/region.class";
 
 export class Nut {
+    public config: Config;
     public readonly screen: Screen;
     public readonly keyboard: Keyboard;
     public readonly mouse: Mouse;
@@ -28,14 +29,15 @@ export class Nut {
     private readonly screenActions: OpenCVAdapter;
     private readonly nativeActions: NativeAdapter;
 
-    constructor(public config: Config) {
-        switch (config.openCVProvider) {
+    constructor(configuration?: Config) {
+        this.config = configuration || new Config();
+        switch (this.config.openCVProvider) {
             case OpenCVProviderEnum.OPENCV4NODEJS:
             default:
                 this.screenActions = new OpenCVAdapter(new OpenCV4NodeJSVisionProvider());
                 break;
         }
-        switch (config.nativeProvider) {
+        switch (this.config.nativeProvider) {
             case NativeProviderEnum.ROBOT_JS:
             default:
                 this.nativeActions = new NativeAdapter(new RobotJsNativeProvider());
