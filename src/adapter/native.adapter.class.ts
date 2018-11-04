@@ -1,49 +1,49 @@
-import {Region} from "../region.class";
-import {NativeProviderInterface} from "../provider/native/native.provider.interface";
-import {Point} from "../point.class";
 import {Image} from "../image.class";
+import {Point} from "../point.class";
+import {INativeProviderInterface} from "../provider/native/INativeProviderInterface";
+import {Region} from "../region.class";
 
 export class NativeAdapter {
-    constructor(private native: NativeProviderInterface) {
+    constructor(private native: INativeProviderInterface) {
     }
 
-    grabScreen(): Promise<Image> {
+    public grabScreen(): Promise<Image> {
         return this.native.grabScreen();
     }
 
-    grabScreenRegion(region: Region): Promise<Image> {
+    public grabScreenRegion(region: Region): Promise<Image> {
         return this.native.grabScreenRegion(region);
     }
 
-    setMouseDelay(delay: number): void {
+    public setMouseDelay(delay: number): void {
         this.native.setMouseDelay(delay);
     }
 
-    setMousePosition(p: Point): void {
+    public setMousePosition(p: Point): void {
         this.native.setMousePosition(p);
     }
 
-    currentMousePosition(): Point {
+    public currentMousePosition(): Point {
         return this.native.currentMousePosition();
     }
 
-    screenWidth(): number {
+    public screenWidth(): number {
         return this.native.screenWidth();
     }
 
-    screenHeight(): number {
+    public screenHeight(): number {
         return this.native.screenHeight();
     }
 
-    screenSize(): Region {
-        return this.native.screenSize()
+    public screenSize(): Region {
+        return this.native.screenSize();
     }
 
-    leftClick(): void {
+    public leftClick(): void {
         this.native.leftClick();
     }
 
-    rightClick(): void {
+    public rightClick(): void {
         this.native.rightClick();
     }
 }

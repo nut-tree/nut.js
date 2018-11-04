@@ -1,48 +1,31 @@
-import {Screen} from "./screen.class";
+import {NativeAdapter} from "./adapter/native.adapter.class";
+import {OpenCVAdapter} from "./adapter/opencv.adapter.class";
+import {Config} from "./config.class";
 import {Keyboard} from "./keyboard.class";
 import {Mouse} from "./mouse.class";
-import {OpenCVAdapter} from "./adapter/opencv.adapter.class";
-import {NativeAdapter} from "./adapter/native.adapter.class";
-import {OpenCVProviderEnum} from "./provider/opencv/opencv.provider.enum";
-import {NativeProviderEnum} from "./provider/native/native.provider.enum";
-import {OpenCV4NodeJSVisionProvider} from "./provider/opencv/opencv4nodejs.provider.class";
-import {RobotJsNativeProvider} from "./provider/native/robot-js.provider.class";
 import {Movement} from "./movement.class";
-import {LineHelper} from "./util/linehelper.class";
+import {NativeProviderEnum} from "./provider/native/native.provider.enum";
+import {RobotJsNativeProvider} from "./provider/native/robot-js.provider.class";
+import {OpenCVProviderEnum} from "./provider/opencv/opencv.provider.enum";
+import {OpenCV4NodeJSVisionProvider} from "./provider/opencv/opencv4nodejs.provider.class";
+import {Screen} from "./screen.class";
 import {Bresenham} from "./util/bresenham.class";
+import {LineHelper} from "./util/linehelper.class";
 
+export {Config} from "./config.class";
 export {Image} from "./image.class";
 export {Location} from "./location.class";
-export {LocationParameters} from "./screen.class";
+export {LocationParameters} from "./locationparameters.class";
 export {Movement} from "./movement.class";
 export {MovementType} from "./movementtype.class";
 export {Point} from "./point.class";
 export {Region} from "./region.class";
 
-export class Config {
-    matchProbability = 0.99;
-    mouseSpeed = 1000; // Mouse speed in pixel/second
-    openCVProvider = OpenCVProviderEnum.OPENCV4NODEJS;
-    nativeProvider = NativeProviderEnum.ROBOT_JS;
-
-    constructor(params = {
-        openCVProvider: OpenCVProviderEnum.OPENCV4NODEJS,
-        nativeProvider: NativeProviderEnum.ROBOT_JS,
-        matchProbability: 0.99,
-        mouseSpeed: 1000
-    }) {
-        this.openCVProvider = params.openCVProvider;
-        this.nativeProvider = params.nativeProvider;
-        this.matchProbability = params.matchProbability;
-        this.mouseSpeed = params.mouseSpeed;
-    }
-}
-
 export class Nut {
-    readonly screen: Screen;
-    readonly keyboard: Keyboard;
-    readonly mouse: Mouse;
-    readonly movement: Movement;
+    public readonly screen: Screen;
+    public readonly keyboard: Keyboard;
+    public readonly mouse: Mouse;
+    public readonly movement: Movement;
     private readonly screenActions: OpenCVAdapter;
     private readonly nativeActions: NativeAdapter;
 

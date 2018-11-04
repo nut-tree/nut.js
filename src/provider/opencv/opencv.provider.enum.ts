@@ -1,3 +1,3 @@
 export enum OpenCVProviderEnum {
-    OPENCV4NODEJS
+    OPENCV4NODEJS,
 }

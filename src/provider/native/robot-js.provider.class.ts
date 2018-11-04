@@ -1,10 +1,10 @@
-import {Region} from "../../region.class";
-import {NativeProviderInterface} from "./native.provider.interface";
 import robot = require("robot-js");
-import {Point} from "../../point.class";
 import {Image} from "../../image.class";
+import {Point} from "../../point.class";
+import {Region} from "../../region.class";
+import {INativeProviderInterface} from "./INativeProviderInterface";
 
-export class RobotJsNativeProvider implements NativeProviderInterface {
+export class RobotJsNativeProvider implements INativeProviderInterface {
 
     private mouse: any;
 
@@ -13,40 +13,38 @@ export class RobotJsNativeProvider implements NativeProviderInterface {
         robot.Screen.synchronize();
     }
 
-    grabScreen(): Promise<Image> {
+    public grabScreen(): Promise<Image> {
         return new Promise(((resolve, reject) => {
             if (robot.Screen.synchronize()) {
-                const _img = new robot.Image();
-                const _main = robot.Screen.getMain();
-                robot.Screen.grabScreen(_img, _main.getBounds());
+                const img = new robot.Image();
+                const mainScree = robot.Screen.getMain();
+                robot.Screen.grabScreen(img, mainScree.getBounds());
                 resolve(new Image(
-                    _img.getWidth(),
-                    _img.getHeight(),
-                    _img.getData()
+                    img.getWidth(),
+                    img.getHeight(),
+                    img.getData(),
                 ));
             }
             reject("Unable to fetch screen content.");
         }));
     }
 
-    grabScreenRegion(region: Region): Promise<Image> {
+    public grabScreenRegion(region: Region): Promise<Image> {
         return new Promise(((resolve, reject) => {
             if (robot.Screen.synchronize()) {
                 const bounds = new robot.Bounds(
                     region.left,
                     region.top,
                     region.width,
-                    region.height
+                    region.height,
                 );
                 if (bounds !== undefined) {
-                    const _img = new robot.Image();
-                    robot.Screen.grabScreen(_img, bounds);
+                    const img = new robot.Image();
+                    robot.Screen.grabScreen(img, bounds);
                     resolve(new Image(
-                        _img.getWidth(),
-                        _img.getHeight(),
-                        Buffer.from(
-                            _img.getData()
-                        )
+                        img.getWidth(),
+                        img.getHeight(),
+                        img.getData(),
                     ));
                 }
                 resolve(this.grabScreen());
@@ -55,41 +53,40 @@ export class RobotJsNativeProvider implements NativeProviderInterface {
         }));
     }
 
-    setMouseDelay(delay: number): void {
+    public setMouseDelay(delay: number): void {
         this.mouse.autoDelay.min = delay;
         this.mouse.autoDelay.max = delay;
     }
 
-    setMousePosition(p: Point): void {
+    public setMousePosition(p: Point): void {
         robot.Mouse.setPos(p.x, p.y);
     }
 
-    currentMousePosition(): Point {
+    public currentMousePosition(): Point {
         const robotPoint = robot.Mouse.getPos();
         return new Point(robotPoint.x, robotPoint.y);
     }
 
-    screenWidth(): number {
+    public screenWidth(): number {
         const mainScreenBounds = robot.Screen.getMain().getBounds();
         return mainScreenBounds.getRight() - mainScreenBounds.getLeft();
     }
 
-    screenHeight(): number {
+    public screenHeight(): number {
         const mainScreenBounds = robot.Screen.getMain().getBounds();
         return mainScreenBounds.getBottom() - mainScreenBounds.getTop();
     }
 
-    screenSize(): Region {
-        console.log(robot.Screen.getMain());
+    public screenSize(): Region {
         const mainScreenBounds = robot.Screen.getMain().getBounds();
         return new Region(0, 0, mainScreenBounds.getRight(), mainScreenBounds.getBottom());
     }
 
-    leftClick() {
+    public leftClick() {
         this.mouse.click(robot.BUTTON_LEFT);
     }
 
-    rightClick() {
+    public rightClick() {
         this.mouse.click(robot.BUTTON_RIGHT);
     }
 }

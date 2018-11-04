@@ -1,8 +1,8 @@
-import { Bresenham } from "./bresenham.class";
-import { Point } from "../point.class";
+import {Point} from "../point.class";
+import {Bresenham} from "./bresenham.class";
 
-describe('ComputeLineUsingBresenhamAlgorithm', () => {
-    it('Should return a diagonal line from (0,0) to (10,10)', () => {
+describe("Bresenham", () => {
+    it("should return a diagonal line from (0,0) to (10,10)", () => {
 
         const SUT = new Bresenham();
 
@@ -10,7 +10,7 @@ describe('ComputeLineUsingBresenhamAlgorithm', () => {
         const to = new Point(10, 10);
 
         const expected: Point[] = [];
-        for (let idx = 0; idx <= to.x ; ++idx) {
+        for (let idx = 0; idx <= to.x; ++idx) {
             expected.push(new Point(idx, idx));
         }
         const result = SUT.compute(from, to);
@@ -20,7 +20,7 @@ describe('ComputeLineUsingBresenhamAlgorithm', () => {
         }
     });
 
-    it('Should return a diagonal line from (10,10) to (0,0)', () => {
+    it("should return a diagonal line from (10,10) to (0,0)", () => {
 
         const SUT = new Bresenham();
 

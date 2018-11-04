@@ -5,7 +5,7 @@ export class Assert {
     constructor(private screen: Screen) {
     }
 
-    async isVisible(pathToNeedle: string, searchRegion?: Region) {
+    public async isVisible(pathToNeedle: string, searchRegion?: Region) {
         try {
             await this.screen.findOnScreen(pathToNeedle, new LocationParameters(searchRegion));
         } catch (err) {
@@ -17,7 +17,7 @@ export class Assert {
         }
     }
 
-    async notVisible(pathToNeedle: string, searchRegion?: Region) {
+    public async notVisible(pathToNeedle: string, searchRegion?: Region) {
         try {
             await this.screen.findOnScreen(pathToNeedle, new LocationParameters(searchRegion));
         } catch (err) {

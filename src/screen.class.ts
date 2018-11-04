@@ -1,25 +1,22 @@
-import {Region} from "./region.class";
-import {Config} from "./nut";
-import {OpenCVAdapter} from "./adapter/opencv.adapter.class";
 import {NativeAdapter} from "./adapter/native.adapter.class";
-
-export class LocationParameters {
-    constructor(public searchRegion?: Region, public matchProbability?: number) { }
-}
+import {OpenCVAdapter} from "./adapter/opencv.adapter.class";
+import {LocationParameters} from "./locationparameters.class";
+import {Config} from "./nut";
+import {Region} from "./region.class";
 
 export class Screen {
     constructor(private config: Config, private vision: OpenCVAdapter, private native: NativeAdapter) {
     }
 
-    width() {
+    public width() {
         return this.native.screenWidth();
     }
 
-    height() {
+    public height() {
         return this.native.screenHeight();
     }
 
-    async findOnScreen(pathToNeedle: string, params?: LocationParameters): Promise<Region> {
+    public async findOnScreen(pathToNeedle: string, params?: LocationParameters): Promise<Region> {
         const minMatch = (params && params.matchProbability) || this.config.matchProbability;
         const searchRegion = (params && params.searchRegion) || this.native.screenSize();
 
@@ -30,7 +27,7 @@ export class Screen {
             if (matchResult.probability >= minMatch) {
                 resolve(matchResult.location);
             } else {
-                reject(`No matching pattern for ${pathToNeedle} found. Required match: ${minMatch}, given: ${matchResult.probability}`);
+                reject(`No match for ${pathToNeedle}. Required: ${minMatch}, given: ${matchResult.probability}`);
             }
         });
     }

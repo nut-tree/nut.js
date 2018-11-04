@@ -1,3 +1,3 @@
 export enum NativeProviderEnum {
-    ROBOT_JS
+    ROBOT_JS,
 }

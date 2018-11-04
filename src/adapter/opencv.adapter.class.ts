@@ -1,16 +1,19 @@
-import {Region} from "../region.class";
-import {MatchResult} from "../matchresult.class";
 import {Image} from "../image.class";
-import {OpenCVProviderInterface} from "../provider/opencv/opencv.provider.interface";
+import {MatchResult} from "../matchresult.class";
+import {IOpenCVProviderInterface} from "../provider/opencv/IOpenCVProviderInterface";
+import {Region} from "../region.class";
 
 export class OpenCVAdapter {
-    constructor(private visionProvider: OpenCVProviderInterface) {
+    constructor(private visionProvider: IOpenCVProviderInterface) {
     }
 
-    async findOnScreenRegion(screen: Image, pathToNeedle: string, searchRegion: Region, matchProbability: number): Promise<MatchResult> {
+    public async findOnScreenRegion(screen: Image,
+                                    pathToNeedle: string,
+                                    searchRegion: Region,
+                                    matchProbability: number): Promise<MatchResult> {
         let needle = await this.visionProvider.loadImage(pathToNeedle);
         let haystack = await this.visionProvider.fromImage(
-            screen
+            screen,
         );
 
         if (matchProbability < 0.99) {

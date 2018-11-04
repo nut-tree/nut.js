@@ -1,11 +1,11 @@
-import { Point } from "../point.class"
+import {Point} from "../point.class";
 
 export class Bresenham {
     private static calculateIncrementalStep(x: number): number {
         return (x > 0) ? 1 : (x < 0) ? -1 : 0;
     }
 
-    compute(from: Point, to: Point): Point[] {
+    public compute(from: Point, to: Point): Point[] {
 
         const result: Point[] = [];
 
@@ -17,8 +17,12 @@ export class Bresenham {
         const incrementX = Bresenham.calculateIncrementalStep(deltaX);
         const incrementY = Bresenham.calculateIncrementalStep(deltaY);
 
-        if (deltaX < 0) { deltaX = -deltaX; }
-        if (deltaY < 0) { deltaY = -deltaY; }
+        if (deltaX < 0) {
+            deltaX = -deltaX;
+        }
+        if (deltaY < 0) {
+            deltaY = -deltaY;
+        }
 
         let fastStepInX, fastStepInY, slowStepInX, slowStepInY, slowDelta, fastDelta: number;
 
