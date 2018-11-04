@@ -9,7 +9,6 @@ import {RobotJsNativeProvider} from "./lib/provider/native/robot-js.provider.cla
 import {OpenCVProviderEnum} from "./lib/provider/opencv/opencv.provider.enum";
 import {OpenCV4NodeJSVisionProvider} from "./lib/provider/opencv/opencv4nodejs.provider.class";
 import {Screen} from "./lib/screen.class";
-import {Bresenham} from "./lib/util/bresenham.class";
 import {LineHelper} from "./lib/util/linehelper.class";
 
 export {Config} from "./lib/config.class";
@@ -45,6 +44,6 @@ export class Nut {
         this.screen = new Screen(this.config, this.screenActions, this.nativeActions);
         this.keyboard = new Keyboard();
         this.mouse = new Mouse(this.config, this.nativeActions);
-        this.movement = new Movement(this.nativeActions, new LineHelper(new Bresenham()));
+        this.movement = new Movement(this.nativeActions, new LineHelper());
     }
 }

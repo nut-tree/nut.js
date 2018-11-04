@@ -1,4 +1,4 @@
 export class Image {
-    constructor(readonly width: number, readonly height: number, readonly data: any) {
+    constructor(public readonly width: number, public readonly height: number, public readonly data: any) {
     }
 }
