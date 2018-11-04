@@ -6,6 +6,7 @@ export interface IOpenCVProviderInterface {
     loadImageWithAlphaChannel(path: string): any;
     loadImageWithoutAlphaChannel(path: string): any;
     findMatch(needle: any, haystack: any): Promise<MatchResult>;
-    fromImage(img: Image): Promise<any>;
+    fromImageWithAlphaChannel(img: Image): Promise<any>;
+    fromImageWithoutAlphaChannel(img: Image): Promise<any>;
     rgbToGrayScale(img: any): Promise<any>;
 }

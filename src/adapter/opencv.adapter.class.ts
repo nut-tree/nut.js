@@ -12,7 +12,7 @@ export class OpenCVAdapter {
                                     searchRegion: Region,
                                     matchProbability: number): Promise<MatchResult> {
         let needle = await this.visionProvider.loadImage(pathToNeedle);
-        let haystack = await this.visionProvider.fromImage(
+        let haystack = await this.visionProvider.fromImageWithoutAlphaChannel(
             screen,
         );
 

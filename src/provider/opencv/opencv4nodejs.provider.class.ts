@@ -55,7 +55,15 @@ export class OpenCV4NodeJSVisionProvider implements IOpenCVProviderInterface {
         return img.cvtColorAsync(cv.COLOR_BGR2GRAY);
     }
 
-    public async fromImage(img: Image): Promise<cv.Mat> {
+    public async fromImageWithAlphaChannel(img: Image): Promise<cv.Mat> {
         return Promise.resolve(new cv.Mat(img.data, img.height, img.width, cv.CV_8UC4));
+    }
+
+    public async fromImageWithoutAlphaChannel(img: Image): Promise<cv.Mat> {
+        const newMat = await this.fromImageWithAlphaChannel(img);
+        if (newMat.channels > 3) {
+            return newMat.cvtColorAsync(cv.COLOR_BGRA2BGR);
+        }
+        return Promise.resolve(newMat);
     }
 }
