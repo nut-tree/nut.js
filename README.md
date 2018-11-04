@@ -1,32 +1,16 @@
-# native-ui-toolkit
+# NUT (Native UI Toolkit) [![Build Status](https://travis-ci.org/s1hofmann/native-ui-toolkit.svg?branch=master)](https://travis-ci.org/s1hofmann/native-ui-toolkit)
 Native UI testing / controlling with node.js
 
 
-# Installation
+# About
 
-Using `npm`:
+This is a WIP implementation for a cross-platform native UI testing tool.
+It allows for native UI interactions via keyboard and / or mouse,
+but additionally gives you the possibility to navigate the screen based on image matching.
 
-```
-npm i --save native-ui-toolkit
-```
+# Libraries
 
-# Example
+In order to do what it does, NUT relies on:
 
-```JS
-const nut = require("native-ui-toolkit");
-
-console.log(nut.Screen.location("./docker.png"));
-nut.Mouse.move(nut.Movement.straightTo(nut.Location.centerOf(nut.Screen.location("./file.png"))));
-nut.Mouse.leftClick();
-nut.Mouse.move(nut.Movement.straightTo(nut.Location.centerOf(nut.Screen.location("./save.png"))));
-nut.Mouse.leftClick();
-nut.Mouse.move(nut.Movement.down(220));
-nut.Mouse.leftClick();
-
-nut.Mouse.move(nut.Movement.straightTo(nut.Location.randomPointAt(nut.Screen.location("./docker.png"))));
-
-for (let idx = 0; idx < 5; ++idx) {
-  nut.Mouse.move(nut.Movement.up(50));
-  nut.Mouse.leftClick();
-}
-```
+- [opencv4nodejs](https://github.com/justadudewhohacks/opencv4nodejs)
+- [robot-js](https://github.com/Robot/robot-js)
