@@ -1,11 +1,8 @@
 import {Point} from "../point.class";
 
 export class Bresenham {
-    private static calculateIncrementalStep(x: number): number {
-        return (x > 0) ? 1 : (x < 0) ? -1 : 0;
-    }
 
-    public compute(from: Point, to: Point): Point[] {
+    public static compute(from: Point, to: Point): Point[] {
 
         const result: Point[] = [];
 
@@ -60,5 +57,9 @@ export class Bresenham {
         result.push(to);
 
         return result;
+    }
+
+    private static calculateIncrementalStep(x: number): number {
+        return (x > 0) ? 1 : (x < 0) ? -1 : 0;
     }
 }

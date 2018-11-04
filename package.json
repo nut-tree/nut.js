@@ -2,7 +2,8 @@
   "name": "native-ui-toolkit",
   "version": "0.0.2",
   "license": "MIT",
-  "main": "src/nut.ts",
+  "main": "dist/index",
+  "typings": "dist/index",
   "description": "Native system automation for node.js",
   "author": {
     "name": "Simon Hofmann",
@@ -44,6 +45,10 @@
     "clipboard"
   ],
   "scripts": {
+    "prepublishOnly": "npm run compile",
+    "compile": "npm run clean && tsc -p .",
+    "watch": "tsc -w -p .",
+    "clean": "rm -rf dist",
     "test": "jest"
   },
   "dependencies": {

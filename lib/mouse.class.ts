@@ -1,6 +1,6 @@
 import {NativeAdapter} from "./adapter/native.adapter.class";
+import {Config} from "./config.class";
 import {MovementType} from "./movementtype.class";
-import {Config} from "./nut";
 import {Point} from "./point.class";
 
 export class Mouse {

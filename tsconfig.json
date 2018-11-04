@@ -1,14 +1,13 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "es5",
     "module": "commonjs",
     "lib": [
       "es6"
     ],
-    "allowJs": true,
-    "outDir": "./lib",
-    "rootDir": "./src",
-    "sourceMap": true,
+//    "allowJs": true,
+    "outDir": "./dist",
+    "declaration": true,
 
     "strict": true,
     "alwaysStrict": true,
@@ -21,7 +20,8 @@
     "emitDecoratorMetadata": true
   },
   "include": [
-    "src/**/*.ts"
+    "lib/**/*.ts",
+    "index.ts"
   ],
   "exclude": [
     "node_modules",

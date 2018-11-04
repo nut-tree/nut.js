@@ -1,7 +1,7 @@
 import {NativeAdapter} from "./adapter/native.adapter.class";
 import {OpenCVAdapter} from "./adapter/opencv.adapter.class";
+import {Config} from "./config.class";
 import {LocationParameters} from "./locationparameters.class";
-import {Config} from "./nut";
 import {Region} from "./region.class";
 
 export class Screen {

@@ -75,5 +75,6 @@ typings/
 .idea
 .vscode
 
-lib/
-src/**/*.js
+dist/
+lib/**/*.js
+lib/**/*.js.map
