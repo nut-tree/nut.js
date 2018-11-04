@@ -47,7 +47,6 @@
     "test": "jest"
   },
   "dependencies": {
-    "g": "^2.0.1",
     "opencv4nodejs": "^4.7.2",
     "robot-js": "2.0.0"
   },

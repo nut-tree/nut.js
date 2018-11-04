@@ -8,7 +8,7 @@ describe("Region", () => {
         expect(region.area()).toEqual(expected);
     });
 
-    it("should return a proper string representatio", () => {
+    it("should return a proper string representation", () => {
         const region = new Region(0, 0, 100, 100);
         const expected = "(0, 0, 100, 100)";
 

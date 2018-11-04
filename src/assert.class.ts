@@ -1,5 +1,6 @@
+import {LocationParameters} from "./locationparameters.class";
 import {Region} from "./region.class";
-import {LocationParameters, Screen} from "./screen.class";
+import {Screen} from "./screen.class";
 
 export class Assert {
     constructor(private screen: Screen) {
