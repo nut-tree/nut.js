@@ -5,7 +5,7 @@
     "lib": [
       "es6"
     ],
-//    "allowJs": true,
+    "typeRoots": ["./node_modules/@types/", "./lib/types/"],
     "outDir": "./dist",
     "declaration": true,
 
