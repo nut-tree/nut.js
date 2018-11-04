@@ -7,7 +7,7 @@ Native UI testing / controlling with node.js
 	<a target="_blank" href="http://getrobot.net">
 		<img src="https://img.shields.io/badge/Built_with-ROBOT-C86414.svg?style=flat-square" alt="Built with Robot" />
 	</a>
-	<a target="_blank" href="http://getrobot.net">
+	<a target="_blank" href="https://github.com/justadudewhohacks/opencv4nodejs>
 		<img src="https://img.shields.io/badge/Built_with-opencv4nodejs-C86414.svg?style=flat-square" alt="Built with opencv4nodejs" />
 </p>
 
@@ -16,10 +16,3 @@ Native UI testing / controlling with node.js
 This is a WIP implementation for a cross-platform native UI testing tool.
 It allows for native UI interactions via keyboard and / or mouse,
 but additionally gives you the possibility to navigate the screen based on image matching.
-
-# Libraries
-
-In order to do what it does, NUT relies on:
-
-- [opencv4nodejs](https://github.com/justadudewhohacks/opencv4nodejs)
-- [robot-js](https://github.com/Robot/robot-js)
