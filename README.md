@@ -7,7 +7,7 @@ Native UI testing / controlling with node.js
 	<a target="_blank" href="http://getrobot.net">
 		<img src="https://img.shields.io/badge/Built_with-ROBOT-C86414.svg?style=flat-square" alt="Built with Robot" />
 	</a>
-	<a target="_blank" href="https://github.com/justadudewhohacks/opencv4nodejs>
+	<a target="_blank" href="https://github.com/justadudewhohacks/opencv4nodejs">
 		<img src="https://img.shields.io/badge/Built_with-opencv4nodejs-C86414.svg?style=flat-square" alt="Built with opencv4nodejs" />
 </p>
 
