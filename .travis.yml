@@ -7,9 +7,6 @@ stages:
   - compile
   - test
 
-env:
-  - OPENCV4NODEJS_DISABLE_AUTOBUILD=0
-
 jobs:
   include:
   - stage: compile
