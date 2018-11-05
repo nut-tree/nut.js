@@ -53,10 +53,10 @@ export class NativeAdapter {
     }
 
     public pressKey(key: Key): void {
-        this.native.press(key);
+        this.native.pressKey(key);
     }
 
     public releaseKey(key: Key): void {
-        this.native.release(key);
+        this.native.releaseKey(key);
     }
 }

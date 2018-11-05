@@ -13,6 +13,7 @@ import {LineHelper} from "./lib/util/linehelper.class";
 
 export {Config} from "./lib/config.class";
 export {Image} from "./lib/image.class";
+export {Key} from "./lib/key.enum";
 export {Location} from "./lib/location.class";
 export {LocationParameters} from "./lib/locationparameters.class";
 export {Movement} from "./lib/movement.class";
@@ -20,7 +21,7 @@ export {MovementType} from "./lib/movementtype.class";
 export {Point} from "./lib/point.class";
 export {Region} from "./lib/region.class";
 
-export class Nut {
+export class Controller {
     public config: Config;
     public readonly screen: Screen;
     public readonly keyboard: Keyboard;
@@ -44,7 +45,7 @@ export class Nut {
                 break;
         }
         this.screen = new Screen(this.config, this.screenActions, this.nativeActions);
-        this.keyboard = new Keyboard();
+        this.keyboard = new Keyboard(this.nativeActions);
         this.mouse = new Mouse(this.config, this.nativeActions);
         this.movement = new Movement(this.nativeActions, new LineHelper());
     }

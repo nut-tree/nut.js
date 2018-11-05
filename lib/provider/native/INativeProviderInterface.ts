@@ -15,6 +15,6 @@ export interface INativeProviderInterface {
     leftClick(): void;
     rightClick(): void;
     type(input: string | Key): void;
-    press(key: Key): void;
-    release(key: Key): void;
+    pressKey(key: Key): void;
+    releaseKey(key: Key): void;
 }
