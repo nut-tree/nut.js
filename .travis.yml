@@ -8,7 +8,7 @@ stages:
   - test
 
 env:
-  - OPENCV4NODEJS_DISABLE_AUTOBUILD=1
+  - OPENCV4NODEJS_DISABLE_AUTOBUILD=0
 
 jobs:
   include:
