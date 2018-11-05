@@ -1,5 +1,6 @@
 import robot = require("robot-js");
 import {Image} from "../../image.class";
+import {Key} from "../../key.enum";
 import {Point} from "../../point.class";
 import {Region} from "../../region.class";
 import {INativeProviderInterface} from "./INativeProviderInterface";
@@ -7,9 +8,11 @@ import {INativeProviderInterface} from "./INativeProviderInterface";
 export class RobotJsNativeProvider implements INativeProviderInterface {
 
     private mouse: any;
+    private keyboard: any;
 
     constructor() {
         this.mouse = robot.Mouse();
+        this.keyboard = robot.Keyboard();
         robot.Screen.synchronize();
     }
 
@@ -17,8 +20,8 @@ export class RobotJsNativeProvider implements INativeProviderInterface {
         return new Promise(((resolve, reject) => {
             if (robot.Screen.synchronize()) {
                 const img = new robot.Image();
-                const mainScree = robot.Screen.getMain();
-                robot.Screen.grabScreen(img, mainScree.getBounds());
+                const mainScreen = robot.Screen.getMain();
+                robot.Screen.grabScreen(img, mainScreen.getBounds());
                 resolve(new Image(
                     img.getWidth(),
                     img.getHeight(),
@@ -88,5 +91,17 @@ export class RobotJsNativeProvider implements INativeProviderInterface {
 
     public rightClick() {
         this.mouse.click(robot.BUTTON_RIGHT);
+    }
+
+    public type(input: string | Key): void {
+        this.keyboard.click(input);
+    }
+
+    public press(key: Key): void {
+        this.keyboard.press(key);
+    }
+
+    public release(key: Key): void {
+        this.keyboard.release(key);
     }
 }

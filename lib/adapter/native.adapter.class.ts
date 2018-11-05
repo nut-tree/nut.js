@@ -1,4 +1,5 @@
 import {Image} from "../image.class";
+import {Key} from "../key.enum";
 import {Point} from "../point.class";
 import {INativeProviderInterface} from "../provider/native/INativeProviderInterface";
 import {Region} from "../region.class";
@@ -45,5 +46,17 @@ export class NativeAdapter {
 
     public rightClick(): void {
         this.native.rightClick();
+    }
+
+    public type(input: string | Key): void {
+        this.native.type(input);
+    }
+
+    public pressKey(key: Key): void {
+        this.native.press(key);
+    }
+
+    public releaseKey(key: Key): void {
+        this.native.release(key);
     }
 }
