@@ -48,8 +48,12 @@ export class NativeAdapter {
         this.native.rightClick();
     }
 
-    public type(input: string | Key): void {
+    public type(input: string): void {
         this.native.type(input);
+    }
+
+    public click(key: Key): void {
+        this.native.click(key);
     }
 
     public pressKey(key: Key): void {

@@ -216,6 +216,12 @@ export class RobotJsNativeProvider implements INativeProviderInterface {
         this.keyboard.click(input);
     }
 
+    public click(key: Key): void {
+        const nativeKey = RobotJsNativeProvider.keyLookup(key);
+        this.keyboard.press(nativeKey);
+        this.keyboard.release(nativeKey);
+    }
+
     public pressKey(key: Key): void {
         this.keyboard.press(RobotJsNativeProvider.keyLookup(key));
     }

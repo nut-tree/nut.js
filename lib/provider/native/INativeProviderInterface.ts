@@ -14,7 +14,8 @@ export interface INativeProviderInterface {
     screenSize(): Region;
     leftClick(): void;
     rightClick(): void;
-    type(input: string | Key): void;
+    type(input: string): void;
+    click(key: Key): void;
     pressKey(key: Key): void;
     releaseKey(key: Key): void;
 }
