@@ -45,11 +45,14 @@
     "clipboard"
   ],
   "scripts": {
-    "prepublishOnly": "npm run compile",
-    "compile": "npm run clean && tsc -p .",
-    "watch": "tsc -w -p .",
     "clean": "rm -rf dist",
-    "test": "jest"
+    "compile": "npm run clean && tsc -p .",
+    "test": "jest",
+    "lint": "tslint -p tsconfig.json",
+    "watch": "tsc -w -p .",
+    "prepublishOnly": "npm run compile && npm test",
+    "version": "git add -A lib",
+    "postversion": "git push && git push --tags"
   },
   "dependencies": {
     "opencv4nodejs": "^4.7.2",
