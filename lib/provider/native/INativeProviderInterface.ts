@@ -1,4 +1,5 @@
 import {Image} from "../../image.class";
+import {Key} from "../../key.enum";
 import {Point} from "../../point.class";
 import {Region} from "../../region.class";
 
@@ -13,4 +14,8 @@ export interface INativeProviderInterface {
     screenSize(): Region;
     leftClick(): void;
     rightClick(): void;
+    type(input: string): void;
+    click(key: Key): void;
+    pressKey(key: Key): void;
+    releaseKey(key: Key): void;
 }
