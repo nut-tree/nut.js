@@ -16,3 +16,35 @@ Native UI testing / controlling with node.js
 This is a WIP implementation for a cross-platform native UI testing tool.
 It allows for native UI interactions via keyboard and / or mouse,
 but additionally gives you the possibility to navigate the screen based on image matching.
+
+# Modules
+
+## Assertions
+
+- [x] isVisible
+- [x] isNotVisible
+
+## Clipboard
+
+- [ ] Copy to clipboard
+- [ ] Paste from clipboard
+
+## Keyboard
+
+- [x] Support for standard US keyboard layout
+- [ ] Support for German keyboard layout
+
+## Mouse
+
+- [x] Support for basic mouse movement
+- [x] Configurable movement speed
+
+## Process
+
+- [ ] Spawn new process
+- [ ] Retrieve region of process window
+- [ ] Close spawned process
+
+## Screen
+
+- [x] Support to search for images on screen
