@@ -19,6 +19,9 @@ but additionally gives you the possibility to navigate the screen based on image
 
 # Modules
 
+This list gives an overview on currently implemented and planned functionality.
+It's work in progress and will undergo constant modification.
+
 ## Assertions
 
 - [x] isVisible
@@ -41,10 +44,12 @@ but additionally gives you the possibility to navigate the screen based on image
 
 ## Process
 
-- [ ] Spawn new process
-- [ ] Retrieve region of process window
-- [ ] Close spawned process
+- [ ] Spawn a new process
+- [ ] Retrieve the region of a process window
+- [ ] Close a spawned process
 
 ## Screen
 
-- [x] Support to search for images on screen
+- [x] findOnScreen
+- [ ] waitFor
+- [ ] Hooks to trigger actions based on images
