@@ -1,6 +1,6 @@
 ---
 name: Bugfix
-about: Request to merge a bugfix to our existing images
+about: Request to merge a bugfix
 ---
 
 **Short summary**
