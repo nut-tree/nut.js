@@ -13,7 +13,7 @@ Native UI testing / controlling with node.js
 
 # About
 
-<p align="centet">
+<p align="center">
     <img src=".gfx/nut.png" alt="logo" width="200"/>
 </p>
 
