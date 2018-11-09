@@ -60,7 +60,7 @@ describe("Basic test", () => {
 
 # Examples
 
-The [nuts](https://github.com/s1hofmann/nuts) contains a set of ready to use examples which demo the usage ot NUT.
+The [nuts](https://github.com/s1hofmann/nuts) repository contains a set of ready to use examples which demo the usage ot NUT.
 
 # Modules
 
