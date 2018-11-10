@@ -15,6 +15,10 @@ export class Mouse {
         this.native.setMousePosition(target);
     }
 
+    public getPosition(): Point {
+        return this.native.currentMousePosition();
+    }
+
     public move(path: Point[], movementType = MovementType.linear): void {
         const timeSteps = movementType(path.length, this.config.mouseSpeed);
         for (let idx = 0; idx < path.length; ++idx) {
