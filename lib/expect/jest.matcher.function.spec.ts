@@ -1,7 +1,7 @@
 import {Controller, Point, Region} from "../../index";
-import matcherFunction from "./matcher.function";
+import {jestMatchers} from "./jest.matcher.function";
 
-expect.extend(matcherFunction);
+expect.extend(jestMatchers);
 const control = new Controller();
 
 describe(".toBeAt", () => {
