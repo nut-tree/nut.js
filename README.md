@@ -67,11 +67,6 @@ The [nuts](https://github.com/s1hofmann/nuts) repository contains a set of ready
 This list gives an overview on currently implemented and planned functionality.
 It's work in progress and will undergo constant modification.
 
-## Assertions
-
-- [x] isVisible
-- [x] isNotVisible
-
 ## Clipboard
 
 - [ ] Copy to clipboard
@@ -98,3 +93,7 @@ It's work in progress and will undergo constant modification.
 - [x] findOnScreen
 - [ ] waitFor
 - [ ] Hooks to trigger actions based on images
+
+## Integration
+
+- [ ] Jest
