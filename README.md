@@ -1,4 +1,4 @@
-# nut.js (Native UI Toolkit) [![Build Status](https://travis-ci.org/s1hofmann/native-ui-toolkit.svg?branch=master)](https://travis-ci.org/s1hofmann/native-ui-toolkit) [![Greenkeeper badge](https://badges.greenkeeper.io/s1hofmann/native-ui-toolkit.svg)](https://greenkeeper.io/)
+# nut.js (Native UI Toolkit) [![Build Status](https://travis-ci.com/nut-tree/nut.js.svg?branch=master)](https://travis-ci.com/nut-tree/nut.js) [![Greenkeeper badge](https://badges.greenkeeper.io/nut-tree/nut.js.svg)](https://greenkeeper.io/)
 <p align="center">
 Native UI testing / controlling with node.js
 </p>
