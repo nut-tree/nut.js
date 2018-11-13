@@ -1,7 +1,15 @@
+os: linux
+dist: xenial
+
 language: node_js
 node_js:
   - "lts/carbon"
 cache: npm
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install build-essential -y
+  - sudo apt-get install libxt-dev libxtst-dev libxinerama-dev -y
 
 stages:
   - compile
@@ -12,4 +20,4 @@ jobs:
   - stage: compile
     script: npm run compile
   - stage: test
-    script: npm test
+    script: xvfb-run --server-args="-screen 0 1024x768x24" npm test
