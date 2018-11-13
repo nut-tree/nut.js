@@ -6,7 +6,8 @@
   "jsRules": {},
   "rules": {
     "no-empty": false,
-    "one-variable-per-declaration": false
+    "one-variable-per-declaration": false,
+    "interface-name": false
   },
   "rulesDirectory": []
 }
