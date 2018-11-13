@@ -28,7 +28,7 @@ The following snippet shows a valid NUT example (on macOS)
 ```js
 "use strict";
 
-const native = require("native-ui-toolkit");
+const native = require("@nut-tree/nut-js");
 
 const square = async (control) => {
     await control.mouse.move(control.movement.right(500));
@@ -60,7 +60,7 @@ describe("Basic test", () => {
 
 # Examples
 
-The [nuts](https://github.com/s1hofmann/nuts) repository contains a set of ready to use examples which demo the usage ot NUT.
+The [nut-tree/trailmix](https://github.com/nut-tree/trailmix) repository contains a set of ready to use examples which demo the usage ot nut.js.
 
 # Modules
 
