@@ -60,7 +60,7 @@ describe("Basic test", () => {
 
 # Examples
 
-The [nut-tree/trailmix](https://github.com/nut-tree/trailmix) repository contains a set of ready to use examples which demo the usage ot nut.js.
+[nut-tree/trailmix](https://github.com/nut-tree/trailmix) contains a set of ready to use examples which demo the usage ot nut.js.
 
 # Modules
 
