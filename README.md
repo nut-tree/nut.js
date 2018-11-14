@@ -96,4 +96,4 @@ It's work in progress and will undergo constant modification.
 
 ## Integration
 
-- [ ] Jest
+- [x] Jest
