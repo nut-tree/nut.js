@@ -84,9 +84,7 @@ It's work in progress and will undergo constant modification.
 
 ## Process
 
-- [ ] Spawn a new process
 - [ ] Retrieve the region of a process window
-- [ ] Close a spawned process
 
 ## Screen
 
