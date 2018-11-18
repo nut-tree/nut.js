@@ -11,6 +11,10 @@ before_install:
   - sudo apt-get install build-essential -y
   - sudo apt-get install libxt-dev libxtst-dev libxinerama-dev -y
 
+install:
+- npm i
+
+script: xvfb-run --server-args="-screen 0 1024x768x24" lerna run test
 stages:
   - compile
   - test
