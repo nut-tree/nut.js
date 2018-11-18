@@ -11,13 +11,9 @@ before_install:
   - sudo apt-get install build-essential -y
   - sudo apt-get install libxt-dev libxtst-dev libxinerama-dev -y
 
-stages:
-  - compile
-  - test
+install:
+  - npm i
 
-jobs:
-  include:
-  - stage: compile
-    script: npm run compile
-  - stage: test
-    script: xvfb-run --server-args="-screen 0 1024x768x24" npm test
+script:
+  - npm run compile
+  - xvfb-run --server-args="-screen 0 1024x768x24" npm test
