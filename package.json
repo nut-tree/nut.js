@@ -55,7 +55,7 @@
     "postversion": "git push && git push --tags"
   },
   "dependencies": {
-    "opencv4nodejs": "^4.7.2",
+    "opencv4nodejs": "^4.10.1",
     "robot-js": "2.0.0"
   },
   "devDependencies": {
