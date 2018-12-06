@@ -17,15 +17,10 @@ before_install:
   - sudo apt-get install build-essential -y
   - sudo apt-get install libxt-dev libxtst-dev libxinerama-dev -y
 
-stages:
-  - test
-  - analyse
+install:
+  - npm i
 
-jobs:
-  include:
-    - stage: test
-      script:
-        - npm run compile
-        - xvfb-run --server-args="-screen 0 1280x800x24" npm test
-    - stage: analyse
-      script: sonar-scanner
+script:
+  - npm run compile
+  - xvfb-run --server-args="-screen 0 1280x800x24" npm test
+  - sonar-scanner
