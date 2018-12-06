@@ -6,7 +6,6 @@
       "es6"
     ],
     "typeRoots": ["./node_modules/@types/", "./lib/types/"],
-    "rootDir": "./lib",
     "outDir": "./dist",
     "declaration": true,
 
