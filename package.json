@@ -48,6 +48,7 @@
     "clean": "rm -rf dist",
     "compile": "npm run clean && tsc -p .",
     "test": "jest",
+    "coverage": "jest --coverage",
     "lint": "tslint -p tsconfig.json",
     "watch": "tsc -w -p .",
     "prepublishOnly": "npm run compile && npm test",

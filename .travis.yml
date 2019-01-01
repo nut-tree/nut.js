@@ -22,5 +22,5 @@ install:
 
 script:
   - npm run compile
-  - xvfb-run --server-args="-screen 0 1280x800x24" npm test
+  - xvfb-run --server-args="-screen 0 1280x800x24" npm run coverage
   - sonar-scanner
