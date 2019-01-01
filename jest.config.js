@@ -7,5 +7,4 @@ module.exports = {
         "!<rootDir>/node_modules/",
         "!<rootDir>/path/to/dir/"
     ],
-    coverageReporters: ["text"],
 };
