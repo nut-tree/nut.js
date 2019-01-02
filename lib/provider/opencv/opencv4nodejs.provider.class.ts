@@ -13,6 +13,7 @@ export class OpenCV4NodeJSVisionProvider implements IOpenCVProviderInterface {
             return Promise.resolve(img);
         }
     }
+
     constructor() {
     }
 
@@ -40,13 +41,10 @@ export class OpenCV4NodeJSVisionProvider implements IOpenCVProviderInterface {
         );
         const minMax = await result.minMaxLocAsync();
 
-        const offsetX = needle.cols / 2;
-        const offsetY = needle.rows / 2;
-
         return Promise.resolve(
             new MatchResult(
                 1.0 - minMax.minVal,
-                new Region(minMax.minLoc.x - offsetX, minMax.minLoc.y - offsetY, needle.cols, needle.rows),
+                new Region(minMax.minLoc.x, minMax.minLoc.y, needle.cols, needle.rows),
             ),
         );
     }
