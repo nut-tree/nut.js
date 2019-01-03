@@ -1,4 +1,5 @@
 import robot = require("robot-js");
+import {Button} from "../../button.enum";
 import {Image} from "../../image.class";
 import {Key} from "../../key.enum";
 import {Point} from "../../point.class";
@@ -10,6 +11,16 @@ export class RobotJsNativeProvider implements INativeProviderInterface {
     public static keyLookup(key: Key): any {
         return this.KeyLookupMap.get(key);
     }
+
+    public static buttonLookup(btn: Button): any {
+        return this.ButtonLookupMap.get(btn);
+    }
+
+    private static ButtonLookupMap = new Map<Button, any>([
+        [Button.LEFT, robot.BUTTON_LEFT],
+        [Button.MIDDLE, robot.BUTTON_MIDDLE],
+        [Button.RIGHT, robot.BUTTON_RIGHT],
+    ]);
 
     private static KeyLookupMap = new Map<Key, any>([
         [Key.A, robot.KEY_A],
@@ -204,12 +215,20 @@ export class RobotJsNativeProvider implements INativeProviderInterface {
         return new Region(0, 0, mainScreenBounds.getRight(), mainScreenBounds.getBottom());
     }
 
-    public leftClick() {
+    public leftClick(): void {
         this.mouse.click(robot.BUTTON_LEFT);
     }
 
-    public rightClick() {
+    public rightClick(): void {
         this.mouse.click(robot.BUTTON_RIGHT);
+    }
+
+    public pressButton(btn: Button): void {
+        this.mouse.press(RobotJsNativeProvider.buttonLookup(btn));
+    }
+
+    public releaseButton(btn: Button): void {
+        this.mouse.release(RobotJsNativeProvider.buttonLookup(btn));
     }
 
     public type(input: string): void {

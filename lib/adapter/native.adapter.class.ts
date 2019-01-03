@@ -1,3 +1,4 @@
+import {Button} from "../button.enum";
 import {Image} from "../image.class";
 import {Key} from "../key.enum";
 import {Point} from "../point.class";
@@ -46,6 +47,14 @@ export class NativeAdapter {
 
     public rightClick(): void {
         this.native.rightClick();
+    }
+
+    public pressButton(btn: Button): void {
+        this.native.pressButton(btn);
+    }
+
+    public releaseButton(btn: Button): void {
+        this.native.releaseButton(btn);
     }
 
     public type(input: string): void {
