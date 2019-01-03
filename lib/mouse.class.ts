@@ -1,4 +1,5 @@
 import {NativeAdapter} from "./adapter/native.adapter.class";
+import {Button} from "./button.enum";
 import {Config} from "./config.class";
 import {MovementType} from "./movementtype.class";
 import {Point} from "./point.class";
@@ -33,11 +34,17 @@ export class Mouse {
         }
     }
 
-    public leftClick() {
+    public leftClick(): void {
         this.native.leftClick();
     }
 
-    public rightClick() {
+    public rightClick(): void {
         this.native.rightClick();
+    }
+
+    public drag(path: Point[]): void {
+        this.native.pressButton(Button.LEFT);
+        this.move(path);
+        this.native.releaseButton(Button.LEFT);
     }
 }

@@ -42,7 +42,7 @@ const openSpotlight = async (control) => {
     await control.keyboard.pressKey(native.Key.Space);
     await control.keyboard.releaseKey(native.Key.Space);
     await control.keyboard.releaseKey(native.Key.LeftSuper);
-}
+};
 
 describe("Basic test", () => {
     it("Should run a simple test", async () => {
@@ -81,6 +81,7 @@ It's work in progress and will undergo constant modification.
 
 - [x] Support for basic mouse movement
 - [x] Configurable movement speed
+- [x] Mouse drag
 
 ## Process
 
