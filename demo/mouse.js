@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 "use strict";
 
 const { Config, Controller, Location } = require("../dist");
@@ -14,18 +16,19 @@ const square = async control => {
   config.matchProbability = 0.99;
   const control = new Controller(config);
 
+  control.mouse.leftClick().scrollUp(1).scrollDown(2);
   await square(control);
   try {
     const whale = await control.screen.findOnScreen("./assets/docker.png");
     control.mouse.move(control.movement.straightTo(Location.centerOf(whale)));
 
-    const location = await control.screen.findOnScreen("./assets/gitlens.png");
+    const gitlens = await control.screen.findOnScreen("./assets/gitlens.png");
     control.mouse.move(
-      control.movement.straightTo(Location.centerOf(location))
+      control.movement.straightTo(Location.centerOf(gitlens))
     );
     control.mouse.drag(control.movement.right(600));
     control.mouse.move(
-      control.movement.straightTo(Location.centerOf(location))
+      control.movement.straightTo(Location.centerOf(gitlens))
     );
     control.mouse.drag(control.movement.straightTo(Location.centerOf(whale)));
   } catch (error) {
