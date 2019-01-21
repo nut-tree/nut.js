@@ -79,7 +79,8 @@ It's work in progress and will undergo constant modification.
 
 ## Mouse
 
-- [x] Support for basic mouse movement
+- [x] Support for mouse movement
+- [x] Support for mouse scroll
 - [x] Configurable movement speed
 - [x] Mouse drag
 
