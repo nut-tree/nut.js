@@ -1,6 +1,7 @@
 import {NativeAdapter} from "./lib/adapter/native.adapter.class";
 import {OpenCVAdapter} from "./lib/adapter/opencv.adapter.class";
 import {Assert} from "./lib/assert.class";
+import {Clipboard} from "./lib/clipboard.class";
 import {Config} from "./lib/config.class";
 import {Keyboard} from "./lib/keyboard.class";
 import {Mouse} from "./lib/mouse.class";
@@ -26,10 +27,11 @@ export {Region} from "./lib/region.class";
 export class Controller {
     public config: Config;
     public readonly assert: Assert;
-    public readonly screen: Screen;
+    public readonly clipboard: Clipboard;
     public readonly keyboard: Keyboard;
     public readonly mouse: Mouse;
     public readonly movement: Movement;
+    public readonly screen: Screen;
     private readonly screenActions: OpenCVAdapter;
     private readonly nativeActions: NativeAdapter;
 
@@ -47,6 +49,7 @@ export class Controller {
                 this.nativeActions = new NativeAdapter(new RobotJsNativeProvider());
                 break;
         }
+        this.clipboard = new Clipboard(this.nativeActions);
         this.keyboard = new Keyboard(this.nativeActions);
         this.mouse = new Mouse(this.config, this.nativeActions);
         this.movement = new Movement(this.nativeActions, new LineHelper());
