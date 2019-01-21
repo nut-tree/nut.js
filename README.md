@@ -69,8 +69,8 @@ It's work in progress and will undergo constant modification.
 
 ## Clipboard
 
-- [ ] Copy to clipboard
-- [ ] Paste from clipboard
+- [x] Copy text to clipboard
+- [x] Paste text from clipboard
 
 ## Keyboard
 
