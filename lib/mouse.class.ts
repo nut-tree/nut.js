@@ -8,12 +8,14 @@ export class Mouse {
     constructor(private config: Config, private native: NativeAdapter) {
     }
 
-    public setDelay(delay: number): void {
+    public setDelay(delay: number): Mouse {
         this.native.setMouseDelay(delay);
+        return this;
     }
 
-    public setPosition(target: Point): void {
+    public setPosition(target: Point): Mouse {
         this.native.setMousePosition(target);
+        return this;
     }
 
     public getPosition(): Point {
