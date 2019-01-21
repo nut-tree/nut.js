@@ -88,4 +88,12 @@ export class NativeAdapter {
     public scrollRight(amount: number): void {
         this.native.scrollRight(amount);
     }
+
+    public copy(text: string): void {
+        this.native.copy(text);
+    }
+
+    public paste(): string {
+        return this.native.paste();
+    }
 }
