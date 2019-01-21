@@ -248,4 +248,20 @@ export class RobotJsNativeProvider implements INativeProviderInterface {
     public releaseKey(key: Key): void {
         this.keyboard.release(RobotJsNativeProvider.keyLookup(key));
     }
+
+    public scrollUp(amount: number): void {
+        this.mouse.scrollV(amount);
+    }
+
+    public scrollDown(amount: number): void {
+        this.mouse.scrollV(-amount);
+    }
+
+    public scrollLeft(amount: number): void {
+        this.mouse.scrollV(-amount);
+    }
+
+    public scrollRight(amount: number): void {
+        this.mouse.scrollV(amount);
+    }
 }

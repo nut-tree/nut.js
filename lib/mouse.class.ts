@@ -20,7 +20,7 @@ export class Mouse {
         return this.native.currentMousePosition();
     }
 
-    public move(path: Point[], movementType = MovementType.linear): void {
+    public move(path: Point[], movementType = MovementType.linear): Mouse {
         const timeSteps = movementType(path.length, this.config.mouseSpeed);
         for (let idx = 0; idx < path.length; ++idx) {
             const node = path[idx];
@@ -32,19 +32,43 @@ export class Mouse {
             }
             this.native.setMousePosition(node);
         }
+        return this;
     }
 
-    public leftClick(): void {
+    public leftClick(): Mouse {
         this.native.leftClick();
+        return this;
     }
 
-    public rightClick(): void {
+    public rightClick(): Mouse {
         this.native.rightClick();
+        return this;
     }
 
-    public drag(path: Point[]): void {
+    public scrollDown(amount: number): Mouse {
+        this.native.scrollDown(amount);
+        return this;
+    }
+
+    public scrollUp(amount: number): Mouse {
+        this.native.scrollUp(amount);
+        return this;
+    }
+
+    public scrollLeft(amount: number): Mouse {
+        this.native.scrollLeft(amount);
+        return this;
+    }
+
+    public scrollRight(amount: number): Mouse {
+        this.native.scrollRight(amount);
+        return this;
+    }
+
+    public drag(path: Point[]): Mouse {
         this.native.pressButton(Button.LEFT);
         this.move(path);
         this.native.releaseButton(Button.LEFT);
+        return this;
     }
 }

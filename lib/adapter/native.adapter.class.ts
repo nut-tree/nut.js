@@ -72,4 +72,20 @@ export class NativeAdapter {
     public releaseKey(key: Key): void {
         this.native.releaseKey(key);
     }
+
+    public scrollUp(amount: number): void {
+        this.native.scrollUp(amount);
+    }
+
+    public scrollDown(amount: number): void {
+        this.native.scrollDown(amount);
+    }
+
+    public scrollLeft(amount: number): void {
+        this.native.scrollLeft(amount);
+    }
+
+    public scrollRight(amount: number): void {
+        this.native.scrollRight(amount);
+    }
 }
