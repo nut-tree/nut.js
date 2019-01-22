@@ -42,7 +42,7 @@ export class Controller {
     this.screen = new Screen(
       this.config,
       this.screenActions,
-      this.nativeActions
+      this.nativeActions,
     );
     this.assert = new Assert(this.screen);
   }

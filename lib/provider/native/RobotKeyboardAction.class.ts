@@ -119,7 +119,7 @@ export class RobotKeyboardAction implements KeyboardActionProvider {
 
     [Key.CapsLock, robot.KEY_CAPSLOCK],
     [Key.ScrollLock, robot.KEY_SCROLLLOCK],
-    [Key.NumLock, robot.KEY_NUMLOCK]
+    [Key.NumLock, robot.KEY_NUMLOCK],
   ]);
 
   private keyboard: any;

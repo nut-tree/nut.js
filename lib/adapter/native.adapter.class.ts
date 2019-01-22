@@ -17,7 +17,7 @@ export class NativeAdapter {
     private clipboard: ClipboardActionProvider = new RobotClipboardAction(),
     private keyboard: KeyboardActionProvider = new RobotKeyboardAction(),
     private mouse: MouseActionInterface = new RobotMouseAction(),
-    private screen: ScreenActionProvider = new RobotScreenAction()
+    private screen: ScreenActionProvider = new RobotScreenAction(),
   ) {}
 
   public grabScreen(): Promise<Image> {

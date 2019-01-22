@@ -11,7 +11,7 @@ export class RobotMouseAction implements MouseActionInterface {
   private static ButtonLookupMap = new Map<Button, any>([
     [Button.LEFT, robot.BUTTON_LEFT],
     [Button.MIDDLE, robot.BUTTON_MIDDLE],
-    [Button.RIGHT, robot.BUTTON_RIGHT]
+    [Button.RIGHT, robot.BUTTON_RIGHT],
   ]);
 
   private mouse: any;
