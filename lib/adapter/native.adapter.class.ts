@@ -1,99 +1,110 @@
-import {Button} from "../button.enum";
-import {Image} from "../image.class";
-import {Key} from "../key.enum";
-import {Point} from "../point.class";
-import {INativeProviderInterface} from "../provider/native/INativeProviderInterface";
-import {Region} from "../region.class";
+import { Button } from "../button.enum";
+import { Image } from "../image.class";
+import { Key } from "../key.enum";
+import { Point } from "../point.class";
+import { ClipboardActionProvider } from "../provider/native/ClipboardActionProvider.interface";
+import { KeyboardActionProvider } from "../provider/native/KeyboardActionProvider.interface";
+import { MouseActionInterface } from "../provider/native/MouseActionProvider.interface";
+import { RobotClipboardAction } from "../provider/native/RobotClipboardAction.class";
+import { RobotKeyboardAction } from "../provider/native/RobotKeyboardAction.class";
+import { RobotMouseAction } from "../provider/native/RobotMouseAction.class";
+import { RobotScreenAction } from "../provider/native/RobotScreenAction.class";
+import { ScreenActionProvider } from "../provider/native/ScreenActionProvider.interface";
+import { Region } from "../region.class";
 
 export class NativeAdapter {
-    constructor(private native: INativeProviderInterface) {
-    }
+  constructor(
+    private clipboard: ClipboardActionProvider = new RobotClipboardAction(),
+    private keyboard: KeyboardActionProvider = new RobotKeyboardAction(),
+    private mouse: MouseActionInterface = new RobotMouseAction(),
+    private screen: ScreenActionProvider = new RobotScreenAction()
+  ) {}
 
-    public grabScreen(): Promise<Image> {
-        return this.native.grabScreen();
-    }
+  public grabScreen(): Promise<Image> {
+    return this.screen.grabScreen();
+  }
 
-    public grabScreenRegion(region: Region): Promise<Image> {
-        return this.native.grabScreenRegion(region);
-    }
+  public grabScreenRegion(region: Region): Promise<Image> {
+    return this.screen.grabScreenRegion(region);
+  }
 
-    public setMouseDelay(delay: number): void {
-        this.native.setMouseDelay(delay);
-    }
+  public setMouseDelay(delay: number): void {
+    this.mouse.setMouseDelay(delay);
+  }
 
-    public setMousePosition(p: Point): void {
-        this.native.setMousePosition(p);
-    }
+  public setMousePosition(p: Point): void {
+    this.mouse.setMousePosition(p);
+  }
 
-    public currentMousePosition(): Point {
-        return this.native.currentMousePosition();
-    }
+  public currentMousePosition(): Point {
+    return this.mouse.currentMousePosition();
+  }
 
-    public screenWidth(): number {
-        return this.native.screenWidth();
-    }
+  public screenWidth(): number {
+    return this.screen.screenWidth();
+  }
 
-    public screenHeight(): number {
-        return this.native.screenHeight();
-    }
+  public screenHeight(): number {
+    return this.screen.screenHeight();
+  }
 
-    public screenSize(): Region {
-        return this.native.screenSize();
-    }
+  public screenSize(): Region {
+    return this.screen.screenSize();
+  }
 
-    public leftClick(): void {
-        this.native.leftClick();
-    }
+  public leftClick(): void {
+    this.mouse.leftClick();
+  }
 
-    public rightClick(): void {
-        this.native.rightClick();
-    }
+  public rightClick(): void {
+    this.mouse.rightClick();
+  }
 
-    public pressButton(btn: Button): void {
-        this.native.pressButton(btn);
-    }
+  public pressButton(btn: Button): void {
+    this.mouse.pressButton(btn);
+  }
 
-    public releaseButton(btn: Button): void {
-        this.native.releaseButton(btn);
-    }
+  public releaseButton(btn: Button): void {
+    this.mouse.releaseButton(btn);
+  }
 
-    public type(input: string): void {
-        this.native.type(input);
-    }
+  public type(input: string): void {
+    this.keyboard.type(input);
+  }
 
-    public click(key: Key): void {
-        this.native.click(key);
-    }
+  public click(key: Key): void {
+    this.keyboard.click(key);
+  }
 
-    public pressKey(key: Key): void {
-        this.native.pressKey(key);
-    }
+  public pressKey(key: Key): void {
+    this.keyboard.pressKey(key);
+  }
 
-    public releaseKey(key: Key): void {
-        this.native.releaseKey(key);
-    }
+  public releaseKey(key: Key): void {
+    this.keyboard.releaseKey(key);
+  }
 
-    public scrollUp(amount: number): void {
-        this.native.scrollUp(amount);
-    }
+  public scrollUp(amount: number): void {
+    this.mouse.scrollUp(amount);
+  }
 
-    public scrollDown(amount: number): void {
-        this.native.scrollDown(amount);
-    }
+  public scrollDown(amount: number): void {
+    this.mouse.scrollDown(amount);
+  }
 
-    public scrollLeft(amount: number): void {
-        this.native.scrollLeft(amount);
-    }
+  public scrollLeft(amount: number): void {
+    this.mouse.scrollLeft(amount);
+  }
 
-    public scrollRight(amount: number): void {
-        this.native.scrollRight(amount);
-    }
+  public scrollRight(amount: number): void {
+    this.mouse.scrollRight(amount);
+  }
 
-    public copy(text: string): void {
-        this.native.copy(text);
-    }
+  public copy(text: string): void {
+    this.clipboard.copy(text);
+  }
 
-    public paste(): string {
-        return this.native.paste();
-    }
+  public paste(): string {
+    return this.clipboard.paste();
+  }
 }
