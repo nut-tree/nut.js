@@ -7,7 +7,6 @@ import {Region} from "../../region.class";
 import {INativeProviderInterface} from "./INativeProviderInterface";
 
 export class RobotJsNativeProvider implements INativeProviderInterface {
-
     public static keyLookup(key: Key): any {
         return this.KeyLookupMap.get(key);
     }
@@ -137,12 +136,14 @@ export class RobotJsNativeProvider implements INativeProviderInterface {
         [Key.NumLock, robot.KEY_NUMLOCK],
     ]);
 
-    private mouse: any;
+    private clipboard: any;
     private keyboard: any;
+    private mouse: any;
 
     constructor() {
-        this.mouse = robot.Mouse();
+        this.clipboard = robot.Clipboard;
         this.keyboard = robot.Keyboard();
+        this.mouse = robot.Mouse();
         robot.Screen.synchronize();
     }
 
@@ -264,4 +265,13 @@ export class RobotJsNativeProvider implements INativeProviderInterface {
     public scrollRight(amount: number): void {
         this.mouse.scrollV(amount);
     }
+
+    public copy(text: string): void {
+        this.clipboard.setText(text);
+    }
+
+    public paste(): string {
+        return this.clipboard.getText();
+    }
+
 }

@@ -69,8 +69,8 @@ It's work in progress and will undergo constant modification.
 
 ## Clipboard
 
-- [ ] Copy to clipboard
-- [ ] Paste from clipboard
+- [x] Copy text to clipboard
+- [x] Paste text from clipboard
 
 ## Keyboard
 
@@ -79,7 +79,8 @@ It's work in progress and will undergo constant modification.
 
 ## Mouse
 
-- [x] Support for basic mouse movement
+- [x] Support for mouse movement
+- [x] Support for mouse scroll
 - [x] Configurable movement speed
 - [x] Mouse drag
 
