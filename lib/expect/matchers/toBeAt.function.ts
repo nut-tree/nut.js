@@ -1,21 +1,22 @@
-import {Mouse} from "../../mouse.class";
-import {Point} from "../../point.class";
+import { Mouse } from "../../mouse.class";
+import { Point } from "../../point.class";
 
 export const toBeAt = async (received: Mouse, position: Point) => {
-    const currentPosition = await received.getPosition();
+  const currentPosition = await received.getPosition();
 
-    const success = (currentPosition.x === position.x && currentPosition.y === position.y);
+  const success =
+    currentPosition.x === position.x && currentPosition.y === position.y;
 
-    if (success) {
-        return {
-            message: () =>
-                `Expected cursor to not be at position ${position.toString()}`,
-            pass: true,
-        };
-    }
+  if (success) {
     return {
-        message: () =>
-            `Cursor should be at position ${position.toString()} but is at ${currentPosition.toString()}`,
-        pass: false,
+      message: () =>
+        `Expected cursor to not be at position ${position.toString()}`,
+      pass: true,
     };
+  }
+  return {
+    message: () =>
+      `Cursor should be at position ${position.toString()} but is at ${currentPosition.toString()}`,
+    pass: false,
+  };
 };

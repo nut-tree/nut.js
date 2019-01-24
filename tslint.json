@@ -7,7 +7,8 @@
   "rules": {
     "no-empty": false,
     "one-variable-per-declaration": false,
-    "interface-name": false
+    "interface-name": false,
+    "trailing-comma": true
   },
   "rulesDirectory": []
 }
