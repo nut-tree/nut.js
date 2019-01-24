@@ -34,19 +34,19 @@ export class OpenCV4NodeJSVisionProvider implements VisionProviderInterface {
 
   public async findMatch(
     needle: cv.Mat,
-    haystack: cv.Mat
+    haystack: cv.Mat,
   ): Promise<MatchResult> {
     const result = await haystack.matchTemplateAsync(
       needle,
-      cv.TM_SQDIFF_NORMED
+      cv.TM_SQDIFF_NORMED,
     );
     const minMax = await result.minMaxLocAsync();
 
     return Promise.resolve(
       new MatchResult(
         1.0 - minMax.minVal,
-        new Region(minMax.minLoc.x, minMax.minLoc.y, needle.cols, needle.rows)
-      )
+        new Region(minMax.minLoc.x, minMax.minLoc.y, needle.cols, needle.rows),
+      ),
     );
   }
 
@@ -56,12 +56,12 @@ export class OpenCV4NodeJSVisionProvider implements VisionProviderInterface {
 
   public async fromImageWithAlphaChannel(
     img: Image,
-    roi?: Region
+    roi?: Region,
   ): Promise<cv.Mat> {
     const mat = new cv.Mat(img.data, img.height, img.width, cv.CV_8UC4);
     if (roi) {
       return Promise.resolve(
-        mat.getRegion(new cv.Rect(roi.left, roi.top, roi.width, roi.height))
+        mat.getRegion(new cv.Rect(roi.left, roi.top, roi.width, roi.height)),
       );
     } else {
       return Promise.resolve(mat);
@@ -70,7 +70,7 @@ export class OpenCV4NodeJSVisionProvider implements VisionProviderInterface {
 
   public async fromImageWithoutAlphaChannel(
     img: Image,
-    roi?: Region
+    roi?: Region,
   ): Promise<cv.Mat> {
     const newMat = await this.fromImageWithAlphaChannel(img, roi);
     if (newMat.channels > 3) {

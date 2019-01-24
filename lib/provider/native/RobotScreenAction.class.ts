@@ -27,7 +27,7 @@ export class RobotScreenAction implements ScreenActionProvider {
           region.left,
           region.top,
           region.width,
-          region.height
+          region.height,
         );
         if (bounds !== undefined) {
           const img = new robot.Image();
@@ -56,7 +56,7 @@ export class RobotScreenAction implements ScreenActionProvider {
       0,
       0,
       mainScreenBounds.getRight(),
-      mainScreenBounds.getBottom()
+      mainScreenBounds.getBottom(),
     );
   }
 }
