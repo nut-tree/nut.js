@@ -149,8 +149,8 @@ export class TemplateMatchingFinder implements FinderInterface {
       new Region(
         matchResult.location.left,
         matchResult.location.top,
-        needle.cols / TemplateMatchingFinder.scaleStep,
-        needle.rows / TemplateMatchingFinder.scaleStep,
+        scaledNeedle.cols,
+        scaledNeedle.rows,
       ),
     );
   }
