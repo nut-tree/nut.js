@@ -1,5 +1,5 @@
 import robot = require("robot-js");
-import { ClipboardActionProvider } from "./ClipboardActionProvider.interface";
+import { ClipboardActionProvider } from "./clipboard-action-provider.interface";
 
 export class RobotClipboardAction implements ClipboardActionProvider {
   private clipboard: any;
