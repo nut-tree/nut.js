@@ -1,5 +1,5 @@
 import { NativeAdapter } from "./lib/adapter/native.adapter.class";
-import { OpenCVAdapter } from "./lib/adapter/opencv.adapter.class";
+import { VisionAdapter } from "./lib/adapter/vision.adapter.class";
 import { Assert } from "./lib/assert.class";
 import { Clipboard } from "./lib/clipboard.class";
 import { Config } from "./lib/config.class";
@@ -28,12 +28,12 @@ export class Controller {
   public readonly mouse: Mouse;
   public readonly movement: Movement;
   public readonly screen: Screen;
-  private readonly screenActions: OpenCVAdapter;
+  private readonly screenActions: VisionAdapter;
   private readonly nativeActions: NativeAdapter;
 
   constructor(configuration?: Config) {
     this.config = configuration || new Config();
-    this.screenActions = new OpenCVAdapter();
+    this.screenActions = new VisionAdapter();
     this.nativeActions = new NativeAdapter();
     this.clipboard = new Clipboard(this.nativeActions);
     this.keyboard = new Keyboard(this.nativeActions);
