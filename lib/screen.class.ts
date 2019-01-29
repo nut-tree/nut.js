@@ -26,7 +26,7 @@ export class Screen {
     params?: LocationParameters,
   ): Promise<Region> {
     const minMatch =
-      (params && params.matchProbability) || this.config.matchProbability;
+      (params && params.confidence) || this.config.matchProbability;
     const searchRegion =
       (params && params.searchRegion) || this.native.screenSize();
 

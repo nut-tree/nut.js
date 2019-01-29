@@ -9,7 +9,7 @@ export const toShow = async (
   let locationParams;
   if (confidence) {
     locationParams = new LocationParameters();
-    locationParams.matchProbability = confidence;
+    locationParams.confidence = confidence;
   }
   try {
     await received.findOnScreen(needle, locationParams);
