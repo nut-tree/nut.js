@@ -2,14 +2,14 @@ import { Button } from "../button.enum";
 import { Image } from "../image.class";
 import { Key } from "../key.enum";
 import { Point } from "../point.class";
-import { ClipboardActionProvider } from "../provider/native/ClipboardActionProvider.interface";
-import { KeyboardActionProvider } from "../provider/native/KeyboardActionProvider.interface";
-import { MouseActionInterface } from "../provider/native/MouseActionProvider.interface";
-import { RobotClipboardAction } from "../provider/native/RobotClipboardAction.class";
-import { RobotKeyboardAction } from "../provider/native/RobotKeyboardAction.class";
-import { RobotMouseAction } from "../provider/native/RobotMouseAction.class";
-import { RobotScreenAction } from "../provider/native/RobotScreenAction.class";
-import { ScreenActionProvider } from "../provider/native/ScreenActionProvider.interface";
+import { ClipboardActionProvider } from "../provider/native/clipboard-action-provider.interface";
+import { KeyboardActionProvider } from "../provider/native/keyboard-action-provider.interface";
+import { MouseActionInterface } from "../provider/native/mouse-action-provider.interface";
+import { RobotClipboardAction } from "../provider/native/robot-clipboard-action.class";
+import { RobotKeyboardAction } from "../provider/native/robot-keyboard-action.class";
+import { RobotMouseAction } from "../provider/native/robot-mouse-action.class";
+import { RobotScreenAction } from "../provider/native/robot-screen-action.class";
+import { ScreenActionProvider } from "../provider/native/screen-action-provider.interface";
 import { Region } from "../region.class";
 
 /**
