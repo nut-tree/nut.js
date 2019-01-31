@@ -3,12 +3,12 @@ import { Image } from "../image.class";
 import { Key } from "../key.enum";
 import { Point } from "../point.class";
 import { ClipboardActionProvider } from "../provider/native/clipboard-action-provider.interface";
+import { ClipboardyClipboardAction } from "../provider/native/clipboardy-clipboard-action.class";
 import { KeyboardActionProvider } from "../provider/native/keyboard-action-provider.interface";
 import { MouseActionInterface } from "../provider/native/mouse-action-provider.interface";
-import { RobotClipboardAction } from "../provider/native/robot-clipboard-action.class";
-import { RobotKeyboardAction } from "../provider/native/robot-keyboard-action.class";
-import { RobotMouseAction } from "../provider/native/robot-mouse-action.class";
-import { RobotScreenAction } from "../provider/native/robot-screen-action.class";
+import { RobotJsKeyboardAction } from "../provider/native/robotjs-keyboard-action.class";
+import { RobotJsMouseAction } from "../provider/native/robotjs-mouse-action.class";
+import { RobotJsScreenAction } from "../provider/native/robotjs-screen-action.class";
 import { ScreenActionProvider } from "../provider/native/screen-action-provider.interface";
 import { Region } from "../region.class";
 
@@ -21,10 +21,10 @@ import { Region } from "../region.class";
  */
 export class NativeAdapter {
   constructor(
-    private clipboard: ClipboardActionProvider = new RobotClipboardAction(),
-    private keyboard: KeyboardActionProvider = new RobotKeyboardAction(),
-    private mouse: MouseActionInterface = new RobotMouseAction(),
-    private screen: ScreenActionProvider = new RobotScreenAction(),
+    private clipboard: ClipboardActionProvider = new ClipboardyClipboardAction(),
+    private keyboard: KeyboardActionProvider = new RobotJsKeyboardAction(),
+    private mouse: MouseActionInterface = new RobotJsMouseAction(),
+    private screen: ScreenActionProvider = new RobotJsScreenAction(),
   ) {}
 
   /**
