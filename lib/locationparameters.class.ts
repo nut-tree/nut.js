@@ -1,5 +1,5 @@
-import {Region} from "./region.class";
+import { Region } from "./region.class";
 
 export class LocationParameters {
-    constructor(public searchRegion?: Region, public matchProbability?: number) { }
+  constructor(public searchRegion?: Region, public confidence?: number) {}
 }

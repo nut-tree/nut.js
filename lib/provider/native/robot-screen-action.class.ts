@@ -1,7 +1,7 @@
 import robot = require("robot-js");
 import { Image } from "../../image.class";
 import { Region } from "../../region.class";
-import { ScreenActionProvider } from "./ScreenActionProvider.interface";
+import { ScreenActionProvider } from "./screen-action-provider.interface";
 
 export class RobotScreenAction implements ScreenActionProvider {
   constructor() {
@@ -14,7 +14,7 @@ export class RobotScreenAction implements ScreenActionProvider {
         const img = new robot.Image();
         const mainScreen = robot.Screen.getMain();
         robot.Screen.grabScreen(img, mainScreen.getBounds());
-        resolve(new Image(img.getWidth(), img.getHeight(), img.getData()));
+        resolve(new Image(img.getWidth(), img.getHeight(), img.getData(), 3));
       }
       reject("Unable to fetch screen content.");
     });
@@ -32,7 +32,7 @@ export class RobotScreenAction implements ScreenActionProvider {
         if (bounds !== undefined) {
           const img = new robot.Image();
           robot.Screen.grabScreen(img, bounds);
-          resolve(new Image(img.getWidth(), img.getHeight(), img.getData()));
+          resolve(new Image(img.getWidth(), img.getHeight(), img.getData(), 3));
         }
         resolve(this.grabScreen());
       }

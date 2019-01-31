@@ -1,6 +1,6 @@
 import robot = require("robot-js");
 import { Key } from "../../key.enum";
-import { KeyboardActionProvider } from "./KeyboardActionProvider.interface";
+import { KeyboardActionProvider } from "./keyboard-action-provider.interface";
 
 export class RobotKeyboardAction implements KeyboardActionProvider {
   public static keyLookup(key: Key): any {

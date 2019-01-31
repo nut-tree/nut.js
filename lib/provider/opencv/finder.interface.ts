@@ -1,14 +1,15 @@
 import { Image } from "../../image.class";
-import { MatchResult } from "../../matchresult.class";
+import { MatchRequest } from "../../match-request.class";
+import { MatchResult } from "../../match-result.class";
 import { Region } from "../../region.class";
 
 /**
- * A VisionProvider should provide an abstraction layer to perform
- * image processing via a 3rd part library
+ * A Finder should provide an abstraction layer to perform
+ * image processing and matching via a 3rd part library
  *
- * @interface VisionProviderInterface
+ * @interface FinderInterface
  */
-export interface VisionProviderInterface {
+export interface FinderInterface {
   /**
    * loadImage should allow to load an image from filesystem
    *
@@ -19,36 +20,24 @@ export interface VisionProviderInterface {
   loadImage(path: string): any;
 
   /**
-   * loadImageWithAlphaChannel should allow to load an image with alpha channel
-   * If the image to load does not yet have an alpha channel,
-   * one should be created
-   *
-   * @param {string} path The filesystem path to the image
-   * @returns {*} An image
-   * @memberof VisionProviderInterface
-   */
-  loadImageWithAlphaChannel(path: string): any;
-
-  /**
-   * loadImageWithoutAlphaChannel should load an image without alpha channel
-   * If the image to load has an alpha channel, it should be dropped
-   *
-   * @param {string} path The filesystem path to the image
-   * @returns {*} An image
-   * @memberof VisionProviderInterface
-   */
-  loadImageWithoutAlphaChannel(path: string): any;
-
-  /**
    * findMatch should provide an abstraction to search for an image needle
    * in another image haystack
    *
-   * @param {*} needle An image to search for
-   * @param {*} haystack An image to search in
+   * @param {MatchRequest} matchRequest A matchrequest containing needed matching data
    * @returns {Promise<MatchResult>} A matchresult containing the match probability and location
-   * @memberof VisionProviderInterface
+   * @memberof FinderInterface
    */
-  findMatch(needle: any, haystack: any): Promise<MatchResult>;
+  findMatch(matchRequest: MatchRequest): Promise<MatchResult>;
+
+  /**
+   * findMatches should provide an abstraction to search for an image needle
+   * in another image haystack
+   *
+   * @param {MatchRequest} matchRequest A matchrequest containing needed matching data
+   * @returns {Promise<MatchResult[]>} A list of matchresults containing the match probability and location
+   * @memberof FinderInterface
+   */
+  findMatches(matchRequest: MatchRequest): Promise<MatchResult[]>;
 
   /**
    * fromImageWithAlphaChannel should provide a way to create a library specific
