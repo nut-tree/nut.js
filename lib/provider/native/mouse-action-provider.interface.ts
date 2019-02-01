@@ -46,6 +46,13 @@ export interface MouseActionInterface {
   rightClick(): void;
 
   /**
+   * middleClick should allow to perform a middle click via OS event
+   *
+   * @memberof MouseActionInterface
+   */
+  middleClick(): void;
+
+  /**
    * scrollUp should allow to perform an upward mouse scroll
    *
    * @param {number} amount The scroll amount

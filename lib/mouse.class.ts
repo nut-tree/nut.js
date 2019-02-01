@@ -1,11 +1,14 @@
 import { NativeAdapter } from "./adapter/native.adapter.class";
 import { Button } from "./button.enum";
-import { Config } from "./config.class";
 import { MovementType } from "./movementtype.class";
 import { Point } from "./point.class";
 
 export class Mouse {
-  constructor(private config: Config, private native: NativeAdapter) {}
+  public config = {
+    mouseSpeed: 1000,
+  };
+
+  constructor(private native: NativeAdapter) {}
 
   public setDelay(delay: number): Mouse {
     this.native.setMouseDelay(delay);

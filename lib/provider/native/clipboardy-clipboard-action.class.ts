@@ -1,7 +1,7 @@
 import clippy from "clipboardy";
 import { ClipboardActionProvider } from "./clipboard-action-provider.interface";
 
-export class ClipboardyClipboardAction implements ClipboardActionProvider {
+export class ClipboardAction implements ClipboardActionProvider {
   constructor() {
   }
 

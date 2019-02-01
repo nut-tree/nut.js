@@ -1,16 +1,15 @@
 import { NativeAdapter } from "./adapter/native.adapter.class";
 import { VisionAdapter } from "./adapter/vision.adapter.class";
-import { Config } from "./config.class";
 import { LocationParameters } from "./locationparameters.class";
 import { MatchRequest } from "./match-request.class";
 import { Region } from "./region.class";
 
 export class Screen {
-  constructor(
-    private config: Config,
-    private vision: VisionAdapter,
-    private native: NativeAdapter,
-  ) {}
+  public config = {
+    confidence: 0.99,
+  };
+
+  constructor(private vision: VisionAdapter, private native: NativeAdapter) {}
 
   public width() {
     return this.native.screenWidth();
@@ -24,8 +23,7 @@ export class Screen {
     pathToNeedle: string,
     params?: LocationParameters,
   ): Promise<Region> {
-    const minMatch =
-      (params && params.confidence) || this.config.matchProbability;
+    const minMatch = (params && params.confidence) || this.config.confidence;
     const searchRegion =
       (params && params.searchRegion) || this.native.screenSize();
 

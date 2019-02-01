@@ -1,9 +1,9 @@
-import robot from "robotjs";
+import robot = require("robotjs");
 import { Button } from "../../button.enum";
 import { Point } from "../../point.class";
 import { MouseActionInterface } from "./mouse-action-provider.interface";
 
-export class RobotJsMouseAction implements MouseActionInterface {
+export class MouseAction implements MouseActionInterface {
   public static buttonLookup(btn: Button): any {
     return this.ButtonLookupMap.get(btn);
   }
@@ -28,23 +28,23 @@ export class RobotJsMouseAction implements MouseActionInterface {
   }
 
   public leftClick(): void {
-    robot.mouseClick(RobotJsMouseAction.buttonLookup(Button.LEFT));
+    robot.mouseClick(MouseAction.buttonLookup(Button.LEFT));
   }
 
   public rightClick(): void {
-    robot.mouseClick(RobotJsMouseAction.buttonLookup(Button.RIGHT));
+    robot.mouseClick(MouseAction.buttonLookup(Button.RIGHT));
   }
 
   public middleClick(): void {
-    robot.mouseClick(RobotJsMouseAction.buttonLookup(Button.MIDDLE));
+    robot.mouseClick(MouseAction.buttonLookup(Button.MIDDLE));
   }
 
   public pressButton(btn: Button): void {
-    robot.mouseToggle("down", RobotJsMouseAction.buttonLookup(btn));
+    robot.mouseToggle("down", MouseAction.buttonLookup(btn));
   }
 
   public releaseButton(btn: Button): void {
-    robot.mouseToggle("up", RobotJsMouseAction.buttonLookup(btn));
+    robot.mouseToggle("up", MouseAction.buttonLookup(btn));
   }
 
   public scrollUp(amount: number): void {

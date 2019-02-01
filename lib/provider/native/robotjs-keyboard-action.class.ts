@@ -1,8 +1,8 @@
-import robot from "robotjs";
+import robot = require("robotjs");
 import { Key } from "../../key.enum";
 import { KeyboardActionProvider } from "./keyboard-action-provider.interface";
 
-export class RobotJsKeyboardAction implements KeyboardActionProvider {
+export class KeyboardAction implements KeyboardActionProvider {
   public static keyLookup(key: Key): any {
     return this.KeyLookupMap.get(key);
   }
@@ -122,29 +122,28 @@ export class RobotJsKeyboardAction implements KeyboardActionProvider {
     [Key.NumLock, null],
   ]);
 
-  constructor() {
-  }
+  constructor() {}
 
   public type(input: string): void {
     robot.typeString(input);
   }
 
   public click(key: Key): void {
-    const nativeKey = RobotJsKeyboardAction.keyLookup(key);
+    const nativeKey = KeyboardAction.keyLookup(key);
     if (nativeKey) {
       robot.keyTap(nativeKey);
     }
   }
 
   public pressKey(key: Key): void {
-    const nativeKey = RobotJsKeyboardAction.keyLookup(key);
+    const nativeKey = KeyboardAction.keyLookup(key);
     if (nativeKey) {
       robot.keyToggle(nativeKey, "down");
     }
   }
 
   public releaseKey(key: Key): void {
-    const nativeKey = RobotJsKeyboardAction.keyLookup(key);
+    const nativeKey = KeyboardAction.keyLookup(key);
     if (nativeKey) {
       robot.keyToggle(nativeKey, "up");
     }

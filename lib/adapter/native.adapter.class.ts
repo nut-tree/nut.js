@@ -3,12 +3,12 @@ import { Image } from "../image.class";
 import { Key } from "../key.enum";
 import { Point } from "../point.class";
 import { ClipboardActionProvider } from "../provider/native/clipboard-action-provider.interface";
-import { ClipboardyClipboardAction } from "../provider/native/clipboardy-clipboard-action.class";
+import { ClipboardAction } from "../provider/native/clipboardy-clipboard-action.class";
 import { KeyboardActionProvider } from "../provider/native/keyboard-action-provider.interface";
 import { MouseActionInterface } from "../provider/native/mouse-action-provider.interface";
-import { RobotJsKeyboardAction } from "../provider/native/robotjs-keyboard-action.class";
-import { RobotJsMouseAction } from "../provider/native/robotjs-mouse-action.class";
-import { RobotJsScreenAction } from "../provider/native/robotjs-screen-action.class";
+import { KeyboardAction } from "../provider/native/robotjs-keyboard-action.class";
+import { MouseAction } from "../provider/native/robotjs-mouse-action.class";
+import { ScreenAction } from "../provider/native/robotjs-screen-action.class";
 import { ScreenActionProvider } from "../provider/native/screen-action-provider.interface";
 import { Region } from "../region.class";
 
@@ -21,10 +21,10 @@ import { Region } from "../region.class";
  */
 export class NativeAdapter {
   constructor(
-    private clipboard: ClipboardActionProvider = new ClipboardyClipboardAction(),
-    private keyboard: KeyboardActionProvider = new RobotJsKeyboardAction(),
-    private mouse: MouseActionInterface = new RobotJsMouseAction(),
-    private screen: ScreenActionProvider = new RobotJsScreenAction(),
+    private clipboard: ClipboardActionProvider = new ClipboardAction(),
+    private keyboard: KeyboardActionProvider = new KeyboardAction(),
+    private mouse: MouseActionInterface = new MouseAction(),
+    private screen: ScreenActionProvider = new ScreenAction(),
   ) {}
 
   /**
@@ -130,6 +130,13 @@ export class NativeAdapter {
    */
   public rightClick(): void {
     this.mouse.rightClick();
+  }
+
+  /**
+   * middleClick triggers a native middle-click event via OS API
+   */
+  public middleClick(): void {
+    this.mouse.middleClick();
   }
 
   /**
