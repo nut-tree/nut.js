@@ -2,7 +2,6 @@ import { NativeAdapter } from "./lib/adapter/native.adapter.class";
 import { VisionAdapter } from "./lib/adapter/vision.adapter.class";
 import { Assert } from "./lib/assert.class";
 import { Clipboard } from "./lib/clipboard.class";
-import { Config } from "./lib/config.class";
 import { Keyboard } from "./lib/keyboard.class";
 import { Mouse } from "./lib/mouse.class";
 import { Movement } from "./lib/movement.class";
@@ -20,30 +19,14 @@ export { MovementType } from "./lib/movementtype.class";
 export { Point } from "./lib/point.class";
 export { Region } from "./lib/region.class";
 
-export class Controller {
-  public config: Config;
-  public readonly assert: Assert;
-  public readonly clipboard: Clipboard;
-  public readonly keyboard: Keyboard;
-  public readonly mouse: Mouse;
-  public readonly movement: Movement;
-  public readonly screen: Screen;
-  private readonly screenActions: VisionAdapter;
-  private readonly nativeActions: NativeAdapter;
+const screenActions = new VisionAdapter();
+const nativeActions = new NativeAdapter();
 
-  constructor(configuration?: Config) {
-    this.config = configuration || new Config();
-    this.screenActions = new VisionAdapter();
-    this.nativeActions = new NativeAdapter();
-    this.clipboard = new Clipboard(this.nativeActions);
-    this.keyboard = new Keyboard(this.nativeActions);
-    this.mouse = new Mouse(this.config, this.nativeActions);
-    this.movement = new Movement(this.nativeActions, new LineHelper());
-    this.screen = new Screen(
-      this.config,
-      this.screenActions,
-      this.nativeActions,
-    );
-    this.assert = new Assert(this.screen);
-  }
-}
+const clipboard = new Clipboard(nativeActions);
+const keyboard = new Keyboard(nativeActions);
+const mouse = new Mouse(nativeActions);
+const movement = new Movement(nativeActions, new LineHelper());
+const screen = new Screen(screenActions, nativeActions);
+const assert = new Assert(screen);
+
+export { clipboard, keyboard, mouse, movement, screen, assert };
