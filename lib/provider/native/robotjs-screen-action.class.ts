@@ -3,7 +3,7 @@ import { Image } from "../../image.class";
 import { Region } from "../../region.class";
 import { ScreenActionProvider } from "./screen-action-provider.interface";
 
-export class RobotJsScreenAction implements ScreenActionProvider {
+export class ScreenAction implements ScreenActionProvider {
   constructor() {}
 
   public grabScreen(): Promise<Image> {
@@ -17,10 +17,11 @@ export class RobotJsScreenAction implements ScreenActionProvider {
         );
         resolve(
           new Image(
-            screenShot.width * pixelScaling.scaleX,
-            screenShot.height * pixelScaling.scaleY,
+            screenShot.width,
+            screenShot.height,
             screenShot.image,
             3,
+            pixelScaling,
           ),
         );
       } else {
@@ -41,10 +42,11 @@ export class RobotJsScreenAction implements ScreenActionProvider {
         const pixelScaling = this.determinePixelDensity(region, screenShot);
         resolve(
           new Image(
-            screenShot.width * pixelScaling.scaleX,
-            screenShot.height * pixelScaling.scaleY,
+            screenShot.width,
+            screenShot.height,
             screenShot.image,
             3,
+            pixelScaling,
           ),
         );
       } else {
