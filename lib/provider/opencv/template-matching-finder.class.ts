@@ -36,6 +36,11 @@ export class TemplateMatchingFinder implements FinderInterface {
       matchResults.push(await this.scaleAndMatchNeedle(haystack, needle));
     }
 
+    matchResults.map((matchResult) => {
+      matchResult.location.left /= matchRequest.haystack.pixelDensity.scaleX;
+      matchResult.location.top /= matchRequest.haystack.pixelDensity.scaleY;
+    });
+
     return matchResults.sort(
       (first, second) => second.confidence - first.confidence,
     );
@@ -98,17 +103,25 @@ export class TemplateMatchingFinder implements FinderInterface {
   }
 
   private async loadHaystack(matchRequest: MatchRequest): Promise<cv.Mat> {
+    const searchRegion = this.determineScaledSearchRegion(matchRequest);
     if (matchRequest.haystack.hasAlphaChannel) {
       return await this.fromImageWithAlphaChannel(
         matchRequest.haystack,
-        matchRequest.searchRegion,
+        searchRegion,
       );
     } else {
       return await this.fromImageWithoutAlphaChannel(
         matchRequest.haystack,
-        matchRequest.searchRegion,
+        searchRegion,
       );
     }
+  }
+
+  private determineScaledSearchRegion(matchRequest: MatchRequest): Region {
+    const searchRegion = matchRequest.searchRegion;
+    searchRegion.width *= matchRequest.haystack.pixelDensity.scaleX;
+    searchRegion.height *= matchRequest.haystack.pixelDensity.scaleY;
+    return searchRegion;
   }
 
   private async scaleAndMatchHaystack(
@@ -170,12 +183,6 @@ export class TemplateMatchingFinder implements FinderInterface {
   private async scale(image: cv.Mat, scaleFactor: number): Promise<cv.Mat> {
     const scaledRows = Math.max(Math.floor(image.rows * scaleFactor), 1.0);
     const scaledCols = Math.max(Math.floor(image.cols * scaleFactor), 1.0);
-    return image.resizeAsync(
-      scaledRows,
-      scaledCols,
-      0,
-      0,
-      cv.INTER_AREA,
-    );
+    return image.resizeAsync(scaledRows, scaledCols, 0, 0, cv.INTER_AREA);
   }
 }
