@@ -8,7 +8,9 @@ export class Mouse {
     mouseSpeed: 1000,
   };
 
-  constructor(private native: NativeAdapter) {}
+  constructor(private native: NativeAdapter) {
+    this.setDelay(0);
+  }
 
   public setDelay(delay: number): Mouse {
     this.native.setMouseDelay(delay);
