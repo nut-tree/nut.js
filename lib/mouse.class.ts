@@ -5,16 +5,12 @@ import { Point } from "./point.class";
 
 export class Mouse {
   public config = {
+    autoDelayMs: 0,
     mouseSpeed: 1000,
   };
 
   constructor(private native: NativeAdapter) {
-    this.setDelay(0);
-  }
-
-  public setDelay(delay: number): Mouse {
-    this.native.setMouseDelay(delay);
-    return this;
+    this.native.setMouseDelay(this.config.autoDelayMs);
   }
 
   public setPosition(target: Point): Mouse {
