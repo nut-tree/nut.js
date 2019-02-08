@@ -31,6 +31,7 @@ export class Screen {
 
     const fullPathToNeedle = normalize(join(this.config.resourceDirectory, pathToNeedle));
     console.log(`Full path to needle: ${fullPathToNeedle}`);
+
     const screenImage = await this.native.grabScreen();
 
     const matchRequest = new MatchRequest(

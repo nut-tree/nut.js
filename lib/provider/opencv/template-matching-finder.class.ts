@@ -186,6 +186,12 @@ export class TemplateMatchingFinder implements FinderInterface {
   private async scale(image: cv.Mat, scaleFactor: number): Promise<cv.Mat> {
     const scaledRows = Math.max(Math.floor(image.rows * scaleFactor), 1.0);
     const scaledCols = Math.max(Math.floor(image.cols * scaleFactor), 1.0);
-    return image.resizeAsync(scaledRows, scaledCols, 0, 0, cv.INTER_AREA);
+    return image.resizeAsync(
+      scaledRows,
+      scaledCols,
+      0,
+      0,
+      cv.INTER_AREA,
+    );
   }
 }
