@@ -12,17 +12,15 @@ const square = async () => {
 };
 
 (async () => {
-  mouse.setDelay(0);
   mouse
     .leftClick()
-    .scrollUp(1)
-    .scrollDown(2);
   // await square();
   try {
-    const whale = await screen.findOnScreen("./assets/docker.png");
+    screen.config.resourceDirectory = "./assets";
+    const whale = await screen.findOnScreen("docker.png");
     mouse.move(movement.straightTo(Location.centerOf(whale)));
 
-    const gitlens = await screen.findOnScreen("./assets/gitlens.png");
+    const gitlens = await screen.findOnScreen("gitlens.png");
     mouse.move(movement.straightTo(Location.centerOf(gitlens)));
     mouse.drag(movement.right(600));
     mouse.move(movement.straightTo(Location.centerOf(gitlens)));
