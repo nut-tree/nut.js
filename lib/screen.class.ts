@@ -1,3 +1,4 @@
+import { join, normalize } from "path";
 import { NativeAdapter } from "./adapter/native.adapter.class";
 import { VisionAdapter } from "./adapter/vision.adapter.class";
 import { LocationParameters } from "./locationparameters.class";
@@ -7,6 +8,7 @@ import { Region } from "./region.class";
 export class Screen {
   public config = {
     confidence: 0.99,
+    resourceDirectory: "./",
   };
 
   constructor(private vision: VisionAdapter, private native: NativeAdapter) {}
@@ -27,11 +29,13 @@ export class Screen {
     const searchRegion =
       (params && params.searchRegion) || this.native.screenSize();
 
+    const fullPathToNeedle = normalize(join(this.config.resourceDirectory, pathToNeedle));
+    console.log(`Full path to needle: ${fullPathToNeedle}`);
     const screenImage = await this.native.grabScreen();
 
     const matchRequest = new MatchRequest(
       screenImage,
-      pathToNeedle,
+      fullPathToNeedle,
       searchRegion,
       minMatch,
     );

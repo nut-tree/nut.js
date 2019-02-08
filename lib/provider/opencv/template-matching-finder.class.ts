@@ -20,6 +20,9 @@ export class TemplateMatchingFinder implements FinderInterface {
 
   public async findMatches(matchRequest: MatchRequest): Promise<MatchResult[]> {
     let needle = await this.loadImage(matchRequest.pathToNeedle);
+    if (needle.empty) {
+      throw new Error(`Failed to load ${matchRequest.pathToNeedle}, got empty image.`);
+    }
     let haystack = await this.loadHaystack(matchRequest);
 
     if (matchRequest.confidence < 0.99) {
