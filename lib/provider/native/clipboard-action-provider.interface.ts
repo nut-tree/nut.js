@@ -13,7 +13,7 @@ export interface ClipboardActionProvider {
   hasText(): boolean;
 
   /**
-   *
+   * clear should allow to clear the system clipboard
    *
    * @returns {boolean}
    * @memberof ClipboardActionProvider

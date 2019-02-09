@@ -20,6 +20,9 @@ export class TemplateMatchingFinder implements FinderInterface {
 
   public async findMatches(matchRequest: MatchRequest): Promise<MatchResult[]> {
     let needle = await this.loadImage(matchRequest.pathToNeedle);
+    if (needle.empty) {
+      throw new Error(`Failed to load ${matchRequest.pathToNeedle}, got empty image.`);
+    }
     let haystack = await this.loadHaystack(matchRequest);
 
     if (matchRequest.confidence < 0.99) {
@@ -35,6 +38,11 @@ export class TemplateMatchingFinder implements FinderInterface {
       matchResults.push(await this.scaleAndMatchHaystack(haystack, needle));
       matchResults.push(await this.scaleAndMatchNeedle(haystack, needle));
     }
+
+    matchResults.map((matchResult) => {
+      matchResult.location.left /= matchRequest.haystack.pixelDensity.scaleX;
+      matchResult.location.top /= matchRequest.haystack.pixelDensity.scaleY;
+    });
 
     return matchResults.sort(
       (first, second) => second.confidence - first.confidence,
@@ -98,17 +106,25 @@ export class TemplateMatchingFinder implements FinderInterface {
   }
 
   private async loadHaystack(matchRequest: MatchRequest): Promise<cv.Mat> {
+    const searchRegion = this.determineScaledSearchRegion(matchRequest);
     if (matchRequest.haystack.hasAlphaChannel) {
       return await this.fromImageWithAlphaChannel(
         matchRequest.haystack,
-        matchRequest.searchRegion,
+        searchRegion,
       );
     } else {
       return await this.fromImageWithoutAlphaChannel(
         matchRequest.haystack,
-        matchRequest.searchRegion,
+        searchRegion,
       );
     }
+  }
+
+  private determineScaledSearchRegion(matchRequest: MatchRequest): Region {
+    const searchRegion = matchRequest.searchRegion;
+    searchRegion.width *= matchRequest.haystack.pixelDensity.scaleX;
+    searchRegion.height *= matchRequest.haystack.pixelDensity.scaleY;
+    return searchRegion;
   }
 
   private async scaleAndMatchHaystack(
