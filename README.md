@@ -75,7 +75,7 @@ It's work in progress and will undergo constant modification.
 ## Keyboard
 
 - [x] Support for standard US keyboard layout
-- [ ] Support for German keyboard layout
+- [x] Support for German special characters
 
 ## Mouse
 
