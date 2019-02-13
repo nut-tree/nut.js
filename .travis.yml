@@ -12,15 +12,22 @@ addons:
     token:
       secure: "mOHkKrMl0msR9mjlkW30vcJ4R9hBZQiTrdJYFE+Islq0WT/W49RKPJmxyDiHwlBvGH483cWIuA3rC95hMZwjn2c0ybQ+M1gzkB/QKAv1FFy21Ze6H7EhFRGJ9x4fKQA2kZL3IwSMEm4ABbL5ZpcdijC2iSsFbxMXBVYhe7rHNz+rSqCPVbQV/OKc/lZeMRJ62DL2Mx6KXciO5Xq3rKANFM1yie8QLG8DNhcUv0OVtp65RDcOG30uqBOA1qDfq9VOylVKabVJN4ta2THr46ocYY1YfnUUDpcPJHQwZSL7Gl7BwMnMgiDGqZbWasJpqdlJSy6TesJGu8SI4ETWGwTE4jnrH3uegPXGqIdxOtWXPVR90U2upZ7/ztVVmABEAQN0zW0kv3Gwx2XbJ/Db4qc7OTNz5i9uf2BQ/dDEmjX4rMPYKbKFONHknq+e5dZiJGhmwC7ns7qaTIH23QZV9xyvC1ymbgbogdu17/bNvjZaPFtpnnFm49X/VWrf7Lw+rrGL62c7DHfJrYNHiky5OsQmlqyBq7Sm3O6pqtREdeZbgSAYdbn6ADIXbP7luhlSfM0oZ+GuPv3vGqapr41YVE70vs33ehLUDiDqY5F0sKDXLp4vvucupx2YSOx1KJDxaXmfAZAnL3/RVzGFByyGOeF8TQLV29T4cdPcl0wpbJcpmgI="
 
-before_install:
-  - sudo apt-get update
-  - sudo apt-get install build-essential -y
-  - sudo apt-get install libxt-dev libxtst-dev libxinerama-dev -y
+services:
+  - docker
 
-install:
-  - npm i
+before_install:
+  # Update Docker
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  - sudo apt-get update
+  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
+  - docker pull s1hofmann/nut-ci:latest
+  - docker run -it -d --name nut-ci --user $(id -u):$(id -g) -v ${PWD}:/nut:rw s1hofmann/nut-ci:latest bash
+
+install: true
 
 script:
-  - npm run compile
-  - xvfb-run --server-args="-screen 0 1280x800x24" npm run coverage
+  - travis_retry docker exec nut-ci bash -c "bash /nut/.build/build.sh"
+
+after_success:
   - sonar-scanner
