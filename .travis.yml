@@ -15,12 +15,11 @@ addons:
 services:
   - docker
 
-before_install:
-  - docker pull s1hofmann/nut-ci:latest
-  - docker run -it -d --name nut-ci -p 5901:5901 -v ${PWD}:/nut s1hofmann/nut-ci:latest bash
-
+before_install: true
 install: true
 
 script:
+  - docker pull s1hofmann/nut-ci:latest
+  - docker run -it -d --name nut-ci -p 5901:5901 -v ${PWD}:/nut s1hofmann/nut-ci:latest bash
   - travis_retry docker exec nut-ci bash -c "bash /nut/.build/build.sh"
   - sonar-scanner
