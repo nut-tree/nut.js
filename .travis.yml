@@ -18,7 +18,7 @@ services:
 
 before_install:
   - docker pull s1hofmann/nut-ci:latest
-  - docker run -it -d --name nut-ci -v ${PWD}:/nut s1hofmann/nut-ci:latest bash
+  - docker run -it -d --name nut-ci -p 5901:5901 -v ${PWD}:/nut s1hofmann/nut-ci:latest bash
 
 install: true
 
