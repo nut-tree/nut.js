@@ -22,7 +22,7 @@ before_install:
   - sudo apt-get update
   - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
   - docker pull s1hofmann/nut-ci:latest
-  - docker run -it -d --name nut-ci -p 5901:5901 --user $(id -u):$(id -g) -v ${PWD}:/nut:rw s1hofmann/nut-ci:latest bash
+  - docker run -it -d --name nut-ci --user $(id -u):$(id -g) -v ${PWD}:/nut:rw s1hofmann/nut-ci:latest bash
 
 install: true
 
