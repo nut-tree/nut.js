@@ -7,6 +7,9 @@ node_js:
 cache: npm
 
 addons:
+  apt:
+    packages:
+      - docker-ce
   sonarcloud:
     organization: "nut-tree"
     token:
@@ -15,11 +18,14 @@ addons:
 services:
   - docker
 
-before_install: true
+before_install:
+  - docker pull s1hofmann/nut-ci:latest
+  - docker run -it -d --name nut-ci -p 5901:5901 -v ${PWD}:/nut s1hofmann/nut-ci:latest bash
+
 install: true
 
 script:
-  - docker pull s1hofmann/nut-ci:latest
-  - docker run -it -d --name nut-ci -p 5901:5901 -v ${PWD}:/nut s1hofmann/nut-ci:latest bash
   - travis_retry docker exec nut-ci bash -c "bash /nut/.build/build.sh"
+
+after_success:
   - sonar-scanner
