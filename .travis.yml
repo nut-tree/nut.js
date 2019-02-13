@@ -23,5 +23,5 @@ before_install:
 install: true
 
 script:
-  - docker exec nut-ci bash -c "bash /nut/.build/build.sh"
+  - travis_retry docker exec nut-ci bash -c "bash /nut/.build/build.sh"
   - sonar-scanner
