@@ -6,6 +6,9 @@ node_js:
   - "lts/dubnium"
 cache: npm
 
+notifications:
+  webhooks: https://outlook.office.com/webhook/b6e4942d-6066-4001-8ba1-428598f3ae13@eb86a0ab-5bd0-4070-b04f-b7bf90ca02c5/TravisCI/ad6b89add60a4d4c8d1a06aa4ee424e8/d6c06c79-667d-43b9-92b6-0e9687d93d0f
+
 addons:
   sonarcloud:
     organization: "nut-tree"
