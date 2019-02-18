@@ -1,8 +1,8 @@
-import { LineHelper } from "../dist/lib/util/linehelper.class";
 import { NativeAdapter } from "./adapter/native.adapter.class";
 import { Button } from "./button.enum";
 import { Mouse } from "./mouse.class";
 import { Point } from "./point.class";
+import { LineHelper } from "./util/linehelper.class";
 
 jest.mock("./adapter/native.adapter.class");
 
