@@ -3,7 +3,8 @@ import { Point } from "./point.class";
 import { LineHelper } from "./util/linehelper.class";
 
 export class Movement {
-  constructor(private native: NativeAdapter, private lineHelper: LineHelper) {}
+  constructor(private native: NativeAdapter, private lineHelper: LineHelper) {
+  }
 
   public straightTo(target: Point): Point[] {
     const origin = this.getPosition();
