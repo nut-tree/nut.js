@@ -9,7 +9,11 @@ describe("MatchRequest", () => {
         new ArrayBuffer(0), 3
       ),
       "foo",
-      new Region(0, 0, 100, 100),
+      new Region(
+        0,
+        0,
+        100,
+        100),
       0.99);
 
     expect(SUT.searchMultipleScales).toBeTruthy();
