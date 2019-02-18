@@ -9,7 +9,6 @@ import { Screen } from "./lib/screen.class";
 import { LineHelper } from "./lib/util/linehelper.class";
 
 export { jestMatchers } from "./lib/expect/jest.matcher.function";
-export { Config } from "./lib/config.class";
 export { Image } from "./lib/image.class";
 export { Key } from "./lib/key.enum";
 export { Location } from "./lib/location.class";
