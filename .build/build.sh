@@ -16,4 +16,4 @@ npm ci > /dev/null 2>&1
 echo "npm run compile"
 npm run compile
 echo "npm run coverage"
-npm run coverage
+E2E_TEST=1 npm run coverage
