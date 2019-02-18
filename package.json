@@ -57,15 +57,15 @@
   },
   "dependencies": {
     "clipboardy": "^1.2.3",
-    "opencv4nodejs": "^4.10.1",
+    "opencv4nodejs": "^4.14.1",
     "robotjs": "^0.5.1"
   },
   "devDependencies": {
     "@types/clipboardy": "^1.1.0",
     "@types/jest": "^23.3.9",
     "jest": "^23.6.0",
-    "ts-jest": "^23.10.4",
+    "ts-jest": "^23.10.5",
     "tslint": "^5.11.0",
-    "typescript": "^3.1.4"
+    "typescript": "^3.3.3"
   }
 }
