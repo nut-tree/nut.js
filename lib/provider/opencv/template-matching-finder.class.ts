@@ -40,7 +40,7 @@ export class TemplateMatchingFinder implements FinderInterface {
     }
 
     // Compensate pixel density
-    matchResults.map(matchResult => {
+    matchResults.forEach(matchResult => {
       matchResult.location.left /= matchRequest.haystack.pixelDensity.scaleX;
       matchResult.location.width /= matchRequest.haystack.pixelDensity.scaleX;
       matchResult.location.top /= matchRequest.haystack.pixelDensity.scaleY;
