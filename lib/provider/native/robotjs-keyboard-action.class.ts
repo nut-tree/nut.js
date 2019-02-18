@@ -122,6 +122,13 @@ export class KeyboardAction implements KeyboardActionProvider {
     [Key.NumLock, null],
   ]);
 
+  private static key(key: Key, event: "up" | "down") {
+    const nativeKey = KeyboardAction.keyLookup(key);
+    if (nativeKey) {
+      robot.keyToggle(nativeKey, event);
+    }
+  }
+
   constructor() {}
 
   public type(input: string): void {
@@ -136,16 +143,10 @@ export class KeyboardAction implements KeyboardActionProvider {
   }
 
   public pressKey(key: Key): void {
-    const nativeKey = KeyboardAction.keyLookup(key);
-    if (nativeKey) {
-      robot.keyToggle(nativeKey, "down");
-    }
+    KeyboardAction.key(key, "down");
   }
 
   public releaseKey(key: Key): void {
-    const nativeKey = KeyboardAction.keyLookup(key);
-    if (nativeKey) {
-      robot.keyToggle(nativeKey, "up");
-    }
+    KeyboardAction.key(key, "up");
   }
 }
