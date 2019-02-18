@@ -8,15 +8,8 @@ import { FinderInterface } from "./finder.interface";
 export class TemplateMatchingFinder implements FinderInterface {
   private static scaleStep = 0.5;
 
-  private static async dropAlphaChannel(img: cv.Mat): Promise<cv.Mat> {
-    if (img.channels === 4) {
-      return img.cvtColorAsync(cv.COLOR_BGRA2BGR);
-    } else {
-      return Promise.resolve(img);
-    }
+  constructor() {
   }
-
-  constructor() {}
 
   public async findMatches(matchRequest: MatchRequest): Promise<MatchResult[]> {
     let needle = await this.loadImage(matchRequest.pathToNeedle);
@@ -29,8 +22,8 @@ export class TemplateMatchingFinder implements FinderInterface {
       needle = await this.rgbToGrayScale(needle);
       haystack = await this.rgbToGrayScale(haystack);
     }
-    cv.imwriteAsync(`${"input_needle.png"}`, needle);
-    cv.imwriteAsync(`${"input_haystack.png"}`, haystack);
+    // cv.imwriteAsync(`${"input_needle.png"}`, needle);
+    // cv.imwriteAsync(`${"input_haystack.png"}`, haystack);
 
     const matchResults = [];
     matchResults.push(await this.match(haystack, needle));
@@ -80,19 +73,6 @@ export class TemplateMatchingFinder implements FinderInterface {
     }
   }
 
-  public async loadImageWithAlphaChannel(imagePath: string): Promise<cv.Mat> {
-    const image = await this.loadImage(imagePath);
-    if (image.channels < 4) {
-      return image.cvtColorAsync(cv.COLOR_BGR2BGRA);
-    }
-    return Promise.resolve(image);
-  }
-
-  public async loadImageWithoutAlphaChannel(path: string): Promise<cv.Mat> {
-    const image = await this.loadImage(path);
-    return Promise.resolve(TemplateMatchingFinder.dropAlphaChannel(image));
-  }
-
   public async rgbToGrayScale(img: cv.Mat): Promise<cv.Mat> {
     return img.cvtColorAsync(cv.COLOR_BGR2GRAY);
   }
@@ -101,11 +81,14 @@ export class TemplateMatchingFinder implements FinderInterface {
     img: Image,
     roi?: Region,
   ): Promise<cv.Mat> {
-    const newMat = await this.fromImageWithAlphaChannel(img, roi);
-    if (newMat.channels > 3) {
-      return newMat.cvtColorAsync(cv.COLOR_BGRA2BGR);
+    const mat = new cv.Mat(img.data, img.height, img.width, cv.CV_8UC3);
+    if (roi) {
+      return Promise.resolve(
+        mat.getRegion(new cv.Rect(roi.left, roi.top, roi.width, roi.height)),
+      );
+    } else {
+      return Promise.resolve(mat);
     }
-    return Promise.resolve(newMat);
   }
 
   private async loadHaystack(matchRequest: MatchRequest): Promise<cv.Mat> {
@@ -139,7 +122,7 @@ export class TemplateMatchingFinder implements FinderInterface {
       TemplateMatchingFinder.scaleStep,
     );
     const matchResult = await this.match(scaledHaystack, needle);
-    cv.imwriteAsync(`${"scaled_haystack.png"}`, scaledHaystack);
+    // cv.imwriteAsync(`${"scaled_haystack.png"}`, scaledHaystack);
     console.log(`Scaled haystack: ${matchResult.confidence}`);
     return new MatchResult(
       matchResult.confidence,
@@ -161,7 +144,7 @@ export class TemplateMatchingFinder implements FinderInterface {
       TemplateMatchingFinder.scaleStep,
     );
     const matchResult = await this.match(haystack, scaledNeedle);
-    cv.imwriteAsync(`${"scaled_needle.png"}`, scaledNeedle);
+    // cv.imwriteAsync(`${"scaled_needle.png"}`, scaledNeedle);
     console.log(`Scaled needle: ${matchResult.confidence}`);
     return new MatchResult(
       matchResult.confidence,
@@ -182,7 +165,11 @@ export class TemplateMatchingFinder implements FinderInterface {
     const minMax = await match.minMaxLocAsync();
     return new MatchResult(
       1.0 - minMax.minVal,
-      new Region(minMax.minLoc.x, minMax.minLoc.y, needle.cols, needle.rows),
+      new Region(
+        minMax.minLoc.x,
+        minMax.minLoc.y,
+        Math.min(needle.cols, haystack.cols),
+        Math.min(needle.rows, haystack.rows)),
     );
   }
 
