@@ -1,48 +1,58 @@
-import {NativeAdapter} from "./adapter/native.adapter.class";
-import {OpenCVAdapter} from "./adapter/opencv.adapter.class";
-import {Config} from "./config.class";
-import {Image} from "./image.class";
-import {LocationParameters} from "./locationparameters.class";
-import {Region} from "./region.class";
+import { join, normalize } from "path";
+import { NativeAdapter } from "./adapter/native.adapter.class";
+import { VisionAdapter } from "./adapter/vision.adapter.class";
+import { LocationParameters } from "./locationparameters.class";
+import { MatchRequest } from "./match-request.class";
+import { Region } from "./region.class";
 
 export class Screen {
+  public config = {
+    confidence: 0.99,
+    resourceDirectory: "./",
+  };
 
-    constructor(private config: Config, private vision: OpenCVAdapter, private native: NativeAdapter) {
-    }
+  constructor(private vision: VisionAdapter, private native: NativeAdapter) {}
 
-    public width() {
-        return this.native.screenWidth();
-    }
+  public width() {
+    return this.native.screenWidth();
+  }
 
-    public height() {
-        return this.native.screenHeight();
-    }
+  public height() {
+    return this.native.screenHeight();
+  }
 
-    public async findOnScreen(pathToNeedle: string, params?: LocationParameters): Promise<Region> {
-        const minMatch = (params && params.matchProbability) || this.config.matchProbability;
-        const searchRegion = (params && params.searchRegion) || this.native.screenSize();
+  public async findOnScreen(
+    pathToNeedle: string,
+    params?: LocationParameters,
+  ): Promise<Region> {
+    const minMatch = (params && params.confidence) || this.config.confidence;
+    const searchRegion =
+      (params && params.searchRegion) || this.native.screenSize();
 
-        const screenImage = await this.native.grabScreen();
-        const matchResult = await this.vision.findOnScreenRegion(screenImage, pathToNeedle, searchRegion, minMatch);
+    const fullPathToNeedle = normalize(join(this.config.resourceDirectory, pathToNeedle));
+    console.log(`Full path to needle: ${fullPathToNeedle}`);
 
-        return new Promise<Region>((resolve, reject) => {
-            if (matchResult.probability >= minMatch) {
-                // Take scaling on HDPI displays (e.g. Apples Retina display) into account
-                resolve(Region.scaled(
-                    matchResult.location,
-                    this.calculateHorizontalScaling(screenImage),
-                    this.calculateVerticalScaling(screenImage)));
-            } else {
-                reject(`No match for ${pathToNeedle}. Required: ${minMatch}, given: ${matchResult.probability}`);
-            }
-        });
-    }
+    const screenImage = await this.native.grabScreen();
 
-    private calculateHorizontalScaling(screenShot: Image): number {
-        return (this.width() / screenShot.width) || 1.0;
-    }
+    const matchRequest = new MatchRequest(
+      screenImage,
+      fullPathToNeedle,
+      searchRegion,
+      minMatch,
+    );
 
-    private calculateVerticalScaling(screenShot: Image): number {
-        return (this.height() / screenShot.height) || 1.0;
-    }
+    const matchResult = await this.vision.findOnScreenRegion(matchRequest);
+
+    return new Promise<Region>((resolve, reject) => {
+      if (matchResult.confidence >= minMatch) {
+        resolve(matchResult.location);
+      } else {
+        reject(
+          `No match for ${pathToNeedle}. Required: ${minMatch}, given: ${
+            matchResult.confidence
+          }`,
+        );
+      }
+    });
+  }
 }

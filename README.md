@@ -28,32 +28,29 @@ The following snippet shows a valid NUT example (on macOS)
 ```js
 "use strict";
 
-const native = require("@nut-tree/nut-js");
+const { keyboard, Key, mouse, movement } = require("@nut-tree/nut-js");
 
-const square = async (control) => {
-    await control.mouse.move(control.movement.right(500));
-    await control.mouse.move(control.movement.down(500));
-    await control.mouse.move(control.movement.left(500));
-    await control.mouse.move(control.movement.up(500));
+const square = async () => {
+  await mouse.move(movement.right(500));
+  await mouse.move(movement.down(500));
+  await mouse.move(movement.left(500));
+  await mouse.move(movement.up(500));
 };
 
-const openSpotlight = async (control) => {
-    await control.keyboard.pressKey(native.Key.LeftSuper);
-    await control.keyboard.pressKey(native.Key.Space);
-    await control.keyboard.releaseKey(native.Key.Space);
-    await control.keyboard.releaseKey(native.Key.LeftSuper);
+const openSpotlight = async () => {
+  await keyboard.pressKey(Key.LeftSuper);
+  await keyboard.pressKey(Key.Space);
+  await keyboard.releaseKey(Key.Space);
+  await keyboard.releaseKey(Key.LeftSuper);
 };
 
 describe("Basic test", () => {
-    it("Should run a simple test", async () => {
-        const config = new native.Config();
-        const control = new native.Controller(config);
-
-        await square(control);
-        await openSpotlight(control);
-        await control.keyboard.type("calculator");
-        await control.keyboard.type(native.Key.Return);
-    });
+  it("Should run a simple test", async () => {
+    await square();
+    await openSpotlight();
+    await keyboard.type("calculator");
+    await keyboard.type(Key.Return);
+  });
 });
 
 ```
@@ -69,17 +66,18 @@ It's work in progress and will undergo constant modification.
 
 ## Clipboard
 
-- [ ] Copy to clipboard
-- [ ] Paste from clipboard
+- [x] Copy text to clipboard
+- [x] Paste text from clipboard
 
 ## Keyboard
 
 - [x] Support for standard US keyboard layout
-- [ ] Support for German keyboard layout
+- [x] Support for German special characters
 
 ## Mouse
 
-- [x] Support for basic mouse movement
+- [x] Support for mouse movement
+- [x] Support for mouse scroll
 - [x] Configurable movement speed
 - [x] Mouse drag
 

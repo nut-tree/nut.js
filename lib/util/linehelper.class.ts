@@ -1,12 +1,11 @@
-import {Point} from "../point.class";
+import { Point } from "../point.class";
 
-import {Bresenham} from "./bresenham.class";
+import { Bresenham } from "./bresenham.class";
 
 export class LineHelper {
-    constructor() {
-    }
+  constructor() {}
 
-    public straightLine(from: Point, to: Point): Point[] {
-        return Bresenham.compute(from, to);
-    }
+  public straightLine(from: Point, to: Point): Point[] {
+    return Bresenham.compute(from, to);
+  }
 }
