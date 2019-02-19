@@ -4,6 +4,16 @@ import { Region } from "../../region.class";
 import { ScreenActionProvider } from "./screen-action-provider.interface";
 
 export class ScreenAction implements ScreenActionProvider {
+
+  private static determinePixelDensity(
+    screen: Region,
+    screenShot: robot.Bitmap,
+  ): { scaleX: number; scaleY: number } {
+    return {
+      scaleX: screenShot.width / screen.width,
+      scaleY: screenShot.height / screen.height,
+    };
+  }
   constructor() {}
 
   public grabScreen(): Promise<Image> {
@@ -11,7 +21,7 @@ export class ScreenAction implements ScreenActionProvider {
       const screenShot = robot.screen.capture();
       if (screenShot) {
         const screenSize = robot.getScreenSize();
-        const pixelScaling = this.determinePixelDensity(
+        const pixelScaling = ScreenAction.determinePixelDensity(
           new Region(0, 0, screenSize.width, screenSize.height),
           screenShot,
         );
@@ -20,7 +30,7 @@ export class ScreenAction implements ScreenActionProvider {
             screenShot.width,
             screenShot.height,
             screenShot.image,
-            3,
+            4,
             pixelScaling,
           ),
         );
@@ -39,13 +49,13 @@ export class ScreenAction implements ScreenActionProvider {
         region.height,
       );
       if (screenShot) {
-        const pixelScaling = this.determinePixelDensity(region, screenShot);
+        const pixelScaling = ScreenAction.determinePixelDensity(region, screenShot);
         resolve(
           new Image(
             screenShot.width,
             screenShot.height,
             screenShot.image,
-            3,
+            4,
             pixelScaling,
           ),
         );
@@ -66,15 +76,5 @@ export class ScreenAction implements ScreenActionProvider {
   public screenSize(): Region {
     const screenSize = robot.getScreenSize();
     return new Region(0, 0, screenSize.width, screenSize.height);
-  }
-
-  private determinePixelDensity(
-    screen: Region,
-    screenShot: robot.Bitmap,
-  ): { scaleX: number; scaleY: number } {
-    return {
-      scaleX: screenShot.width / screen.width,
-      scaleY: screenShot.height / screen.height,
-    };
   }
 }
