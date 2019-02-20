@@ -147,14 +147,14 @@ export class KeyboardAction implements KeyboardActionProvider {
   }
 
   public pressKey(...keys: Key[]): void {
-    const revertedKeys = keys.reverse();
-    const [key, ...modifiers] = revertedKeys;
+    keys.reverse();
+    const [key, ...modifiers] = keys;
     KeyboardAction.key(key, "down", ...modifiers);
   }
 
   public releaseKey(...keys: Key[]): void {
-    const revertedKeys = keys.reverse();
-    const [key, ...modifiers] = revertedKeys;
+    keys.reverse();
+    const [key, ...modifiers] = keys;
     KeyboardAction.key(key, "up", ...modifiers);
   }
 
