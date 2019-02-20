@@ -18,7 +18,7 @@ export class Mouse {
     return this;
   }
 
-  public getPosition(): Point {
+  public getPosition(): Promise<Point> {
     return this.native.currentMousePosition();
   }
 

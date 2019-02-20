@@ -22,9 +22,9 @@ export class MouseAction implements MouseActionInterface {
     robot.moveMouse(p.x, p.y);
   }
 
-  public currentMousePosition(): Point {
+  public currentMousePosition(): Promise<Point> {
     const position = robot.getMousePos();
-    return new Point(position.x, position.y);
+    return Promise.resolve(new Point(position.x, position.y));
   }
 
   public leftClick(): void {

@@ -26,10 +26,10 @@ export interface MouseActionInterface {
   /**
    * currentMousePosition should return the current mouse pointer position
    *
-   * @returns {Point} The current mouse pointer position
+   * @returns {Promise<Point>} The current mouse pointer position
    * @memberof MouseActionInterface
    */
-  currentMousePosition(): Point;
+  currentMousePosition(): Promise<Point>;
 
   /**
    * leftClick should allow to perform a left click via OS event

@@ -2,10 +2,17 @@ import { NativeAdapter } from "./adapter/native.adapter.class";
 import { Key } from "./key.enum";
 
 export class Keyboard {
+
   private static keyIsString(input: string | Key): input is string {
     return typeof input === "string";
   }
-  constructor(private nativeAdapter: NativeAdapter) {}
+  public config = {
+    autoDelayMs: 20,
+  };
+
+  constructor(private nativeAdapter: NativeAdapter) {
+    this.nativeAdapter.setKeyboardDelay(this.config.autoDelayMs);
+  }
 
   public type(input: string | Key): Keyboard {
     if (Keyboard.keyIsString(input)) {
@@ -16,13 +23,13 @@ export class Keyboard {
     return this;
   }
 
-  public pressKey(key: Key): Keyboard {
-    this.nativeAdapter.pressKey(key);
+  public pressKey(...keys: Key[]): Keyboard {
+    this.nativeAdapter.pressKey(...keys);
     return this;
   }
 
-  public releaseKey(key: Key): Keyboard {
-    this.nativeAdapter.releaseKey(key);
+  public releaseKey(...keys: Key[]): Keyboard {
+    this.nativeAdapter.releaseKey(...keys);
     return this;
   }
 }

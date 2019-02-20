@@ -3,11 +3,8 @@ import { Key } from "../../key.enum";
 import { KeyboardActionProvider } from "./keyboard-action-provider.interface";
 
 export class KeyboardAction implements KeyboardActionProvider {
-  public static keyLookup(key: Key): any {
-    return this.KeyLookupMap.get(key);
-  }
 
-  private static KeyLookupMap = new Map<Key, any>([
+  public static KeyLookupMap = new Map<Key, any>([
     [Key.A, "a"],
     [Key.B, "b"],
     [Key.C, "c"],
@@ -121,15 +118,22 @@ export class KeyboardAction implements KeyboardActionProvider {
     [Key.ScrollLock, null],
     [Key.NumLock, null],
   ]);
+  public static keyLookup(key: Key): any {
+    return this.KeyLookupMap.get(key);
+  }
 
-  private static key(key: Key, event: "up" | "down") {
+  private static key(key: Key, event: "up" | "down", ...modifiers: Key[]) {
     const nativeKey = KeyboardAction.keyLookup(key);
+    const modifierKeys = modifiers
+      .map(modifier => KeyboardAction.keyLookup(modifier))
+      .filter(modifierKey => modifierKey != null && modifierKey.length > 1);
     if (nativeKey) {
-      robot.keyToggle(nativeKey, event);
+      robot.keyToggle(nativeKey, event, modifierKeys);
     }
   }
 
-  constructor() {}
+  constructor() {
+  }
 
   public type(input: string): void {
     robot.typeString(input);
@@ -142,11 +146,17 @@ export class KeyboardAction implements KeyboardActionProvider {
     }
   }
 
-  public pressKey(key: Key): void {
-    KeyboardAction.key(key, "down");
+  public pressKey(...keys: Key[]): void {
+    const [key, ...modifiers] = keys.reverse();
+    KeyboardAction.key(key, "down", ...modifiers);
   }
 
-  public releaseKey(key: Key): void {
-    KeyboardAction.key(key, "up");
+  public releaseKey(...keys: Key[]): void {
+    const [key, ...modifiers] = keys.reverse();
+    KeyboardAction.key(key, "up", ...modifiers);
+  }
+
+  public setKeyboardDelay(delay: number): void {
+    robot.setKeyboardDelay(delay);
   }
 }

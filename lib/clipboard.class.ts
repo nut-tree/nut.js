@@ -7,7 +7,7 @@ export class Clipboard {
     this.nativeAdapter.copy(text);
   }
 
-  public paste(): string {
+  public paste(): Promise<string> {
     return this.nativeAdapter.paste();
   }
 }

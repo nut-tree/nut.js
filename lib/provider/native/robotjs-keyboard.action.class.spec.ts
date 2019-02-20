@@ -53,7 +53,20 @@ describe("robotjs keyboard action", () => {
 
     // THEN
     expect(robot.keyToggle).toBeCalledTimes(1);
-    expect(robot.keyToggle).toBeCalledWith(expect.any(String), "down");
+    expect(robot.keyToggle).toBeCalledWith(KeyboardAction.keyLookup(Key.A), "down", []);
+  });
+
+  it("should treat a list of keys as modifiers + the actual key to press", () => {
+    // GIVEN
+    const SUT = new KeyboardAction();
+
+    // WHEN
+    SUT.pressKey(Key.LeftControl, Key.A);
+
+    // THEN
+    expect(robot.keyToggle).toBeCalledTimes(1);
+    expect(robot.keyToggle)
+      .toBeCalledWith(KeyboardAction.keyLookup(Key.A), "down", [KeyboardAction.keyLookup(Key.LeftControl)]);
   });
 
   it("should not forward the pressKey call to robotjs for an unknown key", () => {
@@ -76,7 +89,20 @@ describe("robotjs keyboard action", () => {
 
     // THEN
     expect(robot.keyToggle).toBeCalledTimes(1);
-    expect(robot.keyToggle).toBeCalledWith(expect.any(String), "up");
+    expect(robot.keyToggle).toBeCalledWith(KeyboardAction.keyLookup(Key.A), "up", []);
+  });
+
+  it("should treat a list of keys as modifiers + the actual key to release", () => {
+    // GIVEN
+    const SUT = new KeyboardAction();
+
+    // WHEN
+    SUT.releaseKey(Key.LeftControl, Key.A);
+
+    // THEN
+    expect(robot.keyToggle).toBeCalledTimes(1);
+    expect(robot.keyToggle)
+      .toBeCalledWith(KeyboardAction.keyLookup(Key.A), "up", [KeyboardAction.keyLookup(Key.LeftControl)]);
   });
 
   it("should not forward the releaseKey call to robotjs for an unknown key", () => {

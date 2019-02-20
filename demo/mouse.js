@@ -5,10 +5,10 @@
 const { mouse, movement, screen, Location } = require("../dist");
 
 const square = async () => {
-  await mouse.move(movement.right(500));
-  await mouse.move(movement.down(500));
-  await mouse.move(movement.left(500));
-  await mouse.move(movement.up(500));
+  await mouse.move(await movement.right(500));
+  await mouse.move(await movement.down(500));
+  await mouse.move(await movement.left(500));
+  await mouse.move(await movement.up(500));
 };
 
 (async () => {
@@ -18,13 +18,13 @@ const square = async () => {
   try {
     screen.config.resourceDirectory = "./assets";
     const whale = await screen.findOnScreen("docker.png");
-    mouse.move(movement.straightTo(Location.centerOf(whale)));
+    mouse.move(await movement.straightTo(Location.centerOf(whale)));
 
     const gitlens = await screen.findOnScreen("gitlens.png");
-    mouse.move(movement.straightTo(Location.centerOf(gitlens)));
-    mouse.drag(movement.right(600));
-    mouse.move(movement.straightTo(Location.centerOf(gitlens)));
-    mouse.drag(movement.straightTo(Location.centerOf(whale)));
+    mouse.move(await movement.straightTo(Location.centerOf(gitlens)));
+    mouse.drag(await movement.right(600));
+    mouse.move(await movement.straightTo(Location.centerOf(gitlens)));
+    mouse.drag(await movement.straightTo(Location.centerOf(whale)));
   } catch (error) {
     console.log(error);
   }

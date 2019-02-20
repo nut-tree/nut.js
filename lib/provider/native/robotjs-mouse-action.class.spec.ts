@@ -122,13 +122,13 @@ describe("robotjs mouse action", () => {
     expect(robot.scrollMouse).toBeCalledWith(scrollAmount, 0);
   });
 
-  it("should return the current mouse position via robotjs", () => {
+  it("should return the current mouse position via robotjs", async () => {
     // GIVEN
     robot.getMousePos = jest.fn(() => ({x: 10, y: 100}));
     const SUT = new MouseAction();
 
     // WHEN
-    const currentPosition = SUT.currentMousePosition();
+    const currentPosition = await SUT.currentMousePosition();
 
     // THEN
     expect(currentPosition.x).toEqual(10);

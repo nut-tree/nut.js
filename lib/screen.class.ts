@@ -27,7 +27,7 @@ export class Screen {
   ): Promise<Region> {
     const minMatch = (params && params.confidence) || this.config.confidence;
     const searchRegion =
-      (params && params.searchRegion) || this.native.screenSize();
+      (params && params.searchRegion) || await this.native.screenSize();
 
     const fullPathToNeedle = normalize(join(this.config.resourceDirectory, pathToNeedle));
     console.log(`Full path to needle: ${fullPathToNeedle}`);

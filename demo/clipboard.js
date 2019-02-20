@@ -4,6 +4,6 @@
 const { clipboard } = require("../dist");
 
 (async () => {
-    clipboard.copy("clipboard test!");
-    console.log(clipboard.paste());
+    await clipboard.copy("clipboard test!");
+    console.log(await clipboard.paste());
 })();

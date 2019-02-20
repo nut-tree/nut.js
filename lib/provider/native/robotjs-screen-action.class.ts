@@ -65,16 +65,16 @@ export class ScreenAction implements ScreenActionProvider {
     });
   }
 
-  public screenWidth(): number {
-    return robot.getScreenSize().width;
+  public screenWidth(): Promise<number> {
+    return Promise.resolve(robot.getScreenSize().width);
   }
 
-  public screenHeight(): number {
-    return robot.getScreenSize().height;
+  public screenHeight(): Promise<number> {
+    return Promise.resolve(robot.getScreenSize().height);
   }
 
-  public screenSize(): Region {
+  public screenSize(): Promise<Region> {
     const screenSize = robot.getScreenSize();
-    return new Region(0, 0, screenSize.width, screenSize.height);
+    return Promise.resolve(new Region(0, 0, screenSize.width, screenSize.height));
   }
 }

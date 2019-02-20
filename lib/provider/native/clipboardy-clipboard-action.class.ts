@@ -5,19 +5,19 @@ export class ClipboardAction implements ClipboardActionProvider {
   constructor() {
   }
 
-  public hasText(): boolean {
-    return clippy.readSync().length > 0;
+  public hasText(): Promise<boolean> {
+    return Promise.resolve(clippy.readSync().length > 0);
   }
 
-  public clear(): boolean {
+  public clear(): Promise<boolean> {
     throw new Error("Method not implemented.");
   }
 
-  public copy(text: string) {
-    clippy.writeSync(text);
+  public copy(text: string): void {
+    clippy.write(text);
   }
 
-  public paste(): string {
-    return clippy.readSync();
+  public async paste(): Promise<string> {
+    return clippy.read();
   }
 }

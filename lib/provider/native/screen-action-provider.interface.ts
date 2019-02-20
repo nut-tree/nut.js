@@ -28,24 +28,24 @@ export interface ScreenActionProvider {
   /**
    * screenWidth returns a system's main screen width
    *
-   * @returns {number} The screen width
+   * @returns {Promise<number>} The screen width
    * @memberof ScreenActionProvider
    */
-  screenWidth(): number;
+  screenWidth(): Promise<number>;
 
   /**
    * screenHeight returns a system's main screen height
    *
-   * @returns {number} The screen height
+   * @returns {Promise<number>} The screen height
    * @memberof ScreenActionProvider
    */
-  screenHeight(): number;
+  screenHeight(): Promise<number>;
 
   /**
    * screenSize returns a Region object the size of a system's main screen
    *
-   * @returns {Region} The Region object
+   * @returns {Promise<Region>} The Region object
    * @memberof ScreenActionProvider
    */
-  screenSize(): Region;
+  screenSize(): Promise<Region>;
 }

@@ -59,6 +59,16 @@ export class NativeAdapter {
   }
 
   /**
+   * setKeyboardDelay configures keyboard delay between key presses
+   *
+   * @param {number} delay The delay
+   * @memberof NativeAdapter
+   */
+  public setKeyboardDelay(delay: number): void {
+    this.keyboard.setKeyboardDelay(delay);
+  }
+
+  /**
    * setMousePosition changes the current mouse cursor position to a given point
    *
    * @param {Point} p The new cursor position
@@ -71,10 +81,10 @@ export class NativeAdapter {
   /**
    * getMousePosition returns the current mouse position
    *
-   * @returns {Point} Current cursor position
+   * @returns {Promise<Point>} Current cursor position
    * @memberof NativeAdapter
    */
-  public currentMousePosition(): Point {
+  public currentMousePosition(): Promise<Point> {
     return this.mouse.currentMousePosition();
   }
 
@@ -83,10 +93,10 @@ export class NativeAdapter {
    * Please notice that on e.g. Apples Retina display the reported width
    * and the actual pixel size may differ
    *
-   * @returns {number} The main screen's width as reported by the OS
+   * @returns {Promise<number>} The main screen's width as reported by the OS
    * @memberof NativeAdapter
    */
-  public screenWidth(): number {
+  public screenWidth(): Promise<number> {
     return this.screen.screenWidth();
   }
 
@@ -95,10 +105,10 @@ export class NativeAdapter {
    * Please notice that on e.g. Apples Retina display the reported width
    * and the actual pixel size may differ
    *
-   * @returns {number} The main screen's height as reported by the OS
+   * @returns {Promise<number>} The main screen's height as reported by the OS
    * @memberof NativeAdapter
    */
-  public screenHeight(): number {
+  public screenHeight(): Promise<number> {
     return this.screen.screenHeight();
   }
 
@@ -107,10 +117,10 @@ export class NativeAdapter {
    * Please notice that on e.g. Apples Retina display the reported width
    * and the actual pixel size may differ
    *
-   * @returns {Region} The Region object the size of your main screen
+   * @returns {Promise<Region>} The Region object the size of your main screen
    * @memberof NativeAdapter
    */
-  public screenSize(): Region {
+  public screenSize(): Promise<Region> {
     return this.screen.screenSize();
   }
 
@@ -182,21 +192,21 @@ export class NativeAdapter {
   /**
    * pressKey presses and holds a given Key
    *
-   * @param {Key} key The Key to press and hold
+   * @param {Key[]} keys The Keys to press and hold
    * @memberof NativeAdapter
    */
-  public pressKey(key: Key): void {
-    this.keyboard.pressKey(key);
+  public pressKey(...keys: Key[]): void {
+    this.keyboard.pressKey(...keys);
   }
 
   /**
    * releaseKey releases a Key previously presses via pressKey
    *
-   * @param {Key} key The Key to release
+   * @param {Key[]} keys The Keys to release
    * @memberof NativeAdapter
    */
-  public releaseKey(key: Key): void {
-    this.keyboard.releaseKey(key);
+  public releaseKey(...keys: Key[]): void {
+    this.keyboard.releaseKey(...keys);
   }
 
   /**
@@ -252,10 +262,10 @@ export class NativeAdapter {
   /**
    * paste pastes the current text on the system clipboard
    *
-   * @returns {string} The clipboard text
+   * @returns {Promise<string>} The clipboard text
    * @memberof NativeAdapter
    */
-  public paste(): string {
+  public paste(): Promise<string> {
     return this.clipboard.paste();
   }
 }

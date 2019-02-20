@@ -6,33 +6,33 @@ export class Movement {
   constructor(private native: NativeAdapter, private lineHelper: LineHelper) {
   }
 
-  public straightTo(target: Point): Point[] {
-    const origin = this.getPosition();
+  public async straightTo(target: Point): Promise<Point[]> {
+    const origin = await this.getPosition();
     return this.lineHelper.straightLine(origin, target);
   }
 
-  public down(px: number): Point[] {
-    const pos = this.getPosition();
+  public async down(px: number): Promise<Point[]> {
+    const pos = await this.getPosition();
     return this.straightTo(new Point(pos.x, pos.y + px));
   }
 
-  public up(px: number): Point[] {
-    const pos = this.getPosition();
+  public async up(px: number): Promise<Point[]> {
+    const pos = await this.getPosition();
     return this.straightTo(new Point(pos.x, pos.y - px));
   }
 
-  public left(px: number): Point[] {
-    const pos = this.getPosition();
+  public async left(px: number): Promise<Point[]> {
+    const pos = await this.getPosition();
     return this.straightTo(new Point(pos.x - px, pos.y));
   }
 
-  public right(px: number): Point[] {
-    const pos = this.getPosition();
+  public async right(px: number): Promise<Point[]> {
+    const pos = await this.getPosition();
     return this.straightTo(new Point(pos.x + px, pos.y));
   }
 
-  private getPosition(): Point {
-    const pos = this.native.currentMousePosition();
+  private async getPosition(): Promise<Point> {
+    const pos = await this.native.currentMousePosition();
     return new Point(pos.x, pos.y);
   }
 }

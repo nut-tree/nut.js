@@ -87,37 +87,37 @@ describe("robotjs screen action", () => {
       .toBeCalledWith(screenRegion.left, screenRegion.top, screenRegion.width, screenRegion.height);
   });
 
-  it("should determine screen width via robotjs", () => {
+  it("should determine screen width via robotjs", async () => {
     // GIVEN
     const SUT = new ScreenAction();
     robot.getScreenSize = jest.fn(() => ({width: screenSize.width, height: screenSize.height}));
 
     // WHEN
-    const width = SUT.screenWidth();
+    const width = await SUT.screenWidth();
 
     // THEN
     expect(width).toEqual(screenSize.width);
   });
 
-  it("should determine screen height via robotjs", () => {
+  it("should determine screen height via robotjs", async () => {
     // GIVEN
     const SUT = new ScreenAction();
     robot.getScreenSize = jest.fn(() => ({width: screenSize.width, height: screenSize.height}));
 
     // WHEN
-    const width = SUT.screenHeight();
+    const width = await SUT.screenHeight();
 
     // THEN
     expect(width).toEqual(screenSize.height);
   });
 
-  it("should determine screen size via robotjs", () => {
+  it("should determine screen size via robotjs", async () => {
     // GIVEN
     const SUT = new ScreenAction();
     robot.getScreenSize = jest.fn(() => ({width: screenSize.width, height: screenSize.height}));
 
     // WHEN
-    const size = SUT.screenSize();
+    const size = await SUT.screenSize();
 
     // THEN
     expect(size).toEqual(screenSize);

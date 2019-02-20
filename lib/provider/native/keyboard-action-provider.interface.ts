@@ -7,6 +7,14 @@ import { Key } from "../../key.enum";
  */
 export interface KeyboardActionProvider {
   /**
+   * setKeyboardDelay should allow to configure a delay between key presses
+   *
+   * @param {number} delay The delay
+   * @memberof KeybaordActionProvider
+   */
+  setKeyboardDelay(delay: number): void;
+
+  /**
    * type should allow to type a given text via OS level keyboard events
    *
    * @param {string} input The text to type
@@ -25,16 +33,16 @@ export interface KeyboardActionProvider {
   /**
    * pressKey should allow to press and hold a key via OS level keyboard event
    *
-   * @param {Key} key
+   * @param {Key[]} keys to press and hold
    * @memberof KeyboardActionProvider
    */
-  pressKey(key: Key): void;
+  pressKey(...keys: Key[]): void;
 
   /**
    * releaseKey should release a pressed key via OS level keyboard event
    *
-   * @param {Key} key The key to release
+   * @param {Key[]} keys to release
    * @memberof KeyboardActionProvider
    */
-  releaseKey(key: Key): void;
+  releaseKey(...keys: Key[]): void;
 }
