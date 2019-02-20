@@ -14,7 +14,7 @@ export class ClipboardAction implements ClipboardActionProvider {
   }
 
   public copy(text: string): void {
-    clippy.write(text);
+    clippy.writeSync(text);
   }
 
   public async paste(): Promise<string> {
