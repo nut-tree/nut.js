@@ -9,6 +9,6 @@ describe("Clipboard class", () => {
         const textToCopy = "bar";
 
         SUT.copy(textToCopy);
-        expect(await SUT.paste()).toEqual(textToCopy);
+        await expect(SUT.paste()).resolves.toEqual(textToCopy);
     });
 });
