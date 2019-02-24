@@ -1,4 +1,5 @@
 import * as cv from "opencv4nodejs";
+import * as path from "path";
 import { Image } from "../../image.class";
 import { MatchRequest } from "../../match-request.class";
 import { MatchResult } from "../../match-result.class";
@@ -34,21 +35,24 @@ export class TemplateMatchingFinder implements FinderInterface {
   private static async scaleAndMatchNeedle(
     haystack: cv.Mat,
     needle: cv.Mat,
+    debug: boolean = false
   ): Promise<MatchResult> {
     const scaledNeedle = await TemplateMatchingFinder.scale(
       needle,
       TemplateMatchingFinder.scaleStep,
     );
     const matchResult = await TemplateMatchingFinder.match(haystack, scaledNeedle);
-    // cv.imwriteAsync(`${"scaled_needle.png"}`, scaledNeedle);
-    console.log(`Scaled needle: ${matchResult.confidence}`);
+    if (debug) {
+      this.debugImage(scaledNeedle, "scaled_needle.png");
+      console.log(`Scaled needle: ${matchResult.confidence}`);
+    }
     return new MatchResult(
       matchResult.confidence,
       new Region(
         matchResult.location.left,
         matchResult.location.top,
-        scaledNeedle.cols,
-        scaledNeedle.rows,
+        needle.cols,
+        needle.rows,
       ),
     );
   }
@@ -63,14 +67,17 @@ export class TemplateMatchingFinder implements FinderInterface {
   private static async scaleAndMatchHaystack(
     haystack: cv.Mat,
     needle: cv.Mat,
+    debug: boolean = false
   ): Promise<MatchResult> {
     const scaledHaystack = await TemplateMatchingFinder.scale(
       haystack,
       TemplateMatchingFinder.scaleStep,
     );
     const matchResult = await TemplateMatchingFinder.match(scaledHaystack, needle);
-    // cv.imwriteAsync(`${"scaled_haystack.png"}`, scaledHaystack);
-    console.log(`Scaled haystack: ${matchResult.confidence}`);
+    if (debug) {
+      this.debugImage(scaledHaystack, "scaled_haystack.png");
+      console.log(`Scaled haystack: ${matchResult.confidence}`);
+    }
     return new MatchResult(
       matchResult.confidence,
       new Region(
@@ -82,31 +89,79 @@ export class TemplateMatchingFinder implements FinderInterface {
     );
   }
 
+  private static async debugImage(image: cv.Mat, filename: string, suffix?: string) {
+    const parsedPath = path.parse(filename);
+    let fullFilename = parsedPath.name;
+    if (suffix) {
+      fullFilename = fullFilename + "_" + suffix;
+    }
+    fullFilename += parsedPath.ext;
+    const fullPath = path.join(parsedPath.dir, fullFilename);
+    cv.imwriteAsync(fullPath, image);
+  }
+
+  private static async debugResult(image: cv.Mat, result: MatchResult, filename: string, suffix?: string) {
+      const roiRect = new cv.Rect(
+        result.location.left,
+        result.location.top,
+        result.location.width,
+        result.location.height);
+      this.debugImage(image.getRegion(roiRect), filename, suffix);
+  }
+
   constructor() {
   }
 
-  public async findMatches(matchRequest: MatchRequest): Promise<MatchResult[]> {
-    let needle = await this.loadImage(matchRequest.pathToNeedle);
+  public async findMatches(matchRequest: MatchRequest, debug: boolean = false): Promise<MatchResult[]> {
+    const needle = await this.loadImage(matchRequest.pathToNeedle);
     if (needle.empty) {
       throw new Error(
         `Failed to load ${matchRequest.pathToNeedle}, got empty image.`,
       );
     }
-    let haystack = await this.loadHaystack(matchRequest);
+    const haystack = await this.loadHaystack(matchRequest);
 
-    if (matchRequest.confidence < 0.99) {
-      needle = await this.rgbToGrayScale(needle);
-      haystack = await this.rgbToGrayScale(haystack);
+    if (debug) {
+      TemplateMatchingFinder.debugImage(needle, "input_needle.png");
+      TemplateMatchingFinder.debugImage(haystack, "input_haystack.png");
     }
-    // cv.imwriteAsync(`${"input_needle.png"}`, needle);
-    // cv.imwriteAsync(`${"input_haystack.png"}`, haystack);
 
     const matchResults = [];
-    matchResults.push(await TemplateMatchingFinder.match(haystack, needle));
-    if (matchRequest.searchMultipleScales) {
-      matchResults.push(await TemplateMatchingFinder.scaleAndMatchHaystack(haystack, needle));
-      matchResults.push(await TemplateMatchingFinder.scaleAndMatchNeedle(haystack, needle));
+    const unscaledResult = await TemplateMatchingFinder.match(haystack, needle);
+    if (debug) {
+      console.log(`Unscaled result: ${unscaledResult.confidence}`);
+      TemplateMatchingFinder.debugResult(
+        haystack,
+        unscaledResult,
+        matchRequest.pathToNeedle,
+        "unscaled_result");
     }
+    if (
+      matchRequest.searchMultipleScales &&
+      unscaledResult.confidence >= Math.max(matchRequest.confidence - 0.1, 0.6)
+    ) {
+      const scaledHaystack = await TemplateMatchingFinder.scaleAndMatchHaystack(haystack, needle, debug);
+      if (debug) {
+        TemplateMatchingFinder.debugResult(
+          haystack,
+          scaledHaystack,
+          matchRequest.pathToNeedle,
+          "scaled_haystack_result"
+        );
+      }
+      matchResults.push(scaledHaystack);
+      const scaledNeedle = await TemplateMatchingFinder.scaleAndMatchNeedle(haystack, needle, debug);
+      if (debug) {
+        TemplateMatchingFinder.debugResult(
+          haystack,
+          scaledNeedle,
+          matchRequest.pathToNeedle,
+          "scaled_needle_result"
+        );
+      }
+      matchResults.push(scaledNeedle);
+    }
+    matchResults.push(unscaledResult);
 
     // Compensate pixel density
     matchResults.forEach(matchResult => {
@@ -121,8 +176,8 @@ export class TemplateMatchingFinder implements FinderInterface {
     );
   }
 
-  public async findMatch(matchRequest: MatchRequest): Promise<MatchResult> {
-    const matches = await this.findMatches(matchRequest);
+  public async findMatch(matchRequest: MatchRequest, debug: boolean = false): Promise<MatchResult> {
+    const matches = await this.findMatches(matchRequest, debug);
     if (matches.length === 0) {
       throw new Error(
         `Unable to locate ${matchRequest.pathToNeedle}, no match!`,
