@@ -25,10 +25,10 @@ export interface KeyboardActionProvider {
   /**
    * Click should allow to press a single key via OS level keyboard event
    *
-   * @param {Key} key The key to click
+   * @param {Key[]} keys The keys to click
    * @memberof KeyboardActionProvider
    */
-  click(key: Key): void;
+  click(...keys: Key[]): void;
 
   /**
    * pressKey should allow to press and hold a key via OS level keyboard event

@@ -182,11 +182,11 @@ export class NativeAdapter {
   /**
    * click clicks a single Key via native keyboard event
    *
-   * @param {Key} key The Key to click
+   * @param {Key[]} keys The keys to click
    * @memberof NativeAdapter
    */
-  public click(key: Key): void {
-    this.keyboard.click(key);
+  public click(...keys: Key[]): void {
+    this.keyboard.click(...keys);
   }
 
   /**

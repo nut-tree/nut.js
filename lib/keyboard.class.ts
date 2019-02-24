@@ -3,9 +3,10 @@ import { Key } from "./key.enum";
 
 export class Keyboard {
 
-  private static keyIsString(input: string | Key): input is string {
-    return typeof input === "string";
+  private static inputIsString(input: string[] | Key[]): boolean {
+    return input.every((elem: string | Key) => typeof elem === "string");
   }
+
   public config = {
     autoDelayMs: 20,
   };
@@ -14,11 +15,11 @@ export class Keyboard {
     this.nativeAdapter.setKeyboardDelay(this.config.autoDelayMs);
   }
 
-  public type(input: string | Key): Keyboard {
-    if (Keyboard.keyIsString(input)) {
-      this.nativeAdapter.type(input);
+  public type(...input: string[] | Key[]): Keyboard {
+    if (Keyboard.inputIsString(input)) {
+      this.nativeAdapter.type(input.join(" "));
     } else {
-      this.nativeAdapter.click(input);
+      this.nativeAdapter.click(...input as Key[]);
     }
     return this;
   }

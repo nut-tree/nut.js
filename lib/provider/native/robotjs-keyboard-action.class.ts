@@ -4,7 +4,7 @@ import { KeyboardActionProvider } from "./keyboard-action-provider.interface";
 
 export class KeyboardAction implements KeyboardActionProvider {
 
-  public static KeyLookupMap = new Map<Key, any>([
+  public static KeyLookupMap = new Map<Key, string | null>([
     [Key.A, "a"],
     [Key.B, "b"],
     [Key.C, "c"],
@@ -118,15 +118,20 @@ export class KeyboardAction implements KeyboardActionProvider {
     [Key.ScrollLock, null],
     [Key.NumLock, null],
   ]);
+
   public static keyLookup(key: Key): any {
     return this.KeyLookupMap.get(key);
   }
 
-  private static key(key: Key, event: "up" | "down", ...modifiers: Key[]) {
-    const nativeKey = KeyboardAction.keyLookup(key);
-    const modifierKeys = modifiers
+  private static mapModifierKeys(...keys: Key[]): string[] {
+    return keys
       .map(modifier => KeyboardAction.keyLookup(modifier))
       .filter(modifierKey => modifierKey != null && modifierKey.length > 1);
+  }
+
+  private static key(key: Key, event: "up" | "down", ...modifiers: Key[]) {
+    const nativeKey = KeyboardAction.keyLookup(key);
+    const modifierKeys = this.mapModifierKeys(...modifiers);
     if (nativeKey) {
       robot.keyToggle(nativeKey, event, modifierKeys);
     }
@@ -136,13 +141,16 @@ export class KeyboardAction implements KeyboardActionProvider {
   }
 
   public type(input: string): void {
-    robot.typeString(input);
+    robot.typeStringDelayed(input, 200);
   }
 
-  public click(key: Key): void {
+  public click(...keys: Key[]): void {
+    keys.reverse();
+    const [key, ...modifiers] = keys;
     const nativeKey = KeyboardAction.keyLookup(key);
+    const modifierKeys = KeyboardAction.mapModifierKeys(...modifiers);
     if (nativeKey) {
-      robot.keyTap(nativeKey);
+      robot.keyTap(nativeKey, modifierKeys);
     }
   }
 
