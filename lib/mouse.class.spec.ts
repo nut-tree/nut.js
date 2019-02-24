@@ -13,6 +13,17 @@ beforeEach(() => {
 const linehelper = new LineHelper();
 
 describe("Mouse class", () => {
+  it("should have a default delay of 500 ms", () => {
+    // GIVEN
+    const adapterMock = new NativeAdapter();
+    const SUT = new Mouse(adapterMock);
+
+    // WHEN
+
+    // THEN
+    expect(SUT.config.autoDelayMs).toEqual(100);
+  });
+
   it("should forward scrollLeft to the native adapter class", () => {
     // GIVEN
     const nativeAdapterMock = new NativeAdapter();

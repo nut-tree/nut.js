@@ -8,16 +8,23 @@ export class Keyboard {
   }
 
   public config = {
-    autoDelayMs: 20,
+    autoDelayMs: 500,
   };
+
+  private lastAction: number;
 
   constructor(private nativeAdapter: NativeAdapter) {
     this.nativeAdapter.setKeyboardDelay(this.config.autoDelayMs);
+    this.lastAction = Date.now();
   }
 
   public type(...input: string[] | Key[]): Keyboard {
     if (Keyboard.inputIsString(input)) {
-      this.nativeAdapter.type(input.join(" "));
+      for (const char of input.join(" ").split("")) {
+        this.waitForNextTick();
+        this.nativeAdapter.type(char);
+        this.updateTick();
+      }
     } else {
       this.nativeAdapter.click(...input as Key[]);
     }
@@ -32,5 +39,16 @@ export class Keyboard {
   public releaseKey(...keys: Key[]): Keyboard {
     this.nativeAdapter.releaseKey(...keys);
     return this;
+  }
+
+  private updateTick() {
+    this.lastAction = Date.now();
+  }
+
+  private waitForNextTick() {
+    let current = Date.now();
+    while (current - this.lastAction < this.config.autoDelayMs) {
+      current = Date.now();
+    }
   }
 }

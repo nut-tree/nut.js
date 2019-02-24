@@ -9,7 +9,7 @@ beforeEach(() => {
 });
 
 describe("Keyboard", () => {
-  it("should have a default delay of 20 ms", () => {
+  it("should have a default delay of 500 ms", () => {
     // GIVEN
     const adapterMock = new NativeAdapter();
     const SUT = new Keyboard(adapterMock);
@@ -17,7 +17,7 @@ describe("Keyboard", () => {
     // WHEN
 
     // THEN
-    expect(SUT.config.autoDelayMs).toEqual(20);
+    expect(SUT.config.autoDelayMs).toEqual(500);
   });
 
   it("should pass input strings down to the type call.", () => {
@@ -30,8 +30,10 @@ describe("Keyboard", () => {
     SUT.type(payload);
 
     // THEN
-    expect(adapterMock.type).toHaveBeenCalledTimes(1);
-    expect(adapterMock.type).toHaveBeenCalledWith(payload);
+    expect(adapterMock.type).toHaveBeenCalledTimes(payload.length);
+    for (const char of payload.split("")) {
+      expect(adapterMock.type).toHaveBeenCalledWith(char);
+    }
   });
 
   it("should pass multiple input strings down to the type call.", () => {
@@ -44,8 +46,10 @@ describe("Keyboard", () => {
     SUT.type(...payload);
 
     // THEN
-    expect(adapterMock.type).toHaveBeenCalledTimes(1);
-    expect(adapterMock.type).toHaveBeenCalledWith(payload.join(" "));
+    expect(adapterMock.type).toHaveBeenCalledTimes(payload.join(" ").length);
+    for (const char of payload.join(" ").split("")) {
+      expect(adapterMock.type).toHaveBeenCalledWith(char);
+    }
   });
 
   it("should pass input keys down to the click call.", () => {

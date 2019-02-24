@@ -141,7 +141,7 @@ export class KeyboardAction implements KeyboardActionProvider {
   }
 
   public type(input: string): void {
-    robot.typeStringDelayed(input, 200);
+    robot.typeString(input);
   }
 
   public click(...keys: Key[]): void {

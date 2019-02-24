@@ -5,12 +5,15 @@ import { Point } from "./point.class";
 
 export class Mouse {
   public config = {
-    autoDelayMs: 0,
+    autoDelayMs: 100,
     mouseSpeed: 1000,
   };
 
+  private lastAction: number;
+
   constructor(private native: NativeAdapter) {
-    this.native.setMouseDelay(this.config.autoDelayMs);
+    this.native.setMouseDelay(0);
+    this.lastAction = Date.now();
   }
 
   public setPosition(target: Point): Mouse {
@@ -27,50 +30,72 @@ export class Mouse {
     for (let idx = 0; idx < path.length; ++idx) {
       const node = path[idx];
       const minTime = timeSteps[idx];
-      const previous = Date.now();
-      let current = Date.now();
-      while (current - previous < minTime) {
-        current = Date.now();
-      }
+      this.waitForNextTick(minTime);
       this.native.setMousePosition(node);
+      this.updateTick();
     }
     return this;
   }
 
   public leftClick(): Mouse {
+    this.waitForNextTick(this.config.autoDelayMs);
     this.native.leftClick();
+    this.updateTick();
     return this;
   }
 
   public rightClick(): Mouse {
+    this.waitForNextTick(this.config.autoDelayMs);
     this.native.rightClick();
+    this.updateTick();
     return this;
   }
 
   public scrollDown(amount: number): Mouse {
+    this.waitForNextTick(this.config.autoDelayMs);
     this.native.scrollDown(amount);
+    this.updateTick();
     return this;
   }
 
   public scrollUp(amount: number): Mouse {
+    this.waitForNextTick(this.config.autoDelayMs);
     this.native.scrollUp(amount);
+    this.updateTick();
     return this;
   }
 
   public scrollLeft(amount: number): Mouse {
+    this.waitForNextTick(this.config.autoDelayMs);
     this.native.scrollLeft(amount);
+    this.updateTick();
     return this;
   }
 
   public scrollRight(amount: number): Mouse {
+    this.waitForNextTick(this.config.autoDelayMs);
     this.native.scrollRight(amount);
+    this.updateTick();
     return this;
   }
 
   public drag(path: Point[]): Mouse {
+    this.waitForNextTick(this.config.autoDelayMs);
     this.native.pressButton(Button.LEFT);
     this.move(path);
     this.native.releaseButton(Button.LEFT);
+    this.updateTick();
     return this;
+  }
+
+  private updateTick() {
+    this.lastAction = Date.now();
+  }
+
+  private waitForNextTick(minTime: number) {
+    let current = Date.now();
+    while (current - this.lastAction < minTime) {
+      current = Date.now();
+    }
   }
 }
