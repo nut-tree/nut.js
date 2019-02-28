@@ -4,7 +4,10 @@ import { Image } from "../../image.class";
 import { MatchRequest } from "../../match-request.class";
 import { MatchResult } from "../../match-result.class";
 import { Region } from "../../region.class";
+import { DataSource } from "./data-source.interface";
 import { FinderInterface } from "./finder.interface";
+import { ImageProcessor } from "./image-processor.class";
+import { ImageReader } from "./image-reader.class";
 
 export class TemplateMatchingFinder implements FinderInterface {
   private static scaleStep = 0.5;
@@ -101,19 +104,23 @@ export class TemplateMatchingFinder implements FinderInterface {
   }
 
   private static async debugResult(image: cv.Mat, result: MatchResult, filename: string, suffix?: string) {
-      const roiRect = new cv.Rect(
-        result.location.left,
-        result.location.top,
-        result.location.width,
-        result.location.height);
-      this.debugImage(image.getRegion(roiRect), filename, suffix);
+    const roiRect = new cv.Rect(
+      result.location.left,
+      result.location.top,
+      result.location.width,
+      result.location.height);
+    this.debugImage(image.getRegion(roiRect), filename, suffix);
   }
 
-  constructor() {
+  constructor(
+    private source: DataSource = new ImageReader(),
+  ) {
   }
 
   public async findMatches(matchRequest: MatchRequest, debug: boolean = false): Promise<MatchResult[]> {
-    const needle = await this.loadImage(matchRequest.pathToNeedle);
+    const needle = await this.loadNeedle(
+      await this.source.load(matchRequest.pathToNeedle)
+    );
     if (needle.empty) {
       throw new Error(
         `Failed to load ${matchRequest.pathToNeedle}, got empty image.`,
@@ -178,59 +185,30 @@ export class TemplateMatchingFinder implements FinderInterface {
 
   public async findMatch(matchRequest: MatchRequest, debug: boolean = false): Promise<MatchResult> {
     const matches = await this.findMatches(matchRequest, debug);
-    if (matches.length === 0) {
-      throw new Error(
-        `Unable to locate ${matchRequest.pathToNeedle}, no match!`,
-      );
+    return new Promise<MatchResult>((resolve, reject) => {
+      if (matches.length === 0) {
+        reject(`Unable to locate ${matchRequest.pathToNeedle}, no match!`);
+      }
+      resolve(matches[0]);
+    });
+  }
+
+  private async loadNeedle(image: Image): Promise<cv.Mat> {
+    if (image.hasAlphaChannel) {
+      return ImageProcessor.fromImageWithAlphaChannel(image);
     }
-    return matches[0];
-  }
-
-  public async loadImage(imagePath: string): Promise<cv.Mat> {
-    return cv.imreadAsync(imagePath);
-  }
-
-  public async fromImageWithAlphaChannel(
-    img: Image,
-    roi?: Region,
-  ): Promise<cv.Mat> {
-    const mat = await new cv.Mat(img.data, img.height, img.width, cv.CV_8UC4).cvtColorAsync(cv.COLOR_BGRA2BGR);
-    if (roi) {
-      return Promise.resolve(
-        mat.getRegion(new cv.Rect(roi.left, roi.top, roi.width, roi.height)),
-      );
-    } else {
-      return Promise.resolve(mat);
-    }
-  }
-
-  public async rgbToGrayScale(img: cv.Mat): Promise<cv.Mat> {
-    return img.cvtColorAsync(cv.COLOR_BGR2GRAY);
-  }
-
-  public async fromImageWithoutAlphaChannel(
-    img: Image,
-    roi?: Region,
-  ): Promise<cv.Mat> {
-    const mat = new cv.Mat(img.data, img.height, img.width, cv.CV_8UC3);
-    if (roi) {
-      return Promise.resolve(
-        mat.getRegion(new cv.Rect(roi.left, roi.top, roi.width, roi.height)),
-      );
-    } else {
-      return Promise.resolve(mat);
-    }
+    return ImageProcessor.fromImageWithoutAlphaChannel(image);
   }
 
   private async loadHaystack(matchRequest: MatchRequest): Promise<cv.Mat> {
     const searchRegion = TemplateMatchingFinder.determineScaledSearchRegion(matchRequest);
     if (matchRequest.haystack.hasAlphaChannel) {
-      return await this.fromImageWithAlphaChannel(
+      return ImageProcessor.fromImageWithAlphaChannel(
         matchRequest.haystack,
         searchRegion,
       );
     } else {
-      return await this.fromImageWithoutAlphaChannel(
+      return ImageProcessor.fromImageWithoutAlphaChannel(
         matchRequest.haystack,
         searchRegion,
       );
