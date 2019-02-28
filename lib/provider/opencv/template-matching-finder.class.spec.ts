@@ -2,43 +2,19 @@ import * as path from "path";
 import { Image } from "../../image.class";
 import { MatchRequest } from "../../match-request.class";
 import { Region } from "../../region.class";
+import { ImageReader } from "./image-reader.class";
 import { TemplateMatchingFinder } from "./template-matching-finder.class";
 
 describe("Template-matching finder", () => {
-  it("loadImage should resolve to a non-empty Mat on successful load", async () => {
-    // GIVEN
-    const SUT = new TemplateMatchingFinder();
-    const imagePath = path.resolve(__dirname, "./__mocks__/mouse.png");
-
-    // WHEN
-    const result = await SUT.loadImage(imagePath);
-
-    // THEN
-    expect(result.rows).toBeGreaterThan(0);
-    expect(result.cols).toBeGreaterThan(0);
-    expect(result.empty).toBeFalsy();
-  });
-
-  it("loadImage should reject on unsuccessful load", async () => {
-    // GIVEN
-    const SUT = new TemplateMatchingFinder();
-    const imagePath = "./__mocks__/foo.png";
-
-    // WHEN
-    const call = SUT.loadImage;
-
-    // THEN
-    await expect(call(imagePath)).rejects.toEqual("empty Mat");
-  });
-
   it("findMatch should return a match when present in image", async () => {
     // GIVEN
+    const imageLoader = new ImageReader();
     const SUT = new TemplateMatchingFinder();
     const imagePath = path.resolve(__dirname, "./__mocks__/mouse.png");
-    const needle = await SUT.loadImage(imagePath);
+    const needle = await imageLoader.load(imagePath);
     const minConfidence = 0.99;
-    const searchRegion = new Region(0, 0, needle.cols, needle.rows);
-    const haystack = new Image(needle.cols, needle.rows, needle.getData(), 3);
+    const searchRegion = new Region(0, 0, needle.width, needle.height);
+    const haystack = new Image(needle.width, needle.height, needle.data, 3);
     const matchRequest = new MatchRequest(haystack, imagePath, searchRegion, minConfidence);
 
     // WHEN
@@ -51,12 +27,13 @@ describe("Template-matching finder", () => {
 
   it("findMatch should return a match within a search region when present in image", async () => {
     // GIVEN
+    const imageLoader = new ImageReader();
     const SUT = new TemplateMatchingFinder();
     const imagePath = path.resolve(__dirname, "./__mocks__/mouse.png");
-    const needle = await SUT.loadImage(imagePath);
+    const needle = await imageLoader.load(imagePath);
     const minConfidence = 0.99;
     const searchRegion = new Region(10, 20, 100, 100);
-    const haystack = new Image(needle.cols, needle.rows, needle.getData(), 3);
+    const haystack = new Image(needle.width, needle.height, needle.data, 3);
     const matchRequest = new MatchRequest(haystack, imagePath, searchRegion, minConfidence);
 
     // WHEN
@@ -69,13 +46,20 @@ describe("Template-matching finder", () => {
 
   it("findMatch should throw on invalid image paths", async () => {
     // GIVEN
+    const imageLoader = new ImageReader();
     const SUT = new TemplateMatchingFinder();
-    const imagePath = path.resolve(__dirname, "./__mocks__/foo.png");
+    const pathToNeedle = path.resolve(__dirname, "./__mocks__/mouse.png");
+    const pathToHaystack = "./__mocks__/foo.png";
+    const needle = await imageLoader.load(pathToNeedle);
+    const minConfidence = 0.99;
+    const searchRegion = new Region(0, 0, 100, 100);
+    const haystack = new Image(needle.width, needle.height, needle.data, 3);
+    const matchRequest = new MatchRequest(haystack, pathToHaystack, searchRegion, minConfidence);
 
     // WHEN
-    const call = await SUT.loadImage;
+    const result = SUT.findMatch(matchRequest);
 
     // THEN
-    await expect(call(imagePath)).rejects.toEqual("empty Mat");
+    expect(result).rejects.toEqual(`Failed to load image from '${pathToHaystack}'`);
   });
 });
