@@ -2,7 +2,7 @@ import * as cv from "opencv4nodejs";
 import { Image } from "../../image.class";
 import { DataSource } from "./data-source.interface";
 
-export class ImageLoader implements DataSource {
+export class ImageReader implements DataSource {
   public async load(path: string): Promise<Image> {
     return new Promise<Image>(async (resolve, reject) => {
       try {

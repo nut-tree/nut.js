@@ -1,10 +1,10 @@
 import * as path from "path";
-import { ImageLoader } from "./image-loader.class";
+import { ImageReader } from "./image-reader.class";
 
 describe("Image loader", () => {
   it("should resolve to a non-empty Mat on successful load", async () => {
     // GIVEN
-    const SUT = new ImageLoader();
+    const SUT = new ImageReader();
     const imagePath = path.resolve(__dirname, "./__mocks__/mouse.png");
 
     // WHEN
@@ -17,7 +17,7 @@ describe("Image loader", () => {
 
   it("loadImage should reject on unsuccessful load", async () => {
     // GIVEN
-    const SUT = new ImageLoader();
+    const SUT = new ImageReader();
     const imagePath = "./__mocks__/foo.png";
 
     // WHEN
