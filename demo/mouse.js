@@ -12,19 +12,19 @@ const square = async () => {
 };
 
 (async () => {
-  mouse
-    .leftClick()
-  // await square();
+  await mouse
+    .leftClick();
+    await square();
   try {
     screen.config.resourceDirectory = "./assets";
     const whale = await screen.findOnScreen("docker.png");
-    mouse.move(await movement.straightTo(Location.centerOf(whale)));
+    await mouse.move(await movement.straightTo(Location.centerOf(whale)));
 
     const gitlens = await screen.findOnScreen("gitlens.png");
-    mouse.move(await movement.straightTo(Location.centerOf(gitlens)));
-    mouse.drag(await movement.right(600));
-    mouse.move(await movement.straightTo(Location.centerOf(gitlens)));
-    mouse.drag(await movement.straightTo(Location.centerOf(whale)));
+    await mouse.move(await movement.straightTo(Location.centerOf(gitlens)));
+    await mouse.drag(await movement.right(600));
+    await mouse.move(await movement.straightTo(Location.centerOf(gitlens)));
+    await mouse.drag(await movement.straightTo(Location.centerOf(whale)));
   } catch (error) {
     console.log(error);
   }
