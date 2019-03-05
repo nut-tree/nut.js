@@ -18,37 +18,46 @@ export class Keyboard {
     this.lastAction = Date.now();
   }
 
-  public type(...input: string[] | Key[]): Keyboard {
-    if (Keyboard.inputIsString(input)) {
-      for (const char of input.join(" ").split("")) {
-        this.waitForNextTick();
-        this.nativeAdapter.type(char);
-        this.updateTick();
+  public type(...input: string[] | Key[]): Promise<Keyboard> {
+    return new Promise<Keyboard>(async resolve => {
+      if (Keyboard.inputIsString(input)) {
+        for (const char of input.join(" ").split("")) {
+          await this.waitForNextTick();
+          this.nativeAdapter.type(char);
+          this.updateTick();
+        }
+      } else {
+        this.nativeAdapter.click(...input as Key[]);
       }
-    } else {
-      this.nativeAdapter.click(...input as Key[]);
-    }
-    return this;
+      resolve(this);
+    });
   }
 
-  public pressKey(...keys: Key[]): Keyboard {
-    this.nativeAdapter.pressKey(...keys);
-    return this;
+  public pressKey(...keys: Key[]): Promise<Keyboard> {
+    return new Promise<Keyboard>(async resolve => {
+      this.nativeAdapter.pressKey(...keys);
+      resolve(this);
+    });
   }
 
-  public releaseKey(...keys: Key[]): Keyboard {
-    this.nativeAdapter.releaseKey(...keys);
-    return this;
+  public releaseKey(...keys: Key[]): Promise<Keyboard> {
+    return new Promise<Keyboard>(async resolve => {
+      this.nativeAdapter.releaseKey(...keys);
+      resolve(this);
+    });
   }
 
   private updateTick() {
     this.lastAction = Date.now();
   }
 
-  private waitForNextTick() {
-    let current = Date.now();
-    while (current - this.lastAction < this.config.autoDelayMs) {
-      current = Date.now();
-    }
+  private async waitForNextTick(): Promise<void> {
+    return new Promise<void>(resolve => {
+      let current = Date.now();
+      while (current - this.lastAction < this.config.autoDelayMs) {
+        current = Date.now();
+      }
+      resolve();
+    });
   }
 }
