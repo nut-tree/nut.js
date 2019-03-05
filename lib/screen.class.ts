@@ -24,7 +24,7 @@ export class Screen {
     return this.vision.screenHeight();
   }
 
-  public async findOnScreen(
+  public async find(
     pathToNeedle: string,
     params?: LocationParameters,
   ): Promise<Region> {

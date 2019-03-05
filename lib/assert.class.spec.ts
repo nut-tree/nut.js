@@ -9,46 +9,71 @@ jest.mock("./screen.class");
 
 describe("Assert", () => {
   it("isVisible should not throw if a match is found.", async () => {
-    Screen.prototype.findOnScreen = jest.fn(() => Promise.resolve(new Region(0, 0, 100, 100)));
+    // GIVEN
+    Screen.prototype.find = jest.fn(() => Promise.resolve(new Region(0, 0, 100, 100)));
     const screenMock = new Screen(new VisionAdapter());
     const SUT = new Assert(screenMock);
+    const needle = "foo";
 
-    await expect(SUT.isVisible("foo")).resolves.not.toThrowError();
+    // WHEN
+
+    // THEN
+    await expect(SUT.isVisible(needle)).resolves.not.toThrowError();
   });
 
   it("isVisible should throw if a match is found.", async () => {
-    Screen.prototype.findOnScreen = jest.fn(() => Promise.reject("foo"));
+    // GIVEN
+    Screen.prototype.find = jest.fn(() => Promise.reject("foo"));
     const screenMock = new Screen(new VisionAdapter());
     const SUT = new Assert(screenMock);
+    const needle = "foo";
 
-    await expect(SUT.isVisible("foo")).rejects.toThrowError("Element not found");
+    // WHEN
+
+    // THEN
+    await expect(SUT.isVisible(needle)).rejects.toThrowError(`Element '${needle}' not found`);
   });
 
   it("isVisible should throw if a match is found.", async () => {
-    Screen.prototype.findOnScreen = jest.fn(() => Promise.reject("foo"));
+    // GIVEN
+    Screen.prototype.find = jest.fn(() => Promise.reject("foo"));
     const screenMock = new Screen(new VisionAdapter());
     const SUT = new Assert(screenMock);
     const searchRegion = new Region(10, 10, 10, 10);
+    const needle = "foo";
 
+    // WHEN
+
+    // THEN
     await expect(SUT
-      .isVisible("foo", searchRegion))
-      .rejects.toThrowError(`Element not found in region ${searchRegion.toString()}`
+      .isVisible(needle, searchRegion))
+      .rejects.toThrowError(`Element '${needle}' not found in region ${searchRegion.toString()}`
       );
   });
 
   it("isNotVisible should throw if a match is found.", async () => {
-    Screen.prototype.findOnScreen = jest.fn(() => Promise.resolve(new Region(0, 0, 100, 100)));
+    // GIVEN
+    Screen.prototype.find = jest.fn(() => Promise.resolve(new Region(0, 0, 100, 100)));
     const screenMock = new Screen(new VisionAdapter());
     const SUT = new Assert(screenMock);
+    const needle = "foo";
 
-    await expect(SUT.notVisible("foo")).rejects.toThrowError("Element visible");
+    // WHEN
+
+    // THEN
+    await expect(SUT.notVisible(needle)).rejects.toThrowError(`'${needle}' is visible`);
   });
 
   it("isVisible should throw if a match is found.", async () => {
-    Screen.prototype.findOnScreen = jest.fn(() => Promise.reject("foo"));
+    // GIVEN
+    Screen.prototype.find = jest.fn(() => Promise.reject("foo"));
     const screenMock = new Screen(new VisionAdapter());
     const SUT = new Assert(screenMock);
+    const needle = "foo";
 
-    await expect(SUT.notVisible("foo")).resolves.not.toThrowError();
+    // WHEN
+
+    // THEN
+    await expect(SUT.notVisible(needle)).resolves.not.toThrowError();
   });
 });

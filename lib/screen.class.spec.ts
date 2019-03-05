@@ -33,7 +33,7 @@ describe("Screen.", () => {
 
     const SUT = new Screen(visionAdapterMock);
     const imagePath = "test/path/to/image.png";
-    await expect(SUT.findOnScreen(imagePath)).resolves.toEqual(matchResult.location);
+    await expect(SUT.find(imagePath)).resolves.toEqual(matchResult.location);
     const matchRequest = new MatchRequest(
         expect.any(Image),
         imagePath,
@@ -54,7 +54,7 @@ describe("Screen.", () => {
 
     const SUT = new Screen(visionAdapterMock);
     const imagePath = "test/path/to/image.png";
-    await expect(SUT.findOnScreen(imagePath))
+    await expect(SUT.find(imagePath))
         .rejects
         .toEqual(`No match for ${imagePath}. Required: ${SUT.config.confidence}, given: ${matchResult.confidence}`);
   });
@@ -73,7 +73,7 @@ describe("Screen.", () => {
 
     const imagePath = "test/path/to/image.png";
     const parameters = new LocationParameters(undefined, minMatch);
-    await expect(SUT.findOnScreen(imagePath, parameters)).resolves.toEqual(matchResult.location);
+    await expect(SUT.find(imagePath, parameters)).resolves.toEqual(matchResult.location);
     const matchRequest = new MatchRequest(
         expect.any(Image),
         imagePath,
@@ -97,7 +97,7 @@ describe("Screen.", () => {
 
     const imagePath = "test/path/to/image.png";
     const parameters = new LocationParameters(customSearchRegion);
-    await expect(SUT.findOnScreen(imagePath, parameters)).resolves.toEqual(matchResult.location);
+    await expect(SUT.find(imagePath, parameters)).resolves.toEqual(matchResult.location);
     const matchRequest = new MatchRequest(
         expect.any(Image),
         imagePath,
@@ -122,7 +122,7 @@ describe("Screen.", () => {
 
     const imagePath = "test/path/to/image.png";
     const parameters = new LocationParameters(customSearchRegion, minMatch);
-    await expect(SUT.findOnScreen(imagePath, parameters)).resolves.toEqual(matchResult.location);
+    await expect(SUT.find(imagePath, parameters)).resolves.toEqual(matchResult.location);
     const matchRequest = new MatchRequest(
         expect.any(Image),
         imagePath,
