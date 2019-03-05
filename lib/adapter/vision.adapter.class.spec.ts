@@ -1,12 +1,81 @@
 import { Image } from "../image.class";
 import { MatchRequest } from "../match-request.class";
+import { ScreenAction } from "../provider/native/robotjs-screen-action.class";
 import { TemplateMatchingFinder } from "../provider/opencv/template-matching-finder.class";
 import { Region } from "../region.class";
 import { VisionAdapter } from "./vision.adapter.class";
 
 jest.mock("../provider/opencv/template-matching-finder.class");
+jest.mock("../provider/native/robotjs-screen-action.class");
 
-describe("Native adapter class", () => {
+describe("VisionAdapter class", () => {
+  it("should delegate calls to grabScreen", () => {
+    // GIVEN
+    const finderMock = new TemplateMatchingFinder();
+    const screenMock = new ScreenAction();
+    const SUT = new VisionAdapter(finderMock, screenMock);
+
+    // WHEN
+    SUT.grabScreen();
+
+    // THEN
+    expect(screenMock.grabScreen).toBeCalledTimes(1);
+  });
+
+  it("should delegate calls to grabScreenRegion", () => {
+    // GIVEN
+    const finderMock = new TemplateMatchingFinder();
+    const screenMock = new ScreenAction();
+    const SUT = new VisionAdapter(finderMock, screenMock);
+    const screenRegion = new Region(0, 0, 100, 100);
+
+    // WHEN
+    SUT.grabScreenRegion(screenRegion);
+
+    // THEN
+    expect(screenMock.grabScreenRegion).toBeCalledTimes(1);
+    expect(screenMock.grabScreenRegion).toBeCalledWith(screenRegion);
+  });
+
+  it("should delegate calls to screenWidth", () => {
+    // GIVEN
+    const finderMock = new TemplateMatchingFinder();
+    const screenMock = new ScreenAction();
+    const SUT = new VisionAdapter(finderMock, screenMock);
+
+    // WHEN
+    SUT.screenWidth();
+
+    // THEN
+    expect(screenMock.screenWidth).toBeCalledTimes(1);
+  });
+
+  it("should delegate calls to screenHeight", () => {
+    // GIVEN
+    const finderMock = new TemplateMatchingFinder();
+    const screenMock = new ScreenAction();
+    const SUT = new VisionAdapter(finderMock, screenMock);
+
+    // WHEN
+    SUT.screenHeight();
+
+    // THEN
+    expect(screenMock.screenHeight).toBeCalledTimes(1);
+  });
+
+  it("should delegate calls to screenSize", () => {
+    // GIVEN
+    const finderMock = new TemplateMatchingFinder();
+    const screenMock = new ScreenAction();
+    const SUT = new VisionAdapter(finderMock, screenMock);
+
+    // WHEN
+    SUT.screenSize();
+
+    // THEN
+    expect(screenMock.screenSize).toBeCalledTimes(1);
+  });
+
   it("should delegate calls to findImage", () => {
     // GIVEN
     const finderMock = new TemplateMatchingFinder();
