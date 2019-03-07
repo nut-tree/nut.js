@@ -28,6 +28,10 @@ describe("robotjs screen action", () => {
     // GIVEN
     const SUT = new ScreenAction();
     robot.screen.capture = jest.fn(() => ({
+        bitsPerPixel: 0,
+        byteWidth: 0,
+        bytesPerPixel: 0,
+        colorAt: jest.fn(),
         height: screenShotSize.height,
         image: new ArrayBuffer(0),
         width: screenShotSize.width,
@@ -55,6 +59,10 @@ describe("robotjs screen action", () => {
     const screenRegion = new Region(0, 0, 10, 10);
     const SUT = new ScreenAction();
     robot.screen.capture = jest.fn(() => ({
+        bitsPerPixel: 0,
+        byteWidth: 0,
+        bytesPerPixel: 0,
+        colorAt: jest.fn(),
         height: screenShotSize.height,
         image: new ArrayBuffer(0),
         width: screenShotSize.width,

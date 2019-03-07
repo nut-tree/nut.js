@@ -13,11 +13,11 @@ const searchRegion = new Region(0, 0, 100, 100);
 
 beforeAll(() => {
   VisionAdapter.prototype.grabScreen = jest.fn(() => {
-    return new Image(searchRegion.width, searchRegion.height, new ArrayBuffer(0), 3);
+    return Promise.resolve(new Image(searchRegion.width, searchRegion.height, new ArrayBuffer(0), 3));
   });
 
   VisionAdapter.prototype.screenSize = jest.fn(() => {
-    return searchRegion;
+    return Promise.resolve(searchRegion);
   });
 });
 
@@ -26,7 +26,7 @@ describe("Screen.", () => {
     const matchResult = new MatchResult(0.99, searchRegion);
 
     VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
-      return matchResult;
+      return Promise.resolve(matchResult);
     });
 
     const visionAdapterMock = new VisionAdapter();
@@ -47,7 +47,7 @@ describe("Screen.", () => {
     const matchResult = new MatchResult(0.8, searchRegion);
 
     VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
-      return matchResult;
+      return Promise.resolve(matchResult);
     });
 
     const visionAdapterMock = new VisionAdapter();
@@ -64,7 +64,7 @@ describe("Screen.", () => {
     const matchResult = new MatchResult(minMatch, searchRegion);
 
     VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
-      return matchResult;
+      return Promise.resolve(matchResult);
     });
 
     const visionAdapterMock = new VisionAdapter();
@@ -88,7 +88,7 @@ describe("Screen.", () => {
     const matchResult = new MatchResult(0.99, searchRegion);
 
     VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
-      return matchResult;
+      return Promise.resolve(matchResult);
     });
 
     const visionAdapterMock = new VisionAdapter();
@@ -113,7 +113,7 @@ describe("Screen.", () => {
     const matchResult = new MatchResult(minMatch, searchRegion);
 
     VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
-      return matchResult;
+      return Promise.resolve(matchResult);
     });
 
     const visionAdapterMock = new VisionAdapter();
