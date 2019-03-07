@@ -1,6 +1,6 @@
 {
   "name": "@nut-tree/nut-js",
-  "version": "0.0.4",
+  "version": "0.1.0-beta.0",
   "license": "Apache-2.0",
   "main": "dist/index",
   "typings": "dist/index",
@@ -52,7 +52,7 @@
     "lint": "tslint -p tsconfig.json",
     "watch": "tsc -w -p .",
     "prepublishOnly": "npm run compile && npm test",
-    "versionUpdate": "bump --prompt --tag --push --all"
+    "versionBump": "bump --prompt --tag --push --all"
   },
   "dependencies": {
     "clipboardy": "^1.2.3",
