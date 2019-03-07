@@ -52,8 +52,7 @@
     "lint": "tslint -p tsconfig.json",
     "watch": "tsc -w -p .",
     "prepublishOnly": "npm run compile && npm test",
-    "version": "git add -A lib",
-    "postversion": "git push && git push --tags"
+    "versionUpdate": "bump --prompt --tag --push --all"
   },
   "dependencies": {
     "clipboardy": "^1.2.3",
@@ -62,10 +61,11 @@
   },
   "devDependencies": {
     "@types/clipboardy": "^1.1.0",
-    "@types/jest": "^23.3.9",
-    "jest": "^23.6.0",
-    "ts-jest": "^23.10.5",
-    "tslint": "^5.11.0",
-    "typescript": "^3.3.3"
+    "@types/jest": "^24.0.9",
+    "jest": "^24.1.0",
+    "ts-jest": "^24.0.0",
+    "tslint": "^5.13.1",
+    "typescript": "^3.3.3333",
+    "version-bump-prompt": "^4.3.0"
   }
 }
