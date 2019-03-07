@@ -1,6 +1,8 @@
 import { join, normalize } from "path";
-import { NativeAdapter } from "./adapter/native.adapter.class";
+import { cwd } from "process";
 import { VisionAdapter } from "./adapter/vision.adapter.class";
+import { FileType } from "./file-type.enum";
+import { generateOutputPath } from "./generate-output-path.function";
 import { LocationParameters } from "./locationparameters.class";
 import { MatchRequest } from "./match-request.class";
 import { Region } from "./region.class";
@@ -11,28 +13,29 @@ export class Screen {
     resourceDirectory: "./",
   };
 
-  constructor(private vision: VisionAdapter, private native: NativeAdapter) {}
+  constructor(private vision: VisionAdapter) {
+  }
 
   public width() {
-    return this.native.screenWidth();
+    return this.vision.screenWidth();
   }
 
   public height() {
-    return this.native.screenHeight();
+    return this.vision.screenHeight();
   }
 
-  public async findOnScreen(
+  public async find(
     pathToNeedle: string,
     params?: LocationParameters,
   ): Promise<Region> {
     const minMatch = (params && params.confidence) || this.config.confidence;
     const searchRegion =
-      (params && params.searchRegion) || await this.native.screenSize();
+      (params && params.searchRegion) || await this.vision.screenSize();
 
     const fullPathToNeedle = normalize(join(this.config.resourceDirectory, pathToNeedle));
-    console.log(`Full path to needle: ${fullPathToNeedle}`);
+    // console.log(`Full path to needle: ${fullPathToNeedle}`);
 
-    const screenImage = await this.native.grabScreen();
+    const screenImage = await this.vision.grabScreen();
 
     const matchRequest = new MatchRequest(
       screenImage,
@@ -50,9 +53,27 @@ export class Screen {
         reject(
           `No match for ${pathToNeedle}. Required: ${minMatch}, given: ${
             matchResult.confidence
-          }`,
+            }`,
         );
       }
     });
+  }
+
+  public async capture(
+    fileName: string,
+    fileFormat: FileType = FileType.PNG,
+    filePath: string = cwd(),
+    fileNamePrefix: string = "",
+    fileNamePostfix: string = ""): Promise<string> {
+    const outputPath = generateOutputPath(fileName, {
+      path: filePath,
+      postfix: fileNamePostfix,
+      prefix: fileNamePrefix,
+      type: fileFormat,
+    });
+
+    const currentScreen = await this.vision.grabScreen();
+    this.vision.saveImage(currentScreen, outputPath);
+    return outputPath;
   }
 }

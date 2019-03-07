@@ -1,11 +1,10 @@
-import {NativeAdapter} from "./adapter/native.adapter.class";
-import {VisionAdapter} from "./adapter/vision.adapter.class";
-import {Image} from "./image.class";
-import {LocationParameters} from "./locationparameters.class";
-import {MatchRequest} from "./match-request.class";
-import {MatchResult} from "./match-result.class";
-import {Region} from "./region.class";
-import {Screen} from "./screen.class";
+import { VisionAdapter } from "./adapter/vision.adapter.class";
+import { Image } from "./image.class";
+import { LocationParameters } from "./locationparameters.class";
+import { MatchRequest } from "./match-request.class";
+import { MatchResult } from "./match-result.class";
+import { Region } from "./region.class";
+import { Screen } from "./screen.class";
 
 jest.mock("./adapter/native.adapter.class");
 jest.mock("./adapter/vision.adapter.class");
@@ -13,12 +12,12 @@ jest.mock("./adapter/vision.adapter.class");
 const searchRegion = new Region(0, 0, 100, 100);
 
 beforeAll(() => {
-  NativeAdapter.prototype.grabScreen = jest.fn(() => {
-    return new Image(searchRegion.width, searchRegion.height, new ArrayBuffer(0), 3);
+  VisionAdapter.prototype.grabScreen = jest.fn(() => {
+    return Promise.resolve(new Image(searchRegion.width, searchRegion.height, new ArrayBuffer(0), 3));
   });
 
-  NativeAdapter.prototype.screenSize = jest.fn(() => {
-    return searchRegion;
+  VisionAdapter.prototype.screenSize = jest.fn(() => {
+    return Promise.resolve(searchRegion);
   });
 });
 
@@ -27,15 +26,14 @@ describe("Screen.", () => {
     const matchResult = new MatchResult(0.99, searchRegion);
 
     VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
-      return matchResult;
+      return Promise.resolve(matchResult);
     });
 
     const visionAdapterMock = new VisionAdapter();
-    const nativeAdapterMock = new NativeAdapter();
 
-    const SUT = new Screen(visionAdapterMock, nativeAdapterMock);
+    const SUT = new Screen(visionAdapterMock);
     const imagePath = "test/path/to/image.png";
-    await expect(SUT.findOnScreen(imagePath)).resolves.toEqual(matchResult.location);
+    await expect(SUT.find(imagePath)).resolves.toEqual(matchResult.location);
     const matchRequest = new MatchRequest(
         expect.any(Image),
         imagePath,
@@ -49,15 +47,14 @@ describe("Screen.", () => {
     const matchResult = new MatchResult(0.8, searchRegion);
 
     VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
-      return matchResult;
+      return Promise.resolve(matchResult);
     });
 
     const visionAdapterMock = new VisionAdapter();
-    const nativeAdapterMock = new NativeAdapter();
 
-    const SUT = new Screen(visionAdapterMock, nativeAdapterMock);
+    const SUT = new Screen(visionAdapterMock);
     const imagePath = "test/path/to/image.png";
-    await expect(SUT.findOnScreen(imagePath))
+    await expect(SUT.find(imagePath))
         .rejects
         .toEqual(`No match for ${imagePath}. Required: ${SUT.config.confidence}, given: ${matchResult.confidence}`);
   });
@@ -67,17 +64,16 @@ describe("Screen.", () => {
     const matchResult = new MatchResult(minMatch, searchRegion);
 
     VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
-      return matchResult;
+      return Promise.resolve(matchResult);
     });
 
     const visionAdapterMock = new VisionAdapter();
-    const nativeAdapterMock = new NativeAdapter();
 
-    const SUT = new Screen(visionAdapterMock, nativeAdapterMock);
+    const SUT = new Screen(visionAdapterMock);
 
     const imagePath = "test/path/to/image.png";
     const parameters = new LocationParameters(undefined, minMatch);
-    await expect(SUT.findOnScreen(imagePath, parameters)).resolves.toEqual(matchResult.location);
+    await expect(SUT.find(imagePath, parameters)).resolves.toEqual(matchResult.location);
     const matchRequest = new MatchRequest(
         expect.any(Image),
         imagePath,
@@ -92,17 +88,16 @@ describe("Screen.", () => {
     const matchResult = new MatchResult(0.99, searchRegion);
 
     VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
-      return matchResult;
+      return Promise.resolve(matchResult);
     });
 
     const visionAdapterMock = new VisionAdapter();
-    const nativeAdapterMock = new NativeAdapter();
 
-    const SUT = new Screen(visionAdapterMock, nativeAdapterMock);
+    const SUT = new Screen(visionAdapterMock);
 
     const imagePath = "test/path/to/image.png";
     const parameters = new LocationParameters(customSearchRegion);
-    await expect(SUT.findOnScreen(imagePath, parameters)).resolves.toEqual(matchResult.location);
+    await expect(SUT.find(imagePath, parameters)).resolves.toEqual(matchResult.location);
     const matchRequest = new MatchRequest(
         expect.any(Image),
         imagePath,
@@ -118,17 +113,16 @@ describe("Screen.", () => {
     const matchResult = new MatchResult(minMatch, searchRegion);
 
     VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
-      return matchResult;
+      return Promise.resolve(matchResult);
     });
 
     const visionAdapterMock = new VisionAdapter();
-    const nativeAdapterMock = new NativeAdapter();
 
-    const SUT = new Screen(visionAdapterMock, nativeAdapterMock);
+    const SUT = new Screen(visionAdapterMock);
 
     const imagePath = "test/path/to/image.png";
     const parameters = new LocationParameters(customSearchRegion, minMatch);
-    await expect(SUT.findOnScreen(imagePath, parameters)).resolves.toEqual(matchResult.location);
+    await expect(SUT.find(imagePath, parameters)).resolves.toEqual(matchResult.location);
     const matchRequest = new MatchRequest(
         expect.any(Image),
         imagePath,

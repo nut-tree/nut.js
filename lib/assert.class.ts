@@ -7,30 +7,30 @@ export class Assert {
 
   public async isVisible(pathToNeedle: string, searchRegion?: Region, confidence?: number) {
     try {
-      await this.screen.findOnScreen(
+      await this.screen.find(
         pathToNeedle,
         {searchRegion, confidence} as LocationParameters,
       );
     } catch (err) {
       if (searchRegion !== undefined) {
         throw new Error(
-          `Element not found in region ${searchRegion.toString()}`,
+          `Element '${pathToNeedle}' not found in region ${searchRegion.toString()}`,
         );
       } else {
-        throw new Error("Element not found");
+        throw new Error(`Element '${pathToNeedle}' not found`);
       }
     }
   }
 
   public async notVisible(pathToNeedle: string, searchRegion?: Region, confidence?: number) {
     try {
-      await this.screen.findOnScreen(
+      await this.screen.find(
         pathToNeedle,
         {searchRegion, confidence} as LocationParameters,
       );
     } catch (err) {
       return;
     }
-    throw new Error("Element visible");
+    throw new Error(`'${pathToNeedle}' is visible`);
   }
 }

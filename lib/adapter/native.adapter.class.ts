@@ -1,5 +1,4 @@
 import { Button } from "../button.enum";
-import { Image } from "../image.class";
 import { Key } from "../key.enum";
 import { Point } from "../point.class";
 import { ClipboardActionProvider } from "../provider/native/clipboard-action-provider.interface";
@@ -8,9 +7,6 @@ import { KeyboardActionProvider } from "../provider/native/keyboard-action-provi
 import { MouseActionInterface } from "../provider/native/mouse-action-provider.interface";
 import { KeyboardAction } from "../provider/native/robotjs-keyboard-action.class";
 import { MouseAction } from "../provider/native/robotjs-mouse-action.class";
-import { ScreenAction } from "../provider/native/robotjs-screen-action.class";
-import { ScreenActionProvider } from "../provider/native/screen-action-provider.interface";
-import { Region } from "../region.class";
 
 /**
  * NativeAdapter serves as an abstraction layer for all OS level interactions.
@@ -24,29 +20,7 @@ export class NativeAdapter {
     private clipboard: ClipboardActionProvider = new ClipboardAction(),
     private keyboard: KeyboardActionProvider = new KeyboardAction(),
     private mouse: MouseActionInterface = new MouseAction(),
-    private screen: ScreenActionProvider = new ScreenAction(),
   ) {}
-
-  /**
-   * grabScreen will return an Image containing the current screen image
-   *
-   * @returns {Promise<Image>} Image will contain screenshot data as well as dimensions
-   * @memberof NativeAdapter
-   */
-  public grabScreen(): Promise<Image> {
-    return this.screen.grabScreen();
-  }
-
-  /**
-   * grabScreenRegion essentially does the same as grabScreen, but only returns a specified Region
-   *
-   * @param {Region} region The screen region we want to grab
-   * @returns {Promise<Image>} Image will contain screenshot data of the specified region as well as dimensions
-   * @memberof NativeAdapter
-   */
-  public grabScreenRegion(region: Region): Promise<Image> {
-    return this.screen.grabScreenRegion(region);
-  }
 
   /**
    * setMouseDelay configures mouse speed for movement
@@ -86,42 +60,6 @@ export class NativeAdapter {
    */
   public currentMousePosition(): Promise<Point> {
     return this.mouse.currentMousePosition();
-  }
-
-  /**
-   * screenWidth returns the main screen's width as reported by the OS.
-   * Please notice that on e.g. Apples Retina display the reported width
-   * and the actual pixel size may differ
-   *
-   * @returns {Promise<number>} The main screen's width as reported by the OS
-   * @memberof NativeAdapter
-   */
-  public screenWidth(): Promise<number> {
-    return this.screen.screenWidth();
-  }
-
-  /**
-   * screenHeight returns the main screen's height as reported by the OS.
-   * Please notice that on e.g. Apples Retina display the reported width
-   * and the actual pixel size may differ
-   *
-   * @returns {Promise<number>} The main screen's height as reported by the OS
-   * @memberof NativeAdapter
-   */
-  public screenHeight(): Promise<number> {
-    return this.screen.screenHeight();
-  }
-
-  /**
-   * screenSize returns a Region object with the main screen's size.
-   * Please notice that on e.g. Apples Retina display the reported width
-   * and the actual pixel size may differ
-   *
-   * @returns {Promise<Region>} The Region object the size of your main screen
-   * @memberof NativeAdapter
-   */
-  public screenSize(): Promise<Region> {
-    return this.screen.screenSize();
   }
 
   /**

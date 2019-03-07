@@ -4,55 +4,19 @@ import { Point } from "../point.class";
 import { ClipboardAction } from "../provider/native/clipboardy-clipboard-action.class";
 import { KeyboardAction } from "../provider/native/robotjs-keyboard-action.class";
 import { MouseAction } from "../provider/native/robotjs-mouse-action.class";
-import { ScreenAction } from "../provider/native/robotjs-screen-action.class";
-import { Region } from "../region.class";
 import { NativeAdapter } from "./native.adapter.class";
 
 jest.mock("../provider/native/clipboardy-clipboard-action.class");
 jest.mock("../provider/native/robotjs-mouse-action.class");
 jest.mock("../provider/native/robotjs-keyboard-action.class");
-jest.mock("../provider/native/robotjs-screen-action.class");
 
-describe("Native adapter class", () => {
-  it("should delegate calls to grabScreen", () => {
-    // GIVEN
-    const clipboardMock = new ClipboardAction();
-    const keyboardMock = new KeyboardAction();
-    const mouseMock = new MouseAction();
-    const screenMock = new ScreenAction();
-    const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, screenMock);
-
-    // WHEN
-    SUT.grabScreen();
-
-    // THEN
-    expect(screenMock.grabScreen).toBeCalledTimes(1);
-  });
-
-  it("should delegate calls to grabScreenRegion", () => {
-    // GIVEN
-    const clipboardMock = new ClipboardAction();
-    const keyboardMock = new KeyboardAction();
-    const mouseMock = new MouseAction();
-    const screenMock = new ScreenAction();
-    const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, screenMock);
-    const screenRegion = new Region(0, 0, 100, 100);
-
-    // WHEN
-    SUT.grabScreenRegion(screenRegion);
-
-    // THEN
-    expect(screenMock.grabScreenRegion).toBeCalledTimes(1);
-    expect(screenMock.grabScreenRegion).toBeCalledWith(screenRegion);
-  });
-
+describe("NativeAdapter class", () => {
   it("should delegate calls to setMouseDelay", () => {
     // GIVEN
     const clipboardMock = new ClipboardAction();
     const keyboardMock = new KeyboardAction();
     const mouseMock = new MouseAction();
-    const screenMock = new ScreenAction();
-    const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, screenMock);
+    const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock);
     const delay = 5;
 
     // WHEN
@@ -68,8 +32,7 @@ describe("Native adapter class", () => {
     const clipboardMock = new ClipboardAction();
     const keyboardMock = new KeyboardAction();
     const mouseMock = new MouseAction();
-    const screenMock = new ScreenAction();
-    const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, screenMock);
+    const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock);
     const newPosition = new Point(10, 10);
 
     // WHEN
@@ -85,8 +48,7 @@ describe("Native adapter class", () => {
     const clipboardMock = new ClipboardAction();
     const keyboardMock = new KeyboardAction();
     const mouseMock = new MouseAction();
-    const screenMock = new ScreenAction();
-    const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, screenMock);
+    const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock);
 
     // WHEN
     SUT.currentMousePosition();
@@ -95,58 +57,12 @@ describe("Native adapter class", () => {
     expect(mouseMock.currentMousePosition).toBeCalledTimes(1);
   });
 
-  it("should delegate calls to screenWidth", () => {
-    // GIVEN
-    const clipboardMock = new ClipboardAction();
-    const keyboardMock = new KeyboardAction();
-    const mouseMock = new MouseAction();
-    const screenMock = new ScreenAction();
-    const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, screenMock);
-
-    // WHEN
-    SUT.screenWidth();
-
-    // THEN
-    expect(screenMock.screenWidth).toBeCalledTimes(1);
-  });
-
-  it("should delegate calls to screenHeight", () => {
-    // GIVEN
-    const clipboardMock = new ClipboardAction();
-    const keyboardMock = new KeyboardAction();
-    const mouseMock = new MouseAction();
-    const screenMock = new ScreenAction();
-    const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, screenMock);
-
-    // WHEN
-    SUT.screenHeight();
-
-    // THEN
-    expect(screenMock.screenHeight).toBeCalledTimes(1);
-  });
-
-  it("should delegate calls to screenSize", () => {
-    // GIVEN
-    const clipboardMock = new ClipboardAction();
-    const keyboardMock = new KeyboardAction();
-    const mouseMock = new MouseAction();
-    const screenMock = new ScreenAction();
-    const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, screenMock);
-
-    // WHEN
-    SUT.screenSize();
-
-    // THEN
-    expect(screenMock.screenSize).toBeCalledTimes(1);
-  });
-
   it("should delegate calls to leftClick", () => {
     // GIVEN
     const clipboardMock = new ClipboardAction();
     const keyboardMock = new KeyboardAction();
     const mouseMock = new MouseAction();
-    const screenMock = new ScreenAction();
-    const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, screenMock);
+    const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock);
 
     // WHEN
     SUT.leftClick();
@@ -160,8 +76,7 @@ describe("Native adapter class", () => {
     const clipboardMock = new ClipboardAction();
     const keyboardMock = new KeyboardAction();
     const mouseMock = new MouseAction();
-    const screenMock = new ScreenAction();
-    const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, screenMock);
+    const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock);
 
     // WHEN
     SUT.rightClick();
@@ -175,8 +90,7 @@ describe("Native adapter class", () => {
     const clipboardMock = new ClipboardAction();
     const keyboardMock = new KeyboardAction();
     const mouseMock = new MouseAction();
-    const screenMock = new ScreenAction();
-    const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, screenMock);
+    const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock);
 
     // WHEN
     SUT.middleClick();
@@ -190,8 +104,7 @@ describe("Native adapter class", () => {
     const clipboardMock = new ClipboardAction();
     const keyboardMock = new KeyboardAction();
     const mouseMock = new MouseAction();
-    const screenMock = new ScreenAction();
-    const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, screenMock);
+    const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock);
     const buttonToPress = Button.LEFT;
 
     // WHEN
@@ -207,8 +120,7 @@ describe("Native adapter class", () => {
     const clipboardMock = new ClipboardAction();
     const keyboardMock = new KeyboardAction();
     const mouseMock = new MouseAction();
-    const screenMock = new ScreenAction();
-    const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, screenMock);
+    const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock);
     const buttonToRelease = Button.LEFT;
 
     // WHEN
@@ -224,8 +136,7 @@ describe("Native adapter class", () => {
     const clipboardMock = new ClipboardAction();
     const keyboardMock = new KeyboardAction();
     const mouseMock = new MouseAction();
-    const screenMock = new ScreenAction();
-    const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, screenMock);
+    const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock);
     const keyToPress = Key.A;
 
     // WHEN
@@ -241,8 +152,7 @@ describe("Native adapter class", () => {
     const clipboardMock = new ClipboardAction();
     const keyboardMock = new KeyboardAction();
     const mouseMock = new MouseAction();
-    const screenMock = new ScreenAction();
-    const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, screenMock);
+    const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock);
     const keyToRelease = Key.A;
 
     // WHEN
@@ -258,8 +168,7 @@ describe("Native adapter class", () => {
     const clipboardMock = new ClipboardAction();
     const keyboardMock = new KeyboardAction();
     const mouseMock = new MouseAction();
-    const screenMock = new ScreenAction();
-    const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, screenMock);
+    const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock);
     const keyToClick = Key.A;
 
     // WHEN
@@ -275,8 +184,7 @@ describe("Native adapter class", () => {
     const clipboardMock = new ClipboardAction();
     const keyboardMock = new KeyboardAction();
     const mouseMock = new MouseAction();
-    const screenMock = new ScreenAction();
-    const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, screenMock);
+    const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock);
     const stringToType = "testString";
 
     // WHEN
@@ -292,8 +200,7 @@ describe("Native adapter class", () => {
     const clipboardMock = new ClipboardAction();
     const keyboardMock = new KeyboardAction();
     const mouseMock = new MouseAction();
-    const screenMock = new ScreenAction();
-    const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, screenMock);
+    const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock);
     const stringToCopy = "testString";
 
     // WHEN
@@ -309,8 +216,7 @@ describe("Native adapter class", () => {
     const clipboardMock = new ClipboardAction();
     const keyboardMock = new KeyboardAction();
     const mouseMock = new MouseAction();
-    const screenMock = new ScreenAction();
-    const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, screenMock);
+    const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock);
 
     // WHEN
     SUT.paste();

@@ -24,110 +24,110 @@ describe("Mouse class", () => {
     expect(SUT.config.autoDelayMs).toEqual(100);
   });
 
-  it("should forward scrollLeft to the native adapter class", () => {
+  it("should forward scrollLeft to the native adapter class", async () => {
     // GIVEN
     const nativeAdapterMock = new NativeAdapter();
     const SUT = new Mouse(nativeAdapterMock);
     const scrollAmount = 5;
 
     // WHEN
-    const result = SUT.scrollLeft(scrollAmount);
+    const result = await SUT.scrollLeft(scrollAmount);
 
     // THEN
     expect(nativeAdapterMock.scrollLeft).toBeCalledWith(scrollAmount);
     expect(result).toBe(SUT);
   });
 
-  it("should forward scrollRight to the native adapter class", () => {
+  it("should forward scrollRight to the native adapter class", async () => {
     // GIVEN
     const nativeAdapterMock = new NativeAdapter();
     const SUT = new Mouse(nativeAdapterMock);
     const scrollAmount = 5;
 
     // WHEN
-    const result = SUT.scrollRight(scrollAmount);
+    const result = await SUT.scrollRight(scrollAmount);
 
     // THEN
     expect(nativeAdapterMock.scrollRight).toBeCalledWith(scrollAmount);
     expect(result).toBe(SUT);
   });
 
-  it("should forward scrollDown to the native adapter class", () => {
+  it("should forward scrollDown to the native adapter class", async () => {
     // GIVEN
     const nativeAdapterMock = new NativeAdapter();
     const SUT = new Mouse(nativeAdapterMock);
     const scrollAmount = 5;
 
     // WHEN
-    const result = SUT.scrollDown(scrollAmount);
+    const result = await SUT.scrollDown(scrollAmount);
 
     // THEN
     expect(nativeAdapterMock.scrollDown).toBeCalledWith(scrollAmount);
     expect(result).toBe(SUT);
   });
 
-  it("should forward scrollUp to the native adapter class", () => {
+  it("should forward scrollUp to the native adapter class", async () => {
     // GIVEN
     const nativeAdapterMock = new NativeAdapter();
     const SUT = new Mouse(nativeAdapterMock);
     const scrollAmount = 5;
 
     // WHEN
-    const result = SUT.scrollUp(scrollAmount);
+    const result = await SUT.scrollUp(scrollAmount);
 
     // THEN
     expect(nativeAdapterMock.scrollUp).toBeCalledWith(scrollAmount);
     expect(result).toBe(SUT);
   });
 
-  it("should forward leftClick to the native adapter class", () => {
+  it("should forward leftClick to the native adapter class", async () => {
     // GIVEN
     const nativeAdapterMock = new NativeAdapter();
     const SUT = new Mouse(nativeAdapterMock);
 
     // WHEN
-    const result = SUT.leftClick();
+    const result = await SUT.leftClick();
 
     // THEN
     expect(nativeAdapterMock.leftClick).toBeCalled();
     expect(result).toBe(SUT);
   });
 
-  it("should forward rightClick to the native adapter class", () => {
+  it("should forward rightClick to the native adapter class", async () => {
     // GIVEN
     const nativeAdapterMock = new NativeAdapter();
     const SUT = new Mouse(nativeAdapterMock);
 
     // WHEN
-    const result = SUT.rightClick();
+    const result = await SUT.rightClick();
 
     // THEN
     expect(nativeAdapterMock.rightClick).toBeCalled();
     expect(result).toBe(SUT);
   });
 
-  it("update mouse position along path on move", () => {
+  it("update mouse position along path on move", async () => {
     // GIVEN
     const nativeAdapterMock = new NativeAdapter();
     const SUT = new Mouse(nativeAdapterMock);
     const path = linehelper.straightLine(new Point(0, 0), new Point(10, 10));
 
     // WHEN
-    const result = SUT.move(path);
+    const result = await SUT.move(path);
 
     // THEN
     expect(nativeAdapterMock.setMousePosition).toBeCalledTimes(path.length);
     expect(result).toBe(SUT);
   });
 
-  it("should press and hold left mouse button, move and release left mouse button on drag", () => {
+  it("should press and hold left mouse button, move and release left mouse button on drag", async () => {
     // GIVEN
     const nativeAdapterMock = new NativeAdapter();
     const SUT = new Mouse(nativeAdapterMock);
     const path = linehelper.straightLine(new Point(0, 0), new Point(10, 10));
 
     // WHEN
-    const result = SUT.drag(path);
+    const result = await SUT.drag(path);
 
     // THEN
     expect(nativeAdapterMock.pressButton).toBeCalledWith(Button.LEFT);

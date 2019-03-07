@@ -16,86 +16,107 @@ export class Mouse {
     this.lastAction = Date.now();
   }
 
-  public setPosition(target: Point): Mouse {
-    this.native.setMousePosition(target);
-    return this;
+  public setPosition(target: Point): Promise<Mouse> {
+    return new Promise<Mouse>(resolve => {
+      this.native.setMousePosition(target);
+      resolve(this);
+    });
   }
 
   public getPosition(): Promise<Point> {
     return this.native.currentMousePosition();
   }
 
-  public move(path: Point[], movementType = MovementType.linear): Mouse {
-    const timeSteps = movementType(path.length, this.config.mouseSpeed);
-    for (let idx = 0; idx < path.length; ++idx) {
-      const node = path[idx];
-      const minTime = timeSteps[idx];
-      this.waitForNextTick(minTime);
-      this.native.setMousePosition(node);
-      this.updateTick();
-    }
-    return this;
+  public async move(path: Point[], movementType = MovementType.linear): Promise<Mouse> {
+    return new Promise<Mouse>(async resolve => {
+      const timeSteps = movementType(path.length, this.config.mouseSpeed);
+      for (let idx = 0; idx < path.length; ++idx) {
+        const node = path[idx];
+        const minTime = timeSteps[idx];
+        await this.waitForNextTick(minTime);
+        this.native.setMousePosition(node);
+        await this.updateTick();
+      }
+      resolve(this);
+    });
   }
 
-  public leftClick(): Mouse {
-    this.waitForNextTick(this.config.autoDelayMs);
-    this.native.leftClick();
-    this.updateTick();
-    return this;
+  public async leftClick(): Promise<Mouse> {
+    return new Promise<Mouse>(async resolve => {
+      await this.waitForNextTick(this.config.autoDelayMs);
+      this.native.leftClick();
+      await this.updateTick();
+      resolve(this);
+    });
   }
 
-  public rightClick(): Mouse {
-    this.waitForNextTick(this.config.autoDelayMs);
-    this.native.rightClick();
-    this.updateTick();
-    return this;
+  public async rightClick(): Promise<Mouse> {
+    return new Promise<Mouse>(async resolve => {
+      await this.waitForNextTick(this.config.autoDelayMs);
+      this.native.rightClick();
+      await this.updateTick();
+      resolve(this);
+    });
   }
 
-  public scrollDown(amount: number): Mouse {
-    this.waitForNextTick(this.config.autoDelayMs);
-    this.native.scrollDown(amount);
-    this.updateTick();
-    return this;
+  public async scrollDown(amount: number): Promise<Mouse> {
+    return new Promise<Mouse>(async resolve => {
+      await this.waitForNextTick(this.config.autoDelayMs);
+      this.native.scrollDown(amount);
+      await this.updateTick();
+      resolve(this);
+    });
   }
 
-  public scrollUp(amount: number): Mouse {
-    this.waitForNextTick(this.config.autoDelayMs);
-    this.native.scrollUp(amount);
-    this.updateTick();
-    return this;
+  public async scrollUp(amount: number): Promise<Mouse> {
+    return new Promise<Mouse>(async resolve => {
+      await this.waitForNextTick(this.config.autoDelayMs);
+      this.native.scrollUp(amount);
+      await this.updateTick();
+      resolve(this);
+    });
   }
 
-  public scrollLeft(amount: number): Mouse {
-    this.waitForNextTick(this.config.autoDelayMs);
-    this.native.scrollLeft(amount);
-    this.updateTick();
-    return this;
+  public async scrollLeft(amount: number): Promise<Mouse> {
+    return new Promise<Mouse>(async resolve => {
+      await this.waitForNextTick(this.config.autoDelayMs);
+      this.native.scrollLeft(amount);
+      await this.updateTick();
+      resolve(this);
+    });
   }
 
-  public scrollRight(amount: number): Mouse {
-    this.waitForNextTick(this.config.autoDelayMs);
-    this.native.scrollRight(amount);
-    this.updateTick();
-    return this;
+  public async scrollRight(amount: number): Promise<Mouse> {
+    return new Promise<Mouse>(async resolve => {
+      await this.waitForNextTick(this.config.autoDelayMs);
+      this.native.scrollRight(amount);
+      await this.updateTick();
+      resolve(this);
+    });
   }
 
-  public drag(path: Point[]): Mouse {
-    this.waitForNextTick(this.config.autoDelayMs);
-    this.native.pressButton(Button.LEFT);
-    this.move(path);
-    this.native.releaseButton(Button.LEFT);
-    this.updateTick();
-    return this;
+  public async drag(path: Point[]): Promise<Mouse> {
+    return new Promise<Mouse>(async resolve => {
+      await this.waitForNextTick(this.config.autoDelayMs);
+      this.native.pressButton(Button.LEFT);
+      await this.move(path);
+      this.native.releaseButton(Button.LEFT);
+      await this.updateTick();
+      resolve(this);
+    });
   }
 
-  private updateTick() {
+  private async updateTick() {
     this.lastAction = Date.now();
   }
 
-  private waitForNextTick(minTime: number) {
-    let current = Date.now();
-    while (current - this.lastAction < minTime) {
-      current = Date.now();
-    }
+  private async waitForNextTick(minTime: number): Promise<void> {
+    return new Promise<void>(resolve => {
+      let current = Date.now();
+      while (current - this.lastAction < minTime) {
+        current = Date.now();
+      }
+      resolve();
+    });
   }
 }

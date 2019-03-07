@@ -20,14 +20,14 @@ describe("Keyboard", () => {
     expect(SUT.config.autoDelayMs).toEqual(500);
   });
 
-  it("should pass input strings down to the type call.", () => {
+  it("should pass input strings down to the type call.", async () => {
     // GIVEN
     const adapterMock = new NativeAdapter();
     const SUT = new Keyboard(adapterMock);
     const payload = "Test input!";
 
     // WHEN
-    SUT.type(payload);
+    await SUT.type(payload);
 
     // THEN
     expect(adapterMock.type).toHaveBeenCalledTimes(payload.length);
@@ -36,14 +36,14 @@ describe("Keyboard", () => {
     }
   });
 
-  it("should pass multiple input strings down to the type call.", () => {
+  it("should pass multiple input strings down to the type call.", async () => {
     // GIVEN
     const adapterMock = new NativeAdapter();
     const SUT = new Keyboard(adapterMock);
     const payload = ["Test input!", "Array test2"];
 
     // WHEN
-    SUT.type(...payload);
+    await SUT.type(...payload);
 
     // THEN
     expect(adapterMock.type).toHaveBeenCalledTimes(payload.join(" ").length);
@@ -52,21 +52,21 @@ describe("Keyboard", () => {
     }
   });
 
-  it("should pass input keys down to the click call.", () => {
+  it("should pass input keys down to the click call.", async () => {
     // GIVEN
     const adapterMock = new NativeAdapter();
     const SUT = new Keyboard(adapterMock);
     const payload = [Key.A, Key.S, Key.D, Key.F];
 
     // WHEN
-    SUT.type(...payload);
+    await SUT.type(...payload);
 
     // THEN
     expect(adapterMock.click).toHaveBeenCalledTimes(1);
     expect(adapterMock.click).toHaveBeenCalledWith(...payload);
   });
 
-  it("should pass a list of input keys down to the click call.", () => {
+  it("should pass a list of input keys down to the click call.", async () => {
     // GIVEN
     const adapterMock = new NativeAdapter();
     const SUT = new Keyboard(adapterMock);
@@ -74,14 +74,14 @@ describe("Keyboard", () => {
 
     // WHEN
     for (const key of payload) {
-      SUT.type(key);
+      await SUT.type(key);
     }
 
     // THEN
     expect(adapterMock.click).toHaveBeenCalledTimes(payload.length);
   });
 
-  it("should pass a list of input keys down to the pressKey call.", () => {
+  it("should pass a list of input keys down to the pressKey call.", async () => {
     // GIVEN
     const adapterMock = new NativeAdapter();
     const SUT = new Keyboard(adapterMock);
@@ -89,14 +89,14 @@ describe("Keyboard", () => {
 
     // WHEN
     for (const key of payload) {
-      SUT.pressKey(key);
+      await SUT.pressKey(key);
     }
 
     // THEN
     expect(adapterMock.pressKey).toHaveBeenCalledTimes(payload.length);
   });
 
-  it("should pass a list of input keys down to the releaseKey call.", () => {
+  it("should pass a list of input keys down to the releaseKey call.", async () => {
     // GIVEN
     const adapterMock = new NativeAdapter();
     const SUT = new Keyboard(adapterMock);
@@ -104,7 +104,7 @@ describe("Keyboard", () => {
 
     // WHEN
     for (const key of payload) {
-      SUT.releaseKey(key);
+      await SUT.releaseKey(key);
     }
 
     // THEN

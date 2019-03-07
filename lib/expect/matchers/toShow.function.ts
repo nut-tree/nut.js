@@ -12,7 +12,7 @@ export const toShow = async (
     locationParams.confidence = confidence;
   }
   try {
-    await received.findOnScreen(needle, locationParams);
+    await received.find(needle, locationParams);
     return {
       message: () => `Expected screen to not show ${needle}`,
       pass: true,

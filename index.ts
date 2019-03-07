@@ -25,7 +25,7 @@ const clipboard = new Clipboard(nativeActions);
 const keyboard = new Keyboard(nativeActions);
 const mouse = new Mouse(nativeActions);
 const movement = new Movement(nativeActions, new LineHelper());
-const screen = new Screen(screenActions, nativeActions);
+const screen = new Screen(screenActions);
 const assert = new Assert(screen);
 
 export { clipboard, keyboard, mouse, movement, screen, assert };
