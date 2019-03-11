@@ -23,7 +23,6 @@
     "win32"
   ],
   "cpu": [
-    "arm",
     "x64",
     "ia32"
   ],
@@ -56,7 +55,7 @@
   },
   "dependencies": {
     "clipboardy": "^1.2.3",
-    "opencv4nodejs": "^4.14.1",
+    "opencv4nodejs-prebuilt": "^4.14.1",
     "robotjs": "^0.5.1"
   },
   "devDependencies": {
