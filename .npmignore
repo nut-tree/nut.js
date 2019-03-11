@@ -6,3 +6,8 @@ tslint.json
 .idea
 .github
 /.gfx
+/asdf.jpg
+/foo_asdf_bar.jpg
+/asdf.png
+/asdf_bar.jpg
+/foo_asdf.jpg

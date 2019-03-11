@@ -1,11 +1,13 @@
 import { NativeAdapter } from "./adapter/native.adapter.class";
 import { Key } from "./key.enum";
 
-export class Keyboard {
+type StringOrKey = string[] | Key[];
 
-  private static inputIsString(input: string[] | Key[]): boolean {
-    return input.every((elem: string | Key) => typeof elem === "string");
-  }
+const inputIsString = (input: string[] | Key[]): input is string[] => {
+  return input.every((elem: string | Key) => typeof elem === "string");
+};
+
+export class Keyboard {
 
   public config = {
     autoDelayMs: 500,
@@ -18,11 +20,11 @@ export class Keyboard {
     this.lastAction = Date.now();
   }
 
-  public type(...input: string[] | Key[]): Promise<Keyboard> {
+  public type(...input: StringOrKey): Promise<Keyboard> {
     return new Promise<Keyboard>(async resolve => {
-      if (Keyboard.inputIsString(input)) {
+      if (inputIsString(input)) {
         for (const char of input.join(" ").split("")) {
-          await this.waitForNextTick();
+          await this.nextTick();
           this.nativeAdapter.type(char);
           this.updateTick();
         }
@@ -51,7 +53,7 @@ export class Keyboard {
     this.lastAction = Date.now();
   }
 
-  private async waitForNextTick(): Promise<void> {
+  private async nextTick(): Promise<void> {
     return new Promise<void>(resolve => {
       let current = Date.now();
       while (current - this.lastAction < this.config.autoDelayMs) {
