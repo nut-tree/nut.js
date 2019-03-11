@@ -1,4 +1,4 @@
-import * as cv from "opencv4nodejs";
+import * as cv from "opencv4nodejs-prebuilt";
 import { Image } from "../../image.class";
 import { DataSource } from "./data-source.interface";
 
