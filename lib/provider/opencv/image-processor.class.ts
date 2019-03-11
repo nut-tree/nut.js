@@ -1,4 +1,4 @@
-import * as cv from "opencv4nodejs";
+import * as cv from "opencv4nodejs-prebuilt";
 import { Image } from "../../image.class";
 import { Region } from "../../region.class";
 
