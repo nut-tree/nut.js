@@ -33,6 +33,13 @@ const close = async () => {
   await mouse.leftClick();
 };
 
+describe("E2E screen test", () => {
+  it("should throw on invalid images", async () => {
+    jest.setTimeout(30000);
+    await expect(screen.find("mouse.png")).rejects.toContain("Failed to load image");
+  });
+});
+
 describe("E2E demo", () => {
   it("should run without throwing", async () => {
     jest.setTimeout(30000);
