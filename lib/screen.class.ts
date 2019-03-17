@@ -44,16 +44,21 @@ export class Screen {
       minMatch,
     );
 
-    const matchResult = await this.vision.findOnScreenRegion(matchRequest);
-
-    return new Promise<Region>((resolve, reject) => {
-      if (matchResult.confidence >= minMatch) {
-        resolve(matchResult.location);
-      } else {
+    return new Promise<Region>(async (resolve, reject) => {
+      try {
+        const matchResult = await this.vision.findOnScreenRegion(matchRequest);
+        if (matchResult.confidence >= minMatch) {
+          resolve(matchResult.location);
+        } else {
+          reject(
+            `No match for ${pathToNeedle}. Required: ${minMatch}, given: ${
+              matchResult.confidence
+              }`,
+          );
+        }
+      } catch (e) {
         reject(
-          `No match for ${pathToNeedle}. Required: ${minMatch}, given: ${
-            matchResult.confidence
-            }`,
+          `Searching for ${pathToNeedle} failed. Reason: '${e}'`,
         );
       }
     });

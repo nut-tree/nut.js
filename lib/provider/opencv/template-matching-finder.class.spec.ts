@@ -60,6 +60,8 @@ describe("Template-matching finder", () => {
     const result = SUT.findMatch(matchRequest);
 
     // THEN
-    expect(result).rejects.toEqual(`Failed to load image from '${pathToHaystack}'`);
+    await expect(result)
+      .rejects
+      .toThrowError(`Failed to load ${pathToHaystack}. Reason: 'Failed to load image from '${pathToHaystack}''.`);
   });
 });

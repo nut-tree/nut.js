@@ -124,7 +124,7 @@ export class TemplateMatchingFinder implements FinderInterface {
       needle = await this.loadNeedle(needleInput);
     } catch (e) {
       throw new Error(
-        `Failed to load ${matchRequest.pathToNeedle}. Reason: '${e.message}'.`,
+        `Failed to load ${matchRequest.pathToNeedle}. Reason: '${e}'.`,
       );
     }
     if (!needle || needle.empty) {
@@ -190,12 +190,16 @@ export class TemplateMatchingFinder implements FinderInterface {
   }
 
   public async findMatch(matchRequest: MatchRequest, debug: boolean = false): Promise<MatchResult> {
-    const matches = await this.findMatches(matchRequest, debug);
-    return new Promise<MatchResult>((resolve, reject) => {
-      if (matches.length === 0) {
-        reject(`Unable to locate ${matchRequest.pathToNeedle}, no match!`);
+    return new Promise<MatchResult>(async (resolve, reject) => {
+      try {
+        const matches = await this.findMatches(matchRequest, debug);
+        if (matches.length === 0) {
+          reject(`Unable to locate ${matchRequest.pathToNeedle}, no match!`);
+        }
+        resolve(matches[0]);
+      } catch (e) {
+        reject(e);
       }
-      resolve(matches[0]);
     });
   }
 

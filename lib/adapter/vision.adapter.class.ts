@@ -57,8 +57,14 @@ export class VisionAdapter {
   public async findOnScreenRegion(
     matchRequest: MatchRequest,
   ): Promise<MatchResult> {
-    const matchResult = await this.finder.findMatch(matchRequest);
-    return Promise.resolve(matchResult);
+    return new Promise<MatchResult>(async (resolve, reject) => {
+      try {
+        const matchResult = await this.finder.findMatch(matchRequest);
+        resolve(matchResult);
+      } catch (e) {
+        reject(e);
+      }
+    });
   }
 
   /**
