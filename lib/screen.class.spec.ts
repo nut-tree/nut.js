@@ -1,3 +1,5 @@
+import { join } from "path";
+import { cwd } from "process";
 import { VisionAdapter } from "./adapter/vision.adapter.class";
 import { Image } from "./image.class";
 import { LocationParameters } from "./locationparameters.class";
@@ -35,11 +37,11 @@ describe("Screen.", () => {
     const imagePath = "test/path/to/image.png";
     await expect(SUT.find(imagePath)).resolves.toEqual(matchResult.location);
     const matchRequest = new MatchRequest(
-        expect.any(Image),
-        imagePath,
-        searchRegion,
-        SUT.config.confidence,
-        true);
+      expect.any(Image),
+      join(cwd(), imagePath),
+      searchRegion,
+      SUT.config.confidence,
+      true);
     expect(visionAdapterMock.findOnScreenRegion).toHaveBeenCalledWith(matchRequest);
   });
 
@@ -55,8 +57,8 @@ describe("Screen.", () => {
     const SUT = new Screen(visionAdapterMock);
     const imagePath = "test/path/to/image.png";
     await expect(SUT.find(imagePath))
-        .rejects
-        .toEqual(`No match for ${imagePath}. Required: ${SUT.config.confidence}, given: ${matchResult.confidence}`);
+      .rejects
+      .toEqual(`No match for ${imagePath}. Required: ${SUT.config.confidence}, given: ${matchResult.confidence}`);
   });
 
   it("should override default confidence value with parameter.", async () => {
@@ -75,11 +77,11 @@ describe("Screen.", () => {
     const parameters = new LocationParameters(undefined, minMatch);
     await expect(SUT.find(imagePath, parameters)).resolves.toEqual(matchResult.location);
     const matchRequest = new MatchRequest(
-        expect.any(Image),
-        imagePath,
-        searchRegion,
-        minMatch,
-        true);
+      expect.any(Image),
+      join(cwd(), imagePath),
+      searchRegion,
+      minMatch,
+      true);
     expect(visionAdapterMock.findOnScreenRegion).toHaveBeenCalledWith(matchRequest);
   });
 
@@ -99,11 +101,11 @@ describe("Screen.", () => {
     const parameters = new LocationParameters(customSearchRegion);
     await expect(SUT.find(imagePath, parameters)).resolves.toEqual(matchResult.location);
     const matchRequest = new MatchRequest(
-        expect.any(Image),
-        imagePath,
-        customSearchRegion,
-        SUT.config.confidence,
-        true);
+      expect.any(Image),
+      join(cwd(), imagePath),
+      customSearchRegion,
+      SUT.config.confidence,
+      true);
     expect(visionAdapterMock.findOnScreenRegion).toHaveBeenCalledWith(matchRequest);
   });
 
@@ -124,11 +126,11 @@ describe("Screen.", () => {
     const parameters = new LocationParameters(customSearchRegion, minMatch);
     await expect(SUT.find(imagePath, parameters)).resolves.toEqual(matchResult.location);
     const matchRequest = new MatchRequest(
-        expect.any(Image),
-        imagePath,
-        customSearchRegion,
-        minMatch,
-        true);
+      expect.any(Image),
+      join(cwd(), imagePath),
+      customSearchRegion,
+      minMatch,
+      true);
     expect(visionAdapterMock.findOnScreenRegion).toHaveBeenCalledWith(matchRequest);
   });
 });

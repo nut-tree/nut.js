@@ -10,7 +10,7 @@ import { Region } from "./region.class";
 export class Screen {
   public config = {
     confidence: 0.99,
-    resourceDirectory: "./",
+    resourceDirectory: cwd(),
   };
 
   constructor(private vision: VisionAdapter) {
