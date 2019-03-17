@@ -118,10 +118,16 @@ export class TemplateMatchingFinder implements FinderInterface {
   }
 
   public async findMatches(matchRequest: MatchRequest, debug: boolean = false): Promise<MatchResult[]> {
-    const needle = await this.loadNeedle(
-      await this.source.load(matchRequest.pathToNeedle)
-    );
-    if (needle.empty) {
+    let needle;
+    try {
+      const needleInput = await this.source.load(matchRequest.pathToNeedle);
+      needle = await this.loadNeedle(needleInput);
+    } catch (e) {
+      throw new Error(
+        `Failed to load ${matchRequest.pathToNeedle}. Reason: '${e.message}'.`,
+      );
+    }
+    if (!needle || needle.empty) {
       throw new Error(
         `Failed to load ${matchRequest.pathToNeedle}, got empty image.`,
       );
