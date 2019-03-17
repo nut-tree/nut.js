@@ -61,6 +61,21 @@ describe("Screen.", () => {
       .toEqual(`No match for ${imagePath}. Required: ${SUT.config.confidence}, given: ${matchResult.confidence}`);
   });
 
+  it("should reject when search fails.", async () => {
+    const rejectionReason = "Search failed.";
+    VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
+      return Promise.reject(rejectionReason);
+    });
+
+    const visionAdapterMock = new VisionAdapter();
+
+    const SUT = new Screen(visionAdapterMock);
+    const imagePath = "test/path/to/image.png";
+    await expect(SUT.find(imagePath))
+      .rejects
+      .toEqual(`Searching for ${imagePath} failed. Reason: '${rejectionReason}'`);
+  });
+
   it("should override default confidence value with parameter.", async () => {
     const minMatch = 0.8;
     const matchResult = new MatchResult(minMatch, searchRegion);

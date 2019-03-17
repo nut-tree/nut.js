@@ -198,7 +198,7 @@ export class TemplateMatchingFinder implements FinderInterface {
         }
         resolve(matches[0]);
       } catch (e) {
-        reject(e.message);
+        reject(e);
       }
     });
   }

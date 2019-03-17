@@ -62,6 +62,6 @@ describe("Template-matching finder", () => {
     // THEN
     await expect(result)
       .rejects
-      .toEqual(`Failed to load ${pathToHaystack}. Reason: 'Failed to load image from '${pathToHaystack}''.`);
+      .toThrowError(`Failed to load ${pathToHaystack}. Reason: 'Failed to load image from '${pathToHaystack}''.`);
   });
 });
