@@ -25,11 +25,11 @@ export class Keyboard {
       if (inputIsString(input)) {
         for (const char of input.join(" ").split("")) {
           await this.nextTick();
-          this.nativeAdapter.type(char);
+          await this.nativeAdapter.type(char);
           this.updateTick();
         }
       } else {
-        this.nativeAdapter.click(...input as Key[]);
+        await this.nativeAdapter.click(...input as Key[]);
       }
       resolve(this);
     });
@@ -37,14 +37,14 @@ export class Keyboard {
 
   public pressKey(...keys: Key[]): Promise<Keyboard> {
     return new Promise<Keyboard>(async resolve => {
-      this.nativeAdapter.pressKey(...keys);
+      await this.nativeAdapter.pressKey(...keys);
       resolve(this);
     });
   }
 
   public releaseKey(...keys: Key[]): Promise<Keyboard> {
     return new Promise<Keyboard>(async resolve => {
-      this.nativeAdapter.releaseKey(...keys);
+      await this.nativeAdapter.releaseKey(...keys);
       resolve(this);
     });
   }

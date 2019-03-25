@@ -48,8 +48,8 @@ export class NativeAdapter {
    * @param {Point} p The new cursor position
    * @memberof NativeAdapter
    */
-  public setMousePosition(p: Point): void {
-    this.mouse.setMousePosition(p);
+  public async setMousePosition(p: Point): Promise<void> {
+    await this.mouse.setMousePosition(p);
   }
 
   /**
@@ -58,8 +58,8 @@ export class NativeAdapter {
    * @returns {Promise<Point>} Current cursor position
    * @memberof NativeAdapter
    */
-  public currentMousePosition(): Promise<Point> {
-    return this.mouse.currentMousePosition();
+  public async currentMousePosition(): Promise<Point> {
+    return await this.mouse.currentMousePosition();
   }
 
   /**
@@ -67,8 +67,8 @@ export class NativeAdapter {
    *
    * @memberof NativeAdapter
    */
-  public leftClick(): void {
-    this.mouse.leftClick();
+  public async leftClick(): Promise<void> {
+    await this.mouse.leftClick();
   }
 
   /**
@@ -76,15 +76,15 @@ export class NativeAdapter {
    *
    * @memberof NativeAdapter
    */
-  public rightClick(): void {
-    this.mouse.rightClick();
+  public async rightClick(): Promise<void> {
+    await this.mouse.rightClick();
   }
 
   /**
    * middleClick triggers a native middle-click event via OS API
    */
-  public middleClick(): void {
-    this.mouse.middleClick();
+  public async middleClick(): Promise<void> {
+    await this.mouse.middleClick();
   }
 
   /**
@@ -93,8 +93,8 @@ export class NativeAdapter {
    * @param {Button} btn The mouse button to press
    * @memberof NativeAdapter
    */
-  public pressButton(btn: Button): void {
-    this.mouse.pressButton(btn);
+  public async pressButton(btn: Button): Promise<void> {
+    await this.mouse.pressButton(btn);
   }
 
   /**
@@ -103,8 +103,8 @@ export class NativeAdapter {
    * @param {Button} btn The mouse button to release
    * @memberof NativeAdapter
    */
-  public releaseButton(btn: Button): void {
-    this.mouse.releaseButton(btn);
+  public async releaseButton(btn: Button): Promise<void> {
+    await this.mouse.releaseButton(btn);
   }
 
   /**
@@ -113,8 +113,8 @@ export class NativeAdapter {
    * @param {string} input The text to type
    * @memberof NativeAdapter
    */
-  public type(input: string): void {
-    this.keyboard.type(input);
+  public async type(input: string): Promise<void> {
+    await this.keyboard.type(input);
   }
 
   /**
@@ -123,8 +123,8 @@ export class NativeAdapter {
    * @param {Key[]} keys The keys to click
    * @memberof NativeAdapter
    */
-  public click(...keys: Key[]): void {
-    this.keyboard.click(...keys);
+  public async click(...keys: Key[]): Promise<void> {
+    await this.keyboard.click(...keys);
   }
 
   /**
@@ -133,8 +133,8 @@ export class NativeAdapter {
    * @param {Key[]} keys The Keys to press and hold
    * @memberof NativeAdapter
    */
-  public pressKey(...keys: Key[]): void {
-    this.keyboard.pressKey(...keys);
+  public async pressKey(...keys: Key[]): Promise<void> {
+    await this.keyboard.pressKey(...keys);
   }
 
   /**
@@ -143,8 +143,8 @@ export class NativeAdapter {
    * @param {Key[]} keys The Keys to release
    * @memberof NativeAdapter
    */
-  public releaseKey(...keys: Key[]): void {
-    this.keyboard.releaseKey(...keys);
+  public async releaseKey(...keys: Key[]): Promise<void> {
+    await this.keyboard.releaseKey(...keys);
   }
 
   /**
@@ -153,8 +153,8 @@ export class NativeAdapter {
    * @param {number} amount The amount of 'ticks' to scroll
    * @memberof NativeAdapter
    */
-  public scrollUp(amount: number): void {
-    this.mouse.scrollUp(amount);
+  public async scrollUp(amount: number): Promise<void> {
+    await this.mouse.scrollUp(amount);
   }
 
   /**
@@ -163,8 +163,8 @@ export class NativeAdapter {
    * @param {number} amount The amount of 'ticks' to scroll
    * @memberof NativeAdapter
    */
-  public scrollDown(amount: number): void {
-    this.mouse.scrollDown(amount);
+  public async scrollDown(amount: number): Promise<void> {
+    await this.mouse.scrollDown(amount);
   }
 
   /**
@@ -173,8 +173,8 @@ export class NativeAdapter {
    * @param {number} amount The amount of 'ticks' to scroll
    * @memberof NativeAdapter
    */
-  public scrollLeft(amount: number): void {
-    this.mouse.scrollLeft(amount);
+  public async scrollLeft(amount: number): Promise<void> {
+    await this.mouse.scrollLeft(amount);
   }
 
   /**
@@ -183,8 +183,8 @@ export class NativeAdapter {
    * @param {number} amount The amount of 'ticks' to scroll
    * @memberof NativeAdapter
    */
-  public scrollRight(amount: number): void {
-    this.mouse.scrollRight(amount);
+  public async scrollRight(amount: number): Promise<void> {
+    await this.mouse.scrollRight(amount);
   }
 
   /**
@@ -193,8 +193,8 @@ export class NativeAdapter {
    * @param {string} text The text to copy
    * @memberof NativeAdapter
    */
-  public copy(text: string): void {
-    this.clipboard.copy(text);
+  public async copy(text: string): Promise<void> {
+    await this.clipboard.copy(text);
   }
 
   /**
@@ -203,7 +203,7 @@ export class NativeAdapter {
    * @returns {Promise<string>} The clipboard text
    * @memberof NativeAdapter
    */
-  public paste(): Promise<string> {
-    return this.clipboard.paste();
+  public async paste(): Promise<string> {
+    return await this.clipboard.paste();
   }
 }
