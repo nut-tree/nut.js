@@ -6,6 +6,7 @@ import { generateOutputPath } from "./generate-output-path.function";
 import { LocationParameters } from "./locationparameters.class";
 import { MatchRequest } from "./match-request.class";
 import { Region } from "./region.class";
+import { timeout } from "./util/poll-action.function";
 
 export class Screen {
   public config = {
@@ -62,6 +63,14 @@ export class Screen {
         );
       }
     });
+  }
+
+  public async waitFor(
+    pathToNeedle: string,
+    timeoutMs: number = 5000,
+    params?: LocationParameters,
+  ): Promise<Region> {
+    return timeout(500, timeoutMs, () => this.find(pathToNeedle, params));
   }
 
   public async capture(

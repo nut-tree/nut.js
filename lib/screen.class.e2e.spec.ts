@@ -87,4 +87,25 @@ describe("Screen.", () => {
       });
     });
   });
+
+  it("should run without throwing", async () => {
+    // GIVEN
+    const timeout = 5000;
+    const visionAdapter = new VisionAdapter();
+    const SUT = new Screen(visionAdapter);
+    SUT.config.resourceDirectory = "./e2e/assets";
+
+    // WHEN
+    const start = Date.now();
+    try {
+      await SUT.waitFor("calculator.png", timeout);
+    } catch (e) {
+      // THEN
+      expect(e).toBe(`Action timed out after ${timeout} ms`);
+    }
+    const end = Date.now();
+
+    // THEN
+    expect(end - start).toBeGreaterThanOrEqual(timeout);
+  });
 });
