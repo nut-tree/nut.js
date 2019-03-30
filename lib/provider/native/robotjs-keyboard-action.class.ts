@@ -148,18 +148,18 @@ export class KeyboardAction implements KeyboardActionProvider {
   }
 
   public type(input: string): Promise<void> {
-    return new Promise<void>(((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
       try {
         robot.typeString(input);
         resolve();
       } catch (e) {
         reject(e);
       }
-    }));
+    });
   }
 
   public click(...keys: Key[]): Promise<void> {
-    return new Promise<void>(((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
       try {
         keys.reverse();
         const [key, ...modifiers] = keys;
@@ -172,33 +172,33 @@ export class KeyboardAction implements KeyboardActionProvider {
       } catch (e) {
         reject(e);
       }
-    }));
+    });
   }
 
   public pressKey(...keys: Key[]): Promise<void> {
-    return new Promise<void>(((resolve, reject) => {
+    return new Promise<void>(async (resolve, reject) => {
       try {
         keys.reverse();
         const [key, ...modifiers] = keys;
-        KeyboardAction.key(key, "down", ...modifiers);
+        await KeyboardAction.key(key, "down", ...modifiers);
         resolve();
       } catch (e) {
         reject(e);
       }
-    }));
+    });
   }
 
   public releaseKey(...keys: Key[]): Promise<void> {
-    return new Promise<void>(((resolve, reject) => {
+    return new Promise<void>(async (resolve, reject) => {
       try {
         keys.reverse();
         const [key, ...modifiers] = keys;
-        KeyboardAction.key(key, "up", ...modifiers);
+        await KeyboardAction.key(key, "up", ...modifiers);
         resolve();
       } catch (e) {
         reject(e);
       }
-    }));
+    });
   }
 
   public setKeyboardDelay(delay: number): void {
