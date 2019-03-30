@@ -78,7 +78,7 @@ export class Screen {
     });
 
     const currentScreen = await this.vision.grabScreen();
-    this.vision.saveImage(currentScreen, outputPath);
+    await this.vision.saveImage(currentScreen, outputPath);
     return outputPath;
   }
 }
