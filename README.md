@@ -88,7 +88,7 @@ It's work in progress and will undergo constant modification.
 ## Screen
 
 - [x] findOnScreen
-- [ ] waitFor
+- [x] waitFor
 - [ ] Hooks to trigger actions based on images
 
 ## Integration
