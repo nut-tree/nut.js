@@ -88,7 +88,7 @@ describe("Screen.", () => {
     });
   });
 
-  it("should run without throwing", async () => {
+  it("should reject after timeout", async () => {
     // GIVEN
     const timeout = 5000;
     const visionAdapter = new VisionAdapter();
