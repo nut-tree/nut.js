@@ -90,6 +90,7 @@ describe("Screen.", () => {
 
   it("should reject after timeout", async () => {
     // GIVEN
+    jest.setTimeout(10000);
     const timeout = 5000;
     const visionAdapter = new VisionAdapter();
     const SUT = new Screen(visionAdapter);
