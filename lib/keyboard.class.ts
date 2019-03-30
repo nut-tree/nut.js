@@ -21,31 +21,43 @@ export class Keyboard {
   }
 
   public type(...input: StringOrKey): Promise<Keyboard> {
-    return new Promise<Keyboard>(async resolve => {
-      if (inputIsString(input)) {
-        for (const char of input.join(" ").split("")) {
-          await this.nextTick();
-          await this.nativeAdapter.type(char);
-          this.updateTick();
+    return new Promise<Keyboard>(async (resolve, reject) => {
+      try {
+        if (inputIsString(input)) {
+          for (const char of input.join(" ").split("")) {
+            await this.nextTick();
+            await this.nativeAdapter.type(char);
+            this.updateTick();
+          }
+        } else {
+          await this.nativeAdapter.click(...input as Key[]);
         }
-      } else {
-        await this.nativeAdapter.click(...input as Key[]);
+        resolve(this);
+      } catch (e) {
+        reject(e);
       }
-      resolve(this);
     });
   }
 
   public pressKey(...keys: Key[]): Promise<Keyboard> {
-    return new Promise<Keyboard>(async resolve => {
-      await this.nativeAdapter.pressKey(...keys);
-      resolve(this);
+    return new Promise<Keyboard>(async (resolve, reject) => {
+      try {
+        await this.nativeAdapter.pressKey(...keys);
+        resolve(this);
+      } catch (e) {
+        reject(e);
+      }
     });
   }
 
   public releaseKey(...keys: Key[]): Promise<Keyboard> {
-    return new Promise<Keyboard>(async resolve => {
-      await this.nativeAdapter.releaseKey(...keys);
-      resolve(this);
+    return new Promise<Keyboard>(async (resolve, reject) => {
+      try {
+        await this.nativeAdapter.releaseKey(...keys);
+        resolve(this);
+      } catch (e) {
+        reject(e);
+      }
     });
   }
 
