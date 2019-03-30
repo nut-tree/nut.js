@@ -30,8 +30,8 @@ export class VisionAdapter {
    * @returns {Promise<Image>} Image will contain screenshot data as well as dimensions
    * @memberof VisionAdapter
    */
-  public async grabScreen(): Promise<Image> {
-    return await this.screen.grabScreen();
+  public grabScreen(): Promise<Image> {
+    return this.screen.grabScreen();
   }
 
   /**
@@ -41,8 +41,8 @@ export class VisionAdapter {
    * @returns {Promise<Image>} Image will contain screenshot data of the specified region as well as dimensions
    * @memberof VisionAdapter
    */
-  public async grabScreenRegion(region: Region): Promise<Image> {
-    return await this.screen.grabScreenRegion(region);
+  public grabScreenRegion(region: Region): Promise<Image> {
+    return this.screen.grabScreenRegion(region);
   }
 
   /**
@@ -75,8 +75,8 @@ export class VisionAdapter {
    * @returns {Promise<number>} The main screen's width as reported by the OS
    * @memberof VisionAdapter
    */
-  public async screenWidth(): Promise<number> {
-    return await this.screen.screenWidth();
+  public screenWidth(): Promise<number> {
+    return this.screen.screenWidth();
   }
 
   /**
@@ -87,8 +87,8 @@ export class VisionAdapter {
    * @returns {Promise<number>} The main screen's height as reported by the OS
    * @memberof VisionAdapter
    */
-  public async screenHeight(): Promise<number> {
-    return await this.screen.screenHeight();
+  public screenHeight(): Promise<number> {
+    return this.screen.screenHeight();
   }
 
   /**
@@ -99,8 +99,8 @@ export class VisionAdapter {
    * @returns {Promise<Region>} The Region object the size of your main screen
    * @memberof VisionAdapter
    */
-  public async screenSize(): Promise<Region> {
-    return await this.screen.screenSize();
+  public screenSize(): Promise<Region> {
+    return this.screen.screenSize();
   }
 
   /**
@@ -110,7 +110,7 @@ export class VisionAdapter {
    * @param path The storage path
    * @memberof VisionAdapter
    */
-  public async saveImage(image: Image, path: string): Promise<void> {
-    await (this.dataSink as ImageWriter).store(image, path);
+  public saveImage(image: Image, path: string): Promise<void> {
+    return (this.dataSink as ImageWriter).store(image, path);
   }
 }

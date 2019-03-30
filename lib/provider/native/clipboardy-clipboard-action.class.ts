@@ -5,16 +5,29 @@ export class ClipboardAction implements ClipboardActionProvider {
   constructor() {
   }
 
-  public hasText(): Promise<boolean> {
-    return Promise.resolve(clippy.readSync().length > 0);
+  public async hasText(): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      try {
+        const content = clippy.readSync();
+        resolve(content.length > 0);
+      } catch (e) {
+        reject(e);
+      }
+    });
   }
 
   public clear(): Promise<boolean> {
-    throw new Error("Method not implemented.");
+    return Promise.reject("Method not implemented.");
   }
 
-  public copy(text: string): void {
-    clippy.writeSync(text);
+  public async copy(text: string): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      try {
+        clippy.writeSync(text);
+      } catch (e) {
+        reject(e);
+      }
+    });
   }
 
   public async paste(): Promise<string> {
