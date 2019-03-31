@@ -1,5 +1,6 @@
 import { NativeAdapter } from "./adapter/native.adapter.class";
 import { Key } from "./key.enum";
+import { sleep } from "./sleep.function";
 
 type StringOrKey = string[] | Key[];
 
@@ -10,14 +11,11 @@ const inputIsString = (input: string[] | Key[]): input is string[] => {
 export class Keyboard {
 
   public config = {
-    autoDelayMs: 500,
+    autoDelayMs: 300,
   };
-
-  private lastAction: number;
 
   constructor(private nativeAdapter: NativeAdapter) {
     this.nativeAdapter.setKeyboardDelay(this.config.autoDelayMs);
-    this.lastAction = Date.now();
   }
 
   public type(...input: StringOrKey): Promise<Keyboard> {
@@ -25,9 +23,8 @@ export class Keyboard {
       try {
         if (inputIsString(input)) {
           for (const char of input.join(" ").split("")) {
-            await this.nextTick();
+            await sleep(this.config.autoDelayMs);
             await this.nativeAdapter.type(char);
-            this.updateTick();
           }
         } else {
           await this.nativeAdapter.click(...input as Key[]);
@@ -58,20 +55,6 @@ export class Keyboard {
       } catch (e) {
         reject(e);
       }
-    });
-  }
-
-  private updateTick() {
-    this.lastAction = Date.now();
-  }
-
-  private async nextTick(): Promise<void> {
-    return new Promise<void>(resolve => {
-      let current = Date.now();
-      while (current - this.lastAction < this.config.autoDelayMs) {
-        current = Date.now();
-      }
-      resolve();
     });
   }
 }
