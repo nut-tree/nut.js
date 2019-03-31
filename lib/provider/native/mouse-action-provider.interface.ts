@@ -21,7 +21,7 @@ export interface MouseActionInterface {
    * @param {Point} p The point to which the mouse pointer should be set
    * @memberof MouseActionInterface
    */
-  setMousePosition(p: Point): void;
+  setMousePosition(p: Point): Promise<void>;
 
   /**
    * currentMousePosition should return the current mouse pointer position
@@ -36,21 +36,21 @@ export interface MouseActionInterface {
    *
    * @memberof MouseActionInterface
    */
-  leftClick(): void;
+  leftClick(): Promise<void>;
 
   /**
    * rightClick should allow to perform a right click via OS event
    *
    * @memberof MouseActionInterface
    */
-  rightClick(): void;
+  rightClick(): Promise<void>;
 
   /**
    * middleClick should allow to perform a middle click via OS event
    *
    * @memberof MouseActionInterface
    */
-  middleClick(): void;
+  middleClick(): Promise<void>;
 
   /**
    * scrollUp should allow to perform an upward mouse scroll
@@ -58,7 +58,7 @@ export interface MouseActionInterface {
    * @param {number} amount The scroll amount
    * @memberof MouseActionInterface
    */
-  scrollUp(amount: number): void;
+  scrollUp(amount: number): Promise<void>;
 
   /**
    * scrollDown should allow to perform an downward mouse scroll
@@ -66,7 +66,7 @@ export interface MouseActionInterface {
    * @param {number} amount The scroll amount
    * @memberof MouseActionInterface
    */
-  scrollDown(amount: number): void;
+  scrollDown(amount: number): Promise<void>;
 
   /**
    * scrollLeft should allow to perform a left mouse scroll
@@ -74,7 +74,7 @@ export interface MouseActionInterface {
    * @param {number} amount The scroll amount
    * @memberof MouseActionInterface
    */
-  scrollLeft(amount: number): void;
+  scrollLeft(amount: number): Promise<void>;
 
   /**
    * scrollRight should perform a right mouse scroll
@@ -82,7 +82,7 @@ export interface MouseActionInterface {
    * @param {number} amount The scroll amount
    * @memberof MouseActionInterface
    */
-  scrollRight(amount: number): void;
+  scrollRight(amount: number): Promise<void>;
 
   /**
    * pressButton should allow to press and hold a mouse button
@@ -90,7 +90,7 @@ export interface MouseActionInterface {
    * @param {Button} btn The button to press and hold
    * @memberof MouseActionInterface
    */
-  pressButton(btn: Button): void;
+  pressButton(btn: Button): Promise<void>;
 
   /**
    * releaseButton should allow to release a pressed button
@@ -98,5 +98,5 @@ export interface MouseActionInterface {
    * @param {Button} btn The button to release
    * @memberof MouseActionInterface
    */
-  releaseButton(btn: Button): void;
+  releaseButton(btn: Button): Promise<void>;
 }

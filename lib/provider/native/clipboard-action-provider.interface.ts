@@ -26,7 +26,7 @@ export interface ClipboardActionProvider {
    * @param {string} text The text to copy to the clipboard
    * @memberof ClipboardActionProvider
    */
-  copy(text: string): void;
+  copy(text: string): Promise<void>;
 
   /**
    * paste should allow to paste the current text on the system's clipboard

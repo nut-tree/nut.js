@@ -20,7 +20,7 @@ export interface KeyboardActionProvider {
    * @param {string} input The text to type
    * @memberof KeyboardActionProvider
    */
-  type(input: string): void;
+  type(input: string): Promise<void>;
 
   /**
    * Click should allow to press a single key via OS level keyboard event
@@ -28,7 +28,7 @@ export interface KeyboardActionProvider {
    * @param {Key[]} keys The keys to click
    * @memberof KeyboardActionProvider
    */
-  click(...keys: Key[]): void;
+  click(...keys: Key[]): Promise<void>;
 
   /**
    * pressKey should allow to press and hold a key via OS level keyboard event
@@ -36,7 +36,7 @@ export interface KeyboardActionProvider {
    * @param {Key[]} keys to press and hold
    * @memberof KeyboardActionProvider
    */
-  pressKey(...keys: Key[]): void;
+  pressKey(...keys: Key[]): Promise<void>;
 
   /**
    * releaseKey should release a pressed key via OS level keyboard event
@@ -44,5 +44,5 @@ export interface KeyboardActionProvider {
    * @param {Key[]} keys to release
    * @memberof KeyboardActionProvider
    */
-  releaseKey(...keys: Key[]): void;
+  releaseKey(...keys: Key[]): Promise<void>;
 }

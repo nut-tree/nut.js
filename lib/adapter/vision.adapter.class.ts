@@ -110,7 +110,7 @@ export class VisionAdapter {
    * @param path The storage path
    * @memberof VisionAdapter
    */
-  public saveImage(image: Image, path: string) {
-    (this.dataSink as ImageWriter).store(image, path);
+  public saveImage(image: Image, path: string): Promise<void> {
+    return (this.dataSink as ImageWriter).store(image, path);
   }
 }

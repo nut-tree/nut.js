@@ -14,7 +14,9 @@ export class ScreenAction implements ScreenActionProvider {
       scaleY: screenShot.height / screen.height,
     };
   }
-  constructor() {}
+
+  constructor() {
+  }
 
   public grabScreen(): Promise<Image> {
     return new Promise((resolve, reject) => {
@@ -66,15 +68,35 @@ export class ScreenAction implements ScreenActionProvider {
   }
 
   public screenWidth(): Promise<number> {
-    return Promise.resolve(robot.getScreenSize().width);
+    return new Promise<number>((resolve, reject) => {
+      try {
+        const size = robot.getScreenSize();
+        resolve(size.width);
+      } catch (e) {
+        reject(e);
+      }
+    });
   }
 
   public screenHeight(): Promise<number> {
-    return Promise.resolve(robot.getScreenSize().height);
+    return new Promise<number>((resolve, reject) => {
+      try {
+        const size = robot.getScreenSize();
+        resolve(size.height);
+      } catch (e) {
+        reject(e);
+      }
+    });
   }
 
   public screenSize(): Promise<Region> {
-    const screenSize = robot.getScreenSize();
-    return Promise.resolve(new Region(0, 0, screenSize.width, screenSize.height));
+    return new Promise<Region>((resolve, reject) => {
+      try {
+        const screenSize = robot.getScreenSize();
+        resolve(new Region(0, 0, screenSize.width, screenSize.height));
+      } catch (e) {
+        reject(e);
+      }
+    });
   }
 }

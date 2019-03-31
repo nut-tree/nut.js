@@ -22,7 +22,7 @@ describe("VisionAdapter class", () => {
     expect(screenMock.grabScreen).toBeCalledTimes(1);
   });
 
-  it("should delegate calls to grabScreenRegion", () => {
+  it("should delegate calls to grabScreenRegion", async () => {
     // GIVEN
     const finderMock = new TemplateMatchingFinder();
     const screenMock = new ScreenAction();
@@ -30,53 +30,53 @@ describe("VisionAdapter class", () => {
     const screenRegion = new Region(0, 0, 100, 100);
 
     // WHEN
-    SUT.grabScreenRegion(screenRegion);
+    await SUT.grabScreenRegion(screenRegion);
 
     // THEN
     expect(screenMock.grabScreenRegion).toBeCalledTimes(1);
     expect(screenMock.grabScreenRegion).toBeCalledWith(screenRegion);
   });
 
-  it("should delegate calls to screenWidth", () => {
+  it("should delegate calls to screenWidth", async () => {
     // GIVEN
     const finderMock = new TemplateMatchingFinder();
     const screenMock = new ScreenAction();
     const SUT = new VisionAdapter(finderMock, screenMock);
 
     // WHEN
-    SUT.screenWidth();
+    await SUT.screenWidth();
 
     // THEN
     expect(screenMock.screenWidth).toBeCalledTimes(1);
   });
 
-  it("should delegate calls to screenHeight", () => {
+  it("should delegate calls to screenHeight", async () => {
     // GIVEN
     const finderMock = new TemplateMatchingFinder();
     const screenMock = new ScreenAction();
     const SUT = new VisionAdapter(finderMock, screenMock);
 
     // WHEN
-    SUT.screenHeight();
+    await SUT.screenHeight();
 
     // THEN
     expect(screenMock.screenHeight).toBeCalledTimes(1);
   });
 
-  it("should delegate calls to screenSize", () => {
+  it("should delegate calls to screenSize", async () => {
     // GIVEN
     const finderMock = new TemplateMatchingFinder();
     const screenMock = new ScreenAction();
     const SUT = new VisionAdapter(finderMock, screenMock);
 
     // WHEN
-    SUT.screenSize();
+    await SUT.screenSize();
 
     // THEN
     expect(screenMock.screenSize).toBeCalledTimes(1);
   });
 
-  it("should delegate calls to findImage", () => {
+  it("should delegate calls to findImage", async () => {
     // GIVEN
     const finderMock = new TemplateMatchingFinder();
     const SUT = new VisionAdapter(finderMock);
@@ -88,7 +88,7 @@ describe("VisionAdapter class", () => {
       true);
 
     // WHEN
-    SUT.findOnScreenRegion(request);
+    await SUT.findOnScreenRegion(request);
 
     expect(finderMock.findMatch).toBeCalledTimes(1);
     expect(finderMock.findMatch).toBeCalledWith(request);
