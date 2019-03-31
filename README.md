@@ -89,7 +89,7 @@ It's work in progress and will undergo constant modification.
 
 - [x] findOnScreen
 - [x] waitFor
-- [ ] Hooks to trigger actions based on images
+- [x] Hooks to trigger actions based on images
 
 ## Integration
 

@@ -6,7 +6,6 @@ describe("poll-action", () => {
         const updateInterval = 200;
         const maxDuration = 1000;
         const action = jest.fn(() => {
-            console.log(`Polling...`);
             return Promise.reject(false);
         });
 
@@ -29,7 +28,6 @@ describe("poll-action", () => {
         const updateInterval = 200;
         const maxDuration = 1000;
         const action = jest.fn(async () => {
-            console.log(`Polling...`);
             return false;
         });
 
@@ -52,7 +50,6 @@ describe("poll-action", () => {
         const updateInterval = 200;
         const maxDuration = 1000;
         const action = jest.fn(() => {
-            console.log(`Polling...`);
             return Promise.resolve(true);
         });
 
@@ -71,7 +68,6 @@ describe("poll-action", () => {
         const updateInterval = 200;
         const maxDuration = 1000;
         const action = jest.fn(async () => {
-            console.log(`Polling...`);
             return true;
         });
 
@@ -91,7 +87,6 @@ describe("poll-action", () => {
         const maxDuration = 1000;
         const delay = 2.2 * updateInterval;
         const action = jest.fn(() => {
-            console.log(`Polling...`);
             const interval = (Date.now() - start);
             return new Promise<boolean>((resolve, reject) => (interval > delay) ? resolve(true) : reject());
         });

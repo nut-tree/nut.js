@@ -47,7 +47,6 @@ export class TemplateMatchingFinder implements FinderInterface {
     const matchResult = await TemplateMatchingFinder.match(haystack, scaledNeedle);
     if (debug) {
       this.debugImage(scaledNeedle, "scaled_needle.png");
-      console.log(`Scaled needle: ${matchResult.confidence}`);
     }
     return new MatchResult(
       matchResult.confidence,
@@ -79,7 +78,6 @@ export class TemplateMatchingFinder implements FinderInterface {
     const matchResult = await TemplateMatchingFinder.match(scaledHaystack, needle);
     if (debug) {
       this.debugImage(scaledHaystack, "scaled_haystack.png");
-      console.log(`Scaled haystack: ${matchResult.confidence}`);
     }
     return new MatchResult(
       matchResult.confidence,
@@ -142,7 +140,6 @@ export class TemplateMatchingFinder implements FinderInterface {
     const matchResults = [];
     const unscaledResult = await TemplateMatchingFinder.match(haystack, needle);
     if (debug) {
-      console.log(`Unscaled result: ${unscaledResult.confidence}`);
       TemplateMatchingFinder.debugResult(
         haystack,
         unscaledResult,
