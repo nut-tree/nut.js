@@ -19,7 +19,7 @@ export class Screen {
 
   constructor(
     private vision: VisionAdapter,
-    private findHooks: Map<string, FindHookCallback> = new Map<string, FindHookCallback>()) {
+    private findHooks: Map<string, FindHookCallback[]> = new Map<string, FindHookCallback[]>()) {
   }
 
   public width() {
@@ -53,9 +53,9 @@ export class Screen {
       try {
         const matchResult = await this.vision.findOnScreenRegion(matchRequest);
         if (matchResult.confidence >= minMatch) {
-          const possibleHook = this.findHooks.get(pathToNeedle);
-          if (possibleHook) {
-            await possibleHook(matchResult);
+          const possibleHooks = this.findHooks.get(pathToNeedle) || [];
+          for (const hook of possibleHooks) {
+            await hook(matchResult);
           }
           resolve(matchResult.location);
         } else {
@@ -82,7 +82,8 @@ export class Screen {
   }
 
   public on(pathToNeedle: string, callback: FindHookCallback) {
-    this.findHooks.set(pathToNeedle, callback);
+    const existingHooks = this.findHooks.get(pathToNeedle) || [];
+    this.findHooks.set(pathToNeedle, [...existingHooks, callback]);
   }
 
   public async capture(
