@@ -70,10 +70,11 @@ yarn add @nut-tree/nut-js
 ```
 
 will install `nut.js` with its required dependencies.
-This will assume that you do not have an existing [OpenCV](https://opencv.org/) installation and will try to build `OpenCV` v3.4.3 from source (via `opencv4nodejs`).
+
+The installation process assumes you do not have an existing `OpenCV` installation and will try to build `OpenCV` v3.4.3 from source (via `opencv4nodejs`).
 Building `OpenCV` from scratch requires a [cmake](https://cmake.org/) installation.
 
-In case you already have an `OpenCV` installation (version 3.x.x required, e.g. via `brew install opencv@3`), you can disable the build process via environment variable:
+In case you already have an `OpenCV` installation (version 3.x.x required, e.g. via `brew install opencv@3` or [else](https://docs.opencv.org/3.4/df/d65/tutorial_table_of_content_introduction.html)), you can disable the build process via environment variable:
 
 ```bash
 export OPENCV4NODEJS_DISABLE_AUTOBUILD=1
