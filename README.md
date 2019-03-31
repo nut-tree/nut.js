@@ -28,13 +28,13 @@ The following snippet shows a valid NUT example (on macOS)
 ```js
 "use strict";
 
-const { keyboard, Key, mouse, movement } = require("@nut-tree/nut-js");
+const { keyboard, Key, mouse, left, right, up, down } = require("@nut-tree/nut-js");
 
 const square = async () => {
-  await mouse.move(movement.right(500));
-  await mouse.move(movement.down(500));
-  await mouse.move(movement.left(500));
-  await mouse.move(movement.up(500));
+  await mouse.move(right(500));
+  await mouse.move(down(500));
+  await mouse.move(left(500));
+  await mouse.move(up(500));
 };
 
 const openSpotlight = async () => {
