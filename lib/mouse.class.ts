@@ -1,6 +1,6 @@
 import { NativeAdapter } from "./adapter/native.adapter.class";
 import { Button } from "./button.enum";
-import { MovementType } from "./movementtype.class";
+import { linear } from "./movementtype.function";
 import { Point } from "./point.class";
 import { sleep } from "./sleep.function";
 
@@ -29,12 +29,13 @@ export class Mouse {
     return this.native.currentMousePosition();
   }
 
-  public async move(path: Point[], movementType = MovementType.linear): Promise<Mouse> {
+  public async move(path: Point[] | Promise<Point[]>, movementType = linear): Promise<Mouse> {
     return new Promise<Mouse>(async (resolve, reject) => {
       try {
-        const timeSteps = movementType(path.length, this.config.mouseSpeed);
-        for (let idx = 0; idx < path.length; ++idx) {
-          const node = path[idx];
+        const pathSteps = await path;
+        const timeSteps = movementType(pathSteps.length, this.config.mouseSpeed);
+        for (let idx = 0; idx < pathSteps.length; ++idx) {
+          const node = pathSteps[idx];
           const minTime = timeSteps[idx];
           await sleep(minTime);
           await this.native.setMousePosition(node);
@@ -114,7 +115,7 @@ export class Mouse {
     });
   }
 
-  public async drag(path: Point[]): Promise<Mouse> {
+  public async drag(path: Point[] | Promise<Point[]>): Promise<Mouse> {
     return new Promise<Mouse>(async (resolve, reject) => {
       try {
         await sleep(this.config.autoDelayMs);
