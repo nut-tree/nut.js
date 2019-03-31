@@ -1,7 +1,8 @@
 import { NativeAdapter } from "./adapter/native.adapter.class";
 import { Button } from "./button.enum";
-import { MovementType } from "./movementtype.class";
+import { linear } from "./movementtype.function";
 import { Point } from "./point.class";
+import { sleep } from "./sleep.function";
 
 export class Mouse {
   public config = {
@@ -9,11 +10,8 @@ export class Mouse {
     mouseSpeed: 1000,
   };
 
-  private lastAction: number;
-
   constructor(private native: NativeAdapter) {
     this.native.setMouseDelay(0);
-    this.lastAction = Date.now();
   }
 
   public async setPosition(target: Point): Promise<Mouse> {
@@ -31,16 +29,16 @@ export class Mouse {
     return this.native.currentMousePosition();
   }
 
-  public async move(path: Point[], movementType = MovementType.linear): Promise<Mouse> {
+  public async move(path: Point[] | Promise<Point[]>, movementType = linear): Promise<Mouse> {
     return new Promise<Mouse>(async (resolve, reject) => {
       try {
-        const timeSteps = movementType(path.length, this.config.mouseSpeed);
-        for (let idx = 0; idx < path.length; ++idx) {
-          const node = path[idx];
+        const pathSteps = await path;
+        const timeSteps = movementType(pathSteps.length, this.config.mouseSpeed);
+        for (let idx = 0; idx < pathSteps.length; ++idx) {
+          const node = pathSteps[idx];
           const minTime = timeSteps[idx];
-          await this.waitForNextTick(minTime);
+          await sleep(minTime);
           await this.native.setMousePosition(node);
-          await this.updateTick();
         }
         resolve(this);
       } catch (e) {
@@ -51,9 +49,8 @@ export class Mouse {
 
   public async leftClick(): Promise<Mouse> {
     return new Promise<Mouse>(async resolve => {
-      await this.waitForNextTick(this.config.autoDelayMs);
+      await sleep(this.config.autoDelayMs);
       await this.native.leftClick();
-      await this.updateTick();
       resolve(this);
     });
   }
@@ -61,9 +58,8 @@ export class Mouse {
   public async rightClick(): Promise<Mouse> {
     return new Promise<Mouse>(async (resolve, reject) => {
       try {
-        await this.waitForNextTick(this.config.autoDelayMs);
+        await sleep(this.config.autoDelayMs);
         await this.native.rightClick();
-        await this.updateTick();
         resolve(this);
       } catch (e) {
         reject(e);
@@ -74,9 +70,8 @@ export class Mouse {
   public async scrollDown(amount: number): Promise<Mouse> {
     return new Promise<Mouse>(async (resolve, reject) => {
       try {
-        await this.waitForNextTick(this.config.autoDelayMs);
+        await sleep(this.config.autoDelayMs);
         await this.native.scrollDown(amount);
-        await this.updateTick();
         resolve(this);
       } catch (e) {
         reject(e);
@@ -87,9 +82,8 @@ export class Mouse {
   public async scrollUp(amount: number): Promise<Mouse> {
     return new Promise<Mouse>(async (resolve, reject) => {
       try {
-        await this.waitForNextTick(this.config.autoDelayMs);
+        await sleep(this.config.autoDelayMs);
         await this.native.scrollUp(amount);
-        await this.updateTick();
         resolve(this);
       } catch (e) {
         reject(e);
@@ -100,9 +94,8 @@ export class Mouse {
   public async scrollLeft(amount: number): Promise<Mouse> {
     return new Promise<Mouse>(async (resolve, reject) => {
       try {
-        await this.waitForNextTick(this.config.autoDelayMs);
+        await sleep(this.config.autoDelayMs);
         await this.native.scrollLeft(amount);
-        await this.updateTick();
         resolve(this);
       } catch (e) {
         reject(e);
@@ -113,9 +106,8 @@ export class Mouse {
   public async scrollRight(amount: number): Promise<Mouse> {
     return new Promise<Mouse>(async (resolve, reject) => {
       try {
-        await this.waitForNextTick(this.config.autoDelayMs);
+        await sleep(this.config.autoDelayMs);
         await this.native.scrollRight(amount);
-        await this.updateTick();
         resolve(this);
       } catch (e) {
         reject(e);
@@ -123,32 +115,17 @@ export class Mouse {
     });
   }
 
-  public async drag(path: Point[]): Promise<Mouse> {
+  public async drag(path: Point[] | Promise<Point[]>): Promise<Mouse> {
     return new Promise<Mouse>(async (resolve, reject) => {
       try {
-        await this.waitForNextTick(this.config.autoDelayMs);
+        await sleep(this.config.autoDelayMs);
         await this.native.pressButton(Button.LEFT);
         await this.move(path);
         await this.native.releaseButton(Button.LEFT);
-        await this.updateTick();
         resolve(this);
       } catch (e) {
         reject(e);
       }
-    });
-  }
-
-  private async updateTick() {
-    this.lastAction = Date.now();
-  }
-
-  private async waitForNextTick(minTime: number): Promise<void> {
-    return new Promise<void>(resolve => {
-      let current = Date.now();
-      while (current - this.lastAction < minTime) {
-        current = Date.now();
-      }
-      resolve();
     });
   }
 }

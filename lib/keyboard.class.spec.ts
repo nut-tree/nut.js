@@ -9,7 +9,7 @@ beforeEach(() => {
 });
 
 describe("Keyboard", () => {
-  it("should have a default delay of 500 ms", () => {
+  it("should have a default delay of 300 ms", () => {
     // GIVEN
     const adapterMock = new NativeAdapter();
     const SUT = new Keyboard(adapterMock);
@@ -17,7 +17,7 @@ describe("Keyboard", () => {
     // WHEN
 
     // THEN
-    expect(SUT.config.autoDelayMs).toEqual(500);
+    expect(SUT.config.autoDelayMs).toEqual(300);
   });
 
   it("should pass input strings down to the type call.", async () => {
@@ -38,6 +38,7 @@ describe("Keyboard", () => {
 
   it("should pass multiple input strings down to the type call.", async () => {
     // GIVEN
+    jest.setTimeout(10000);
     const adapterMock = new NativeAdapter();
     const SUT = new Keyboard(adapterMock);
     const payload = ["Test input!", "Array test2"];

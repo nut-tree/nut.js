@@ -1,8 +1,7 @@
-import { assert, Key, keyboard, Location, mouse, movement, screen } from "./index";
+import { assert, centerOf, Key, keyboard, mouse, screen, straightTo } from "./index";
 
 const openXfceMenu = async () => {
-  const menu = await screen.find("menu.png");
-  await mouse.move(await movement.straightTo(Location.centerOf(menu)));
+  await mouse.move(straightTo(centerOf(screen.find("menu.png"))));
   await mouse.leftClick();
   await mouse.leftClick();
 };
@@ -14,22 +13,18 @@ const run = async (cmd: string) => {
 };
 
 const calculate = async () => {
-  const plus = await screen.find("plus.png");
-  await mouse.move(await movement.straightTo(Location.centerOf(plus)));
+  await mouse.move(straightTo(centerOf(screen.find("plus.png"))));
   await mouse.leftClick();
-  const one = await screen.find("one.png");
-  await mouse.move(await movement.straightTo(Location.centerOf(one)));
+  await mouse.move(straightTo(centerOf(screen.find("one.png"))));
   await mouse.leftClick();
-  const zero = await screen.find("zero.png");
-  await mouse.move(await movement.straightTo(Location.centerOf(zero)));
+  await mouse.move(straightTo(centerOf(screen.find("zero.png"))));
   await mouse.leftClick();
   await mouse.leftClick();
   await keyboard.type(Key.Enter);
 };
 
 const close = async () => {
-  const x = await screen.find("close.png");
-  await mouse.move(await movement.straightTo(Location.centerOf(x)));
+  await mouse.move(straightTo(centerOf(screen.find("close.png"))));
   await mouse.leftClick();
 };
 
