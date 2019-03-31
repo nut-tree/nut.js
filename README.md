@@ -17,7 +17,8 @@ Native UI testing / automation with node.js
     <img src=".gfx/nut.png" alt="logo" width="200"/>
 </p>
 
-This is a WIP implementation for a cross-platform native UI testing tool.
+`nut.js` is a cross-platform native UI testing tool.
+
 It allows for native UI interactions via keyboard and / or mouse,
 but additionally gives you the possibility to navigate the screen based on image matching.
 
