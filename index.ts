@@ -4,28 +4,40 @@ import { Assert } from "./lib/assert.class";
 import { Clipboard } from "./lib/clipboard.class";
 import { Keyboard } from "./lib/keyboard.class";
 import { Mouse } from "./lib/mouse.class";
-import { Movement } from "./lib/movement.class";
+import { createMovementApi } from "./lib/movement.function";
 import { Screen } from "./lib/screen.class";
 import { LineHelper } from "./lib/util/linehelper.class";
 
 export { jestMatchers } from "./lib/expect/jest.matcher.function";
 export { Image } from "./lib/image.class";
 export { Key } from "./lib/key.enum";
-export { Location } from "./lib/location.class";
+export { centerOf, randomPointIn } from "./lib/location.function";
 export { LocationParameters } from "./lib/locationparameters.class";
-export { Movement } from "./lib/movement.class";
-export { MovementType } from "./lib/movementtype.class";
+export { linear } from "./lib/movementtype.function";
 export { Point } from "./lib/point.class";
 export { Region } from "./lib/region.class";
 
 const screenActions = new VisionAdapter();
 const nativeActions = new NativeAdapter();
+const lineHelper = new LineHelper();
 
 const clipboard = new Clipboard(nativeActions);
 const keyboard = new Keyboard(nativeActions);
 const mouse = new Mouse(nativeActions);
-const movement = new Movement(nativeActions, new LineHelper());
 const screen = new Screen(screenActions);
 const assert = new Assert(screen);
 
-export { clipboard, keyboard, mouse, movement, screen, assert };
+const {straightTo, up, down, left, right} = createMovementApi(nativeActions, lineHelper);
+
+export {
+  clipboard,
+  keyboard,
+  mouse,
+  screen,
+  assert,
+  straightTo,
+  up,
+  down,
+  left,
+  right,
+};
