@@ -1,10 +1,10 @@
 # nut.js (Native UI Toolkit) [![Build Status](https://travis-ci.com/nut-tree/nut.js.svg?branch=master)](https://travis-ci.com/nut-tree/nut.js) [![Greenkeeper badge](https://badges.greenkeeper.io/nut-tree/nut.js.svg)](https://greenkeeper.io/) [![SonarCloud badge](https://sonarcloud.io/api/project_badges/measure?project=nut-tree%3Anut.js&metric=alert_status)](https://sonarcloud.io/dashboard?id=nut-tree%3Anut.js) [![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=nut-tree%3Anut.js&metric=coverage)](https://sonarcloud.io/component_measures?id=nut-tree%3Anut.js&metric=coverage)
 <p align="center">
-Native UI testing / controlling with node.js
+Native UI testing / automation with node.js
 </p>
 <br/>
 <p align="center">
-	<a target="_blank" href="http://getrobot.net">
+	<a target="_blank" href="https://robotjs.io/">
 		<img src="https://img.shields.io/badge/Built_with-ROBOT-C86414.svg?style=flat-square" alt="Built with Robot" />
 	</a>
 	<a target="_blank" href="https://github.com/justadudewhohacks/opencv4nodejs">
@@ -54,6 +54,41 @@ describe("Basic test", () => {
 });
 
 ```
+
+# Installation
+
+Running 
+
+```bash
+npm i @nut-tree/nut-js
+```
+
+or
+
+```bash
+yarn add @nut-tree/nut-js
+```
+
+will install `nut.js` with its required dependencies.
+This will assume that you do not have an existing [OpenCV](https://opencv.org/) installation and will try to build `OpenCV` v3.4.3 from source (via `opencv4nodejs`).
+Building `OpenCV` from scratch requires a [cmake](https://cmake.org/) installation.
+
+In case you already have an `OpenCV` installation (version 3.x.x required, e.g. via `brew install opencv@3`), you can disable the build process via environment variable:
+
+```bash
+export OPENCV4NODEJS_DISABLE_AUTOBUILD=1
+```
+
+or 
+
+```bash
+set OPENCV4NODEJS_DISABLE_AUTOBUILD=1
+```
+
+Please make sure to also install all required peer dependencies:
+ 
+- [opencv4nodejs](https://github.com/justadudewhohacks/opencv4nodejs#how-to-install)
+- [robotjs](http://robotjs.io/docs/building)
 
 # Examples
 
