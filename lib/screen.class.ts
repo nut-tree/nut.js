@@ -5,8 +5,11 @@ import { FileType } from "./file-type.enum";
 import { generateOutputPath } from "./generate-output-path.function";
 import { LocationParameters } from "./locationparameters.class";
 import { MatchRequest } from "./match-request.class";
+import { MatchResult } from "./match-result.class";
 import { Region } from "./region.class";
 import { timeout } from "./util/poll-action.function";
+
+export type FindHookCallback = (target: MatchResult) => Promise<void>;
 
 export class Screen {
   public config = {
@@ -14,7 +17,9 @@ export class Screen {
     resourceDirectory: cwd(),
   };
 
-  constructor(private vision: VisionAdapter) {
+  constructor(
+    private vision: VisionAdapter,
+    private findHooks: Map<string, FindHookCallback> = new Map<string, FindHookCallback>()) {
   }
 
   public width() {
@@ -34,7 +39,6 @@ export class Screen {
       (params && params.searchRegion) || await this.vision.screenSize();
 
     const fullPathToNeedle = normalize(join(this.config.resourceDirectory, pathToNeedle));
-    // console.log(`Full path to needle: ${fullPathToNeedle}`);
 
     const screenImage = await this.vision.grabScreen();
 
@@ -49,6 +53,10 @@ export class Screen {
       try {
         const matchResult = await this.vision.findOnScreenRegion(matchRequest);
         if (matchResult.confidence >= minMatch) {
+          const possibleHook = this.findHooks.get(pathToNeedle);
+          if (possibleHook) {
+            await possibleHook(matchResult);
+          }
           resolve(matchResult.location);
         } else {
           reject(
@@ -71,6 +79,10 @@ export class Screen {
     params?: LocationParameters,
   ): Promise<Region> {
     return timeout(500, timeoutMs, () => this.find(pathToNeedle, params));
+  }
+
+  public on(pathToNeedle: string, callback: FindHookCallback) {
+    this.findHooks.set(pathToNeedle, callback);
   }
 
   public async capture(

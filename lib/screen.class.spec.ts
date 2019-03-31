@@ -45,6 +45,22 @@ describe("Screen.", () => {
     expect(visionAdapterMock.findOnScreenRegion).toHaveBeenCalledWith(matchRequest);
   });
 
+  it("should call registered hook before resolve", async () => {
+    const matchResult = new MatchResult(0.99, searchRegion);
+    VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
+      return Promise.resolve(matchResult);
+    });
+    const visionAdapterMock = new VisionAdapter();
+
+    const SUT = new Screen(visionAdapterMock);
+    const testCallback = jest.fn(() => Promise.resolve());
+    const imagePath = "test/path/to/image.png";
+    SUT.on(imagePath, testCallback);
+    await SUT.find(imagePath);
+    expect(testCallback).toBeCalledTimes(1);
+    expect(testCallback).toBeCalledWith(matchResult);
+  });
+
   it("should reject with insufficient confidence.", async () => {
     const matchResult = new MatchResult(0.8, searchRegion);
 
