@@ -103,10 +103,10 @@ export class TemplateMatchingFinder implements FinderInterface {
 
   private static async debugResult(image: cv.Mat, result: MatchResult, filename: string, suffix?: string) {
     const roiRect = new cv.Rect(
-      result.location.left,
-      result.location.top,
-      result.location.width,
-      result.location.height);
+      Math.min(Math.max(result.location.left, 0), image.cols),
+      Math.min(Math.max(result.location.top, 0), image.rows),
+      Math.min(result.location.width, image.cols - result.location.left),
+      Math.min(result.location.height, image.rows - result.location.top));
     this.debugImage(image.getRegion(roiRect), filename, suffix);
   }
 
