@@ -2,6 +2,14 @@ import * as cv from "opencv4nodejs-prebuilt";
 import { Image } from "../../image.class";
 import { Region } from "../../region.class";
 
+const determineROI = (img: Image, roi: Region): cv.Rect => {
+  return new cv.Rect(
+    Math.min(Math.max(roi.left, 0), img.width),
+    Math.min(Math.max(roi.top, 0), img.height),
+    Math.min(roi.width, img.width - roi.left),
+    Math.min(roi.height, img.height - roi.top));
+};
+
 export class ImageProcessor {
   /**
    * fromImageWithAlphaChannel should provide a way to create a library specific
@@ -18,7 +26,7 @@ export class ImageProcessor {
   ): Promise<cv.Mat> {
     const mat = await new cv.Mat(img.data, img.height, img.width, cv.CV_8UC4).cvtColorAsync(cv.COLOR_BGRA2BGR);
     if (roi) {
-      return mat.getRegion(new cv.Rect(roi.left, roi.top, roi.width, roi.height));
+      return mat.getRegion(determineROI(img, roi));
     } else {
       return mat;
     }
@@ -39,7 +47,7 @@ export class ImageProcessor {
   ): Promise<cv.Mat> {
     const mat = new cv.Mat(img.data, img.height, img.width, cv.CV_8UC3);
     if (roi) {
-      return mat.getRegion(new cv.Rect(roi.left, roi.top, roi.width, roi.height));
+      return mat.getRegion(determineROI(img, roi));
     } else {
       return mat;
     }
