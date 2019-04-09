@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.0.1
+
+- Bugfix: Check dimensions of ROIs to prevent access violations [(#57)](https://github.com/nut-tree/nut.js/issues/57)
+
 ## 1.0.0
 
 - API overhaul [(#53)](https://github.com/nut-tree/nut.js/issues/53)
