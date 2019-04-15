@@ -9,6 +9,7 @@ import { Screen } from "./lib/screen.class";
 import { LineHelper } from "./lib/util/linehelper.class";
 
 export { jestMatchers } from "./lib/expect/jest.matcher.function";
+export { sleep } from "./lib/sleep.function";
 export { Image } from "./lib/image.class";
 export { Key } from "./lib/key.enum";
 export { centerOf, randomPointIn } from "./lib/location.function";
