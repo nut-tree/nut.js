@@ -1,4 +1,4 @@
-import { assert, centerOf, Key, keyboard, mouse, screen, straightTo } from "./index";
+import { assert, centerOf, Key, keyboard, mouse, screen, sleep, straightTo } from "./index";
 
 const openXfceMenu = async () => {
   await mouse.move(straightTo(centerOf(screen.find("menu.png"))));
@@ -43,6 +43,7 @@ describe("E2E demo", () => {
     await assert.isVisible("desktop.png");
     await openXfceMenu();
     await run("gnome-calculator");
+    await sleep(1500);
     await assert.isVisible("calculator.png");
     await keyboard.type("525");
     await calculate();
