@@ -22,7 +22,7 @@ cd $targetDir
 echo "Installing node version $nodeVersion"
 nvm install $nodeVersion
 echo "npm ci"
-npm ci > /dev/null 2>&1
+npm ci
 echo "git fetch --unshallow"
 git fetch --unshallow
 echo "npm run compile"
