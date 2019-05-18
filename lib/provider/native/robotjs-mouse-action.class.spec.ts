@@ -1,9 +1,9 @@
-import robot = require("robotjs");
+import robot = require("robotjs-node10");
 import { Button } from "../../button.enum";
 import { Point } from "../../point.class";
 import { MouseAction } from "./robotjs-mouse-action.class";
 
-jest.mock("robotjs");
+jest.mock("robotjs-node10");
 
 beforeEach(() => {
   jest.resetAllMocks();

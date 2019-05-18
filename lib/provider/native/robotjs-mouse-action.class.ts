@@ -1,4 +1,4 @@
-import robot = require("robotjs");
+import robot = require("robotjs-node10");
 import { Button } from "../../button.enum";
 import { Point } from "../../point.class";
 import { MouseActionInterface } from "./mouse-action-provider.interface";
