@@ -1,6 +1,6 @@
 {
   "name": "@nut-tree/nut-js",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "license": "Apache-2.0",
   "main": "dist/index",
   "typings": "dist/index",
@@ -55,8 +55,8 @@
   },
   "dependencies": {
     "clipboardy": "^2.0.0",
-    "opencv4nodejs-prebuilt": "^4.14.1",
-    "robotjs": "^0.5.1"
+    "opencv4nodejs-prebuilt": "4.15.0",
+    "robotjs-node10": "0.5.2"
   },
   "devDependencies": {
     "@types/clipboardy": "^1.1.0",

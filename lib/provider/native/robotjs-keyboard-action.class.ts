@@ -1,4 +1,4 @@
-import robot = require("robotjs");
+import robot = require("robotjs-node10");
 import { Key } from "../../key.enum";
 import { KeyboardActionProvider } from "./keyboard-action-provider.interface";
 
