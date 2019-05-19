@@ -55,7 +55,7 @@
   },
   "dependencies": {
     "clipboardy": "^2.0.0",
-    "opencv4nodejs-prebuilt": "4.15.0-b11",
+    "opencv4nodejs-prebuilt": "4.15.0",
     "robotjs-node10": "0.5.2"
   },
   "devDependencies": {
