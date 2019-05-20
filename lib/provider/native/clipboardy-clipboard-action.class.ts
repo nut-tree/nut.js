@@ -24,6 +24,7 @@ export class ClipboardAction implements ClipboardActionProvider {
     return new Promise<void>((resolve, reject) => {
       try {
         clippy.writeSync(text);
+        resolve();
       } catch (e) {
         reject(e);
       }
