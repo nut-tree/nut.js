@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.1.2
+
+- Bugfix: Clipboard copy calls did not resolve [(#64)](https://github.com/nut-tree/nut.js/issues/64)
+
+## 1.1.1
+
+- Minor version upgrade for OpenCV dependency
+
 ## 1.1.0
 
 - Feature: nut.js now comes with a precompiled version of OpenCV [(#63)](https://github.com/nut-tree/nut.js/issues/63)
