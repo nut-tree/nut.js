@@ -58,6 +58,65 @@ describe("Basic test", () => {
 
 # Installation
 
+While `nut.js` comes with a pre-built version of OpenCV for your respective target platform, it currently still requires some 3rd-party dependencies to generate `node` bindings.
+This setup will be enhanced in the future so no additional packages have to be installed on a target system.
+
+Until then, the following tools / libraries need to be installed in order to use `nut.js`:
+
+## Prerequisites
+
+The installation process comes with a pre-built version of OpenCV for the respective target platform.
+It's not required to manually build or install OpenCV, but the installation process has some 3rd-party dependencies.
+
+#### Windows
+
+In order to install `nut.js` on Windows, [Windows Build Tools](https://www.microsoft.com/en-us/download/details.aspx?id=48159) and [Python 2](https://www.python.org/downloads/windows/) are required.
+You can either set them up manually, or install them via npm:
+
+```bash
+npm install --global windows-build-tools
+```
+
+or
+
+```bash
+yarn global add windows-build-tools
+```
+
+#### macOS
+
+On macOS, Xcode command line tools are required.
+You can install them by running
+```bash
+xcode-select --install
+```
+
+#### Linux
+
+Depending on your distribution, Linux setups may differ.
+
+In general, `nut.js` requires
+
+- Python 2
+- g++
+- make
+- libXtst
+- libPng
+
+Installation on `*buntu` distributions:
+```bash
+sudo apt-get install build-essential python libxtst-dev libpng++-dev
+```
+
+Setups on other distributions might differ.
+
+For reference, please see:
+ 
+- [opencv4nodejs](https://github.com/justadudewhohacks/opencv4nodejs#how-to-install)
+- [robotjs](http://robotjs.io/docs/building)
+
+## Install `nut.js`
+
 Running 
 
 ```bash
@@ -72,13 +131,6 @@ yarn add @nut-tree/nut-js
 
 will install nut.js and its required dependencies.
 
-The installation process comes with a pre-built version of OpenCV for the respective target platform (via [opencv4nodejs](https://github.com/justadudewhohacks/opencv4nodejs)).
-It's not required to manually build OpenCV, but the installation process has some 3rd-party dependencies.
-
-Please make sure to also install all required peer dependencies:
- 
-- [opencv4nodejs](https://github.com/justadudewhohacks/opencv4nodejs#how-to-install)
-- [robotjs](http://robotjs.io/docs/building)
 
 # Examples
 
