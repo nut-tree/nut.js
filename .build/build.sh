@@ -24,7 +24,8 @@ nvm install $nodeVersion
 echo "npm ci"
 npm ci
 # Unshallow on CI system for complete blame info
-if [[ "$CI" == "true" ]]; then
+echo $CI
+if [[ -n "$CI" ]]; then
 echo "git fetch --unshallow"
 git fetch --unshallow
 fi
