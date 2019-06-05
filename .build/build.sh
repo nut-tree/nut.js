@@ -23,12 +23,6 @@ echo "Installing node version $nodeVersion"
 nvm install $nodeVersion
 echo "npm ci"
 npm ci
-# Unshallow on CI system for complete blame info
-echo $CI
-if [[ -n "$CI" ]]; then
-echo "git fetch --unshallow"
-git fetch --unshallow
-fi
 echo "npm run compile"
 npm run compile
 echo "npm run coverage"
