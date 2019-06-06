@@ -128,4 +128,26 @@ export class Mouse {
       }
     });
   }
+
+  public async pressButton(btn: Button): Promise<Mouse> {
+    return new Promise<Mouse>(async (resolve, reject) => {
+      try {
+        await this.native.pressButton(btn);
+        resolve(this);
+      } catch (e) {
+        reject(e);
+      }
+    });
+  }
+
+  public async releaseButton(btn: Button): Promise<Mouse> {
+    return new Promise<Mouse>(async (resolve, reject) => {
+      try {
+        await this.native.releaseButton(btn);
+        resolve(this);
+      } catch (e) {
+        reject(e);
+      }
+    });
+  }
 }

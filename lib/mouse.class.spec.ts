@@ -136,3 +136,20 @@ describe("Mouse class", () => {
     expect(result).toBe(SUT);
   });
 });
+
+describe("Mousebuttons", () => {
+  it.each([
+    [Button.LEFT, Button.LEFT],
+    [Button.MIDDLE, Button.MIDDLE],
+    [Button.RIGHT, Button.RIGHT],
+  ] as Array<[Button, Button]>)("should be pressed and released", async (input: Button, expected: Button) => {
+    const nativeAdapterMock = new NativeAdapter();
+    const SUT = new Mouse(nativeAdapterMock);
+    const pressed = await SUT.pressButton(input);
+    const released = await SUT.releaseButton(input);
+    expect(nativeAdapterMock.pressButton).toBeCalledWith(expected);
+    expect(nativeAdapterMock.releaseButton).toBeCalledWith(expected);
+    expect(pressed).toBe(SUT);
+    expect(released).toBe(SUT);
+  });
+});
