@@ -135,4 +135,64 @@ describe("Mouse class", () => {
     expect(nativeAdapterMock.releaseButton).toBeCalledWith(Button.LEFT);
     expect(result).toBe(SUT);
   });
+
+  it("should forward leftButtonDown to native adapter", async () => {
+    // GIVEN
+    const nativeAdapterMock = new NativeAdapter();
+    const SUT = new Mouse(nativeAdapterMock);
+    // WHEN
+    await SUT.leftButtonDown();
+    // THEN
+    expect(nativeAdapterMock.pressButton).toBeCalledWith(Button.LEFT);
+  });
+
+  it("should forward rightButtonDown to native adapter", async () => {
+    // GIVEN
+    const nativeAdapterMock = new NativeAdapter();
+    const SUT = new Mouse(nativeAdapterMock);
+    // WHEN
+    await SUT.rightButtonDown();
+    // THEN
+    expect(nativeAdapterMock.pressButton).toBeCalledWith(Button.RIGHT);
+  });
+
+  it("should forward middleButtonDown to native adapter", async () => {
+    // GIVEN
+    const nativeAdapterMock = new NativeAdapter();
+    const SUT = new Mouse(nativeAdapterMock);
+    // WHEN
+    await SUT.middleButtonDown();
+    // THEN
+    expect(nativeAdapterMock.pressButton).toBeCalledWith(Button.MIDDLE);
+  });
+
+  it("should forward leftButtonUp to native adapter", async () => {
+    // GIVEN
+    const nativeAdapterMock = new NativeAdapter();
+    const SUT = new Mouse(nativeAdapterMock);
+    // WHEN
+    await SUT.leftButtonUp();
+    // THEN
+    expect(nativeAdapterMock.releaseButton).toBeCalledWith(Button.LEFT);
+  });
+
+  it("should forward rightButtonUp to native adapter", async () => {
+    // GIVEN
+    const nativeAdapterMock = new NativeAdapter();
+    const SUT = new Mouse(nativeAdapterMock);
+    // WHEN
+    await SUT.rightButtonUp();
+    //THEN
+    expect(nativeAdapterMock.releaseButton).toBeCalledWith(Button.RIGHT);
+  });
+
+  it("should forward middleButtonUp to native adapter", async () => {
+    // GIVEN
+    const nativeAdapterMock = new NativeAdapter();
+    const SUT = new Mouse(nativeAdapterMock);
+    // WHEN
+    await SUT.middleButtonUp();
+    //THEN
+    expect(nativeAdapterMock.releaseButton).toBeCalledWith(Button.MIDDLE);
+  });
 });

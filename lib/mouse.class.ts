@@ -47,6 +47,42 @@ export class Mouse {
     });
   }
 
+  public async leftButtonDown(): Promise<Mouse> {
+    await sleep(this.config.autoDelayMs);
+    await this.native.pressButton(Button.LEFT);
+    return this;
+  }
+
+  public async rightButtonDown(): Promise<Mouse> {
+    await sleep(this.config.autoDelayMs);
+    await this.native.pressButton(Button.RIGHT);
+    return this;
+  }
+
+  public async middleButtonDown(): Promise<Mouse> {
+    await sleep(this.config.autoDelayMs);
+    await this.native.pressButton(Button.MIDDLE);
+    return this;
+  }
+
+  public async leftButtonUp(): Promise<Mouse> {
+    await sleep(this.config.autoDelayMs);
+    await this.native.releaseButton(Button.LEFT);
+    return this;
+  }
+
+  public async rightButtonUp(): Promise<Mouse> {
+    await sleep(this.config.autoDelayMs);
+    await this.native.releaseButton(Button.RIGHT);
+    return this;
+  }
+
+  public async middleButtonUp(): Promise<Mouse> {
+    await sleep(this.config.autoDelayMs);
+    await this.native.releaseButton(Button.MIDDLE);
+    return this;
+  }
+
   public async leftClick(): Promise<Mouse> {
     return new Promise<Mouse>(async resolve => {
       await sleep(this.config.autoDelayMs);
