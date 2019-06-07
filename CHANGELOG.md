@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.2.0
+
+- Bugfix: Drag & drop gestures were not working on macOS and Windows [(#70)](https://github.com/nut-tree/nut.js/issues/70)
+- Enhancement: `mouse` Public API now exposes `pressButton` and `releaseButton` methods [(#69)](https://github.com/nut-tree/nut.js/issues/69)
+
 ## 1.1.2
 
 - Bugfix: Clipboard copy calls did not resolve [(#64)](https://github.com/nut-tree/nut.js/issues/64)
