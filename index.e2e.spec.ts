@@ -1,4 +1,17 @@
-import { assert, centerOf, down, Key, keyboard, mouse, Region, right, screen, sleep, straightTo } from "./index";
+import {
+  assert,
+  Button,
+  centerOf,
+  down,
+  Key,
+  keyboard,
+  mouse,
+  Region,
+  right,
+  screen,
+  sleep,
+  straightTo
+} from "./index";
 
 const openXfceMenu = async () => {
   await mouse.move(straightTo(centerOf(screen.find("menu.png"))));
@@ -62,5 +75,17 @@ describe("E2E drag & drop demo", () => {
     await mouse.move(right(100));
     await mouse.leftClick();
     expect(await screen.find("moved_trash.png")).toEqual(new Region(38, 585, 70, 86));
+  });
+});
+
+describe("E2E mouse button demo", () => {
+  it("should run without throwing", async () => {
+    jest.setTimeout(60000);
+    screen.config.resourceDirectory = "./e2e/assets";
+    for (const btn of [Button.RIGHT, Button.MIDDLE, Button.LEFT]) {
+      await mouse.pressButton(btn);
+      await sleep(10);
+      await mouse.releaseButton(btn);
+    }
   });
 });
