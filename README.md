@@ -70,6 +70,38 @@ It's not required to manually build or install OpenCV, but the installation proc
 
 #### Windows
 
+In order to install `nut.js` on Windows, please make sure to have the [Microsoft Visual C++ Redistributable](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads) installed.
+
+#### macOS
+
+On macOS, Xcode command line tools are required.
+You can install them by running
+```bash
+xcode-select --install
+```
+
+#### Linux
+
+Depending on your distribution, Linux setups may differ.
+
+In general, `nut.js` requires
+
+- libXtst
+
+Installation on `*buntu` distributions:
+```bash
+sudo apt-get install libxtst-dev
+```
+
+Setups on other distributions might differ.
+
+## Manual build
+
+As a fallback, `nut.js` is able to build all required dependencies by itself.
+To do so, some setup is required on the respective target platform.
+
+#### Windows
+
 In order to install `nut.js` on Windows, [Windows Build Tools](https://www.microsoft.com/en-us/download/details.aspx?id=48159) and [Python 2](https://www.python.org/downloads/windows/) are required.
 You can either set them up manually, or install them via npm:
 
