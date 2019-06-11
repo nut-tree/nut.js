@@ -58,15 +58,12 @@ describe("Basic test", () => {
 
 # Installation
 
-While `nut.js` comes with a pre-built version of OpenCV for your respective target platform, it currently still requires some 3rd-party dependencies to generate `node` bindings.
-This setup will be enhanced in the future so no additional packages have to be installed on a target system.
-
-Until then, the following tools / libraries need to be installed in order to use `nut.js`:
+`nut.js` comes with a pre-built version of OpenCV for your respective target platform.
+In order to use these pre-compiled bindings, certain runtime conditions have to be met.
 
 ## Prerequisites
 
-The installation process comes with a pre-built version of OpenCV for the respective target platform.
-It's not required to manually build or install OpenCV, but the installation process has some 3rd-party dependencies.
+This section lists runtime requirements for `nut.js` on the respective target platform.
 
 #### Windows
 
