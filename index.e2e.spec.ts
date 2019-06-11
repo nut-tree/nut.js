@@ -79,10 +79,10 @@ describe("E2E drag & drop demo", () => {
     await mouse.move(right(100));
     await mouse.leftClick();
     const dest = await screen.find("moved_trash.png");
-    expect(Math.abs(dest.left - expected.left)).toBeLessThan(maxDiff);
-    expect(Math.abs(dest.top - expected.top)).toBeLessThan(maxDiff);
-    expect(Math.abs(dest.width - expected.width)).toBeLessThan(maxDiff);
-    expect(Math.abs(dest.height - expected.height)).toBeLessThan(maxDiff);
+    expect(Math.abs(dest.left - expected.left)).toBeLessThanOrEqual(maxDiff);
+    expect(Math.abs(dest.top - expected.top)).toBeLessThanOrEqual(maxDiff);
+    expect(Math.abs(dest.width - expected.width)).toBeLessThanOrEqual(maxDiff);
+    expect(Math.abs(dest.height - expected.height)).toBeLessThanOrEqual(maxDiff);
   });
 });
 
