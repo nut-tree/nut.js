@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.3.0
+
+- Enhancement: Enabled prebuilt bindings for OpenCV [(#77)](https://github.com/nut-tree/nut.js/issues/77)
+
 ## 1.2.1
 
 - Enhancement: Exported `Button` enum [(#75)](https://github.com/nut-tree/nut.js/issues/75)
