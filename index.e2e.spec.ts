@@ -69,12 +69,20 @@ describe("E2E drag & drop demo", () => {
   it("should run without throwing", async () => {
     jest.setTimeout(60000);
     screen.config.resourceDirectory = "./e2e/assets";
+
+    const expected = new Region(38, 585, 70, 86);
+    const maxDiff = 1;
+
     await assert.isVisible("trash.png");
     await mouse.move(straightTo(centerOf(screen.find("trash.png"))));
     await mouse.drag(down(500));
     await mouse.move(right(100));
     await mouse.leftClick();
-    expect(await screen.find("moved_trash.png")).toEqual(new Region(38, 585, 70, 86));
+    const dest = await screen.find("moved_trash.png");
+    expect(Math.abs(dest.left - expected.left)).toBeLessThan(maxDiff);
+    expect(Math.abs(dest.top - expected.top)).toBeLessThan(maxDiff);
+    expect(Math.abs(dest.width - expected.width)).toBeLessThan(maxDiff);
+    expect(Math.abs(dest.height - expected.height)).toBeLessThan(maxDiff);
   });
 });
 
