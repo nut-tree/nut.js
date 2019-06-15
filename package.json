@@ -54,7 +54,7 @@
     "versionBump": "bump --tag --push --all"
   },
   "dependencies": {
-    "clipboardy": "2.0.0",
+    "clipboardy": "2.1.0",
     "opencv4nodejs-prebuilt": "4.15.2",
     "robotjs-node10": "0.5.4"
   },
