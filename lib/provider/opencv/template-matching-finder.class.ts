@@ -7,7 +7,6 @@ import { Region } from "../../region.class";
 import { ScaledMatchResult } from "../../scaled-match-result.class";
 import { DataSource } from "./data-source.interface";
 import { determineScaledSearchRegion } from "./determine-searchregion.function";
-import { findEdges } from "./find-edges.function";
 import { FinderInterface } from "./finder.interface";
 import { ImageProcessor } from "./image-processor.class";
 import { ImageReader } from "./image-reader.class";
@@ -86,8 +85,6 @@ export class TemplateMatchingFinder implements FinderInterface {
       );
     }
     const haystack = await loadHaystack(matchRequest);
-    const edgeHaystack = await findEdges(haystack);
-    const edgeNeedle = await findEdges(needle);
 
     if (debug) {
       debugImage(needle, "input_needle.png");
@@ -107,7 +104,7 @@ export class TemplateMatchingFinder implements FinderInterface {
             )
           );
         }
-        const matchResult = await matchImages(edgeHaystack, edgeNeedle);
+        const matchResult = await matchImages(haystack, needle);
         return new ScaledMatchResult(matchResult.confidence, currentScale, matchResult.location);
       }
     );
@@ -126,7 +123,7 @@ export class TemplateMatchingFinder implements FinderInterface {
               )
             );
           }
-          const matchResult = await matchImages(edgeHaystack, await findEdges(scaledNeedle));
+          const matchResult = await matchImages(haystack, scaledNeedle);
           return new ScaledMatchResult(
             matchResult.confidence,
             currentScale,
@@ -148,7 +145,7 @@ export class TemplateMatchingFinder implements FinderInterface {
               )
             );
           }
-          const matchResult = await matchImages(await findEdges(scaledHaystack), edgeNeedle);
+          const matchResult = await matchImages(scaledHaystack, needle);
           return new ScaledMatchResult(
             matchResult.confidence,
             currentScale,
