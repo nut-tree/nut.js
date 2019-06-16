@@ -14,14 +14,14 @@ import { matchImages } from "./match-image.function";
 import { scaleImage } from "./scale-image.function";
 import { scaleLocation } from "./scale-location.function";
 
-const loadNeedle = async (image: Image): Promise<cv.Mat> => {
+async function loadNeedle(image: Image): Promise<cv.Mat> {
   if (image.hasAlphaChannel) {
     return ImageProcessor.fromImageWithAlphaChannel(image);
   }
   return ImageProcessor.fromImageWithoutAlphaChannel(image);
-};
+}
 
-const loadHaystack = async (matchRequest: MatchRequest): Promise<cv.Mat> => {
+async function loadHaystack(matchRequest: MatchRequest): Promise<cv.Mat> {
   const searchRegion = determineScaledSearchRegion(matchRequest);
   if (matchRequest.haystack.hasAlphaChannel) {
     return ImageProcessor.fromImageWithAlphaChannel(
@@ -34,9 +34,9 @@ const loadHaystack = async (matchRequest: MatchRequest): Promise<cv.Mat> => {
       searchRegion,
     );
   }
-};
+}
 
-const debugImage = (image: cv.Mat, filename: string, suffix?: string) => {
+function debugImage(image: cv.Mat, filename: string, suffix?: string) {
   const parsedPath = path.parse(filename);
   let fullFilename = parsedPath.name;
   if (suffix) {
@@ -45,20 +45,20 @@ const debugImage = (image: cv.Mat, filename: string, suffix?: string) => {
   fullFilename += parsedPath.ext;
   const fullPath = path.join(parsedPath.dir, fullFilename);
   cv.imwriteAsync(fullPath, image);
-};
+}
 
-// const debugResult = (image: cv.Mat, result: MatchResult, filename: string, suffix?: string) => {
+// function debugResult(image: cv.Mat, result: MatchResult, filename: string, suffix?: string) {
 //   const roiRect = new cv.Rect(
 //     Math.min(Math.max(result.location.left, 0), image.cols),
 //     Math.min(Math.max(result.location.top, 0), image.rows),
 //     Math.min(result.location.width, image.cols - result.location.left),
 //     Math.min(result.location.height, image.rows - result.location.top));
 //   debugImage(image.getRegion(roiRect), filename, suffix);
-// };
+// }
 
-const isValidSearch = (needle: cv.Mat, haystack: cv.Mat): boolean => {
+function isValidSearch(needle: cv.Mat, haystack: cv.Mat): boolean {
   return (needle.cols <= haystack.cols) && (needle.rows <= haystack.rows);
-};
+}
 
 export class TemplateMatchingFinder implements FinderInterface {
   private initialScale = [1.0];

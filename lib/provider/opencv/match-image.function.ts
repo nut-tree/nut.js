@@ -2,7 +2,7 @@ import * as cv from "opencv4nodejs-prebuilt";
 import { MatchResult } from "../../match-result.class";
 import { Region } from "../../region.class";
 
-export const matchImages = async (haystack: cv.Mat, needle: cv.Mat): Promise<MatchResult> => {
+export async function matchImages(haystack: cv.Mat, needle: cv.Mat): Promise<MatchResult> {
   const match = await haystack.matchTemplateAsync(
     needle,
     cv.TM_SQDIFF_NORMED,
@@ -17,4 +17,4 @@ export const matchImages = async (haystack: cv.Mat, needle: cv.Mat): Promise<Mat
       needle.rows,
     ),
   );
-};
+}
