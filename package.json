@@ -62,6 +62,7 @@
     "@types/clipboardy": "^1.1.0",
     "@types/jest": "^24.0.9",
     "jest": "^24.7.1",
+    "sneer": "^1.0.1",
     "ts-jest": "^24.0.2",
     "tslint": "^5.16.0",
     "typescript": "^3.4.3",
