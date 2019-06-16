@@ -6,9 +6,14 @@ import { MatchResult } from "../../match-result.class";
 import { Region } from "../../region.class";
 import { ScaledMatchResult } from "../../scaled-match-result.class";
 import { DataSource } from "./data-source.interface";
+import { determineScaledSearchRegion } from "./determine-searchregion.function";
+import { findEdges } from "./find-edges.function";
 import { FinderInterface } from "./finder.interface";
 import { ImageProcessor } from "./image-processor.class";
 import { ImageReader } from "./image-reader.class";
+import { matchImages } from "./match-image.function";
+import { scaleImage } from "./scale-image.function";
+import { scaleLocation } from "./scale-location.function";
 
 const loadNeedle = async (image: Image): Promise<cv.Mat> => {
   if (image.hasAlphaChannel) {
@@ -32,36 +37,6 @@ const loadHaystack = async (matchRequest: MatchRequest): Promise<cv.Mat> => {
   }
 };
 
-const matchImages = async (haystack: cv.Mat, needle: cv.Mat): Promise<MatchResult> => {
-  const match = await haystack.matchTemplateAsync(
-    needle,
-    cv.TM_SQDIFF_NORMED,
-  );
-  const minMax = await match.minMaxLocAsync();
-  return new MatchResult(
-    1.0 - minMax.minVal,
-    new Region(
-      minMax.minLoc.x,
-      minMax.minLoc.y,
-      Math.min(needle.cols, haystack.cols),
-      Math.min(needle.rows, haystack.rows),
-    ),
-  );
-};
-
-const scaleImage = async (image: cv.Mat, scaleFactor: number): Promise<cv.Mat> => {
-  const scaledRows = Math.max(Math.floor(image.rows * scaleFactor), 1.0);
-  const scaledCols = Math.max(Math.floor(image.cols * scaleFactor), 1.0);
-  return image.resizeAsync(scaledRows, scaledCols, 0, 0, cv.INTER_AREA);
-};
-
-const determineScaledSearchRegion = (matchRequest: MatchRequest): Region => {
-  const searchRegion = matchRequest.searchRegion;
-  searchRegion.width *= matchRequest.haystack.pixelDensity.scaleX;
-  searchRegion.height *= matchRequest.haystack.pixelDensity.scaleY;
-  return searchRegion;
-};
-
 const debugImage = (image: cv.Mat, filename: string, suffix?: string) => {
   const parsedPath = path.parse(filename);
   let fullFilename = parsedPath.name;
@@ -81,35 +56,6 @@ const debugImage = (image: cv.Mat, filename: string, suffix?: string) => {
 //     Math.min(result.location.height, image.rows - result.location.top));
 //   debugImage(image.getRegion(roiRect), filename, suffix);
 // };
-//
-// const findEdges = async (image: cv.Mat): Promise<cv.Mat> => {
-//   const gray = await image.cvtColorAsync(cv.COLOR_BGR2GRAY);
-//   return gray.cannyAsync(50, 200);
-// };
-
-const scaleSize = (
-  result: Region,
-  scaleFactor: number,
-): Region => {
-  return new Region(
-    result.left,
-    result.top,
-    result.width / scaleFactor,
-    result.height / scaleFactor,
-  );
-};
-
-const scaleLocation = (
-  result: Region,
-  scaleFactor: number,
-): Region => {
-  return new Region(
-    result.left / scaleFactor,
-    result.top / scaleFactor,
-    result.width,
-    result.height,
-  );
-};
 
 const isValidSearch = (needle: cv.Mat, haystack: cv.Mat): boolean => {
   return (needle.cols <= haystack.cols) && (needle.rows <= haystack.rows);
@@ -140,6 +86,8 @@ export class TemplateMatchingFinder implements FinderInterface {
       );
     }
     const haystack = await loadHaystack(matchRequest);
+    const edgeHaystack = await findEdges(haystack);
+    const edgeNeedle = await findEdges(needle);
 
     if (debug) {
       debugImage(needle, "input_needle.png");
@@ -159,7 +107,7 @@ export class TemplateMatchingFinder implements FinderInterface {
             )
           );
         }
-        const matchResult = await matchImages(haystack, needle);
+        const matchResult = await matchImages(edgeHaystack, edgeNeedle);
         return new ScaledMatchResult(matchResult.confidence, currentScale, matchResult.location);
       }
     );
@@ -178,14 +126,11 @@ export class TemplateMatchingFinder implements FinderInterface {
               )
             );
           }
-          const matchResult = await matchImages(haystack, scaledNeedle);
+          const matchResult = await matchImages(edgeHaystack, await findEdges(scaledNeedle));
           return new ScaledMatchResult(
             matchResult.confidence,
             currentScale,
-            scaleSize(
-              matchResult.location,
-              currentScale
-            )
+            matchResult.location,
           );
         }
       );
@@ -203,7 +148,7 @@ export class TemplateMatchingFinder implements FinderInterface {
               )
             );
           }
-          const matchResult = await matchImages(scaledHaystack, needle);
+          const matchResult = await matchImages(await findEdges(scaledHaystack), edgeNeedle);
           return new ScaledMatchResult(
             matchResult.confidence,
             currentScale,
@@ -235,16 +180,14 @@ export class TemplateMatchingFinder implements FinderInterface {
       try {
         const matches = await this.findMatches(matchRequest, debug);
         const potentialMatches = matches
-          .filter(match => match.confidence >= matchRequest.confidence)
-          .sort((first, second) => first.scale - second.scale);
+          .filter(match => match.confidence >= matchRequest.confidence);
         if (potentialMatches.length === 0) {
           reject(`Unable to locate ${matchRequest.pathToNeedle}, no match!`);
         }
-        resolve(potentialMatches.pop());
+        resolve(potentialMatches[0]);
       } catch (e) {
         reject(e);
       }
     });
   }
-
 }
