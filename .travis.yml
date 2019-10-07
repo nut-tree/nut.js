@@ -15,6 +15,17 @@ addons:
 services:
   - docker
 
+matrix:
+  include:
+    - name: "Node 8"
+      env: NODE_VERSION=8
+    - name: "Node 10"
+      env: NODE_VERSION=10
+    - name: "Node 11"
+      env: NODE_VERSION=11
+    - name: "Node 12"
+      env: NODE_VERSION=12
+
 before_install:
   # Update Docker
   - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -27,7 +38,7 @@ before_install:
 install: true
 
 script:
-  - travis_retry docker exec nut-ci bash -c "bash $PWD/.build/build.sh ${PWD} lts/dubnium"
+  - travis_retry docker exec nut-ci bash -c "bash $PWD/.build/build.sh ${PWD} ${NODE_VERSION}"
 
 after_success:
   - sonar-scanner
