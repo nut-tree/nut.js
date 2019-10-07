@@ -33,6 +33,12 @@ export class Keyboard {
 
   /**
    * {@link type} types a sequence of {@link String} or single {@link Key}s via system keyboard
+   * @example
+   * ```typescript
+   *    await keyboard.type(Key.A, Key.S, Key.D, Key.F);
+   *    await keyboard.type("Hello, world!");
+   * ```
+   *
    * @param input Sequence of {@link String} or {@link Key} to type
    */
   public type(...input: StringOrKey): Promise<Keyboard> {
