@@ -2,13 +2,13 @@ import * as cv from "opencv4nodejs-prebuilt";
 import { Image } from "../../image.class";
 import { Region } from "../../region.class";
 
-const determineROI = (img: Image, roi: Region): cv.Rect => {
+function determineROI(img: Image, roi: Region): cv.Rect {
   return new cv.Rect(
     Math.min(Math.max(roi.left, 0), img.width),
     Math.min(Math.max(roi.top, 0), img.height),
     Math.min(roi.width, img.width - roi.left),
     Math.min(roi.height, img.height - roi.top));
-};
+}
 
 export class ImageProcessor {
   /**
