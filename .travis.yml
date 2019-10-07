@@ -17,8 +17,6 @@ services:
 
 matrix:
   include:
-    - name: "Node 8"
-      env: NODE_VERSION=8
     - name: "Node 10"
       env: NODE_VERSION=10
     - name: "Node 11"
