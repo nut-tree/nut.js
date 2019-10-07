@@ -51,12 +51,14 @@
     "lint": "tslint -p tsconfig.json",
     "watch": "tsc -w -p .",
     "prepublishOnly": "npm run compile && npm test",
-    "versionBump": "bump --tag --push --all"
+    "versionBump": "bump --tag --push --all",
+    "typedoc": "typedoc --options ./typedoc.js --out ./docs lib/"
   },
   "dependencies": {
+    "@nut-tree/libnut": "1.0.2",
     "clipboardy": "2.0.0",
     "opencv4nodejs-prebuilt": "5.3.0",
-    "@nut-tree/libnut": "1.0.2"
+    "typedoc": "^0.15.0"
   },
   "devDependencies": {
     "@types/clipboardy": "^1.1.0",
