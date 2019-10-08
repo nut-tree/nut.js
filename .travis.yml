@@ -40,11 +40,11 @@ matrix:
       node_js: "12"
 
 before_install:
-  - "bash ./build/setup_${TRAVIS_OS_NAME}.sh"
+  - "bash ./.build/setup_${TRAVIS_OS_NAME}.sh"
 install: true
 
 script:
-  - "bash ./build/run_${TRAVIS_OS_NAME}.sh"
+  - "bash ./.build/run_${TRAVIS_OS_NAME}.sh"
 
 after_success:
   - sonar-scanner
