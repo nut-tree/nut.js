@@ -5,4 +5,4 @@ echo $PWD
 
 npm ci
 npm run compile
-npm test
+npm test -- --testPathIgnorePatterns=".*/expect/.*"
