@@ -9,9 +9,9 @@ init:
 
 environment:
   matrix:
-    - nodejs_version: "12"
-    - nodejs_version: "11"
     - nodejs_version: "10"
+    - nodejs_version: "11"
+    - nodejs_version: "12"
 
 clone_folder: c:\projects\nut
 
