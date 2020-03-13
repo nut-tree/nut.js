@@ -59,13 +59,13 @@
     "@nut-tree/libnut": "1.0.2"
   },
   "devDependencies": {
-    "@types/clipboardy": "^1.1.0",
-    "@types/jest": "^24.0.9",
-    "jest": "^24.7.1",
-    "sneer": "^1.0.1",
-    "ts-jest": "^24.0.2",
-    "tslint": "^5.16.0",
-    "typescript": "^3.4.3",
-    "version-bump-prompt": "^5.0.1"
+    "@types/clipboardy": "2.0.1",
+    "@types/jest": "25.1.4",
+    "jest": "25.1.0",
+    "sneer": "1.0.1",
+    "ts-jest": "25.2.1",
+    "tslint": "6.1.0",
+    "typescript": "3.8.3",
+    "version-bump-prompt": "6.0.2"
   }
 }
