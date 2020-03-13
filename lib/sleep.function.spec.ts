@@ -18,7 +18,7 @@ describe("sleep", () => {
 describe("busyWaitForNanoSeconds", () => {
     it("should resolve after x ns", async () => {
         // GIVEN
-        const timeoutNs = 5000;
+        const timeoutNs = 5_000_000;
         const timeoutMs = 5;
 
         // WHEN
