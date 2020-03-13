@@ -37,7 +37,7 @@ matrix:
       os: osx
       osx_image: xcode11
       language: node_js
-      node_js: "12"
+      node_js: "12.13.0"
 
 before_install:
   - "bash ./.build/setup_${TRAVIS_OS_NAME}.sh"
