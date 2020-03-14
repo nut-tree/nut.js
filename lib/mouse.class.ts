@@ -2,7 +2,7 @@ import { NativeAdapter } from "./adapter/native.adapter.class";
 import { Button } from "./button.enum";
 import { linear } from "./movementtype.function";
 import { Point } from "./point.class";
-import { sleep } from "./sleep.function";
+import { busyWaitForNanoSeconds, sleep } from "./sleep.function";
 
 /**
  * {@link Mouse} class provides methods to emulate mouse input
@@ -66,7 +66,7 @@ export class Mouse {
         for (let idx = 0; idx < pathSteps.length; ++idx) {
           const node = pathSteps[idx];
           const minTime = timeSteps[idx];
-          await sleep(minTime);
+          await busyWaitForNanoSeconds(minTime);
           await this.native.setMousePosition(node);
         }
         resolve(this);

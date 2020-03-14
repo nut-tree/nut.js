@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ClipboardActionProvider | @nut-tree/nut-js</title>
+	<title>MovementApi | @nut-tree/nut-js</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,10 +54,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="clipboardactionprovider.html">ClipboardActionProvider</a>
+					<a href="movementapi.html">MovementApi</a>
 				</li>
 			</ul>
-			<h1>Interface ClipboardActionProvider</h1>
+			<h1>Interface MovementApi</h1>
 		</div>
 	</div>
 </header>
@@ -67,7 +67,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>A ClipboardActionProvider should allow access to the system clipboard</p>
+						<p><a href="movementapi.html">MovementApi</a> provides helper functions to generate movement paths relative tot he current mouse position</p>
 					</div>
 				</div>
 			</section>
@@ -75,14 +75,8 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">ClipboardActionProvider</span>
+						<span class="target">MovementApi</span>
 					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel">
-				<h3>Implemented by</h3>
-				<ul class="tsd-hierarchy">
-					<li><a href="../classes/clipboardaction.html" class="tsd-signature-type">ClipboardAction</a></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -92,10 +86,11 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="clipboardactionprovider.html#clear" class="tsd-kind-icon">clear</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="clipboardactionprovider.html#copy" class="tsd-kind-icon">copy</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="clipboardactionprovider.html#hastext" class="tsd-kind-icon">has<wbr>Text</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="clipboardactionprovider.html#paste" class="tsd-kind-icon">paste</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="movementapi.html#down" class="tsd-kind-icon">down</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="movementapi.html#left" class="tsd-kind-icon">left</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="movementapi.html#right" class="tsd-kind-icon">right</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="movementapi.html#straightto" class="tsd-kind-icon">straight<wbr>To</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="movementapi.html#up" class="tsd-kind-icon">up</a></li>
 							</ul>
 						</section>
 					</div>
@@ -104,102 +99,157 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-					<a name="clear" class="tsd-anchor"></a>
-					<h3>clear</h3>
+					<a name="down" class="tsd-anchor"></a>
+					<h3>down</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">clear<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">down<span class="tsd-signature-symbol">(</span>px<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/point.html" class="tsd-signature-type">Point</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/cc7ee90/lib/provider/native/clipboard-action-provider.interface.ts#L17">provider/native/clipboard-action-provider.interface.ts:17</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/cc7ee90/lib/movement-api.interface.ts#L11">movement-api.interface.ts:11</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>clear should allow to clear the system clipboard</p>
-								</div>
-							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
-							<p>True when successfully cleared, false otherwise</p>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-					<a name="copy" class="tsd-anchor"></a>
-					<h3>copy</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">copy<span class="tsd-signature-symbol">(</span>text<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/cc7ee90/lib/provider/native/clipboard-action-provider.interface.ts#L24">provider/native/clipboard-action-provider.interface.ts:24</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>copy should allow to copy text to the systems clipboard</p>
+									<p><a href="movementapi.html#down">down</a> generates a downward movement path</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>text: <span class="tsd-signature-type">string</span></h5>
+									<h5>px: <span class="tsd-signature-type">number</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>The text to copy to the clipboard</p>
+										<p>Length of the movement path in pixels</p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/point.html" class="tsd-signature-type">Point</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-					<a name="hastext" class="tsd-anchor"></a>
-					<h3>has<wbr>Text</h3>
+					<a name="left" class="tsd-anchor"></a>
+					<h3>left</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">has<wbr>Text<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">left<span class="tsd-signature-symbol">(</span>px<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/point.html" class="tsd-signature-type">Point</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/cc7ee90/lib/provider/native/clipboard-action-provider.interface.ts#L10">provider/native/clipboard-action-provider.interface.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/cc7ee90/lib/movement-api.interface.ts#L16">movement-api.interface.ts:16</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>hasText should return whether the system clipboard currently holds text or not</p>
+									<p><a href="movementapi.html#left">left</a> generates a leftward movement path</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
-							<p>True if there&#39;s text on the clipboard, false otherwise</p>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>px: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Length of the movement path in pixels</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/point.html" class="tsd-signature-type">Point</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
-					<a name="paste" class="tsd-anchor"></a>
-					<h3>paste</h3>
+					<a name="right" class="tsd-anchor"></a>
+					<h3>right</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-						<li class="tsd-signature tsd-kind-icon">paste<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">right<span class="tsd-signature-symbol">(</span>px<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/point.html" class="tsd-signature-type">Point</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/cc7ee90/lib/provider/native/clipboard-action-provider.interface.ts#L31">provider/native/clipboard-action-provider.interface.ts:31</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/cc7ee90/lib/movement-api.interface.ts#L21">movement-api.interface.ts:21</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>paste should allow to paste the current text on the systems clipboard</p>
+									<p><a href="movementapi.html#right">right</a> generates a rightward movement path</p>
 								</div>
 							</div>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
-							<p>The current clipboard text</p>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>px: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Length of the movement path in pixels</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/point.html" class="tsd-signature-type">Point</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="straightto" class="tsd-anchor"></a>
+					<h3>straight<wbr>To</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">straight<wbr>To<span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="../classes/point.html" class="tsd-signature-type">Point</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/point.html" class="tsd-signature-type">Point</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/point.html" class="tsd-signature-type">Point</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/cc7ee90/lib/movement-api.interface.ts#L26">movement-api.interface.ts:26</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p><a href="movementapi.html#straightto">straightTo</a> generates a straight movement path to a given target <a href="../classes/point.html">Point</a></p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>target: <a href="../classes/point.html" class="tsd-signature-type">Point</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/point.html" class="tsd-signature-type">Point</a><span class="tsd-signature-symbol">&gt;</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The target <a href="../classes/point.html">Point</a> to move towards</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/point.html" class="tsd-signature-type">Point</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="up" class="tsd-anchor"></a>
+					<h3>up</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">up<span class="tsd-signature-symbol">(</span>px<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/point.html" class="tsd-signature-type">Point</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/cc7ee90/lib/movement-api.interface.ts#L31">movement-api.interface.ts:31</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p><a href="movementapi.html#up">up</a> generates a upward movement path</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>px: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Length of the movement path in pixels</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/point.html" class="tsd-signature-type">Point</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -218,19 +268,22 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface">
-						<a href="clipboardactionprovider.html" class="tsd-kind-icon">Clipboard<wbr>Action<wbr>Provider</a>
+						<a href="movementapi.html" class="tsd-kind-icon">Movement<wbr>Api</a>
 						<ul>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="clipboardactionprovider.html#clear" class="tsd-kind-icon">clear</a>
+								<a href="movementapi.html#down" class="tsd-kind-icon">down</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="clipboardactionprovider.html#copy" class="tsd-kind-icon">copy</a>
+								<a href="movementapi.html#left" class="tsd-kind-icon">left</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="clipboardactionprovider.html#hastext" class="tsd-kind-icon">has<wbr>Text</a>
+								<a href="movementapi.html#right" class="tsd-kind-icon">right</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
-								<a href="clipboardactionprovider.html#paste" class="tsd-kind-icon">paste</a>
+								<a href="movementapi.html#straightto" class="tsd-kind-icon">straight<wbr>To</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="movementapi.html#up" class="tsd-kind-icon">up</a>
 							</li>
 						</ul>
 					</li>
