@@ -65,7 +65,7 @@ jobs:
       deploy:
         - provider: script
           skip_cleanup: false
-          script: npm run publish-next
+          script: bash ./build/pre-release.sh
           on:
             branch: develop
         - provider: script
