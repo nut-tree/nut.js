@@ -50,7 +50,8 @@
     "coverage": "jest --coverage",
     "lint": "tslint -p tsconfig.json",
     "watch": "tsc -w -p .",
-    "prepublishOnly": "npm run compile && npm test",
+    "publish-next": "bump prerelease --preid next && npm publish --tag next",
+    "prepublishOnly": "npm run compile",
     "versionBump": "bump --tag --push --all",
     "typedoc": "typedoc --options ./typedoc.js --out ./docs lib/"
   },
