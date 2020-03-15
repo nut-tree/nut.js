@@ -41,6 +41,9 @@ jobs:
   allow_failures:
     - node_js: lts/erbium
       os: osx
+  exclude:
+    - if: (node_js = lts/erbium) OR (node_js = 12.13.0)
+      os: linux
 
   include:
     - stage: sonar
