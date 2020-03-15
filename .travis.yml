@@ -42,7 +42,10 @@ jobs:
     - node_js: lts/erbium
       os: osx
   exclude:
-    - if: (node_js = lts/erbium) OR (node_js = 12.13.0)
+    - if: stage = test
+      node_js:
+        - 12.13.0
+        - lts/erbium
       os: linux
 
   include:
