@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+npm ci
 patchVersion=$(npm --no-git-tag version patch)
 nextVersion=${patchVersion}-next."$(date +%Y%m%d%k%M%S)"
 echo "${nextVersion:1}"
