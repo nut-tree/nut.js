@@ -65,7 +65,7 @@ jobs:
       deploy:
         - provider: script
           skip_cleanup: false
-          script: bash ./build/pre-release.sh
+          script: bash ./.build/pre-release.sh
           on:
             branch: develop
         - provider: script
