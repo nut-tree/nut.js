@@ -55,12 +55,10 @@ jobs:
       after_success:
         - sonar-scanner
     - stage: deploy
-      os: linux
-      dist: bionic
+      os: osx
+      osx_image: xcode11
       language: node_js
       node_js: lts/erbium
-      before_install:
-        - "bash ./.build/setup_${TRAVIS_OS_NAME}.sh"
       install: true
       script: true
       before_deploy:
