@@ -39,9 +39,6 @@ stages:
     if: tag IS present
 
 jobs:
-  allow_failures:
-    - node_js: lts/erbium
-      os: osx
   exclude:
     - stage: test
       node_js: 12.13.0
@@ -69,6 +66,11 @@ jobs:
       before_deploy:
         - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
       deploy:
+        - provider: script
+          skip_cleanup: false
+          script: npm run publish-next
+          on:
+            branch: develop
         - provider: script
           skip_cleanup: false
           script: npm publish
