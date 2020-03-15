@@ -36,7 +36,7 @@ stages:
   - sonar
   - test
   - name: deploy
-    if: tag IS present
+    if: (branch = develop) OR (tag IS present)
 
 jobs:
   exclude:
