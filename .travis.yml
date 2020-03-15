@@ -43,9 +43,10 @@ jobs:
       os: osx
   exclude:
     - stage: test
-      node_js:
-        - 12.13.0
-        - lts/erbium
+      node_js: 12.13.0
+      os: linux
+    - stage: test
+      node_js: lts/erbium
       os: linux
 
   include:
