@@ -4,7 +4,7 @@ import { Point } from "../point.class";
 import { ClipboardActionProvider } from "../provider/native/clipboard-action-provider.interface";
 import { ClipboardAction } from "../provider/native/clipboardy-clipboard-action.class";
 import { KeyboardActionProvider } from "../provider/native/keyboard-action-provider.interface";
-import { MouseActionInterface } from "../provider/native/mouse-action-provider.interface";
+import { MouseActionProvider } from "../provider/native/mouse-action-provider.interface";
 import { KeyboardAction } from "../provider/native/robotjs-keyboard-action.class";
 import { MouseAction } from "../provider/native/robotjs-mouse-action.class";
 
@@ -20,12 +20,12 @@ export class NativeAdapter {
    * {@link NativeAdapter} class constructor
    * @param clipboard {@link ClipboardActionProvider} instance used to interact with a systems clipboard (Default: {@link ClipboardAction})
    * @param keyboard {@link KeyboardActionProvider} instance used to interact with a systems keybaord (Default: {@link KeyboardAction})
-   * @param mouse {@link MouseActionInterface} instance used to interact with a systems mouse (Default: {@link MouseAction})
+   * @param mouse {@link MouseActionProvider} instance used to interact with a systems mouse (Default: {@link MouseAction})
    */
   constructor(
     private clipboard: ClipboardActionProvider = new ClipboardAction(),
     private keyboard: KeyboardActionProvider = new KeyboardAction(),
-    private mouse: MouseActionInterface = new MouseAction(),
+    private mouse: MouseActionProvider = new MouseAction(),
   ) {}
 
   /**
