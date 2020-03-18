@@ -11,10 +11,9 @@ describe("sleep", () => {
         const before = Date.now();
         await sleep(timeout);
         const after = Date.now();
-        const delta = Math.abs((after - before) - timeout);
 
         // THEN
-        expect(delta).toBeLessThanOrEqual(maxTimeDeltaInMs);
+        expect(after - before).toBeGreaterThanOrEqual(timeout - maxTimeDeltaInMs);
     });
 });
 
@@ -28,9 +27,8 @@ describe("busyWaitForNanoSeconds", () => {
         const before = Date.now();
         await busyWaitForNanoSeconds(timeoutNs);
         const after = Date.now();
-        const delta = Math.abs((after - before) - timeoutMs);
 
         // THEN
-        expect(delta).toBeLessThanOrEqual(maxTimeDeltaInMs);
+        expect(after - before).toBeGreaterThanOrEqual(timeoutMs - maxTimeDeltaInMs);
     });
 });
