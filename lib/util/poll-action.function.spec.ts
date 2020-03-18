@@ -93,12 +93,12 @@ describe("poll-action", () => {
         });
 
         // WHEN
-        await timeout(updateInterval, maxDuration, action);
+        const result = await timeout(updateInterval, maxDuration, action);
         const end = Date.now();
 
         // THEN
         expect((end - start)).toBeGreaterThanOrEqual(delay);
-        expect(action).toBeCalledTimes(4);
+        expect(result).toBeTruthy();
     });
 
     it("should fail after timeout if timeout < retry interval", async () => {
