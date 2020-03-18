@@ -11,7 +11,7 @@ describe("sleep", () => {
         const before = Date.now();
         await sleep(timeout);
         const after = Date.now();
-        const delta = Math.abs(after - before);
+        const delta = Math.abs((after - before) - timeout);
 
         // THEN
         expect(delta).toBeLessThanOrEqual(maxTimeDeltaInMs);
@@ -22,12 +22,13 @@ describe("busyWaitForNanoSeconds", () => {
     it("should resolve after x ns", async () => {
         // GIVEN
         const timeoutNs = 5_000_000;
+        const timeoutMs = 5;
 
         // WHEN
         const before = Date.now();
         await busyWaitForNanoSeconds(timeoutNs);
         const after = Date.now();
-        const delta = Math.abs(after - before);
+        const delta = Math.abs((after - before) - timeoutMs);
 
         // THEN
         expect(delta).toBeLessThanOrEqual(maxTimeDeltaInMs);
