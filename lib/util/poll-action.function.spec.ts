@@ -42,7 +42,6 @@ describe("poll-action", () => {
 
         // THEN
         expect((end - start)).toBeGreaterThanOrEqual(maxDuration);
-        expect(action).toBeCalledTimes((maxDuration / updateInterval));
     });
 
     it("should resolve after updateInterval if action resolves", async () => {
