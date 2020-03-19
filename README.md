@@ -1,11 +1,11 @@
-# nut.js (Native UI Toolkit) [![Build Status](https://travis-ci.com/nut-tree/nut.js.svg?branch=master)](https://travis-ci.com/nut-tree/nut.js) [![SonarCloud badge](https://sonarcloud.io/api/project_badges/measure?project=nut-tree%3Anut.js&metric=alert_status)](https://sonarcloud.io/dashboard?id=nut-tree%3Anut.js) [![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=nut-tree%3Anut.js&metric=coverage)](https://sonarcloud.io/component_measures?id=nut-tree%3Anut.js&metric=coverage)
+# nut.js (Native UI Toolkit) [![Build Status](https://travis-ci.com/nut-tree/nut.js.svg?branch=master)](https://travis-ci.com/nut-tree/nut.js) [![SonarCloud badge](https://sonarcloud.io/api/project_badges/measure?project=nut-tree%3Anut.js&metric=alert_status)](https://sonarcloud.io/dashboard?id=nut-tree%3Anut.js) [![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=nut-tree%3Anut.js&metric=coverage)](https://sonarcloud.io/component_measures?id=nut-tree%3Anut.js&metric=coverage) [![Downloads per month](https://img.shields.io/npm/dm/@nut-tree/nut-js)](https://www.npmjs.com/package/@nut-tree/nut-js)
 <p align="center">
 Native UI testing / automation with node.js
 </p>
 <br/>
 <p align="center">
 	<a target="_blank" href="https://github.com/justadudewhohacks/opencv4nodejs">
-		<img src="https://img.shields.io/badge/Built_with-opencv4nodejs-C86414.svg?style=flat-square" alt="Built with opencv4nodejs" />
+		<img src="https://img.shields.io/badge/Built_with-opencv4nodejs-C86414.svg?style=flat-square" alt="Built with opencv4nodejs" /></a>
 </p>
 
 # About
@@ -14,7 +14,7 @@ Native UI testing / automation with node.js
     <img src="https://github.com/nut-tree/nut.js/raw/master/.gfx/nut.png" alt="logo" width="200"/>
 </p>
 
-`nut.js` is a cross-platform native UI testing tool.
+`nut.js` is a cross-platform native UI automation / testing tool.
 
 It allows for native UI interactions via keyboard and / or mouse,
 but additionally gives you the possibility to navigate the screen based on image matching.
@@ -26,7 +26,7 @@ The following snippet shows a valid NUT example (on macOS)
 ```js
 "use strict";
 
-const { keyboard, Key, mouse, left, right, up, down } = require("@nut-tree/nut-js");
+const { keyboard, Key, mouse, left, right, up, down, screen } = require("@nut-tree/nut-js");
 
 const square = async () => {
   await mouse.move(right(500));
