@@ -20,7 +20,6 @@ describe("poll-action", () => {
 
         // THEN
         expect((end - start)).toBeGreaterThanOrEqual(maxDuration);
-        expect(action).toBeCalledTimes((maxDuration / updateInterval));
     });
 
     it("should timeout after maxDuration if action resolve != true", async () => {
