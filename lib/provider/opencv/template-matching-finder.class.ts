@@ -179,7 +179,8 @@ export class TemplateMatchingFinder implements FinderInterface {
         const potentialMatches = matches
           .filter(match => match.confidence >= matchRequest.confidence);
         if (potentialMatches.length === 0) {
-          const bestMatch = matches.sort((a, b) => a.confidence - b.confidence).pop();
+          matches.sort((a, b) => a.confidence - b.confidence);
+          const bestMatch = matches.pop();
           if (bestMatch) {
             reject(`No match with required confidence ${matchRequest.confidence}. Best match: ${bestMatch.confidence} at ${bestMatch.location}`)
           } else {
