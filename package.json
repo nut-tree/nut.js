@@ -58,7 +58,7 @@
   "dependencies": {
     "@nut-tree/libnut": "1.0.2",
     "clipboardy": "2.0.0",
-    "opencv4nodejs-prebuilt": "5.3.0"
+    "opencv4nodejs-prebuilt": "5.3.0-1"
   },
   "devDependencies": {
     "@types/clipboardy": "2.0.1",
