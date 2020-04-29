@@ -21,7 +21,7 @@ but additionally gives you the possibility to navigate the screen based on image
 
 # Sample
 
-The following snippet shows a valid NUT example (on macOS)
+The following snippet shows a valid `nut.js` example (on macOS)
 
 ```js
 "use strict";
@@ -61,6 +61,7 @@ In order to use these pre-compiled bindings, certain runtime conditions have to 
 ## Prerequisites
 
 This section lists runtime requirements for `nut.js` on the respective target platform.
+`nut.js` is built and tested against node 10 and later as well as Electron 4 and later, so in order to use `nut.js` please make sure to use one of these versions.
 
 #### Windows
 
@@ -155,7 +156,28 @@ or
 yarn add @nut-tree/nut-js
 ```
 
-will install nut.js and its required dependencies.
+will install `nut.js` and its required dependencies.
+
+### Snapshot releases
+
+`nut.js` also provides snapshot releases which allows to test upcoming features.
+
+Running 
+
+```bash
+npm i @nut-tree/nut-js@next
+```
+
+or
+
+```bash
+yarn add @nut-tree/nut-js@next
+```
+
+will install the most recent development release of `nut.js`.
+
+**Attention**: While snapshot releases are great to work with upcoming features before a new stable release, it is still a snapshot release.
+Please bear in mind that things might change and / or break on snapshot releases, so it is not recommended using them in production.
 
 ### Usage with Electron
 
@@ -190,10 +212,13 @@ Next, we add a `rebuild` script to our `package.json`:
 
 ```json
 {
+    ...
     "scripts": {
+        ...
         "start": "electron app.js",
         "rebuild": "electron-rebuild"
-    }
+    },
+    ...,
 }
 ```
 
