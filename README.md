@@ -1,4 +1,4 @@
-# nut.js (Native UI Toolkit) [![Build Status](https://travis-ci.com/nut-tree/nut.js.svg?branch=master)](https://travis-ci.com/nut-tree/nut.js) [![SonarCloud badge](https://sonarcloud.io/api/project_badges/measure?project=nut-tree%3Anut.js&metric=alert_status)](https://sonarcloud.io/dashboard?id=nut-tree%3Anut.js) [![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=nut-tree%3Anut.js&metric=coverage)](https://sonarcloud.io/component_measures?id=nut-tree%3Anut.js&metric=coverage) [![Downloads per month](https://img.shields.io/npm/dm/@nut-tree/nut-js)](https://www.npmjs.com/package/@nut-tree/nut-js)
+# nut.js (Native UI Toolkit) [![Build Status](https://travis-ci.com/nut-tree/nut.js.svg?branch=master)](https://travis-ci.com/nut-tree/nut.js) [![Build status](https://ci.appveyor.com/api/projects/status/iohwxc5t46gcuvby/branch/master?svg=true)](https://ci.appveyor.com/project/s1hofmann/nut-js/branch/master) [![SonarCloud badge](https://sonarcloud.io/api/project_badges/measure?project=nut-tree%3Anut.js&metric=alert_status)](https://sonarcloud.io/dashboard?id=nut-tree%3Anut.js) [![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=nut-tree%3Anut.js&metric=coverage)](https://sonarcloud.io/component_measures?id=nut-tree%3Anut.js&metric=coverage) [![Downloads per month](https://img.shields.io/npm/dm/@nut-tree/nut-js)](https://www.npmjs.com/package/@nut-tree/nut-js)
 <p align="center">
 Native UI testing / automation with node.js
 </p>
@@ -157,6 +157,48 @@ yarn add @nut-tree/nut-js
 
 will install nut.js and its required dependencies.
 
+### Usage with Electron
+
+`nut.js` in combination with Electron requires bindings built for use with Electron.
+`nut.js` does provide such bindings and e.g. [electron-rebuild](https://www.npmjs.com/package/electron-rebuild) makes installation a breeze.
+
+Besides installing `nut.js` via
+
+```bash
+npm i @nut-tree/nut-js
+```
+
+or
+
+```bash
+yarn add @nut-tree/nut-js
+```
+
+we also install `electron-rebuild` as a `devDependency`:
+
+```bash
+npm i -D electron-rebuild
+```
+
+or 
+
+```bash
+yarn add -D electron-rebuild
+```
+
+Next, we add a `rebuild` script to our `package.json`:
+
+```json
+{
+    "scripts": {
+        "start": "electron app.js",
+        "rebuild": "electron-rebuild"
+    }
+}
+```
+
+Now all we have to do is run `npm run rebuild` and `electron-rebuild` will fetch the appropriate bindings for our Electron version.
+Currently `nut.js` provides bindings for all ABI version to work with Electron v4.x up to 8.x
 
 # Examples
 
