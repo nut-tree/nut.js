@@ -32,7 +32,7 @@ export class Screen {
         /**
          * Configure highlighting duration
          */
-        highlightDuration: 500,
+        highlightDurationMs: 500,
 
         /**
          * Configure opacity of highlight window
@@ -131,7 +131,7 @@ export class Screen {
      */
     public async highlight(regionToHighlight: Region | Promise<Region>): Promise<Region> {
         const highlightRegion = await regionToHighlight;
-        await this.vision.highlightScreenRegion(highlightRegion, this.config.highlightDuration, this.config.highlightOpacity);
+        await this.vision.highlightScreenRegion(highlightRegion, this.config.highlightDurationMs, this.config.highlightOpacity);
         return highlightRegion;
     }
 
