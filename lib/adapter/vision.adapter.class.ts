@@ -50,6 +50,17 @@ export class VisionAdapter {
   }
 
   /**
+   * {@link highlightScreenRegion} highlights a screen {@link Region} for a given duration by overlaying it with an opaque window
+   *
+   * @param region The {@link Region} to highlight
+   * @param duration The highlight duration
+   * @param opacity Overlay opacity
+   */
+  public highlightScreenRegion(region: Region, duration: number, opacity: number): Promise<void> {
+    return this.screen.highlightScreenRegion(region, duration, opacity);
+  }
+
+  /**
    * {@link findOnScreenRegion} will search for a given pattern inside a {@link Region} of the main screen
    * If multiple possible occurrences are found, the one with the highest probability is returned.
    * For matchProbability < 0.99 the search will be performed on grayscale images.

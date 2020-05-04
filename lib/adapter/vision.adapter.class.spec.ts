@@ -37,6 +37,23 @@ describe("VisionAdapter class", () => {
     expect(screenMock.grabScreenRegion).toBeCalledWith(screenRegion);
   });
 
+  it("should delegate calls to highlightScreenRegion", async () => {
+    // GIVEN
+    const finderMock = new TemplateMatchingFinder();
+    const screenMock = new ScreenAction();
+    const SUT = new VisionAdapter(finderMock, screenMock);
+    const screenRegion = new Region(0, 0, 100, 100);
+    const opacity = 0.25;
+    const duration = 1;
+
+    // WHEN
+    await SUT.highlightScreenRegion(screenRegion, duration, opacity);
+
+    // THEN
+    expect(screenMock.highlightScreenRegion).toBeCalledTimes(1);
+    expect(screenMock.highlightScreenRegion).toBeCalledWith(screenRegion, duration, opacity);
+  });
+
   it("should delegate calls to screenWidth", async () => {
     // GIVEN
     const finderMock = new TemplateMatchingFinder();
