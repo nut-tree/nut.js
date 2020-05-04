@@ -32,7 +32,7 @@ export class Screen {
         /**
          * Configure highlighting duration
          */
-        highlightDuration: 1,
+        highlightDuration: 500,
 
         /**
          * Configure opacity of highlight window
