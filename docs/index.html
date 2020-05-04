@@ -83,7 +83,7 @@
 				<a href="#sample" id="sample" style="color: inherit; text-decoration: none;">
 					<h1>Sample</h1>
 				</a>
-				<p>The following snippet shows a valid NUT example (on macOS)</p>
+				<p>The following snippet shows a valid <code>nut.js</code> example (on macOS)</p>
 				<pre><code class="language-js"><span class="hljs-meta">"use strict"</span>;
 
 <span class="hljs-keyword">const</span> { keyboard, Key, mouse, left, right, up, down, screen } = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@nut-tree/nut-js"</span>);
@@ -119,7 +119,8 @@ describe(<span class="hljs-string">"Basic test"</span>, () =&gt; {
 				<a href="#prerequisites" id="prerequisites" style="color: inherit; text-decoration: none;">
 					<h2>Prerequisites</h2>
 				</a>
-				<p>This section lists runtime requirements for <code>nut.js</code> on the respective target platform.</p>
+				<p>This section lists runtime requirements for <code>nut.js</code> on the respective target platform.
+				<code>nut.js</code> is built and tested against node 10 and later as well as Electron 4 and later, so in order to use <code>nut.js</code> please make sure to use one of these versions.</p>
 				<a href="#windows" id="windows" style="color: inherit; text-decoration: none;">
 					<h4>Windows</h4>
 				</a>
@@ -187,7 +188,18 @@ describe(<span class="hljs-string">"Basic test"</span>, () =&gt; {
 				<pre><code class="language-bash">npm i @nut-tree/nut-js</code></pre>
 				<p>or</p>
 				<pre><code class="language-bash">yarn add @nut-tree/nut-js</code></pre>
-				<p>will install nut.js and its required dependencies.</p>
+				<p>will install <code>nut.js</code> and its required dependencies.</p>
+				<a href="#snapshot-releases" id="snapshot-releases" style="color: inherit; text-decoration: none;">
+					<h3>Snapshot releases</h3>
+				</a>
+				<p><code>nut.js</code> also provides snapshot releases which allows to test upcoming features.</p>
+				<p>Running </p>
+				<pre><code class="language-bash">npm i @nut-tree/nut-js@next</code></pre>
+				<p>or</p>
+				<pre><code class="language-bash">yarn add @nut-tree/nut-js@next</code></pre>
+				<p>will install the most recent development release of <code>nut.js</code>.</p>
+				<p><strong>Attention</strong>: While snapshot releases are great to work with upcoming features before a new stable release, it is still a snapshot release.
+				Please bear in mind that things might change and / or break on snapshot releases, so it is not recommended using them in production.</p>
 				<a href="#usage-with-electron" id="usage-with-electron" style="color: inherit; text-decoration: none;">
 					<h3>Usage with Electron</h3>
 				</a>
@@ -203,10 +215,13 @@ describe(<span class="hljs-string">"Basic test"</span>, () =&gt; {
 				<pre><code class="language-bash">yarn add -D electron-rebuild</code></pre>
 				<p>Next, we add a <code>rebuild</code> script to our <code>package.json</code>:</p>
 				<pre><code class="language-json">{
-    <span class="hljs-attr">"scripts"</span>: {
-        <span class="hljs-attr">"start"</span>: <span class="hljs-string">"electron app.js"</span>,
-        <span class="hljs-attr">"rebuild"</span>: <span class="hljs-string">"electron-rebuild"</span>
-    }
+    ...
+    &quot;scripts&quot;: {
+        ...
+        &quot;start&quot;: &quot;electron app.js&quot;,
+        &quot;rebuild&quot;: &quot;electron-rebuild&quot;
+    },
+    ...,
 }</code></pre>
 				<p>Now all we have to do is run <code>npm run rebuild</code> and <code>electron-rebuild</code> will fetch the appropriate bindings for our Electron version.
 				Currently <code>nut.js</code> provides bindings for all ABI version to work with Electron v4.x up to 8.x</p>
@@ -392,7 +407,7 @@ describe(<span class="hljs-string">"Basic test"</span>, () =&gt; {
 						<a href="globals.html#stringorkey" class="tsd-kind-icon">String<wbr>OrKey</a>
 					</li>
 					<li class=" tsd-kind-variable">
-						<a href="globals.html#robot" class="tsd-kind-icon">robot</a>
+						<a href="globals.html#libnut" class="tsd-kind-icon">libnut</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#busywaitfornanoseconds" class="tsd-kind-icon">busy<wbr>Wait<wbr>For<wbr>Nano<wbr>Seconds</a>

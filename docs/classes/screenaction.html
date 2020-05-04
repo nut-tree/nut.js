@@ -91,6 +91,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="screenaction.html#grabscreen" class="tsd-kind-icon">grab<wbr>Screen</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="screenaction.html#grabscreenregion" class="tsd-kind-icon">grab<wbr>Screen<wbr>Region</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="screenaction.html#highlightscreenregion" class="tsd-kind-icon">highlight<wbr>Screen<wbr>Region</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="screenaction.html#screenheight" class="tsd-kind-icon">screen<wbr>Height</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="screenaction.html#screensize" class="tsd-kind-icon">screen<wbr>Size</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="screenaction.html#screenwidth" class="tsd-kind-icon">screen<wbr>Width</a></li>
@@ -111,7 +112,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/a26192e/lib/provider/native/robotjs-screen-action.class.ts#L16">provider/native/robotjs-screen-action.class.ts:16</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/e3df158/lib/provider/native/libnut-screen-action.class.ts#L16">provider/native/libnut-screen-action.class.ts:16</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="screenaction.html" class="tsd-signature-type">ScreenAction</a></h4>
@@ -132,7 +133,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/screenactionprovider.html">ScreenActionProvider</a>.<a href="../interfaces/screenactionprovider.html#grabscreen">grabScreen</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/a26192e/lib/provider/native/robotjs-screen-action.class.ts#L21">provider/native/robotjs-screen-action.class.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/e3df158/lib/provider/native/libnut-screen-action.class.ts#L21">provider/native/libnut-screen-action.class.ts:21</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="image.html" class="tsd-signature-type">Image</a><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -150,7 +151,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/screenactionprovider.html">ScreenActionProvider</a>.<a href="../interfaces/screenactionprovider.html#grabscreenregion">grabScreenRegion</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/a26192e/lib/provider/native/robotjs-screen-action.class.ts#L45">provider/native/robotjs-screen-action.class.ts:45</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/e3df158/lib/provider/native/libnut-screen-action.class.ts#L45">provider/native/libnut-screen-action.class.ts:45</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -160,6 +161,36 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="image.html" class="tsd-signature-type">Image</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="highlightscreenregion" class="tsd-anchor"></a>
+					<h3>highlight<wbr>Screen<wbr>Region</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">highlight<wbr>Screen<wbr>Region<span class="tsd-signature-symbol">(</span>region<span class="tsd-signature-symbol">: </span><a href="region.html" class="tsd-signature-type">Region</a>, duration<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, opacity<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Implementation of <a href="../interfaces/screenactionprovider.html">ScreenActionProvider</a>.<a href="../interfaces/screenactionprovider.html#highlightscreenregion">highlightScreenRegion</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/e3df158/lib/provider/native/libnut-screen-action.class.ts#L70">provider/native/libnut-screen-action.class.ts:70</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>region: <a href="region.html" class="tsd-signature-type">Region</a></h5>
+								</li>
+								<li>
+									<h5>duration: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5>opacity: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -174,7 +205,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/screenactionprovider.html">ScreenActionProvider</a>.<a href="../interfaces/screenactionprovider.html#screenheight">screenHeight</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/a26192e/lib/provider/native/robotjs-screen-action.class.ts#L81">provider/native/robotjs-screen-action.class.ts:81</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/e3df158/lib/provider/native/libnut-screen-action.class.ts#L89">provider/native/libnut-screen-action.class.ts:89</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -192,7 +223,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/screenactionprovider.html">ScreenActionProvider</a>.<a href="../interfaces/screenactionprovider.html#screensize">screenSize</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/a26192e/lib/provider/native/robotjs-screen-action.class.ts#L92">provider/native/robotjs-screen-action.class.ts:92</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/e3df158/lib/provider/native/libnut-screen-action.class.ts#L100">provider/native/libnut-screen-action.class.ts:100</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="region.html" class="tsd-signature-type">Region</a><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -210,7 +241,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of <a href="../interfaces/screenactionprovider.html">ScreenActionProvider</a>.<a href="../interfaces/screenactionprovider.html#screenwidth">screenWidth</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/a26192e/lib/provider/native/robotjs-screen-action.class.ts#L70">provider/native/robotjs-screen-action.class.ts:70</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/e3df158/lib/provider/native/libnut-screen-action.class.ts#L78">provider/native/libnut-screen-action.class.ts:78</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -242,6 +273,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="screenaction.html#grabscreenregion" class="tsd-kind-icon">grab<wbr>Screen<wbr>Region</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="screenaction.html#highlightscreenregion" class="tsd-kind-icon">highlight<wbr>Screen<wbr>Region</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="screenaction.html#screenheight" class="tsd-kind-icon">screen<wbr>Height</a>
