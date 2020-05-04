@@ -260,6 +260,7 @@ It's work in progress and will undergo constant modification.
 - [x] findOnScreen
 - [x] waitFor
 - [x] Hooks to trigger actions based on images
+- [x] Highlighting screen regions
 
 ## Integration
 
