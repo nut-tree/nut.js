@@ -56,7 +56,7 @@ jobs:
       osx_image: xcode11
       language: node_js
       node_js: lts/erbium
-      install: true
+      install: npm ci
       script: true
       before_deploy:
         - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
