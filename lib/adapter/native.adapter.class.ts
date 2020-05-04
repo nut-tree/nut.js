@@ -5,8 +5,8 @@ import { ClipboardActionProvider } from "../provider/native/clipboard-action-pro
 import { ClipboardAction } from "../provider/native/clipboardy-clipboard-action.class";
 import { KeyboardActionProvider } from "../provider/native/keyboard-action-provider.interface";
 import { MouseActionProvider } from "../provider/native/mouse-action-provider.interface";
-import { KeyboardAction } from "../provider/native/robotjs-keyboard-action.class";
-import { MouseAction } from "../provider/native/robotjs-mouse-action.class";
+import { KeyboardAction } from "../provider/native/libnut-keyboard-action.class";
+import { MouseAction } from "../provider/native/libnut-mouse-action.class";
 
 /**
  * {@link NativeAdapter} serves as an abstraction layer for all OS level interactions.

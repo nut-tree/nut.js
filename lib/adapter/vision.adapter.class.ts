@@ -1,7 +1,7 @@
 import { Image } from "../image.class";
 import { MatchRequest } from "../match-request.class";
 import { MatchResult } from "../match-result.class";
-import { ScreenAction } from "../provider/native/robotjs-screen-action.class";
+import { ScreenAction } from "../provider/native/libnut-screen-action.class";
 import { ScreenActionProvider } from "../provider/native/screen-action-provider.interface";
 import { DataSink } from "../provider/opencv/data-sink.interface";
 import { FinderInterface } from "../provider/opencv/finder.interface";
