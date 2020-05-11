@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.4.1
+
+- Bugfix: Electron + Windows problems [(#126)](https://github.com/nut-tree/nut.js/issues/126)
+
 ## 1.4.0
 
 - Enhancement: API docs [(#87)](https://github.com/nut-tree/nut.js/issues/87)
