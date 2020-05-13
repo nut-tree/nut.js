@@ -7,6 +7,11 @@ about: Create a bug report to help us enhance our images
 
 **Short overview**
 
+**Issue occurs on**
+- [ ] Virtual machine
+- [ ] Docker container
+- [ ] Dev/Host system
+
 **Detailed error description**
 
 **Steps to reproduce error**
