@@ -78,7 +78,7 @@ describe("E2E drag & drop demo", () => {
     await mouse.drag(down(500));
     await mouse.move(right(100));
     await mouse.leftClick();
-    const dest = await screen.find("moved_trash.png");
+    const dest = await screen.find("moved_trash.png", {confidence: 0.95});
     expect(Math.abs(dest.left - expected.left)).toBeLessThanOrEqual(maxDiff);
     expect(Math.abs(dest.top - expected.top)).toBeLessThanOrEqual(maxDiff);
     expect(Math.abs(dest.width - expected.width)).toBeLessThanOrEqual(maxDiff);
