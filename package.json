@@ -46,8 +46,8 @@
   "scripts": {
     "clean": "rm -rf dist",
     "compile": "npm run clean && tsc -p .",
-    "test": "jest",
-    "coverage": "jest --coverage",
+    "test": "jest --runInBand",
+    "coverage": "jest --coverage --runInBand",
     "lint": "tslint -p tsconfig.json",
     "watch": "tsc -w -p .",
     "publish-next": "npm publish --tag next",
