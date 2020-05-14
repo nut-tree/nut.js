@@ -19,6 +19,48 @@ Native UI testing / automation with node.js
 It allows for native UI interactions via keyboard and / or mouse,
 but additionally gives you the possibility to navigate the screen based on image matching.
 
+# Examples
+
+[nut-tree/trailmix](https://github.com/nut-tree/trailmix) contains a set of ready to use examples which demo the usage ot nut.js.
+
+# Modules
+
+This list gives an overview on currently implemented and planned functionality.
+It's work in progress and will undergo constant modification.
+
+## Clipboard
+
+- [x] Copy text to clipboard
+- [x] Paste text from clipboard
+
+## Keyboard
+
+- [x] Support for standard US keyboard layout
+- [x] Support for German special characters
+
+## Mouse
+
+- [x] Support for mouse movement
+- [x] Support for mouse scroll
+- [x] Configurable movement speed
+- [x] Mouse drag
+
+## Process
+
+- [ ] Retrieve the region of a process window
+
+## Screen
+
+- [x] findOnScreen
+- [x] waitFor
+- [x] Hooks to trigger actions based on images
+- [x] Highlighting screen regions
+
+## Integration
+
+- [x] Jest
+- [x] Electron
+
 # Sample
 
 The following snippet shows a valid `nut.js` example (on macOS)
@@ -75,6 +117,16 @@ You can install them by running
 xcode-select --install
 ```
 
+**Attention**:
+
+In case you're experiencing problems like your mouse not moving or your keyboard not typing,
+please make sure to give the process you're executing your tests with accessibility permissions.
+
+If an application wants to use accessibility features, a permission pop-up should be shown.
+If not, you could try to manually add the application you're running the script from.
+
+`Settings -> Security & Privacy -> Privacy -> Accessibility -> Add...`
+
 #### Linux
 
 Depending on your distribution, Linux setups may differ.
@@ -89,58 +141,6 @@ sudo apt-get install libxtst-dev
 ```
 
 Setups on other distributions might differ.
-
-## Manual build
-
-As a fallback, `nut.js` is able to build all required dependencies by itself.
-To do so, some setup is required on the respective target platform.
-
-#### Windows
-
-In order to install `nut.js` on Windows, [Windows Build Tools](https://www.microsoft.com/en-us/download/details.aspx?id=48159) and [Python 2](https://www.python.org/downloads/windows/) are required.
-You can either set them up manually, or install them via npm:
-
-```bash
-npm install --global windows-build-tools
-```
-
-or
-
-```bash
-yarn global add windows-build-tools
-```
-
-#### macOS
-
-On macOS, Xcode command line tools are required.
-You can install them by running
-```bash
-xcode-select --install
-```
-
-#### Linux
-
-Depending on your distribution, Linux setups may differ.
-
-In general, `nut.js` requires
-
-- Python 2
-- g++
-- make
-- libXtst
-- libPng
-
-Installation on `*buntu` distributions:
-```bash
-sudo apt-get install build-essential python libxtst-dev libpng++-dev
-```
-
-Setups on other distributions might differ.
-
-For reference, please see:
- 
-- [opencv4nodejs](https://github.com/justadudewhohacks/opencv4nodejs#how-to-install)
-- [robotjs](http://robotjs.io/docs/building)
 
 ## Install `nut.js`
 
@@ -225,43 +225,54 @@ Next, we add a `rebuild` script to our `package.json`:
 Now all we have to do is run `npm run rebuild` and `electron-rebuild` will fetch the appropriate bindings for our Electron version.
 Currently `nut.js` provides bindings for all ABI version to work with Electron v4.x up to 8.x
 
-# Examples
+### Manual build
 
-[nut-tree/trailmix](https://github.com/nut-tree/trailmix) contains a set of ready to use examples which demo the usage ot nut.js.
+As a fallback, `nut.js` is able to build all required dependencies by itself.
+To do so, some setup is required on the respective target platform.
 
-# Modules
+#### Windows
 
-This list gives an overview on currently implemented and planned functionality.
-It's work in progress and will undergo constant modification.
+In order to install `nut.js` on Windows, [Windows Build Tools](https://www.microsoft.com/en-us/download/details.aspx?id=48159) and [Python 2](https://www.python.org/downloads/windows/) are required.
+You can either set them up manually, or install them via npm:
 
-## Clipboard
+```bash
+npm install --global windows-build-tools
+```
 
-- [x] Copy text to clipboard
-- [x] Paste text from clipboard
+or
 
-## Keyboard
+```bash
+yarn global add windows-build-tools
+```
 
-- [x] Support for standard US keyboard layout
-- [x] Support for German special characters
+#### macOS
 
-## Mouse
+On macOS, Xcode command line tools are required.
+You can install them by running
+```bash
+xcode-select --install
+```
 
-- [x] Support for mouse movement
-- [x] Support for mouse scroll
-- [x] Configurable movement speed
-- [x] Mouse drag
+#### Linux
 
-## Process
+Depending on your distribution, Linux setups may differ.
 
-- [ ] Retrieve the region of a process window
+In general, `nut.js` requires
 
-## Screen
+- Python 2
+- g++
+- make
+- libXtst
+- libPng
 
-- [x] findOnScreen
-- [x] waitFor
-- [x] Hooks to trigger actions based on images
-- [x] Highlighting screen regions
+Installation on `*buntu` distributions:
+```bash
+sudo apt-get install build-essential python libxtst-dev libpng++-dev
+```
 
-## Integration
+Setups on other distributions might differ.
 
-- [x] Jest
+For reference, please see:
+ 
+- [opencv4nodejs](https://github.com/justadudewhohacks/opencv4nodejs#how-to-install)
+- [robotjs](http://robotjs.io/docs/building)
