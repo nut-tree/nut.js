@@ -60,9 +60,31 @@
 	<div class="row">
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
-				<a href="#nutjs-native-ui-toolkit-----" id="nutjs-native-ui-toolkit-----" style="color: inherit; text-decoration: none;">
-					<h1>nut.js (Native UI Toolkit) <a href="https://travis-ci.com/nut-tree/nut.js"><img src="https://travis-ci.com/nut-tree/nut.js.svg?branch=master" alt="Build Status"></a> <a href="https://ci.appveyor.com/project/s1hofmann/nut-js/branch/master"><img src="https://ci.appveyor.com/api/projects/status/iohwxc5t46gcuvby/branch/master?svg=true" alt="Build status"></a> <a href="https://sonarcloud.io/dashboard?id=nut-tree%3Anut.js"><img src="https://sonarcloud.io/api/project_badges/measure?project=nut-tree%3Anut.js&metric=alert_status" alt="SonarCloud badge"></a> <a href="https://sonarcloud.io/component_measures?id=nut-tree%3Anut.js&amp;metric=coverage"><img src="https://sonarcloud.io/api/project_badges/measure?project=nut-tree%3Anut.js&metric=coverage" alt="SonarCloud Coverage"></a> <a href="https://www.npmjs.com/package/@nut-tree/nut-js"><img src="https://img.shields.io/npm/dm/@nut-tree/nut-js" alt="Downloads per month"></a></h1>
+				<a href="#nutjs-native-ui-toolkit" id="nutjs-native-ui-toolkit" style="color: inherit; text-decoration: none;">
+					<h1>nut.js (Native UI Toolkit)</h1>
 				</a>
+				<table>
+					<thead>
+						<tr>
+							<th align="center"></th>
+							<th align="center">Travis</th>
+							<th align="center">Appveyor</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td align="center">Master</td>
+							<td align="center"><a href="https://travis-ci.com/nut-tree/nut.js"><img src="https://travis-ci.com/nut-tree/nut.js.svg?branch=master" alt="Build Status"></a></td>
+							<td align="center"><a href="https://ci.appveyor.com/project/s1hofmann/nut-js/branch/master"><img src="https://ci.appveyor.com/api/projects/status/iohwxc5t46gcuvby/branch/master?svg=true" alt="Build status"></a></td>
+						</tr>
+						<tr>
+							<td align="center">Develop</td>
+							<td align="center"><a href="https://travis-ci.com/nut-tree/nut.js"><img src="https://travis-ci.com/nut-tree/nut.js.svg?branch=develop" alt="Build Status"></a></td>
+							<td align="center"><a href="https://ci.appveyor.com/project/s1hofmann/nut-js/branch/develop"><img src="https://ci.appveyor.com/api/projects/status/iohwxc5t46gcuvby/branch/develop?svg=true" alt="Build status"></a></td>
+						</tr>
+				</tbody></table>
+				<p><a href="https://sonarcloud.io/dashboard?id=nut-tree%3Anut.js"><img src="https://sonarcloud.io/api/project_badges/measure?project=nut-tree%3Anut.js&metric=alert_status" alt="SonarCloud badge"></a>
+				<a href="https://sonarcloud.io/component_measures?id=nut-tree%3Anut.js&amp;metric=coverage"><img src="https://sonarcloud.io/api/project_badges/measure?project=nut-tree%3Anut.js&metric=coverage" alt="SonarCloud Coverage"></a></p>
+				<p><a href="https://www.npmjs.com/package/@nut-tree/nut-js"><img src="https://img.shields.io/npm/dm/@nut-tree/nut-js" alt="Downloads per month"></a></p>
 				<p align="center">
 					Native UI testing / automation with node.js
 				</p>
@@ -80,6 +102,60 @@
 				<p><code>nut.js</code> is a cross-platform native UI automation / testing tool.</p>
 				<p>It allows for native UI interactions via keyboard and / or mouse,
 				but additionally gives you the possibility to navigate the screen based on image matching.</p>
+				<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
+					<h1>Examples</h1>
+				</a>
+				<p><a href="https://github.com/nut-tree/trailmix">nut-tree/trailmix</a> contains a set of ready to use examples which demo the usage ot nut.js.</p>
+				<a href="#modules" id="modules" style="color: inherit; text-decoration: none;">
+					<h1>Modules</h1>
+				</a>
+				<p>This list gives an overview on currently implemented and planned functionality.
+				It&#39;s work in progress and will undergo constant modification.</p>
+				<a href="#clipboard" id="clipboard" style="color: inherit; text-decoration: none;">
+					<h2>Clipboard</h2>
+				</a>
+				<ul>
+					<li><input checked="" disabled="" type="checkbox"> Copy text to clipboard</li>
+					<li><input checked="" disabled="" type="checkbox"> Paste text from clipboard</li>
+				</ul>
+				<a href="#keyboard" id="keyboard" style="color: inherit; text-decoration: none;">
+					<h2>Keyboard</h2>
+				</a>
+				<ul>
+					<li><input checked="" disabled="" type="checkbox"> Support for standard US keyboard layout</li>
+					<li><input checked="" disabled="" type="checkbox"> Support for German special characters</li>
+				</ul>
+				<a href="#mouse" id="mouse" style="color: inherit; text-decoration: none;">
+					<h2>Mouse</h2>
+				</a>
+				<ul>
+					<li><input checked="" disabled="" type="checkbox"> Support for mouse movement</li>
+					<li><input checked="" disabled="" type="checkbox"> Support for mouse scroll</li>
+					<li><input checked="" disabled="" type="checkbox"> Configurable movement speed</li>
+					<li><input checked="" disabled="" type="checkbox"> Mouse drag</li>
+				</ul>
+				<a href="#process" id="process" style="color: inherit; text-decoration: none;">
+					<h2>Process</h2>
+				</a>
+				<ul>
+					<li><input disabled="" type="checkbox"> Retrieve the region of a process window</li>
+				</ul>
+				<a href="#screen" id="screen" style="color: inherit; text-decoration: none;">
+					<h2>Screen</h2>
+				</a>
+				<ul>
+					<li><input checked="" disabled="" type="checkbox"> findOnScreen</li>
+					<li><input checked="" disabled="" type="checkbox"> waitFor</li>
+					<li><input checked="" disabled="" type="checkbox"> Hooks to trigger actions based on images</li>
+					<li><input checked="" disabled="" type="checkbox"> Highlighting screen regions</li>
+				</ul>
+				<a href="#integration" id="integration" style="color: inherit; text-decoration: none;">
+					<h2>Integration</h2>
+				</a>
+				<ul>
+					<li><input checked="" disabled="" type="checkbox"> Jest</li>
+					<li><input checked="" disabled="" type="checkbox"> Electron</li>
+				</ul>
 				<a href="#sample" id="sample" style="color: inherit; text-decoration: none;">
 					<h1>Sample</h1>
 				</a>
@@ -131,6 +207,12 @@ describe(<span class="hljs-string">"Basic test"</span>, () =&gt; {
 				<p>On macOS, Xcode command line tools are required.
 				You can install them by running</p>
 				<pre><code class="language-bash">xcode-select --install</code></pre>
+				<p><strong>Attention</strong>:</p>
+				<p>In case you&#39;re experiencing problems like your mouse not moving or your keyboard not typing,
+				please make sure to give the process you&#39;re executing your tests with accessibility permissions.</p>
+				<p>If an application wants to use accessibility features, a permission pop-up should be shown.
+				If not, you could try to manually add the application you&#39;re running the script from.</p>
+				<p><code>Settings -&gt; Security &amp; Privacy -&gt; Privacy -&gt; Accessibility -&gt; Add...</code></p>
 				<a href="#linux" id="linux" style="color: inherit; text-decoration: none;">
 					<h4>Linux</h4>
 				</a>
@@ -142,45 +224,6 @@ describe(<span class="hljs-string">"Basic test"</span>, () =&gt; {
 				<p>Installation on <code>*buntu</code> distributions:</p>
 				<pre><code class="language-bash">sudo apt-get install libxtst-dev</code></pre>
 				<p>Setups on other distributions might differ.</p>
-				<a href="#manual-build" id="manual-build" style="color: inherit; text-decoration: none;">
-					<h2>Manual build</h2>
-				</a>
-				<p>As a fallback, <code>nut.js</code> is able to build all required dependencies by itself.
-				To do so, some setup is required on the respective target platform.</p>
-				<a href="#windows-1" id="windows-1" style="color: inherit; text-decoration: none;">
-					<h4>Windows</h4>
-				</a>
-				<p>In order to install <code>nut.js</code> on Windows, <a href="https://www.microsoft.com/en-us/download/details.aspx?id=48159">Windows Build Tools</a> and <a href="https://www.python.org/downloads/windows/">Python 2</a> are required.
-				You can either set them up manually, or install them via npm:</p>
-				<pre><code class="language-bash">npm install --global windows-build-tools</code></pre>
-				<p>or</p>
-				<pre><code class="language-bash">yarn global add windows-build-tools</code></pre>
-				<a href="#macos-1" id="macos-1" style="color: inherit; text-decoration: none;">
-					<h4>macOS</h4>
-				</a>
-				<p>On macOS, Xcode command line tools are required.
-				You can install them by running</p>
-				<pre><code class="language-bash">xcode-select --install</code></pre>
-				<a href="#linux-1" id="linux-1" style="color: inherit; text-decoration: none;">
-					<h4>Linux</h4>
-				</a>
-				<p>Depending on your distribution, Linux setups may differ.</p>
-				<p>In general, <code>nut.js</code> requires</p>
-				<ul>
-					<li>Python 2</li>
-					<li>g++</li>
-					<li>make</li>
-					<li>libXtst</li>
-					<li>libPng</li>
-				</ul>
-				<p>Installation on <code>*buntu</code> distributions:</p>
-				<pre><code class="language-bash">sudo apt-get install build-essential python libxtst-dev libpng++-dev</code></pre>
-				<p>Setups on other distributions might differ.</p>
-				<p>For reference, please see:</p>
-				<ul>
-					<li><a href="https://github.com/justadudewhohacks/opencv4nodejs#how-to-install">opencv4nodejs</a></li>
-					<li><a href="http://robotjs.io/docs/building">robotjs</a></li>
-				</ul>
 				<a href="#install-nutjs" id="install-nutjs" style="color: inherit; text-decoration: none;">
 					<h2>Install <code>nut.js</code></h2>
 				</a>
@@ -225,57 +268,44 @@ describe(<span class="hljs-string">"Basic test"</span>, () =&gt; {
 }</code></pre>
 				<p>Now all we have to do is run <code>npm run rebuild</code> and <code>electron-rebuild</code> will fetch the appropriate bindings for our Electron version.
 				Currently <code>nut.js</code> provides bindings for all ABI version to work with Electron v4.x up to 8.x</p>
-				<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
-					<h1>Examples</h1>
+				<a href="#manual-build" id="manual-build" style="color: inherit; text-decoration: none;">
+					<h3>Manual build</h3>
 				</a>
-				<p><a href="https://github.com/nut-tree/trailmix">nut-tree/trailmix</a> contains a set of ready to use examples which demo the usage ot nut.js.</p>
-				<a href="#modules" id="modules" style="color: inherit; text-decoration: none;">
-					<h1>Modules</h1>
+				<p>As a fallback, <code>nut.js</code> is able to build all required dependencies by itself.
+				To do so, some setup is required on the respective target platform.</p>
+				<a href="#windows-1" id="windows-1" style="color: inherit; text-decoration: none;">
+					<h4>Windows</h4>
 				</a>
-				<p>This list gives an overview on currently implemented and planned functionality.
-				It&#39;s work in progress and will undergo constant modification.</p>
-				<a href="#clipboard" id="clipboard" style="color: inherit; text-decoration: none;">
-					<h2>Clipboard</h2>
+				<p>In order to install <code>nut.js</code> on Windows, <a href="https://www.microsoft.com/en-us/download/details.aspx?id=48159">Windows Build Tools</a> and <a href="https://www.python.org/downloads/windows/">Python 2</a> are required.
+				You can either set them up manually, or install them via npm:</p>
+				<pre><code class="language-bash">npm install --global windows-build-tools</code></pre>
+				<p>or</p>
+				<pre><code class="language-bash">yarn global add windows-build-tools</code></pre>
+				<a href="#macos-1" id="macos-1" style="color: inherit; text-decoration: none;">
+					<h4>macOS</h4>
 				</a>
+				<p>On macOS, Xcode command line tools are required.
+				You can install them by running</p>
+				<pre><code class="language-bash">xcode-select --install</code></pre>
+				<a href="#linux-1" id="linux-1" style="color: inherit; text-decoration: none;">
+					<h4>Linux</h4>
+				</a>
+				<p>Depending on your distribution, Linux setups may differ.</p>
+				<p>In general, <code>nut.js</code> requires</p>
 				<ul>
-					<li><input checked="" disabled="" type="checkbox"> Copy text to clipboard</li>
-					<li><input checked="" disabled="" type="checkbox"> Paste text from clipboard</li>
+					<li>Python 2</li>
+					<li>g++</li>
+					<li>make</li>
+					<li>libXtst</li>
+					<li>libPng</li>
 				</ul>
-				<a href="#keyboard" id="keyboard" style="color: inherit; text-decoration: none;">
-					<h2>Keyboard</h2>
-				</a>
+				<p>Installation on <code>*buntu</code> distributions:</p>
+				<pre><code class="language-bash">sudo apt-get install build-essential python libxtst-dev libpng++-dev</code></pre>
+				<p>Setups on other distributions might differ.</p>
+				<p>For reference, please see:</p>
 				<ul>
-					<li><input checked="" disabled="" type="checkbox"> Support for standard US keyboard layout</li>
-					<li><input checked="" disabled="" type="checkbox"> Support for German special characters</li>
-				</ul>
-				<a href="#mouse" id="mouse" style="color: inherit; text-decoration: none;">
-					<h2>Mouse</h2>
-				</a>
-				<ul>
-					<li><input checked="" disabled="" type="checkbox"> Support for mouse movement</li>
-					<li><input checked="" disabled="" type="checkbox"> Support for mouse scroll</li>
-					<li><input checked="" disabled="" type="checkbox"> Configurable movement speed</li>
-					<li><input checked="" disabled="" type="checkbox"> Mouse drag</li>
-				</ul>
-				<a href="#process" id="process" style="color: inherit; text-decoration: none;">
-					<h2>Process</h2>
-				</a>
-				<ul>
-					<li><input disabled="" type="checkbox"> Retrieve the region of a process window</li>
-				</ul>
-				<a href="#screen" id="screen" style="color: inherit; text-decoration: none;">
-					<h2>Screen</h2>
-				</a>
-				<ul>
-					<li><input checked="" disabled="" type="checkbox"> findOnScreen</li>
-					<li><input checked="" disabled="" type="checkbox"> waitFor</li>
-					<li><input checked="" disabled="" type="checkbox"> Hooks to trigger actions based on images</li>
-				</ul>
-				<a href="#integration" id="integration" style="color: inherit; text-decoration: none;">
-					<h2>Integration</h2>
-				</a>
-				<ul>
-					<li><input checked="" disabled="" type="checkbox"> Jest</li>
+					<li><a href="https://github.com/justadudewhohacks/opencv4nodejs#how-to-install">opencv4nodejs</a></li>
+					<li><a href="http://robotjs.io/docs/building">robotjs</a></li>
 				</ul>
 			</div>
 		</div>
@@ -320,9 +350,6 @@ describe(<span class="hljs-string">"Basic test"</span>, () =&gt; {
 						<a href="classes/image.html" class="tsd-kind-icon">Image</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="classes/imageprocessor.html" class="tsd-kind-icon">Image<wbr>Processor</a>
-					</li>
-					<li class=" tsd-kind-class">
 						<a href="classes/imagereader.html" class="tsd-kind-icon">Image<wbr>Reader</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -338,9 +365,6 @@ describe(<span class="hljs-string">"Basic test"</span>, () =&gt; {
 						<a href="classes/linehelper.html" class="tsd-kind-icon">Line<wbr>Helper</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="classes/locationparameters.html" class="tsd-kind-icon">Location<wbr>Parameters</a>
-					</li>
-					<li class=" tsd-kind-class">
 						<a href="classes/matchrequest.html" class="tsd-kind-icon">Match<wbr>Request</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -354,6 +378,9 @@ describe(<span class="hljs-string">"Basic test"</span>, () =&gt; {
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/nativeadapter.html" class="tsd-kind-icon">Native<wbr>Adapter</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/optionalsearchparameters.html" class="tsd-kind-icon">Optional<wbr>Search<wbr>Parameters</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/point.html" class="tsd-kind-icon">Point</a>
@@ -429,6 +456,12 @@ describe(<span class="hljs-string">"Basic test"</span>, () =&gt; {
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#findedges" class="tsd-kind-icon">find<wbr>Edges</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#fromimagewithalphachannel" class="tsd-kind-icon">from<wbr>Image<wbr>With<wbr>Alpha<wbr>Channel</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#fromimagewithoutalphachannel" class="tsd-kind-icon">from<wbr>Image<wbr>Without<wbr>Alpha<wbr>Channel</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#generateoutputpath" class="tsd-kind-icon">generate<wbr>Output<wbr>Path</a>

@@ -15,6 +15,7 @@ export { Key } from "./lib/key.enum";
 export { Button } from "./lib/button.enum";
 export { centerOf, randomPointIn } from "./lib/location.function";
 export { LocationParameters } from "./lib/locationparameters.class";
+export { OptionalSearchParameters } from "./lib/optionalsearchparameters.class";
 export { linear } from "./lib/movementtype.function";
 export { Point } from "./lib/point.class";
 export { Region } from "./lib/region.class";

@@ -1,13 +1,9 @@
-import { Region } from "./region.class";
+import {OptionalSearchParameters} from "./optionalsearchparameters.class";
 
 /**
- * {@link LocationParameters} serves as a data class holding location parameters for image search
+ * {@deprecated This module serves as a polyfill to not break existing pre v1.5 code. Will be removed in v2.0.0}
+ * Use {@link OptionalSearchParameters} instead
  */
-export class LocationParameters {
-  /**
-   * {@link LocationParameters} class constructor
-   * @param searchRegion Optional {@link Region} to limit the search space to
-   * @param confidence Optional confidence value to configure image match confidence
-   */
-  constructor(public searchRegion?: Region, public confidence?: number) {}
+export {
+    OptionalSearchParameters as LocationParameters
 }
