@@ -1,6 +1,6 @@
 {
   "name": "@nut-tree/nut-js",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "license": "Apache-2.0",
   "main": "dist/index",
   "typings": "dist/index",
@@ -56,7 +56,7 @@
     "typedoc": "typedoc --options ./typedoc.js --out ./docs lib/"
   },
   "dependencies": {
-    "@nut-tree/libnut": "2.0.0",
+    "@nut-tree/libnut": "2.0.1",
     "clipboardy": "2.0.0",
     "opencv4nodejs-prebuilt": "5.3.0-2"
   },
