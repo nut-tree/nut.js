@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## 1.4.2
 
+- Maintenance: Refactor `locationparameters.class.ts` [(#129)](https://github.com/nut-tree/nut.js/issues/129)
+- Enhancement: Update npmignore [(#128)](https://github.com/nut-tree/nut.js/issues/128)
+- Maintenance: Refactor `image-processor.class.ts` [(#131)](https://github.com/nut-tree/nut.js/issues/131)
+- Enhancement: Update to `opencv4nodejs-prebuilt@5.3.0-2` [(#139)](https://github.com/nut-tree/nut.js/issues/139)
+- Enhancement: Add note about macOS permissions to readme [(#134)](https://github.com/nut-tree/nut.js/issues/134)
+- Enhancement: Stabilize drag & drop E2E test [(#145)](https://github.com/nut-tree/nut.js/issues/145)
 - Bugfix: Hanging shift key after keyboard input on Windows [(#157)](https://github.com/nut-tree/nut.js/issues/157)
 
 ## 1.4.1
