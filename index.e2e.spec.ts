@@ -103,9 +103,6 @@ describe("E2E window demo", () => {
   it("should list gnome-calculator", async () => {
     jest.setTimeout(30000);
     screen.config.resourceDirectory = "./e2e/assets";
-    await assert.isVisible("mouse.png");
-    await assert.isVisible("desktop.png");
-    await openXfceMenu();
     await run("uxterm");
     await sleep(1500);
     const foregroundWindow = await activeWindow();
