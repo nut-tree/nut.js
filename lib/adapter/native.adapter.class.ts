@@ -7,6 +7,9 @@ import { KeyboardActionProvider } from "../provider/native/keyboard-action-provi
 import { MouseActionProvider } from "../provider/native/mouse-action-provider.interface";
 import { KeyboardAction } from "../provider/native/libnut-keyboard-action.class";
 import { MouseAction } from "../provider/native/libnut-mouse-action.class";
+import { Region } from "../region.class";
+import { WindowActionProvider } from "../provider/native/window-action-provider.interface";
+import { WindowAction } from "../provider/native/libnut-window-action.class";
 
 /**
  * {@link NativeAdapter} serves as an abstraction layer for all OS level interactions.
@@ -21,11 +24,13 @@ export class NativeAdapter {
    * @param clipboard {@link ClipboardActionProvider} instance used to interact with a systems clipboard (Default: {@link ClipboardAction})
    * @param keyboard {@link KeyboardActionProvider} instance used to interact with a systems keybaord (Default: {@link KeyboardAction})
    * @param mouse {@link MouseActionProvider} instance used to interact with a systems mouse (Default: {@link MouseAction})
+   * @param window {@link WindowActionProvider} instance used to interact with a systems windows (Default: {@link WindowAction})
    */
   constructor(
     private clipboard: ClipboardActionProvider = new ClipboardAction(),
     private keyboard: KeyboardActionProvider = new KeyboardAction(),
     private mouse: MouseActionProvider = new MouseAction(),
+    private window: WindowActionProvider = new WindowAction(),
   ) {}
 
   /**
@@ -191,5 +196,36 @@ export class NativeAdapter {
    */
   public paste(): Promise<string> {
     return this.clipboard.paste();
+  }
+
+  public getWindows(): Promise<number[]> {
+    return this.window.getWindows();
+  }
+
+  /**
+   * {@link getActiveWindow} returns the window handle of the currently active foreground window
+   *
+   * @returns The handle to the currently active foreground window
+   */
+  public getActiveWindow(): Promise<number> {
+    return this.window.getActiveWindow();
+  }
+
+  /**
+   * {@link getWindowTitle} returns the title of a window addressed via its window handle
+   *
+   * @returns A string representing the title of a window addressed via its window handle
+   */
+  public getWindowTitle(windowHandle: number): Promise<string> {
+    return this.window.getWindowTitle(windowHandle);
+  }
+
+  /**
+   * {@link getWindowRegion} returns a {@link Region} object representing the size and position of the window addressed via its window handle
+   *
+   * @returns The {@link Region} occupied by the window addressed via its window handle
+   */
+  public getWindowRegion(windowHandle: number): Promise<Region> {
+    return this.window.getWindowRegion(windowHandle);
   }
 }
