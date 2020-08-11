@@ -1,4 +1,5 @@
 import {
+  activeWindow,
   assert,
   Button,
   centerOf,
@@ -10,7 +11,7 @@ import {
   right,
   screen,
   sleep,
-  straightTo
+  straightTo,
 } from "./index";
 
 const openXfceMenu = async () => {
@@ -95,5 +96,22 @@ describe("E2E mouse button demo", () => {
       await sleep(10);
       await mouse.releaseButton(btn);
     }
+  });
+});
+
+describe("E2E window demo", () => {
+  it("should list gnome-calculator", async () => {
+    jest.setTimeout(30000);
+    screen.config.resourceDirectory = "./e2e/assets";
+    await assert.isVisible("mouse.png");
+    await assert.isVisible("desktop.png");
+    await openXfceMenu();
+    await run("uxterm");
+    await sleep(1500);
+    const foregroundWindow = await activeWindow();
+    const windowTitle = await foregroundWindow.title;
+    await close();
+
+    expect(windowTitle).toBe("uxterm")
   });
 });
