@@ -103,6 +103,8 @@
 								<li class="tsd-kind-class"><a href="classes/screenaction.html" class="tsd-kind-icon">Screen<wbr>Action</a></li>
 								<li class="tsd-kind-class"><a href="classes/templatematchingfinder.html" class="tsd-kind-icon">Template<wbr>Matching<wbr>Finder</a></li>
 								<li class="tsd-kind-class"><a href="classes/visionadapter.html" class="tsd-kind-icon">Vision<wbr>Adapter</a></li>
+								<li class="tsd-kind-class"><a href="classes/window.html" class="tsd-kind-icon">Window</a></li>
+								<li class="tsd-kind-class"><a href="classes/windowaction.html" class="tsd-kind-icon">Window<wbr>Action</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -116,6 +118,8 @@
 								<li class="tsd-kind-interface"><a href="interfaces/mouseactionprovider.html" class="tsd-kind-icon">Mouse<wbr>Action<wbr>Provider</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/movementapi.html" class="tsd-kind-icon">Movement<wbr>Api</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/screenactionprovider.html" class="tsd-kind-icon">Screen<wbr>Action<wbr>Provider</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/windowactionprovider.html" class="tsd-kind-icon">Window<wbr>Action<wbr>Provider</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/windowapi.html" class="tsd-kind-icon">Window<wbr>Api</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -137,6 +141,7 @@
 								<li class="tsd-kind-function"><a href="globals.html#busywaitfornanoseconds" class="tsd-kind-icon">busy<wbr>Wait<wbr>For<wbr>Nano<wbr>Seconds</a></li>
 								<li class="tsd-kind-function"><a href="globals.html#centerof" class="tsd-kind-icon">center<wbr>Of</a></li>
 								<li class="tsd-kind-function"><a href="globals.html#createmovementapi" class="tsd-kind-icon">create<wbr>Movement<wbr>Api</a></li>
+								<li class="tsd-kind-function"><a href="globals.html#createwindowapi" class="tsd-kind-icon">create<wbr>Window<wbr>Api</a></li>
 								<li class="tsd-kind-function"><a href="globals.html#debugimage" class="tsd-kind-icon">debug<wbr>Image</a></li>
 								<li class="tsd-kind-function"><a href="globals.html#determineroi" class="tsd-kind-icon">determineROI</a></li>
 								<li class="tsd-kind-function"><a href="globals.html#determinescaledsearchregion" class="tsd-kind-icon">determine<wbr>Scaled<wbr>Search<wbr>Region</a></li>
@@ -179,7 +184,7 @@
 					<div class="tsd-signature tsd-kind-icon">Find<wbr>Hook<wbr>Callback<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>target<span class="tsd-signature-symbol">: </span><a href="classes/matchresult.html" class="tsd-signature-type">MatchResult</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/screen.class.ts#L12">screen.class.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/screen.class.ts#L12">screen.class.ts:12</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -210,7 +215,7 @@
 					<div class="tsd-signature tsd-kind-icon">String<wbr>OrKey<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><a href="enums/key.html" class="tsd-signature-type">Key</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/keyboard.class.ts#L5">keyboard.class.ts:5</a></li>
+							<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/keyboard.class.ts#L5">keyboard.class.ts:5</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -220,12 +225,13 @@
 				<section class="tsd-panel tsd-member tsd-kind-variable">
 					<a name="libnut" class="tsd-anchor"></a>
 					<h3>libnut</h3>
-					<div class="tsd-signature tsd-kind-icon">libnut<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;/Users/s1hofmann/Documents/git/nut-tree/nut.js/node_modules/@nut-tree/libnut/index&quot;</span></div>
+					<div class="tsd-signature tsd-kind-icon">libnut<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;/Users/shofmann/Documents/git/nut-tree/nut.js/node_modules/@nut-tree/libnut/index&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/provider/native/libnut-keyboard-action.class.ts#L1">provider/native/libnut-keyboard-action.class.ts:1</a></li>
-							<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/provider/native/libnut-mouse-action.class.ts#L1">provider/native/libnut-mouse-action.class.ts:1</a></li>
-							<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/provider/native/libnut-screen-action.class.ts#L1">provider/native/libnut-screen-action.class.ts:1</a></li>
+							<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/provider/native/libnut-keyboard-action.class.ts#L1">provider/native/libnut-keyboard-action.class.ts:1</a></li>
+							<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/provider/native/libnut-mouse-action.class.ts#L1">provider/native/libnut-mouse-action.class.ts:1</a></li>
+							<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/provider/native/libnut-window-action.class.ts#L1">provider/native/libnut-window-action.class.ts:1</a></li>
+							<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/provider/native/libnut-screen-action.class.ts#L1">provider/native/libnut-screen-action.class.ts:1</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -242,7 +248,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/sleep.function.ts#L5">sleep.function.ts:5</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/sleep.function.ts#L5">sleep.function.ts:5</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -265,7 +271,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/location.function.ts#L8">location.function.ts:8</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/location.function.ts#L8">location.function.ts:8</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -298,7 +304,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/movement.function.ts#L6">movement.function.ts:6</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/movement.function.ts#L6">movement.function.ts:6</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -315,6 +321,29 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="createwindowapi" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> create<wbr>Window<wbr>Api</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">create<wbr>Window<wbr>Api<span class="tsd-signature-symbol">(</span>nativeAdapter<span class="tsd-signature-symbol">: </span><a href="classes/nativeadapter.html" class="tsd-signature-type">NativeAdapter</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="interfaces/windowapi.html" class="tsd-signature-type">WindowApi</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/window.function.ts#L5">window.function.ts:5</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>nativeAdapter: <a href="classes/nativeadapter.html" class="tsd-signature-type">NativeAdapter</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="interfaces/windowapi.html" class="tsd-signature-type">WindowApi</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
 					<a name="debugimage" class="tsd-anchor"></a>
 					<h3>debug<wbr>Image</h3>
 					<ul class="tsd-signatures tsd-kind-function">
@@ -324,7 +353,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/provider/opencv/template-matching-finder.class.ts#L39">provider/opencv/template-matching-finder.class.ts:39</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/provider/opencv/template-matching-finder.class.ts#L39">provider/opencv/template-matching-finder.class.ts:39</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -353,7 +382,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/provider/opencv/image-processor.class.ts#L5">provider/opencv/image-processor.class.ts:5</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/provider/opencv/image-processor.class.ts#L5">provider/opencv/image-processor.class.ts:5</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -379,7 +408,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/provider/opencv/determine-searchregion.function.ts#L4">provider/opencv/determine-searchregion.function.ts:4</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/provider/opencv/determine-searchregion.function.ts#L4">provider/opencv/determine-searchregion.function.ts:4</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -402,7 +431,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/provider/opencv/find-edges.function.ts#L3">provider/opencv/find-edges.function.ts:3</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/provider/opencv/find-edges.function.ts#L3">provider/opencv/find-edges.function.ts:3</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -425,7 +454,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/provider/opencv/image-processor.class.ts#L22">provider/opencv/image-processor.class.ts:22</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/provider/opencv/image-processor.class.ts#L22">provider/opencv/image-processor.class.ts:22</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -468,7 +497,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/provider/opencv/image-processor.class.ts#L43">provider/opencv/image-processor.class.ts:43</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/provider/opencv/image-processor.class.ts#L43">provider/opencv/image-processor.class.ts:43</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -511,7 +540,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/generate-output-path.function.ts#L10">generate-output-path.function.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/generate-output-path.function.ts#L10">generate-output-path.function.ts:10</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -552,7 +581,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/keyboard.class.ts#L7">keyboard.class.ts:7</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/keyboard.class.ts#L7">keyboard.class.ts:7</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -575,7 +604,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/provider/opencv/template-matching-finder.class.ts#L59">provider/opencv/template-matching-finder.class.ts:59</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/provider/opencv/template-matching-finder.class.ts#L59">provider/opencv/template-matching-finder.class.ts:59</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -601,7 +630,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/movementtype.function.ts#L1">movementtype.function.ts:1</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/movementtype.function.ts#L1">movementtype.function.ts:1</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -627,7 +656,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/provider/opencv/template-matching-finder.class.ts#L24">provider/opencv/template-matching-finder.class.ts:24</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/provider/opencv/template-matching-finder.class.ts#L24">provider/opencv/template-matching-finder.class.ts:24</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -650,7 +679,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/provider/opencv/template-matching-finder.class.ts#L17">provider/opencv/template-matching-finder.class.ts:17</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/provider/opencv/template-matching-finder.class.ts#L17">provider/opencv/template-matching-finder.class.ts:17</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -673,7 +702,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/provider/opencv/bound-value.function.ts#L1">provider/opencv/bound-value.function.ts:1</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/provider/opencv/bound-value.function.ts#L1">provider/opencv/bound-value.function.ts:1</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -702,7 +731,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/provider/opencv/match-image.function.ts#L5">provider/opencv/match-image.function.ts:5</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/provider/opencv/match-image.function.ts#L5">provider/opencv/match-image.function.ts:5</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -728,7 +757,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/location.function.ts#L20">location.function.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/location.function.ts#L20">location.function.ts:20</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -761,7 +790,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/provider/opencv/scale-image.function.ts#L4">provider/opencv/scale-image.function.ts:4</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/provider/opencv/scale-image.function.ts#L4">provider/opencv/scale-image.function.ts:4</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -787,7 +816,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/provider/opencv/scale-location.function.ts#L4">provider/opencv/scale-location.function.ts:4</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/provider/opencv/scale-location.function.ts#L4">provider/opencv/scale-location.function.ts:4</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -813,7 +842,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/sleep.function.ts#L1">sleep.function.ts:1</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/sleep.function.ts#L1">sleep.function.ts:1</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -836,7 +865,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/util/poll-action.function.ts#L1">util/poll-action.function.ts:1</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/util/poll-action.function.ts#L1">util/poll-action.function.ts:1</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -889,7 +918,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/expect/matchers/toBeAt.function.ts#L4">expect/matchers/toBeAt.function.ts:4</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/expect/matchers/toBeAt.function.ts#L4">expect/matchers/toBeAt.function.ts:4</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -915,7 +944,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/expect/matchers/toBeIn.function.ts#L4">expect/matchers/toBeIn.function.ts:4</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/expect/matchers/toBeIn.function.ts#L4">expect/matchers/toBeIn.function.ts:4</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -941,7 +970,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/expect/matchers/toShow.function.ts#L4">expect/matchers/toShow.function.ts:4</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/expect/matchers/toShow.function.ts#L4">expect/matchers/toShow.function.ts:4</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -970,7 +999,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/provider/opencv/bound-value.function.ts#L5">provider/opencv/bound-value.function.ts:5</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/provider/opencv/bound-value.function.ts#L5">provider/opencv/bound-value.function.ts:5</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -998,7 +1027,7 @@
 					<div class="tsd-signature tsd-kind-icon">jest<wbr>Matchers<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/expect/jest.matcher.function.ts#L17">expect/jest.matcher.function.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/expect/jest.matcher.function.ts#L17">expect/jest.matcher.function.ts:17</a></li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
@@ -1007,7 +1036,7 @@
 						<div class="tsd-signature tsd-kind-icon">to<wbr>BeAt<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">toBeAt</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/expect/jest.matcher.function.ts#L18">expect/jest.matcher.function.ts:18</a></li>
+								<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/expect/jest.matcher.function.ts#L18">expect/jest.matcher.function.ts:18</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -1017,7 +1046,7 @@
 						<div class="tsd-signature tsd-kind-icon">to<wbr>BeIn<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">toBeIn</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/expect/jest.matcher.function.ts#L19">expect/jest.matcher.function.ts:19</a></li>
+								<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/expect/jest.matcher.function.ts#L19">expect/jest.matcher.function.ts:19</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -1027,7 +1056,7 @@
 						<div class="tsd-signature tsd-kind-icon">to<wbr>Show<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">toShow</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/expect/jest.matcher.function.ts#L20">expect/jest.matcher.function.ts:20</a></li>
+								<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/expect/jest.matcher.function.ts#L20">expect/jest.matcher.function.ts:20</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -1128,6 +1157,12 @@
 					<li class=" tsd-kind-class">
 						<a href="classes/visionadapter.html" class="tsd-kind-icon">Vision<wbr>Adapter</a>
 					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/window.html" class="tsd-kind-icon">Window</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/windowaction.html" class="tsd-kind-icon">Window<wbr>Action</a>
+					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/clipboardactionprovider.html" class="tsd-kind-icon">Clipboard<wbr>Action<wbr>Provider</a>
 					</li>
@@ -1152,6 +1187,12 @@
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/screenactionprovider.html" class="tsd-kind-icon">Screen<wbr>Action<wbr>Provider</a>
 					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/windowactionprovider.html" class="tsd-kind-icon">Window<wbr>Action<wbr>Provider</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/windowapi.html" class="tsd-kind-icon">Window<wbr>Api</a>
+					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#findhookcallback" class="tsd-kind-icon">Find<wbr>Hook<wbr>Callback</a>
 					</li>
@@ -1169,6 +1210,9 @@
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#createmovementapi" class="tsd-kind-icon">create<wbr>Movement<wbr>Api</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#createwindowapi" class="tsd-kind-icon">create<wbr>Window<wbr>Api</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#debugimage" class="tsd-kind-icon">debug<wbr>Image</a>

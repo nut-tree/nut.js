@@ -96,6 +96,10 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="nativeadapter.html#click" class="tsd-kind-icon">click</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="nativeadapter.html#copy" class="tsd-kind-icon">copy</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="nativeadapter.html#currentmouseposition" class="tsd-kind-icon">current<wbr>Mouse<wbr>Position</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="nativeadapter.html#getactivewindow" class="tsd-kind-icon">get<wbr>Active<wbr>Window</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="nativeadapter.html#getwindowregion" class="tsd-kind-icon">get<wbr>Window<wbr>Region</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="nativeadapter.html#getwindowtitle" class="tsd-kind-icon">get<wbr>Window<wbr>Title</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="nativeadapter.html#getwindows" class="tsd-kind-icon">get<wbr>Windows</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="nativeadapter.html#leftclick" class="tsd-kind-icon">left<wbr>Click</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="nativeadapter.html#middleclick" class="tsd-kind-icon">middle<wbr>Click</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="nativeadapter.html#paste" class="tsd-kind-icon">paste</a></li>
@@ -123,13 +127,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Native<wbr>Adapter<span class="tsd-signature-symbol">(</span>clipboard<span class="tsd-signature-symbol">?: </span><a href="../interfaces/clipboardactionprovider.html" class="tsd-signature-type">ClipboardActionProvider</a>, keyboard<span class="tsd-signature-symbol">?: </span><a href="../interfaces/keyboardactionprovider.html" class="tsd-signature-type">KeyboardActionProvider</a>, mouse<span class="tsd-signature-symbol">?: </span><a href="../interfaces/mouseactionprovider.html" class="tsd-signature-type">MouseActionProvider</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="nativeadapter.html" class="tsd-signature-type">NativeAdapter</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Native<wbr>Adapter<span class="tsd-signature-symbol">(</span>clipboard<span class="tsd-signature-symbol">?: </span><a href="../interfaces/clipboardactionprovider.html" class="tsd-signature-type">ClipboardActionProvider</a>, keyboard<span class="tsd-signature-symbol">?: </span><a href="../interfaces/keyboardactionprovider.html" class="tsd-signature-type">KeyboardActionProvider</a>, mouse<span class="tsd-signature-symbol">?: </span><a href="../interfaces/mouseactionprovider.html" class="tsd-signature-type">MouseActionProvider</a>, window<span class="tsd-signature-symbol">?: </span><a href="../interfaces/windowactionprovider.html" class="tsd-signature-type">WindowActionProvider</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="nativeadapter.html" class="tsd-signature-type">NativeAdapter</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/adapter/native.adapter.class.ts#L18">adapter/native.adapter.class.ts:18</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/adapter/native.adapter.class.ts#L21">adapter/native.adapter.class.ts:21</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -163,6 +167,14 @@
 										</div>
 									</div>
 								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> window: <a href="../interfaces/windowactionprovider.html" class="tsd-signature-type">WindowActionProvider</a><span class="tsd-signature-symbol"> = new WindowAction()</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p><a href="../interfaces/windowactionprovider.html">WindowActionProvider</a> instance used to interact with a systems windows (Default: <a href="windowaction.html">WindowAction</a>)</p>
+										</div>
+									</div>
+								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="nativeadapter.html" class="tsd-signature-type">NativeAdapter</a></h4>
 						</li>
@@ -181,7 +193,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/adapter/native.adapter.class.ts#L120">adapter/native.adapter.class.ts:120</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/adapter/native.adapter.class.ts#L125">adapter/native.adapter.class.ts:125</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -212,7 +224,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/adapter/native.adapter.class.ts#L183">adapter/native.adapter.class.ts:183</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/adapter/native.adapter.class.ts#L188">adapter/native.adapter.class.ts:188</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -243,7 +255,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/adapter/native.adapter.class.ts#L63">adapter/native.adapter.class.ts:63</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/adapter/native.adapter.class.ts#L68">adapter/native.adapter.class.ts:68</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -257,6 +269,104 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getactivewindow" class="tsd-anchor"></a>
+					<h3>get<wbr>Active<wbr>Window</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Active<wbr>Window<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/adapter/native.adapter.class.ts#L210">adapter/native.adapter.class.ts:210</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p><a href="nativeadapter.html#getactivewindow">getActiveWindow</a> returns the window handle of the currently active foreground window</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>The handle to the currently active foreground window</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getwindowregion" class="tsd-anchor"></a>
+					<h3>get<wbr>Window<wbr>Region</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Window<wbr>Region<span class="tsd-signature-symbol">(</span>windowHandle<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="region.html" class="tsd-signature-type">Region</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/adapter/native.adapter.class.ts#L228">adapter/native.adapter.class.ts:228</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p><a href="nativeadapter.html#getwindowregion">getWindowRegion</a> returns a <a href="region.html">Region</a> object representing the size and position of the window addressed via its window handle</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>windowHandle: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="region.html" class="tsd-signature-type">Region</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>The <a href="region.html">Region</a> occupied by the window addressed via its window handle</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getwindowtitle" class="tsd-anchor"></a>
+					<h3>get<wbr>Window<wbr>Title</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Window<wbr>Title<span class="tsd-signature-symbol">(</span>windowHandle<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/adapter/native.adapter.class.ts#L219">adapter/native.adapter.class.ts:219</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p><a href="nativeadapter.html#getwindowtitle">getWindowTitle</a> returns the title of a window addressed via its window handle</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>windowHandle: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>A string representing the title of a window addressed via its window handle</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getwindows" class="tsd-anchor"></a>
+					<h3>get<wbr>Windows</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Windows<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/adapter/native.adapter.class.ts#L201">adapter/native.adapter.class.ts:201</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="leftclick" class="tsd-anchor"></a>
 					<h3>left<wbr>Click</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -266,7 +376,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/adapter/native.adapter.class.ts#L70">adapter/native.adapter.class.ts:70</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/adapter/native.adapter.class.ts#L75">adapter/native.adapter.class.ts:75</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -288,7 +398,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/adapter/native.adapter.class.ts#L84">adapter/native.adapter.class.ts:84</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/adapter/native.adapter.class.ts#L89">adapter/native.adapter.class.ts:89</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -310,7 +420,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/adapter/native.adapter.class.ts#L192">adapter/native.adapter.class.ts:192</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/adapter/native.adapter.class.ts#L197">adapter/native.adapter.class.ts:197</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -333,7 +443,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/adapter/native.adapter.class.ts#L93">adapter/native.adapter.class.ts:93</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/adapter/native.adapter.class.ts#L98">adapter/native.adapter.class.ts:98</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -364,7 +474,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/adapter/native.adapter.class.ts#L129">adapter/native.adapter.class.ts:129</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/adapter/native.adapter.class.ts#L134">adapter/native.adapter.class.ts:134</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -395,7 +505,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/adapter/native.adapter.class.ts#L102">adapter/native.adapter.class.ts:102</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/adapter/native.adapter.class.ts#L107">adapter/native.adapter.class.ts:107</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -426,7 +536,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/adapter/native.adapter.class.ts#L138">adapter/native.adapter.class.ts:138</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/adapter/native.adapter.class.ts#L143">adapter/native.adapter.class.ts:143</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -457,7 +567,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/adapter/native.adapter.class.ts#L77">adapter/native.adapter.class.ts:77</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/adapter/native.adapter.class.ts#L82">adapter/native.adapter.class.ts:82</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -479,7 +589,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/adapter/native.adapter.class.ts#L156">adapter/native.adapter.class.ts:156</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/adapter/native.adapter.class.ts#L161">adapter/native.adapter.class.ts:161</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -510,7 +620,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/adapter/native.adapter.class.ts#L165">adapter/native.adapter.class.ts:165</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/adapter/native.adapter.class.ts#L170">adapter/native.adapter.class.ts:170</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -541,7 +651,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/adapter/native.adapter.class.ts#L174">adapter/native.adapter.class.ts:174</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/adapter/native.adapter.class.ts#L179">adapter/native.adapter.class.ts:179</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -572,7 +682,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/adapter/native.adapter.class.ts#L147">adapter/native.adapter.class.ts:147</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/adapter/native.adapter.class.ts#L152">adapter/native.adapter.class.ts:152</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -603,7 +713,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/adapter/native.adapter.class.ts#L45">adapter/native.adapter.class.ts:45</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/adapter/native.adapter.class.ts#L50">adapter/native.adapter.class.ts:50</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -634,7 +744,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/adapter/native.adapter.class.ts#L36">adapter/native.adapter.class.ts:36</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/adapter/native.adapter.class.ts#L41">adapter/native.adapter.class.ts:41</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -665,7 +775,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/adapter/native.adapter.class.ts#L54">adapter/native.adapter.class.ts:54</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/adapter/native.adapter.class.ts#L59">adapter/native.adapter.class.ts:59</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -696,7 +806,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/4e1f04e/lib/adapter/native.adapter.class.ts#L111">adapter/native.adapter.class.ts:111</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/fb028a8/lib/adapter/native.adapter.class.ts#L116">adapter/native.adapter.class.ts:116</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -745,6 +855,18 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="nativeadapter.html#currentmouseposition" class="tsd-kind-icon">current<wbr>Mouse<wbr>Position</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="nativeadapter.html#getactivewindow" class="tsd-kind-icon">get<wbr>Active<wbr>Window</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="nativeadapter.html#getwindowregion" class="tsd-kind-icon">get<wbr>Window<wbr>Region</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="nativeadapter.html#getwindowtitle" class="tsd-kind-icon">get<wbr>Window<wbr>Title</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="nativeadapter.html#getwindows" class="tsd-kind-icon">get<wbr>Windows</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="nativeadapter.html#leftclick" class="tsd-kind-icon">left<wbr>Click</a>
