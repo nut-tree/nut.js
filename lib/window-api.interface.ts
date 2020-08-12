@@ -4,6 +4,6 @@
 import { Window } from "./window.class";
 
 export interface WindowApi {
-  windows(): Promise<Window[]>;
-  activeWindow(): Promise<Window>;
+  getWindows(): Promise<Window[]>;
+  getActiveWindow(): Promise<Window>;
 }

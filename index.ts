@@ -33,7 +33,7 @@ const screen = new Screen(screenActions);
 const assert = new Assert(screen);
 
 const {straightTo, up, down, left, right} = createMovementApi(nativeActions, lineHelper);
-const {windows, activeWindow } = createWindowApi(nativeActions);
+const {getWindows, getActiveWindow } = createWindowApi(nativeActions);
 
 export {
   clipboard,
@@ -46,6 +46,6 @@ export {
   down,
   left,
   right,
-  windows,
-  activeWindow,
+  getWindows,
+  getActiveWindow,
 };
