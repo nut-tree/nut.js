@@ -1,6 +1,6 @@
 const Application = require("spectron").Application;
 const electronPath = require("electron");
-const {activeWindow, windows} = require("@nut-tree/nut-js");
+const {getActiveWindow, getWindows} = require("@nut-tree/nut-js");
 const { POS_X, POS_Y, WIDTH, HEIGTH, TITLE } = require("./constants");
 const { join } = require("path");
 
@@ -24,7 +24,7 @@ beforeAll(async () => {
 describe("getWindows", () => {
     it("should list our started application window", async () => {
         // GIVEN
-        const openWindows = await windows();
+        const openWindows = await getWindows();
 
         // WHEN
         const windowNames = await Promise.all(openWindows.map((wnd) => wnd.title));
@@ -39,7 +39,7 @@ describe("getActiveWindow", () => {
         // GIVEN
 
         // WHEN
-        const foregroundWindow = await activeWindow();
+        const foregroundWindow = await getActiveWindow();
         const windowTitle = await foregroundWindow.title;
 
         // THEN
@@ -50,7 +50,7 @@ describe("getActiveWindow", () => {
         // GIVEN
 
         // WHEN
-        const foregroundWindow = await activeWindow();
+        const foregroundWindow = await getActiveWindow();
         const activeWindowRegion = await foregroundWindow.region;
 
         // THEN
@@ -67,7 +67,7 @@ describe("getActiveWindow", () => {
         await app.browserWindow.setPosition(xPosition, yPosition);
 
         // WHEN
-        const foregroundWindow = await activeWindow();
+        const foregroundWindow = await getActiveWindow();
         const activeWindowRegion = await foregroundWindow.region;
 
         // THEN
@@ -82,7 +82,7 @@ describe("getActiveWindow", () => {
         await app.browserWindow.setSize(newWidth, newHeight);
 
         // WHEN
-        const foregroundWindow = await activeWindow();
+        const foregroundWindow = await getActiveWindow();
         const activeWindowRegion = await foregroundWindow.region;
 
         // THEN
