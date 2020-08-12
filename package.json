@@ -44,12 +44,14 @@
     "clipboard"
   ],
   "scripts": {
-    "clean": "rm -rf dist",
+    "clean": "rimraf dist",
     "compile": "npm run clean && tsc -p .",
     "test": "jest --runInBand",
     "test:e2e": "npm --prefix e2e/tests cit",
     "coverage": "jest --coverage --runInBand",
-    "coverage:collect": "lcov-result-merger coverage/**/lcov.info coverage/lcov.info",
+    "coverage:clean": "rimraf coverage",
+    "coverage:merge": "istanbul-merge --out coverage/merged/coverage-final.json ./coverage/unit/coverage-final.json  ./coverage/e2e/coverage-final.json",
+    "coverage:merge-report": "nyc report --reporter=lcov --reporter=text --temp-dir=./coverage/merged --report-dir=./coverage/merged",
     "lint": "tslint -p tsconfig.json",
     "watch": "tsc -w -p .",
     "publish-next": "npm publish --tag next",
@@ -65,8 +67,10 @@
   "devDependencies": {
     "@types/clipboardy": "2.0.1",
     "@types/jest": "25.1.4",
+    "istanbul-merge": "^1.1.1",
     "jest": "25.1.0",
-    "lcov-result-merger": "^3.1.0",
+    "nyc": "^15.1.0",
+    "rimraf": "^3.0.2",
     "sneer": "1.0.1",
     "ts-jest": "25.4.0",
     "tslint": "6.1.0",
