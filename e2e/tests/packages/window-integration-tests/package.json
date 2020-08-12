@@ -1,0 +1,15 @@
+{
+  "name": "window-integration-tests",
+  "version": "1.4.2",
+  "description": "Integration tests to verify window handling",
+  "main": "main.js",
+  "author": {
+    "name": "Simon Hofmann",
+    "email": "dev@simon-hofmann.org",
+    "url": "https://simon-hofmann.org"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "license": "MIT"
+}
