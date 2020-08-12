@@ -1,5 +1,4 @@
 import {
-  activeWindow,
   assert,
   Button,
   centerOf,
@@ -88,7 +87,7 @@ describe("E2E drag & drop demo", () => {
 });
 
 describe("E2E mouse button demo", () => {
-  it("should run without throwing", async () => {
+  it("should click all mouse buttons without throwing", async () => {
     jest.setTimeout(60000);
     screen.config.resourceDirectory = "./e2e/assets";
     for (const btn of [Button.RIGHT, Button.MIDDLE, Button.LEFT]) {
@@ -96,19 +95,5 @@ describe("E2E mouse button demo", () => {
       await sleep(10);
       await mouse.releaseButton(btn);
     }
-  });
-});
-
-describe("E2E window demo", () => {
-  it("should list gnome-calculator", async () => {
-    jest.setTimeout(30000);
-    screen.config.resourceDirectory = "./e2e/assets";
-    await run("uxterm");
-    await sleep(1500);
-    const foregroundWindow = await activeWindow();
-    const windowTitle = await foregroundWindow.title;
-    await close();
-
-    expect(windowTitle).toBe("uxterm")
   });
 });
