@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Bresenham | @nut-tree/nut-js</title>
+	<title>WindowApi | @nut-tree/nut-js</title>
 	<meta name="description" content="Documentation for @nut-tree/nut-js">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -52,10 +52,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="bresenham.html">Bresenham</a>
+					<a href="windowapi.html">WindowApi</a>
 				</li>
 			</ul>
-			<h1>Class Bresenham</h1>
+			<h1>Interface WindowApi</h1>
 		</div>
 	</div>
 </header>
@@ -66,7 +66,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">Bresenham</span>
+						<span class="target">WindowApi</span>
 					</li>
 				</ul>
 			</section>
@@ -77,7 +77,8 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="bresenham.html#compute" class="tsd-kind-icon">compute</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="windowapi.html#activewindow" class="tsd-kind-icon">active<wbr>Window</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="windowapi.html#windows" class="tsd-kind-icon">windows</a></li>
 							</ul>
 						</section>
 					</div>
@@ -85,29 +86,37 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
-					<a name="compute" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> compute</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">compute<span class="tsd-signature-symbol">(</span>from<span class="tsd-signature-symbol">: </span><a href="point.html" class="tsd-signature-type">Point</a>, to<span class="tsd-signature-symbol">: </span><a href="point.html" class="tsd-signature-type">Point</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="point.html" class="tsd-signature-type">Point</a><span class="tsd-signature-symbol">[]</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="activewindow" class="tsd-anchor"></a>
+					<h3>active<wbr>Window</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">active<wbr>Window<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/window.html" class="tsd-signature-type">Window</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/31e5f7e/lib/util/bresenham.class.ts#L4">util/bresenham.class.ts:4</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/31e5f7e/lib/window-api.interface.ts#L8">window-api.interface.ts:8</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>from: <a href="point.html" class="tsd-signature-type">Point</a></h5>
-								</li>
-								<li>
-									<h5>to: <a href="point.html" class="tsd-signature-type">Point</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="point.html" class="tsd-signature-type">Point</a><span class="tsd-signature-symbol">[]</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/window.html" class="tsd-signature-type">Window</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="windows" class="tsd-anchor"></a>
+					<h3>windows</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">windows<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/window.html" class="tsd-signature-type">Window</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/31e5f7e/lib/window-api.interface.ts#L7">window-api.interface.ts:7</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/window.html" class="tsd-signature-type">Window</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -125,11 +134,14 @@
 				<ul class="before-current">
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-class">
-						<a href="bresenham.html" class="tsd-kind-icon">Bresenham</a>
+					<li class="current tsd-kind-interface">
+						<a href="windowapi.html" class="tsd-kind-icon">Window<wbr>Api</a>
 						<ul>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="bresenham.html#compute" class="tsd-kind-icon">compute</a>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="windowapi.html#activewindow" class="tsd-kind-icon">active<wbr>Window</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="windowapi.html#windows" class="tsd-kind-icon">windows</a>
 							</li>
 						</ul>
 					</li>

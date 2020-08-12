@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Clipboard | @nut-tree/nut-js</title>
+	<title>Window | @nut-tree/nut-js</title>
 	<meta name="description" content="Documentation for @nut-tree/nut-js">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -52,28 +52,21 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="clipboard.html">Clipboard</a>
+					<a href="window.html">Window</a>
 				</li>
 			</ul>
-			<h1>Class Clipboard</h1>
+			<h1>Class Window</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-comment">
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p><a href="clipboard.html">Clipboard</a> class gives access to a systems clipboard</p>
-					</div>
-				</div>
-			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">Clipboard</span>
+						<span class="target">Window</span>
 					</li>
 				</ul>
 			</section>
@@ -84,14 +77,14 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="clipboard.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="window.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
-							<h3>Methods</h3>
+							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="clipboard.html#copy" class="tsd-kind-icon">copy</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="clipboard.html#paste" class="tsd-kind-icon">paste</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="window.html#region" class="tsd-kind-icon">region</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="window.html#title" class="tsd-kind-icon">title</a></li>
 							</ul>
 						</section>
 					</div>
@@ -103,87 +96,61 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Clipboard<span class="tsd-signature-symbol">(</span>nativeAdapter<span class="tsd-signature-symbol">: </span><a href="nativeadapter.html" class="tsd-signature-type">NativeAdapter</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="clipboard.html" class="tsd-signature-type">Clipboard</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Window<span class="tsd-signature-symbol">(</span>nativeActions<span class="tsd-signature-symbol">: </span><a href="nativeadapter.html" class="tsd-signature-type">NativeAdapter</a>, windowHandle<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="window.html" class="tsd-signature-type">Window</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/31e5f7e/lib/clipboard.class.ts#L6">clipboard.class.ts:6</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/31e5f7e/lib/window.class.ts#L4">window.class.ts:4</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p><a href="clipboard.html">Clipboard</a> class constructor</p>
-								</div>
-							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>nativeAdapter: <a href="nativeadapter.html" class="tsd-signature-type">NativeAdapter</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<div class="lead">
-											<p><a href="nativeadapter.html">NativeAdapter</a> instance used to access OS API</p>
-										</div>
-									</div>
+									<h5>nativeActions: <a href="nativeadapter.html" class="tsd-signature-type">NativeAdapter</a></h5>
+								</li>
+								<li>
+									<h5>windowHandle: <span class="tsd-signature-type">number</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="clipboard.html" class="tsd-signature-type">Clipboard</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="window.html" class="tsd-signature-type">Window</a></h4>
 						</li>
 					</ul>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="copy" class="tsd-anchor"></a>
-					<h3>copy</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">copy<span class="tsd-signature-symbol">(</span>text<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="region" class="tsd-anchor"></a>
+					<h3>region</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> region<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="region.html" class="tsd-signature-type">Region</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/31e5f7e/lib/clipboard.class.ts#L18">clipboard.class.ts:18</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/31e5f7e/lib/window.class.ts#L12">window.class.ts:12</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p><a href="clipboard.html#copy">copy</a> copies a given text to the system clipboard</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>text: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>The text to copy</p>
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="region.html" class="tsd-signature-type">Region</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="paste" class="tsd-anchor"></a>
-					<h3>paste</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">paste<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="title" class="tsd-anchor"></a>
+					<h3>title</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> title<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/31e5f7e/lib/clipboard.class.ts#L25">clipboard.class.ts:25</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/31e5f7e/lib/window.class.ts#L8">window.class.ts:8</a></li>
 								</ul>
 							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p><a href="clipboard.html#paste">paste</a> pastes the current content of the system clipboard (limited to text)</p>
-								</div>
-							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
@@ -203,16 +170,16 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class">
-						<a href="clipboard.html" class="tsd-kind-icon">Clipboard</a>
+						<a href="window.html" class="tsd-kind-icon">Window</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="clipboard.html#constructor" class="tsd-kind-icon">constructor</a>
+								<a href="window.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="clipboard.html#copy" class="tsd-kind-icon">copy</a>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="window.html#region" class="tsd-kind-icon">region</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="clipboard.html#paste" class="tsd-kind-icon">paste</a>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="window.html#title" class="tsd-kind-icon">title</a>
 							</li>
 						</ul>
 					</li>
