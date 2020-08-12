@@ -47,6 +47,7 @@
     "clean": "rm -rf dist",
     "compile": "npm run clean && tsc -p .",
     "test": "jest --runInBand",
+    "test:e2e": "npm --prefix e2e/tests cit",
     "coverage": "jest --coverage --runInBand",
     "lint": "tslint -p tsconfig.json",
     "watch": "tsc -w -p .",
