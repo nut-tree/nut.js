@@ -6,4 +6,4 @@ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubun
 sudo apt-get update
 sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
 docker pull s1hofmann/nut-ci:latest
-docker run -it -d --name nut-ci --user $(id -u):$(id -g) -v ${PWD}:${PWD}:rw s1hofmann/nut-ci:latest bash
+docker run -it -d --name nut-ci --shm-size 4gb --user $(id -u):$(id -g) -v ${PWD}:${PWD}:rw s1hofmann/nut-ci:latest bash
