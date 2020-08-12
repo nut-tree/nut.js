@@ -1,9 +1,9 @@
 export function timeout<R>(updateIntervalMs: number, maxDurationMs: number, action: (...params: any) => Promise<R>): Promise<R> {
   return new Promise<R>((resolve, reject) => {
     let interval: NodeJS.Timeout;
-    const timeout = setTimeout(
+    const maxTimeout = setTimeout(
       () => {
-        clearTimeout(timeout);
+        clearTimeout(maxTimeout);
         if (interval) {
           clearTimeout(interval);
         }
@@ -17,7 +17,7 @@ export function timeout<R>(updateIntervalMs: number, maxDurationMs: number, acti
           if (!result) {
             interval = setTimeout(intervalFunc, updateIntervalMs);
           } else {
-            clearTimeout(timeout);
+            clearTimeout(maxTimeout);
             clearTimeout(interval);
             resolve(result);
           }
@@ -31,7 +31,7 @@ export function timeout<R>(updateIntervalMs: number, maxDurationMs: number, acti
       if (!result) {
         startInterval();
       } else {
-        clearTimeout(timeout);
+        clearTimeout(maxTimeout);
         resolve(result);
       }
     }).catch(() => {
