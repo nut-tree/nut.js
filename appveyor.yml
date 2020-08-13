@@ -23,6 +23,7 @@ install:
   - cd c:\projects\nut
   - npm ci
   - npm run compile
+  - npm --prefix e2e/tests ci
 
 build: off
 

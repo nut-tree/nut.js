@@ -44,10 +44,14 @@
     "clipboard"
   ],
   "scripts": {
-    "clean": "rm -rf dist",
+    "clean": "rimraf dist",
     "compile": "npm run clean && tsc -p .",
     "test": "jest --runInBand",
+    "test:e2e": "npm --prefix e2e/tests cit",
     "coverage": "jest --coverage --runInBand",
+    "coverage:clean": "rimraf coverage",
+    "coverage:merge": "istanbul-merge --out coverage/merged/coverage-final.json ./coverage/unit/coverage-final.json  ./coverage/e2e/coverage-final.json",
+    "coverage:merge-report": "nyc report --reporter=lcov --reporter=text --temp-dir=./coverage/merged --report-dir=./coverage/merged",
     "lint": "tslint -p tsconfig.json",
     "watch": "tsc -w -p .",
     "publish-next": "npm publish --tag next",
@@ -56,14 +60,17 @@
     "typedoc": "typedoc --options ./typedoc.js --out ./docs lib/"
   },
   "dependencies": {
-    "@nut-tree/libnut": "2.0.1",
+    "@nut-tree/libnut": "2.1.0",
     "clipboardy": "2.0.0",
     "opencv4nodejs-prebuilt": "5.3.0-2"
   },
   "devDependencies": {
     "@types/clipboardy": "2.0.1",
     "@types/jest": "25.1.4",
+    "istanbul-merge": "^1.1.1",
     "jest": "25.1.0",
+    "nyc": "^15.1.0",
+    "rimraf": "^3.0.2",
     "sneer": "1.0.1",
     "ts-jest": "25.4.0",
     "tslint": "6.1.0",

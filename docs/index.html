@@ -134,11 +134,14 @@
 					<li><input checked="" disabled="" type="checkbox"> Configurable movement speed</li>
 					<li><input checked="" disabled="" type="checkbox"> Mouse drag</li>
 				</ul>
-				<a href="#process" id="process" style="color: inherit; text-decoration: none;">
-					<h2>Process</h2>
+				<a href="#window" id="window" style="color: inherit; text-decoration: none;">
+					<h2>Window</h2>
 				</a>
 				<ul>
-					<li><input disabled="" type="checkbox"> Retrieve the region of a process window</li>
+					<li><input checked="" disabled="" type="checkbox"> List all windows</li>
+					<li><input checked="" disabled="" type="checkbox"> Retrieve active window</li>
+					<li><input checked="" disabled="" type="checkbox"> Retrieve window title</li>
+					<li><input checked="" disabled="" type="checkbox"> Retrieve window size and position</li>
 				</ul>
 				<a href="#screen" id="screen" style="color: inherit; text-decoration: none;">
 					<h2>Screen</h2>
@@ -403,6 +406,12 @@ describe(<span class="hljs-string">"Basic test"</span>, () =&gt; {
 					<li class=" tsd-kind-class">
 						<a href="classes/visionadapter.html" class="tsd-kind-icon">Vision<wbr>Adapter</a>
 					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/window.html" class="tsd-kind-icon">Window</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/windowaction.html" class="tsd-kind-icon">Window<wbr>Action</a>
+					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/clipboardactionprovider.html" class="tsd-kind-icon">Clipboard<wbr>Action<wbr>Provider</a>
 					</li>
@@ -427,6 +436,12 @@ describe(<span class="hljs-string">"Basic test"</span>, () =&gt; {
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/screenactionprovider.html" class="tsd-kind-icon">Screen<wbr>Action<wbr>Provider</a>
 					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/windowactionprovider.html" class="tsd-kind-icon">Window<wbr>Action<wbr>Provider</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/windowapi.html" class="tsd-kind-icon">Window<wbr>Api</a>
+					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#findhookcallback" class="tsd-kind-icon">Find<wbr>Hook<wbr>Callback</a>
 					</li>
@@ -444,6 +459,9 @@ describe(<span class="hljs-string">"Basic test"</span>, () =&gt; {
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#createmovementapi" class="tsd-kind-icon">create<wbr>Movement<wbr>Api</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#createwindowapi" class="tsd-kind-icon">create<wbr>Window<wbr>Api</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#debugimage" class="tsd-kind-icon">debug<wbr>Image</a>

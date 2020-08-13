@@ -5,4 +5,5 @@ echo $PWD
 
 npm ci
 npm run compile
+npm --prefix e2e/tests ci
 npm test

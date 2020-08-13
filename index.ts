@@ -7,6 +7,7 @@ import { Mouse } from "./lib/mouse.class";
 import { createMovementApi } from "./lib/movement.function";
 import { Screen } from "./lib/screen.class";
 import { LineHelper } from "./lib/util/linehelper.class";
+import { createWindowApi } from "./lib/window.function";
 
 export { jestMatchers } from "./lib/expect/jest.matcher.function";
 export { sleep } from "./lib/sleep.function";
@@ -19,6 +20,7 @@ export { OptionalSearchParameters } from "./lib/optionalsearchparameters.class";
 export { linear } from "./lib/movementtype.function";
 export { Point } from "./lib/point.class";
 export { Region } from "./lib/region.class";
+export { Window } from "./lib/window.class";
 
 const screenActions = new VisionAdapter();
 const nativeActions = new NativeAdapter();
@@ -31,6 +33,7 @@ const screen = new Screen(screenActions);
 const assert = new Assert(screen);
 
 const {straightTo, up, down, left, right} = createMovementApi(nativeActions, lineHelper);
+const {getWindows, getActiveWindow } = createWindowApi(nativeActions);
 
 export {
   clipboard,
@@ -43,4 +46,6 @@ export {
   down,
   left,
   right,
+  getWindows,
+  getActiveWindow,
 };

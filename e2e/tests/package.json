@@ -1,0 +1,34 @@
+{
+  "name": "e2e-tests",
+  "version": "1.4.2",
+  "description": "nut.js E2E tests",
+  "main": "index.js",
+  "scripts": {
+    "test": "lerna run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nut-tree/nut.js.git"
+  },
+  "keywords": [
+    "nut.js",
+    "e2e",
+    "tests"
+  ],
+  "author": "Simon Hofmann <dev@simon-hofmann.org>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/nut-tree/nut.js/issues"
+  },
+  "homepage": "https://github.com/nut-tree/nut.js#readme",
+  "devDependencies": {
+    "electron": "9.1.2",
+    "jest": "26.2.2",
+    "lerna": "3.22.1",
+    "spectron": "11.1.0",
+    "@nut-tree/nut-js": "file:../../"
+  },
+  "dependencies": {
+    "window-integration-tests": "file:packages/window-integration-tests"
+  }
+}

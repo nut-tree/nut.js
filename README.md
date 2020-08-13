@@ -57,9 +57,12 @@ It's work in progress and will undergo constant modification.
 - [x] Configurable movement speed
 - [x] Mouse drag
 
-## Process
+## Window
 
-- [ ] Retrieve the region of a process window
+- [x] List all windows
+- [x] Retrieve active window
+- [x] Retrieve window title
+- [x] Retrieve window size and position
 
 ## Screen
 

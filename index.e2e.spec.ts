@@ -10,7 +10,7 @@ import {
   right,
   screen,
   sleep,
-  straightTo
+  straightTo,
 } from "./index";
 
 const openXfceMenu = async () => {
@@ -87,7 +87,7 @@ describe("E2E drag & drop demo", () => {
 });
 
 describe("E2E mouse button demo", () => {
-  it("should run without throwing", async () => {
+  it("should click all mouse buttons without throwing", async () => {
     jest.setTimeout(60000);
     screen.config.resourceDirectory = "./e2e/assets";
     for (const btn of [Button.RIGHT, Button.MIDDLE, Button.LEFT]) {
