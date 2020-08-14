@@ -105,10 +105,16 @@ export class Screen {
                     for (const hook of possibleHooks) {
                         await hook(matchResult);
                     }
+                    const resultRegion = new Region(
+                        searchRegion.left + matchResult.location.left,
+                        searchRegion.top + matchResult.location.top,
+                        matchResult.location.width,
+                        matchResult.location.height
+                    )
                     if (this.config.autoHighlight) {
-                        resolve(this.highlight(matchResult.location));
+                        resolve(this.highlight(resultRegion));
                     } else {
-                        resolve(matchResult.location);
+                        resolve(resultRegion);
                     }
                 } else {
                     reject(
