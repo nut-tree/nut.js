@@ -214,4 +214,33 @@ describe("Screen.", () => {
         expect(result).toEqual(highlightRegion);
     });
 
+    it("should add search region offset to result image location", async () => {
+
+        // GIVEN
+        const limitedSearchRegion = new Region(100, 200, 300, 400);
+        const resultRegion = new Region(50, 100, 150, 200);
+        const matchResult = new MatchResult(0.99, resultRegion);
+
+        const expectedMatchRegion = new Region(
+            limitedSearchRegion.left + resultRegion.left,
+            limitedSearchRegion.top + resultRegion.top,
+            resultRegion.width,
+            resultRegion.height);
+
+        VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
+            return Promise.resolve(matchResult);
+        });
+        const SUT = new Screen(new VisionAdapter());
+
+        // WHEN
+        const matchRegion = await SUT.find(
+            "test/path/to/image.png",
+            {
+                searchRegion: limitedSearchRegion
+            });
+
+        // THEN
+        expect(matchRegion).toEqual(expectedMatchRegion);
+    })
+
 });
