@@ -1,6 +1,6 @@
 {
   "name": "@nut-tree/nut-js",
-  "version": "1.4.2",
+  "version": "1.5.0",
   "license": "Apache-2.0",
   "main": "dist/index",
   "typings": "dist/index",
@@ -67,10 +67,10 @@
   "devDependencies": {
     "@types/clipboardy": "2.0.1",
     "@types/jest": "25.1.4",
-    "istanbul-merge": "^1.1.1",
+    "istanbul-merge": "1.1.1",
     "jest": "25.1.0",
-    "nyc": "^15.1.0",
-    "rimraf": "^3.0.2",
+    "nyc": "15.1.0",
+    "rimraf": "3.0.2",
     "sneer": "1.0.1",
     "ts-jest": "25.4.0",
     "tslint": "6.1.0",
