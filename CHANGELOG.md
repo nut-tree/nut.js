@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.5.0
+
+- Enhancement: Window support [(#5)](https://github.com/nut-tree/nut.js/issues/5)
+- Bugfix: `screen.find` neglects offsets when providing a search region [(#160)](https://github.com/nut-tree/nut.js/issues/160)
+
 ## 1.4.2
 
 - Maintenance: Refactor `locationparameters.class.ts` [(#129)](https://github.com/nut-tree/nut.js/issues/129)
