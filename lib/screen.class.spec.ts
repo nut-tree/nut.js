@@ -137,52 +137,54 @@ describe("Screen.", () => {
     });
 
     it("should override default search region with parameter.", async () => {
+        // GIVEN
         const customSearchRegion = new Region(10, 10, 90, 90);
         const matchResult = new MatchResult(0.99, searchRegion);
-
         VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
             return Promise.resolve(matchResult);
         });
-
         const visionAdapterMock = new VisionAdapter();
-
         const SUT = new Screen(visionAdapterMock);
-
         const imagePath = "test/path/to/image.png";
         const parameters = new LocationParameters(customSearchRegion);
-        await expect(SUT.find(imagePath, parameters)).resolves.toEqual(matchResult.location);
-        const matchRequest = new MatchRequest(
-            expect.any(Image),
-            join(cwd(), imagePath),
-            customSearchRegion,
-            SUT.config.confidence,
-            true);
-        expect(visionAdapterMock.findOnScreenRegion).toHaveBeenCalledWith(matchRequest);
+        const expectedMatchRequest = new MatchRequest(
+          expect.any(Image),
+          join(cwd(), imagePath),
+          customSearchRegion,
+          SUT.config.confidence,
+          true);
+
+        // WHEN
+        await SUT.find(imagePath, parameters);
+
+        // THEN
+        expect(visionAdapterMock.findOnScreenRegion).toHaveBeenCalledWith(expectedMatchRequest);
     });
 
     it("should override both confidence and search region with parameter.", async () => {
+        // GIVEN
         const minMatch = 0.8;
         const customSearchRegion = new Region(10, 10, 90, 90);
         const matchResult = new MatchResult(minMatch, searchRegion);
-
         VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
             return Promise.resolve(matchResult);
         });
-
         const visionAdapterMock = new VisionAdapter();
-
         const SUT = new Screen(visionAdapterMock);
-
         const imagePath = "test/path/to/image.png";
         const parameters = new LocationParameters(customSearchRegion, minMatch);
-        await expect(SUT.find(imagePath, parameters)).resolves.toEqual(matchResult.location);
-        const matchRequest = new MatchRequest(
-            expect.any(Image),
-            join(cwd(), imagePath),
-            customSearchRegion,
-            minMatch,
-            true);
-        expect(visionAdapterMock.findOnScreenRegion).toHaveBeenCalledWith(matchRequest);
+        const expectedMatchRequest = new MatchRequest(
+          expect.any(Image),
+          join(cwd(), imagePath),
+          customSearchRegion,
+          minMatch,
+          true);
+
+        // WHEN
+        await SUT.find(imagePath, parameters);
+
+        // THEN
+        expect(visionAdapterMock.findOnScreenRegion).toHaveBeenCalledWith(expectedMatchRequest);
     });
 
     it("should return region to highlight for chaining", async () => {
