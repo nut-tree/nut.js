@@ -1,7 +1,7 @@
 import { Image } from "../image.class";
 import { MatchRequest } from "../match-request.class";
-import { ScreenAction } from "../provider/native/libnut-screen-action.class";
-import { TemplateMatchingFinder } from "../provider/opencv/template-matching-finder.class";
+import ScreenAction from "../provider/native/libnut-screen-action.class";
+import TemplateMatchingFinder from "../provider/opencv/template-matching-finder.class";
 import { Region } from "../region.class";
 import { VisionAdapter } from "./vision.adapter.class";
 
