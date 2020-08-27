@@ -1,4 +1,4 @@
-import { ClipboardAction } from "./clipboardy-clipboard-action.class";
+import ClipboardAction from "./clipboardy-clipboard-action.class";
 
 beforeEach(() => {
   jest.resetAllMocks();

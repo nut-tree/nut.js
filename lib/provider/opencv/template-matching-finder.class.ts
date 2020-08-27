@@ -60,7 +60,7 @@ function isValidSearch(needle: cv.Mat, haystack: cv.Mat): boolean {
     return (needle.cols <= haystack.cols) && (needle.rows <= haystack.rows);
 }
 
-export class TemplateMatchingFinder implements FinderInterface {
+export default class TemplateMatchingFinder implements FinderInterface {
     private initialScale = [1.0];
     private scaleSteps = [0.9, 0.8, 0.7, 0.6, 0.5];
 
