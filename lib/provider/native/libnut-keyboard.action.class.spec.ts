@@ -1,6 +1,6 @@
 import libnut = require("@nut-tree/libnut");
 import { Key } from "../../key.enum";
-import { KeyboardAction } from "./libnut-keyboard-action.class";
+import KeyboardAction from "./libnut-keyboard-action.class";
 
 jest.mock("@nut-tree/libnut");
 

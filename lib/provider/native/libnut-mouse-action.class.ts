@@ -3,7 +3,7 @@ import { Button } from "../../button.enum";
 import { Point } from "../../point.class";
 import { MouseActionProvider } from "./mouse-action-provider.interface";
 
-export class MouseAction implements MouseActionProvider {
+export default class MouseAction implements MouseActionProvider {
   public static buttonLookup(btn: Button): any {
     return this.ButtonLookupMap.get(btn);
   }

@@ -2,14 +2,14 @@ import { Button } from "../button.enum";
 import { Key } from "../key.enum";
 import { Point } from "../point.class";
 import { ClipboardActionProvider } from "../provider/native/clipboard-action-provider.interface";
-import { ClipboardAction } from "../provider/native/clipboardy-clipboard-action.class";
 import { KeyboardActionProvider } from "../provider/native/keyboard-action-provider.interface";
 import { MouseActionProvider } from "../provider/native/mouse-action-provider.interface";
-import { KeyboardAction } from "../provider/native/libnut-keyboard-action.class";
-import { MouseAction } from "../provider/native/libnut-mouse-action.class";
 import { Region } from "../region.class";
 import { WindowActionProvider } from "../provider/native/window-action-provider.interface";
-import { WindowAction } from "../provider/native/libnut-window-action.class";
+import ClipboardAction from "../provider/native/clipboardy-clipboard-action.class";
+import KeyboardAction from "../provider/native/libnut-keyboard-action.class";
+import MouseAction from "../provider/native/libnut-mouse-action.class";
+import WindowAction from "../provider/native/libnut-window-action.class";
 
 /**
  * {@link NativeAdapter} serves as an abstraction layer for all OS level interactions.

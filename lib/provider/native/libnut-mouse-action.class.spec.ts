@@ -1,7 +1,7 @@
 import libnut = require("@nut-tree/libnut");
 import { Button } from "../../button.enum";
 import { Point } from "../../point.class";
-import { MouseAction } from "./libnut-mouse-action.class";
+import MouseAction from "./libnut-mouse-action.class";
 
 jest.mock("@nut-tree/libnut");
 

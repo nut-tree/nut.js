@@ -1,11 +1,11 @@
 import { Button } from "../button.enum";
 import { Key } from "../key.enum";
 import { Point } from "../point.class";
-import { ClipboardAction } from "../provider/native/clipboardy-clipboard-action.class";
-import { KeyboardAction } from "../provider/native/libnut-keyboard-action.class";
-import { MouseAction } from "../provider/native/libnut-mouse-action.class";
 import { NativeAdapter } from "./native.adapter.class";
-import { WindowAction } from "../provider/native/libnut-window-action.class";
+import ClipboardAction from "../provider/native/clipboardy-clipboard-action.class";
+import KeyboardAction from "../provider/native/libnut-keyboard-action.class";
+import MouseAction from "../provider/native/libnut-mouse-action.class";
+import WindowAction from "../provider/native/libnut-window-action.class";
 
 jest.mock("../provider/native/clipboardy-clipboard-action.class");
 jest.mock("../provider/native/libnut-mouse-action.class");
