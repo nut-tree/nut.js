@@ -101,7 +101,8 @@ export default class TemplateMatchingFinder implements FinderInterface {
                             0,
                             0,
                             0
-                        )
+                        ),
+                        new Error("The provided image sample is larger than the provided search region")
                     );
                 }
                 const matchResult = await matchImages(haystack, needle);
@@ -120,7 +121,8 @@ export default class TemplateMatchingFinder implements FinderInterface {
                                 0,
                                 0,
                                 0
-                            )
+                            ),
+                            new Error("The provided image sample is larger than the provided search region")
                         );
                     }
                     const matchResult = await matchImages(haystack, scaledNeedle);
@@ -142,7 +144,8 @@ export default class TemplateMatchingFinder implements FinderInterface {
                                 0,
                                 0,
                                 0
-                            )
+                            ),
+                            new Error("The provided image sample is larger than the provided search region")
                         );
                     }
                     const matchResult = await matchImages(scaledHaystack, needle);
@@ -182,7 +185,11 @@ export default class TemplateMatchingFinder implements FinderInterface {
                     matches.sort((a, b) => a.confidence - b.confidence);
                     const bestMatch = matches.pop();
                     if (bestMatch) {
-                        reject(`No match with required confidence ${matchRequest.confidence}. Best match: ${bestMatch.confidence} at ${bestMatch.location}`)
+                        if(bestMatch.error) {
+                            reject(bestMatch.error.message)
+                        }else {
+                            reject(`No match with required confidence ${matchRequest.confidence}. Best match: ${bestMatch.confidence} at ${bestMatch.location}`)
+                        }
                     } else {
                         reject(`Unable to locate ${matchRequest.pathToNeedle}, no match!`);
                     }
