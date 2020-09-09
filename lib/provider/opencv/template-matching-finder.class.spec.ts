@@ -65,10 +65,7 @@ describe("Template-matching finder", () => {
         // THEN
         await expect(SUT.findMatch(matchRequest))
             .rejects
-            .toEqual(
-                expect
-                    .stringMatching(expectedRejection)
-            );
+            .toThrowError(expectedRejection);
     });
 
     it("findMatch should throw on invalid image paths", async () => {
@@ -102,7 +99,7 @@ describe("Template-matching finder", () => {
         const minConfidence = 0.99;
         const searchRegion = new Region(0, 0, haystack.width, haystack.height);
         const matchRequest = new MatchRequest(haystack, needlePath, searchRegion, minConfidence);
-        const expectedRejection = "The provided image sample is larger than the provided search region"
+        const expectedRejection = new Error("The provided image sample is larger than the provided search region")
 
         // WHEN
         const findMatchPromise = SUT.findMatch(matchRequest);

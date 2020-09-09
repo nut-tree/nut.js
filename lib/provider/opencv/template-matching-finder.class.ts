@@ -132,29 +132,24 @@ export default class TemplateMatchingFinder implements FinderInterface {
     }
 
     public async findMatch(matchRequest: MatchRequest, debug: boolean = false): Promise<MatchResult> {
-        return new Promise<MatchResult>(async (resolve, reject) => {
-            try {
-                const matches = await this.findMatches(matchRequest, debug);
-                const potentialMatches = matches
-                    .filter(match => match.confidence >= matchRequest.confidence);
-                if (potentialMatches.length === 0) {
-                    matches.sort((a, b) => a.confidence - b.confidence);
-                    const bestMatch = matches.pop();
-                    if (bestMatch) {
-                        if(bestMatch.error) {
-                            reject(bestMatch.error.message)
-                        }else {
-                            reject(`No match with required confidence ${matchRequest.confidence}. Best match: ${bestMatch.confidence} at ${bestMatch.location}`)
-                        }
-                    } else {
-                        reject(`Unable to locate ${matchRequest.pathToNeedle}, no match!`);
-                    }
+
+        const matches = await this.findMatches(matchRequest, debug);
+        const potentialMatches = matches
+            .filter(match => match.confidence >= matchRequest.confidence);
+        if (potentialMatches.length === 0) {
+            matches.sort((a, b) => a.confidence - b.confidence);
+            const bestMatch = matches.pop();
+            if (bestMatch) {
+                if(bestMatch.error) {
+                    throw new Error(bestMatch.error.message)
+                }else {
+                    throw new Error(`No match with required confidence ${matchRequest.confidence}. Best match: ${bestMatch.confidence} at ${bestMatch.location}`)
                 }
-                resolve(potentialMatches[0]);
-            } catch (e) {
-                reject(e);
+            } else {
+                throw new Error(`Unable to locate ${matchRequest.pathToNeedle}, no match!`);
             }
-        });
+        }
+        return potentialMatches[0];
     }
 
     private searchMultipleScales(needle: cv.Mat, haystack: cv.Mat) {
