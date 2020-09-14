@@ -141,7 +141,7 @@ export default class TemplateMatchingFinder implements FinderInterface {
             const bestMatch = matches.pop();
             if (bestMatch) {
                 if(bestMatch.error) {
-                    throw new Error(bestMatch.error.message)
+                    throw bestMatch.error
                 }else {
                     throw new Error(`No match with required confidence ${matchRequest.confidence}. Best match: ${bestMatch.confidence} at ${bestMatch.location}`)
                 }
