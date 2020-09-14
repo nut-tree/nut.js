@@ -65,10 +65,7 @@ describe("Template-matching finder", () => {
         // THEN
         await expect(SUT.findMatch(matchRequest))
             .rejects
-            .toEqual(
-                expect
-                    .stringMatching(expectedRejection)
-            );
+            .toThrowError(expectedRejection);
     });
 
     it("findMatch should throw on invalid image paths", async () => {
@@ -90,5 +87,24 @@ describe("Template-matching finder", () => {
         await expect(result)
             .rejects
             .toThrowError(`Failed to load ${pathToHaystack}. Reason: 'Failed to load image from '${pathToHaystack}''.`);
+    });
+
+    it("findMatch should reject, if needle was way lager than the haystack", async () => {
+        // GIVEN
+        const imageLoader = new ImageReader();
+        const SUT = new TemplateMatchingFinder();
+        const haystackPath = path.resolve(__dirname, "./__mocks__/mouse.png");
+        const needlePath = path.resolve(__dirname, "./__mocks__/fat-needle.png");
+        const haystack = await imageLoader.load(haystackPath);
+        const minConfidence = 0.99;
+        const searchRegion = new Region(0, 0, haystack.width, haystack.height);
+        const matchRequest = new MatchRequest(haystack, needlePath, searchRegion, minConfidence);
+        const expectedRejection = new Error("The provided image sample is larger than the provided search region")
+
+        // WHEN
+        const findMatchPromise = SUT.findMatch(matchRequest);
+
+        // THEN
+        await expect(findMatchPromise).rejects.toEqual(expectedRejection)
     });
 });

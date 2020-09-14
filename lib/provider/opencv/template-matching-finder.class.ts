@@ -60,6 +60,19 @@ function isValidSearch(needle: cv.Mat, haystack: cv.Mat): boolean {
     return (needle.cols <= haystack.cols) && (needle.rows <= haystack.rows);
 }
 
+function createResultForInvalidSearch (currentScale: number) {
+    return new ScaledMatchResult(0,
+        currentScale,
+        new Region(
+            0,
+            0,
+            0,
+            0
+        ),
+        new Error("The provided image sample is larger than the provided search region")
+    )
+}
+
 export default class TemplateMatchingFinder implements FinderInterface {
     private initialScale = [1.0];
     private scaleSteps = [0.9, 0.8, 0.7, 0.6, 0.5];
@@ -94,69 +107,15 @@ export default class TemplateMatchingFinder implements FinderInterface {
         const matchResults = this.initialScale.map(
             async (currentScale) => {
                 if (!isValidSearch(needle, haystack)) {
-                    return new ScaledMatchResult(0,
-                        currentScale,
-                        new Region(
-                            0,
-                            0,
-                            0,
-                            0
-                        )
-                    );
+                    return createResultForInvalidSearch(currentScale);
                 }
                 const matchResult = await matchImages(haystack, needle);
                 return new ScaledMatchResult(matchResult.confidence, currentScale, matchResult.location);
             }
         );
+
         if (matchRequest.searchMultipleScales) {
-            const scaledNeedleResult = this.scaleSteps.map(
-                async (currentScale) => {
-                    const scaledNeedle = await scaleImage(needle, currentScale);
-                    if (!isValidSearch(scaledNeedle, haystack)) {
-                        return new ScaledMatchResult(0,
-                            currentScale,
-                            new Region(
-                                0,
-                                0,
-                                0,
-                                0
-                            )
-                        );
-                    }
-                    const matchResult = await matchImages(haystack, scaledNeedle);
-                    return new ScaledMatchResult(
-                        matchResult.confidence,
-                        currentScale,
-                        matchResult.location,
-                    );
-                }
-            );
-            const scaledHaystackResult = this.scaleSteps.map(
-                async (currentScale) => {
-                    const scaledHaystack = await scaleImage(haystack, currentScale);
-                    if (!isValidSearch(needle, scaledHaystack)) {
-                        return new ScaledMatchResult(0,
-                            currentScale,
-                            new Region(
-                                0,
-                                0,
-                                0,
-                                0
-                            )
-                        );
-                    }
-                    const matchResult = await matchImages(scaledHaystack, needle);
-                    return new ScaledMatchResult(
-                        matchResult.confidence,
-                        currentScale,
-                        scaleLocation(
-                            matchResult.location,
-                            currentScale
-                        )
-                    );
-                }
-            );
-            matchResults.push(...scaledHaystackResult, ...scaledNeedleResult);
+            matchResults.push(...this.searchMultipleScales(needle, haystack))
         }
 
         return Promise.all(matchResults).then(results => {
@@ -173,24 +132,58 @@ export default class TemplateMatchingFinder implements FinderInterface {
     }
 
     public async findMatch(matchRequest: MatchRequest, debug: boolean = false): Promise<MatchResult> {
-        return new Promise<MatchResult>(async (resolve, reject) => {
-            try {
-                const matches = await this.findMatches(matchRequest, debug);
-                const potentialMatches = matches
-                    .filter(match => match.confidence >= matchRequest.confidence);
-                if (potentialMatches.length === 0) {
-                    matches.sort((a, b) => a.confidence - b.confidence);
-                    const bestMatch = matches.pop();
-                    if (bestMatch) {
-                        reject(`No match with required confidence ${matchRequest.confidence}. Best match: ${bestMatch.confidence} at ${bestMatch.location}`)
-                    } else {
-                        reject(`Unable to locate ${matchRequest.pathToNeedle}, no match!`);
-                    }
+
+        const matches = await this.findMatches(matchRequest, debug);
+        const potentialMatches = matches
+            .filter(match => match.confidence >= matchRequest.confidence);
+        if (potentialMatches.length === 0) {
+            matches.sort((a, b) => a.confidence - b.confidence);
+            const bestMatch = matches.pop();
+            if (bestMatch) {
+                if(bestMatch.error) {
+                    throw bestMatch.error
+                }else {
+                    throw new Error(`No match with required confidence ${matchRequest.confidence}. Best match: ${bestMatch.confidence} at ${bestMatch.location}`)
                 }
-                resolve(potentialMatches[0]);
-            } catch (e) {
-                reject(e);
+            } else {
+                throw new Error(`Unable to locate ${matchRequest.pathToNeedle}, no match!`);
             }
-        });
+        }
+        return potentialMatches[0];
+    }
+
+    private searchMultipleScales(needle: cv.Mat, haystack: cv.Mat) {
+        const scaledNeedleResult = this.scaleSteps.map(
+            async (currentScale) => {
+                const scaledNeedle = await scaleImage(needle, currentScale);
+                if (!isValidSearch(scaledNeedle, haystack)) {
+                    return createResultForInvalidSearch(currentScale);
+                }
+                const matchResult = await matchImages(haystack, scaledNeedle);
+                return new ScaledMatchResult(
+                    matchResult.confidence,
+                    currentScale,
+                    matchResult.location,
+                );
+            }
+        );
+        const scaledHaystackResult = this.scaleSteps.map(
+            async (currentScale) => {
+                const scaledHaystack = await scaleImage(haystack, currentScale);
+                if (!isValidSearch(needle, scaledHaystack)) {
+                    return createResultForInvalidSearch(currentScale);
+                }
+                const matchResult = await matchImages(scaledHaystack, needle);
+                return new ScaledMatchResult(
+                    matchResult.confidence,
+                    currentScale,
+                    scaleLocation(
+                        matchResult.location,
+                        currentScale
+                    )
+                );
+            }
+        );
+        return [...scaledHaystackResult, ...scaledNeedleResult];
     }
 }

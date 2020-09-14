@@ -5,7 +5,8 @@ export class ScaledMatchResult extends MatchResult {
   constructor(public readonly confidence: number,
               public readonly scale: number,
               public readonly location: Region,
+              public readonly error?: Error
   ) {
-    super(confidence, location);
+    super(confidence, location, error);
   }
 }
