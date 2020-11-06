@@ -76,6 +76,7 @@ function createResultForInvalidSearch (currentScale: number) {
 export default class TemplateMatchingFinder implements FinderInterface {
     private initialScale = [1.0];
     private scaleSteps = [0.9, 0.8, 0.7, 0.6, 0.5];
+    private needleCache: { [pathToNeedle: string]: cv.Mat } = {}
 
     constructor(
         private source: DataSource = new ImageReader(),
@@ -83,14 +84,17 @@ export default class TemplateMatchingFinder implements FinderInterface {
     }
 
     public async findMatches(matchRequest: MatchRequest, debug: boolean = false): Promise<ScaledMatchResult[]> {
-        let needle: cv.Mat;
-        try {
-            const needleInput = await this.source.load(matchRequest.pathToNeedle);
-            needle = await loadNeedle(needleInput);
-        } catch (e) {
-            throw new Error(
-                `Failed to load ${matchRequest.pathToNeedle}. Reason: '${e}'.`,
-            );
+        let needle: cv.Mat = this.needleCache[matchRequest.pathToNeedle];
+        if (!needle) {
+            try {
+                const needleInput = await this.source.load(matchRequest.pathToNeedle);
+                needle = await loadNeedle(needleInput);
+                this.needleCache[matchRequest.pathToNeedle] = needle
+            } catch (e) {
+                throw new Error(
+                    `Failed to load ${matchRequest.pathToNeedle}. Reason: '${e}'.`,
+                );
+            }
         }
         if (!needle || needle.empty) {
             throw new Error(
