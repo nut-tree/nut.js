@@ -8,6 +8,7 @@ export class OptionalSearchParameters {
    * {@link OptionalSearchParameters} class constructor
    * @param searchRegion Optional {@link Region} to limit the search space to
    * @param confidence Optional confidence value to configure image match confidence
+   * @param searchMultipleScales Optional flag to indicate if the search should be conducted at different scales
    */
-  constructor(public searchRegion?: Region, public confidence?: number) {}
+  constructor(public searchRegion?: Region, public confidence?: number, public searchMultipleScales?: boolean) {}
 }

@@ -85,6 +85,7 @@ export class Screen {
         const minMatch = (params && params.confidence) || this.config.confidence;
         const searchRegion =
             (params && params.searchRegion) || await this.vision.screenSize();
+        const searchMultipleScales = (params && params.searchMultipleScales)
 
         const fullPathToNeedle = normalize(join(this.config.resourceDirectory, templateImageFilename));
 
@@ -95,6 +96,7 @@ export class Screen {
             fullPathToNeedle,
             searchRegion,
             minMatch,
+            searchMultipleScales
         );
 
         return new Promise<Region>(async (resolve, reject) => {
