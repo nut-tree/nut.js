@@ -130,16 +130,13 @@ describe("poll-action", () => {
         });
 
         // WHEN
-        const start = Date.now();
         try {
             await timeout(updateInterval, maxDuration, action);
         } catch (e) {
             expect(e).toEqual(`Action timed out after ${maxDuration} ms`);
         }
-        const end = Date.now();
 
         // THEN
         expect(action).toBeCalledTimes(1);
-        expect((end - start)).toBeGreaterThanOrEqual(maxDuration);
     });
 });
