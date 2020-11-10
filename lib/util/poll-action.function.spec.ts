@@ -123,6 +123,7 @@ describe("poll-action", () => {
         // GIVEN
         const updateInterval = 100;
         const maxDuration = 200;
+        const timerTolerance = 1.05;
         const action = jest.fn(() => {
             return new Promise((_, reject) => {
                 setTimeout(() => reject(), 300);
@@ -140,6 +141,6 @@ describe("poll-action", () => {
 
         // THEN
         expect(action).toBeCalledTimes(1);
-        expect((end - start)).toBeGreaterThanOrEqual(maxDuration);
+        expect((end - start)).toBeLessThanOrEqual(maxDuration*timerTolerance);
     });
 });
