@@ -161,6 +161,30 @@ describe("Screen.", () => {
         expect(visionAdapterMock.findOnScreenRegion).toHaveBeenCalledWith(expectedMatchRequest);
     });
 
+    it("should override searchMultipleScales with parameter.", async () => {
+        // GIVEN
+        const matchResult = new MatchResult(0.99, searchRegion);
+        VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
+            return Promise.resolve(matchResult);
+        });
+        const visionAdapterMock = new VisionAdapter();
+        const SUT = new Screen(visionAdapterMock);
+        const imagePath = "test/path/to/image.png";
+        const parameters = new LocationParameters(searchRegion, undefined, false);
+        const expectedMatchRequest = new MatchRequest(
+          expect.any(Image),
+          join(cwd(), imagePath),
+          searchRegion,
+          SUT.config.confidence,
+          false);
+
+        // WHEN
+        await SUT.find(imagePath, parameters);
+
+        // THEN
+        expect(visionAdapterMock.findOnScreenRegion).toHaveBeenCalledWith(expectedMatchRequest);
+    });
+
     it("should override both confidence and search region with parameter.", async () => {
         // GIVEN
         const minMatch = 0.8;
