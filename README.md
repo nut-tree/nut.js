@@ -35,6 +35,9 @@ but additionally gives you the possibility to navigate the screen based on image
 
 [nut-tree/trailmix](https://github.com/nut-tree/trailmix) contains a set of ready to use examples which demo the usage ot nut.js.
 
+# Discussion
+
+In [nut-tree/rfc](https://github.com/nut-tree/rfc) documents regarding larger design / implementation changes in nut.js are up for discussion.
 # Modules
 
 This list gives an overview on currently implemented and planned functionality.
