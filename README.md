@@ -5,7 +5,7 @@
 |Master |[![Build Status](https://travis-ci.com/nut-tree/nut.js.svg?branch=master)](https://travis-ci.com/nut-tree/nut.js)|[![Build status](https://ci.appveyor.com/api/projects/status/iohwxc5t46gcuvby/branch/master?svg=true)](https://ci.appveyor.com/project/s1hofmann/nut-js/branch/master)|
 |Develop|[![Build Status](https://travis-ci.com/nut-tree/nut.js.svg?branch=develop)](https://travis-ci.com/nut-tree/nut.js)|[![Build status](https://ci.appveyor.com/api/projects/status/iohwxc5t46gcuvby/branch/develop?svg=true)](https://ci.appveyor.com/project/s1hofmann/nut-js/branch/develop)|
 
-
+![Supported node versions](https://img.shields.io/badge/node-v10.x%20--%20v14.x-green)
 [![SonarCloud badge](https://sonarcloud.io/api/project_badges/measure?project=nut-tree%3Anut.js&metric=alert_status)](https://sonarcloud.io/dashboard?id=nut-tree%3Anut.js)
 [![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=nut-tree%3Anut.js&metric=coverage)](https://sonarcloud.io/component_measures?id=nut-tree%3Anut.js&metric=coverage)
 
