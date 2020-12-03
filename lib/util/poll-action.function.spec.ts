@@ -118,4 +118,25 @@ describe("poll-action", () => {
         expect(action).toBeCalledTimes(1);
         expect((end - start)).toBeLessThan(updateInterval);
     });
+
+    it("should fail if action does not resolve within timeout", async () => {
+        // GIVEN
+        const updateInterval = 100;
+        const maxDuration = 200;
+        const action = jest.fn(() => {
+            return new Promise((_, reject) => {
+                setTimeout(() => reject(), 300);
+            })
+        });
+
+        // WHEN
+        try {
+            await timeout(updateInterval, maxDuration, action);
+        } catch (e) {
+            expect(e).toEqual(`Action timed out after ${maxDuration} ms`);
+        }
+
+        // THEN
+        expect(action).toBeCalledTimes(1);
+    });
 });
