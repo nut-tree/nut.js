@@ -1,12 +1,14 @@
-import {join} from "path";
-import {cwd} from "process";
-import {VisionAdapter} from "./adapter/vision.adapter.class";
-import {Image} from "./image.class";
-import {LocationParameters} from "./locationparameters.class";
-import {MatchRequest} from "./match-request.class";
-import {MatchResult} from "./match-result.class";
-import {Region} from "./region.class";
-import {Screen} from "./screen.class";
+import { join } from "path";
+import { cwd } from "process";
+import { VisionAdapter } from "./adapter/vision.adapter.class";
+import { Image } from "./image.class";
+import { LocationParameters } from "./locationparameters.class";
+import { MatchRequest } from "./match-request.class";
+import { MatchResult } from "./match-result.class";
+import { Region } from "./region.class";
+import { Screen } from "./screen.class";
+import { mockPartial } from "sneer";
+import { FileType } from "./file-type.enum";
 
 jest.mock("./adapter/native.adapter.class");
 jest.mock("./adapter/vision.adapter.class");
@@ -269,4 +271,85 @@ describe("Screen.", () => {
         expect(matchRegion).toEqual(expectedMatchRegion);
     })
 
+    describe("capture",() => {
+        it("should capture the whole screen and save image", async() => {
+
+            // GIVEN
+            const screenshot = mockPartial<Image>({data: "pretty pretty image"});
+            VisionAdapter.prototype.grabScreen = jest.fn(() => Promise.resolve(screenshot));
+            VisionAdapter.prototype.saveImage = jest.fn();
+            const visionAdapterMock = new VisionAdapter();
+            const SUT = new Screen(visionAdapterMock);
+            const imageName = "foobar.png"
+            const expectedImagePath = join(cwd(), imageName)
+
+            // WHEN
+            const imagePath = await SUT.capture(imageName)
+
+            // THEN
+            expect(imagePath).toBe(expectedImagePath)
+            expect(VisionAdapter.prototype.grabScreen).toHaveBeenCalled()
+            expect(VisionAdapter.prototype.saveImage).toHaveBeenCalledWith(screenshot,expectedImagePath)
+        })
+
+        it("should consider output configuration", async () => {
+
+            // GIVEN
+            const visionAdapterMock = new VisionAdapter();
+            const SUT = new Screen(visionAdapterMock);
+            const imageName = "foobar"
+            const filePath = "/path/to/file"
+            const prefix = "answer_"
+            const postfix = "_42"
+            const expectedImagePath = join(filePath, `${prefix}${imageName}${postfix}${FileType.JPG.toString()}`)
+
+            // WHEN
+            const imagePath = await SUT.capture(imageName, FileType.JPG, filePath, prefix, postfix)
+
+            // THEN
+            expect(imagePath).toBe(expectedImagePath)
+        })
+    })
+
+    describe("captureRegion", () => {
+
+        it("should capture the specified region of the screen and save image", async () => {
+            // GIVEN
+            const screenshot = mockPartial<Image>({data: "pretty partial image"});
+            const regionToCapture = mockPartial<Region>({top:42, left:9, height: 10, width: 3.14159265359})
+            VisionAdapter.prototype.grabScreenRegion = jest.fn(() => Promise.resolve(screenshot));
+            VisionAdapter.prototype.saveImage = jest.fn();
+            const visionAdapterMock = new VisionAdapter();
+            const SUT = new Screen(visionAdapterMock);
+            const imageName = "foobar.png"
+            const expectedImagePath = join(cwd(), imageName)
+
+            // WHEN
+            const imagePath = await SUT.captureRegion(imageName, regionToCapture)
+
+            // THEN
+            expect(imagePath).toBe(expectedImagePath)
+            expect(VisionAdapter.prototype.grabScreenRegion).toHaveBeenCalledWith(regionToCapture)
+            expect(VisionAdapter.prototype.saveImage).toHaveBeenCalledWith(screenshot,expectedImagePath)
+        })
+
+        it("should consider output configuration", async () => {
+
+            // GIVEN
+            const regionToCapture = mockPartial<Region>({top:42, left:9, height: 10, width: 3.14159265359})
+            const visionAdapterMock = new VisionAdapter();
+            const SUT = new Screen(visionAdapterMock);
+            const imageName = "foobar"
+            const filePath = "/path/to/file"
+            const prefix = "answer_"
+            const postfix = "_42"
+            const expectedImagePath = join(filePath, `${prefix}${imageName}${postfix}${FileType.JPG.toString()}`)
+
+            // WHEN
+            const imagePath = await SUT.captureRegion(imageName, regionToCapture, FileType.JPG, filePath, prefix, postfix)
+
+            // THEN
+            expect(imagePath).toBe(expectedImagePath)
+        })
+    })
 });

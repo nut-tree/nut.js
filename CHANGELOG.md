@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## upcomming release
+- Feature: Create screenshot from region [(#154)](https://github.com/nut-tree/nut.js/issues/154)
+
 ## 1.5.0
 
 - Enhancement: Window support [(#5)](https://github.com/nut-tree/nut.js/issues/5)

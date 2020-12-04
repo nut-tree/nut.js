@@ -8,6 +8,7 @@ import {MatchRequest} from "./match-request.class";
 import {MatchResult} from "./match-result.class";
 import {Region} from "./region.class";
 import {timeout} from "./util/poll-action.function";
+import { Image } from "./image.class";
 
 export type FindHookCallback = (target: MatchResult) => Promise<void>;
 
@@ -181,15 +182,56 @@ export class Screen {
         filePath: string = cwd(),
         fileNamePrefix: string = "",
         fileNamePostfix: string = ""): Promise<string> {
+        const currentScreen = await this.vision.grabScreen();
+        return this.saveImage(
+            currentScreen,
+            fileName,
+            fileFormat,
+            filePath,
+            fileNamePrefix,
+            fileNamePostfix);
+    }
+
+    /**
+     * {@link captureRegion} captures a screenshot of a region on the systems main display
+     * @param fileName Basename for the generated screenshot
+     * @param regionToCapture The region of the screen to capture in the screenshot
+     * @param fileFormat The {@link FileType} for the generated screenshot
+     * @param filePath The output path for the generated screenshot (Default: {@link cwd})
+     * @param fileNamePrefix Filename prefix for the generated screenshot (Default: empty)
+     * @param fileNamePostfix Filename postfix for the generated screenshot (Default: empty)
+     */
+    public async captureRegion(
+        fileName: string,
+        regionToCapture: Region,
+        fileFormat: FileType = FileType.PNG,
+        filePath: string = cwd(),
+        fileNamePrefix: string = "",
+        fileNamePostfix: string = ""): Promise<string> {
+        const regionImage = await this.vision.grabScreenRegion(regionToCapture);
+        return this.saveImage(
+            regionImage,
+            fileName,
+            fileFormat,
+            filePath,
+            fileNamePrefix,
+            fileNamePostfix);
+    }
+
+    private async saveImage(
+        image: Image,
+        fileName: string,
+        fileFormat: FileType,
+        filePath: string,
+        fileNamePrefix: string ,
+        fileNamePostfix: string){
         const outputPath = generateOutputPath(fileName, {
             path: filePath,
             postfix: fileNamePostfix,
             prefix: fileNamePrefix,
             type: fileFormat,
         });
-
-        const currentScreen = await this.vision.grabScreen();
-        await this.vision.saveImage(currentScreen, outputPath);
+        await this.vision.saveImage(image, outputPath);
         return outputPath;
     }
 }
