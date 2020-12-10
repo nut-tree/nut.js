@@ -83,8 +83,8 @@ export class Screen {
         params?: LocationParameters,
     ): Promise<Region> {
         const minMatch = (params && params.confidence) || this.config.confidence;
-        const searchRegion =
-            (params && params.searchRegion) || await this.vision.screenSize();
+        const screenSize = await this.vision.screenSize();
+        const searchRegion = (params && params.searchRegion) || screenSize;
         const searchMultipleScales = (params && params.searchMultipleScales)
 
         const fullPathToNeedle = normalize(join(this.config.resourceDirectory, templateImageFilename));
@@ -101,6 +101,9 @@ export class Screen {
 
         return new Promise<Region>(async (resolve, reject) => {
             try {
+                if ( searchRegion.left > await screenSize.width || searchRegion.top > screenSize.height ) {
+                    throw new Error(`Requested search region (${searchRegion.left}, ${searchRegion.top}, ${searchRegion.width}, ${searchRegion.height}) lies beyond screen boundaries (${screenSize.width}, ${screenSize.height})`);
+                }
                 const matchResult = await this.vision.findOnScreenRegion(matchRequest);
                 if (matchResult.confidence >= minMatch) {
                     const possibleHooks = this.findHooks.get(templateImageFilename) || [];
