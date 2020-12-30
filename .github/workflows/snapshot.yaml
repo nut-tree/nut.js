@@ -43,33 +43,53 @@ jobs:
           -Dsonar.organization=nut-tree
           -Dsonar.host.url=https://sonarcloud.io/
           -Dsonar.projectKey=nut-tree:nut.js
-#  test:
-#    needs:
-#      - sonar
-#    strategy:
-#      matrix:
-#        os: [ macos-latest, windows-latest, ubuntu-latest ]
-#        node: [ 10, 11, 12, 13, 14 ]
-#        exclude:
-#          - os: ubuntu-latest
-#            node: 14
-#    runs-on: ${{matrix.os}}
-#    steps:
-#      - name: Set up Git repository
-#        uses: actions/checkout@v2
-#      - name: Set up node
-#        uses: actions/setup-node@v2
-#        with:
-#          node-version: ${{matrix.node}}
-#  deploy:
-#    needs:
-#      - sonar
-#      - test
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Set up Git repository
-#        uses: actions/checkout@v2
-#      - name: Set up node
-#        uses: actions/setup-node@v2
-#        with:
-#          node-version: 14
+
+  test:
+    needs:
+      - sonar
+    strategy:
+      matrix:
+        os: [ macos-latest, windows-latest, ubuntu-latest ]
+        node: [ 10, 11, 12, 13, 14 ]
+        exclude:
+          - os: ubuntu-latest
+            node: 14
+    runs-on: ${{matrix.os}}
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v2
+      - name: Set up node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - name: Setup Docker
+        run: |
+          docker pull s1hofmann/nut-ci:latest
+          docker run -it -d --name nut-ci --shm-size 4gb --user $(id -u):$(id -g) -v ${PWD}:${PWD}:rw s1hofmann/nut-ci:latest bash
+      - name: Install
+        run: npm ci
+      - name: Compile
+        run: npm run compile
+      - name: Init e2e test subpackage
+        run: npm --prefix e2e/tests ci
+      - name: Generate coverage report
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: npm run coverage -- --coverageDirectory=coverage/unit
+      - name: Run Docker E2E tests
+        run: docker exec nut-ci bash -c "bash $PWD/.build/build.sh ${PWD} 14"
+
+  deploy:
+    needs:
+      - sonar
+      - test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v2
+      - name: Set up node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - name: Release Snapshot
+        run: bash ./.build/pre-release.sh
