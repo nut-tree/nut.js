@@ -30,11 +30,8 @@ jobs:
         uses: GabrielBB/xvfb-action@v1
         with:
           run: npm run coverage -- --coverageDirectory=coverage/unit
-      - uses: addnab/docker-run-action@v1
-        with:
-          image: s1hofmann/nut-ci
-          shell: bash
-          run: docker exec nut-ci bash -c "bash $PWD/.build/build.sh ${PWD} ${TRAVIS_NODE_VERSION}"
+      - name: Run Docker E2E tests
+        run: docker exec nut-ci bash -c "bash $PWD/.build/build.sh ${PWD} 14"
       - name: Merge coverage reports
         run: |
           npm run coverage:merge
