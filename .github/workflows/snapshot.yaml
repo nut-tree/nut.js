@@ -25,9 +25,11 @@ jobs:
       - name: Generate coverage report
         uses: GabrielBB/xvfb-action@v1
         with:
-          run: |
-            npm run coverage:clean
-            npm run coverage -- --coverageDirectory=coverage/unit
+          run: npm run coverage:clean
+      - name: Generate coverage report
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: npm run coverage -- --coverageDirectory=coverage/unit
       - uses: addnab/docker-run-action@v1
         with:
           image: s1hofmann/nut-ci
