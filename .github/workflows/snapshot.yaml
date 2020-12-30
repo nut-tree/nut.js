@@ -23,9 +23,7 @@ jobs:
       - name: Init e2e test subpackage
         run: npm --prefix e2e/tests ci
       - name: Clean coverage report
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          run: npm run coverage:clean
+        run: npm run coverage:clean
       - name: Generate coverage report
         uses: GabrielBB/xvfb-action@v1
         with:
