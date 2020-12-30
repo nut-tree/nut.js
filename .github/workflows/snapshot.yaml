@@ -1,8 +1,5 @@
 name: Create snapshot release
-on:
-  push:
-    branches:
-      - *
+on: [push]
 jobs:
   sonar:
     runs-on: ubuntu-latest
