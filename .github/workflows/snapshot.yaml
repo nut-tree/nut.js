@@ -42,7 +42,7 @@ jobs:
           -Dsonar.login=${{ secrets.SONAR_TOKEN }}
           -Dsonar.organization=nut-tree
           -Dsonar.host.url=https://sonarcloud.io/
-          -Dsonar.projectKey=nut.js
+          -Dsonar.projectKey=nut-tree:nut.js
 #  test:
 #    needs:
 #      - sonar
