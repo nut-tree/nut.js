@@ -101,17 +101,17 @@ export class Screen {
 
         return new Promise<Region>(async (resolve, reject) => {
             try {
-                if ( region.left < 0 || region.top < 0 || region.width < 0 || region.height < 0 ) {
-                    throw new Error(`Negative values in search region ${region}`)
+                if ( searchRegion.left < 0 || searchRegion.top < 0 || searchRegion.width < 0 || searchRegion.height < 0 ) {
+                    throw new Error(`Negative values in search region ${searchRegion}`)
                 }
-                if ( isNaN(region.left) || isNaN(region.top) || isNaN(region.width) || isNaN(region.height) ) {
-                    throw new Error(`NaN values in search region ${region}`)
+                if ( isNaN(searchRegion.left) || isNaN(searchRegion.top) || isNaN(searchRegion.width) || isNaN(searchRegion.height) ) {
+                    throw new Error(`NaN values in search region ${searchRegion}`)
                 }
-                if ( region.width < 2 || region.height < 2 ) {
-                    throw new Error(`Search region ${region} is not large enough. Must be at least two pixels in both width and height.`)
+                if ( searchRegion.width < 2 || searchRegion.height < 2 ) {
+                    throw new Error(`Search region ${searchRegion} is not large enough. Must be at least two pixels in both width and height.`)
                 }
-                if ( region.left + region.width > screenSize.width || region.top + region.height > screenSize.height ) {
-                    throw new Error(`Search region ${region} extends beyond screen boundaries (${screenSize.width}x${screenSize.height})`)
+                if ( searchRegion.left + searchRegion.width > screenSize.width || searchRegion.top + searchRegion.height > screenSize.height ) {
+                    throw new Error(`Search region ${searchRegion} extends beyond screen boundaries (${screenSize.width}x${screenSize.height})`)
                 }
                 const matchResult = await this.vision.findOnScreenRegion(matchRequest);
                 if (matchResult.confidence >= minMatch) {
