@@ -101,8 +101,17 @@ export class Screen {
 
         return new Promise<Region>(async (resolve, reject) => {
             try {
-                if ( searchRegion.left > await screenSize.width || searchRegion.top > screenSize.height ) {
-                    throw new Error(`Requested search region (${searchRegion.left}, ${searchRegion.top}, ${searchRegion.width}, ${searchRegion.height}) lies beyond screen boundaries (${screenSize.width}, ${screenSize.height})`);
+                if ( region.left < 0 || region.top < 0 || region.width < 0 || region.height < 0 ) {
+                    throw new Error(`Negative values in search region ${region}`)
+                }
+                if ( isNaN(region.left) || isNaN(region.top) || isNaN(region.width) || isNaN(region.height) ) {
+                    throw new Error(`NaN values in search region ${region}`)
+                }
+                if ( region.width < 2 || region.height < 2 ) {
+                    throw new Error(`Search region ${region} is not large enough. Must be at least two pixels in both width and height.`)
+                }
+                if ( region.left + region.width > screenSize.width || region.top + region.height > screenSize.height ) {
+                    throw new Error(`Search region ${region} extends beyond screen boundaries (${screenSize.width}x${screenSize.height})`)
                 }
                 const matchResult = await this.vision.findOnScreenRegion(matchRequest);
                 if (matchResult.confidence >= minMatch) {
