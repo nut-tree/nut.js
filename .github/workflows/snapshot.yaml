@@ -49,7 +49,7 @@ jobs:
       - sonar
     strategy:
       matrix:
-        os: [ macos-11.0 ]
+        os: [ macos-latest ]
         node: [ 10, 11, 12, 13, 14 ]
         exclude:
           - os: ubuntu-latest
@@ -58,6 +58,8 @@ jobs:
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v2
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
       - name: Set up node
         uses: actions/setup-node@v2
         with:
