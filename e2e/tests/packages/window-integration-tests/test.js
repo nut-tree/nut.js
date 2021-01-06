@@ -7,7 +7,7 @@ const { join } = require("path");
 let app;
 const APP_TIMEOUT = 10000;
 
-beforeAll(async () => {
+beforeEach(async () => {
     app = new Application({
         path: electronPath,
         args: [join(__dirname, 'main.js')],
@@ -91,7 +91,7 @@ describe("getActiveWindow", () => {
     });
 });
 
-afterAll(async () => {
+afterEach(async () => {
     if (app && app.isRunning()) {
         await app.stop();
     }
