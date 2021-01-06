@@ -10,6 +10,7 @@ const sleep = async (ms) => {
 
 let app;
 const APP_TIMEOUT = 10000;
+jest.setTimeout(3 * APP_TIMEOUT)
 
 beforeEach(async () => {
     app = new Application({
