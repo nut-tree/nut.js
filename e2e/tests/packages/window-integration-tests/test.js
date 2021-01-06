@@ -78,7 +78,7 @@ describe("getActiveWindow", () => {
     it("should determine correct window size for our application after resizing the window", async () => {
         // GIVEN
         const newWidth = 400;
-        const newHeight = 250;
+        const newHeight = 350;
         await app.browserWindow.setSize(newWidth, newHeight);
 
         // WHEN
