@@ -1,10 +1,12 @@
-import {sleep} from "../../../../lib/sleep.function";
-
 const Application = require("spectron").Application;
 const electronPath = require("electron");
 const {getActiveWindow, getWindows} = require("@nut-tree/nut-js");
-const { POS_X, POS_Y, WIDTH, HEIGTH, TITLE } = require("./constants");
-const { join } = require("path");
+const {POS_X, POS_Y, WIDTH, HEIGTH, TITLE} = require("./constants");
+const {join} = require("path");
+
+const sleep = async (ms) => {
+    return new Promise(resolve => setTimeout(resolve, ms));
+};
 
 let app;
 const APP_TIMEOUT = 10000;
