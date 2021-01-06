@@ -1,3 +1,5 @@
+import {sleep} from "../../../../lib/sleep.function";
+
 const Application = require("spectron").Application;
 const electronPath = require("electron");
 const {getActiveWindow, getWindows} = require("@nut-tree/nut-js");
@@ -65,6 +67,7 @@ describe("getActiveWindow", () => {
         const xPosition = 42;
         const yPosition = 23;
         await app.browserWindow.setPosition(xPosition, yPosition);
+        await sleep(1000);
 
         // WHEN
         const foregroundWindow = await getActiveWindow();
@@ -80,6 +83,7 @@ describe("getActiveWindow", () => {
         const newWidth = 400;
         const newHeight = 350;
         await app.browserWindow.setSize(newWidth, newHeight);
+        await sleep(1000);
 
         // WHEN
         const foregroundWindow = await getActiveWindow();
