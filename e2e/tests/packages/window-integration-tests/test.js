@@ -1,13 +1,18 @@
 const Application = require("spectron").Application;
 const electronPath = require("electron");
 const {getActiveWindow, getWindows} = require("@nut-tree/nut-js");
-const { POS_X, POS_Y, WIDTH, HEIGTH, TITLE } = require("./constants");
-const { join } = require("path");
+const {POS_X, POS_Y, WIDTH, HEIGTH, TITLE} = require("./constants");
+const {join} = require("path");
+
+const sleep = async (ms) => {
+    return new Promise(resolve => setTimeout(resolve, ms));
+};
 
 let app;
 const APP_TIMEOUT = 10000;
+jest.setTimeout(3 * APP_TIMEOUT)
 
-beforeAll(async () => {
+beforeEach(async () => {
     app = new Application({
         path: electronPath,
         args: [join(__dirname, 'main.js')],
@@ -65,6 +70,7 @@ describe("getActiveWindow", () => {
         const xPosition = 42;
         const yPosition = 23;
         await app.browserWindow.setPosition(xPosition, yPosition);
+        await sleep(1000);
 
         // WHEN
         const foregroundWindow = await getActiveWindow();
@@ -78,8 +84,9 @@ describe("getActiveWindow", () => {
     it("should determine correct window size for our application after resizing the window", async () => {
         // GIVEN
         const newWidth = 400;
-        const newHeight = 250;
+        const newHeight = 350;
         await app.browserWindow.setSize(newWidth, newHeight);
+        await sleep(1000);
 
         // WHEN
         const foregroundWindow = await getActiveWindow();
@@ -91,7 +98,7 @@ describe("getActiveWindow", () => {
     });
 });
 
-afterAll(async () => {
+afterEach(async () => {
     if (app && app.isRunning()) {
         await app.stop();
     }

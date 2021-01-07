@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -ex
 
+echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+npm whoami
+
 npm ci
 patchVersion=$(npm --no-git-tag version patch)
 nextVersion=${patchVersion}-next."$(date +%Y%m%d%H%M%S)"
