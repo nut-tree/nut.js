@@ -6,8 +6,6 @@ on:
 
 jobs:
   test:
-    needs:
-      - sonar
     strategy:
       matrix:
         os: [ ubuntu-latest, windows-latest, macos-latest ]
@@ -41,7 +39,6 @@ jobs:
 
   deploy:
     needs:
-      - sonar
       - test
     runs-on: ubuntu-latest
     steps:
