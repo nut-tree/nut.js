@@ -16,8 +16,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14
-      - name: Setup sonarqube
-        uses: warchant/setup-sonar-scanner@v3
       - name: Setup Docker
         run: |
           docker pull s1hofmann/nut-ci:latest
@@ -40,15 +38,11 @@ jobs:
         run: |
           npm run coverage:merge
           npm run coverage:merge-report
-      - name: Run sonarqube
+      - name: Send results to SonarCloud
+        uses: SonarSource/sonarcloud-github-action@v1.4
         env:
-          # to get access to secrets.SONAR_TOKEN, provide GITHUB_TOKEN
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: sonar-scanner
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-          -Dsonar.organization=nut-tree
-          -Dsonar.host.url=https://sonarcloud.io/
-          -Dsonar.projectKey=nut-tree:nut.js
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   test:
     needs:
@@ -56,7 +50,7 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest, windows-latest, macos-latest ]
-        node: [ 10, 11, 12, 13, 14 ]
+        node: [ 10, 12, 14 ]
         exclude:
           - os: ubuntu-latest
             node: 14
@@ -67,7 +61,7 @@ jobs:
       - name: Set up node
         uses: actions/setup-node@v2
         with:
-          node-version: 14
+          node-version: ${{matrix.node}}
       - name: Setup Docker
         if: ${{matrix.os == 'ubuntu-latest'}}
         run: |
@@ -85,4 +79,4 @@ jobs:
           run: npm run coverage -- --coverageDirectory=coverage/unit
       - name: Run Docker E2E tests
         if: ${{matrix.os == 'ubuntu-latest'}}
-        run: docker exec nut-ci bash -c "bash $PWD/.build/build.sh ${PWD} 14"
+        run: docker exec nut-ci bash -c "bash $PWD/.build/build.sh ${PWD} ${{matrix.node}}"
