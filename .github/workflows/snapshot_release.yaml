@@ -25,6 +25,8 @@ jobs:
           docker run -it -d --name nut-ci --shm-size 4gb --user $(id -u):$(id -g) -v ${PWD}:${PWD}:rw s1hofmann/nut-ci:latest bash
       - name: Install
         run: npm ci
+      - name: Install @nut-tree/libnut@next
+        run: npm i @nut-tree/libnut@next
       - name: Compile
         run: npm run compile
       - name: Init e2e test subpackage
