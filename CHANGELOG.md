@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## upcomming release
 - Feature: Create screenshot from region [(#154)](https://github.com/nut-tree/nut.js/issues/154)
+- Bugfix: Endless loop in timeout function for long-running actions returning undefined [(#205)](https://github.com/nut-tree/nut.js/issues/205) 
 
 ## 1.5.0
 

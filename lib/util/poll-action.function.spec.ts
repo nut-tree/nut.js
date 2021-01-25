@@ -139,4 +139,31 @@ describe("poll-action", () => {
         // THEN
         expect(action).toBeCalledTimes(1);
     });
+
+    it("should fail after timeout if no result is returned from long running action", async (done) => {
+        // GIVEN
+        const updateInterval = 100;
+        const maxDuration = 200;
+        const action = jest.fn(() => {
+            return new Promise<boolean>((resolve) => {
+                setTimeout(() => {
+                    resolve((undefined as unknown) as boolean);
+                }, 210);
+            });
+        });
+
+        // WHEN
+        try {
+            await timeout(updateInterval, maxDuration, action);
+        } catch (e) {
+            expect(e).toBe(`Action timed out after ${maxDuration} ms`);
+        }
+
+        // THEN
+        expect(action).toBeCalledTimes(1);
+        setTimeout(() => {
+            expect(action).toBeCalledTimes(1);
+            done();
+        }, 500);
+    });
 });
