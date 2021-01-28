@@ -50,6 +50,8 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14
+      - name: Install @nut-tree/libnut@next
+        run: npm i @nut-tree/libnut@next
       - name: Publish snapshot release
         run: bash ./.build/pre-release.sh
         env:
