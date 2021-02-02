@@ -130,13 +130,10 @@ describe("poll-action", () => {
         });
 
         // WHEN
-        try {
-            await timeout(updateInterval, maxDuration, action);
-        } catch (e) {
-            expect(e).toEqual(`Action timed out after ${maxDuration} ms`);
-        }
+        const SUT = () => timeout(updateInterval, maxDuration, action);
 
         // THEN
+        await expect(SUT).rejects.toBe(`Action timed out after ${maxDuration} ms`);
         expect(action).toBeCalledTimes(1);
     });
 
@@ -153,13 +150,10 @@ describe("poll-action", () => {
         });
 
         // WHEN
-        try {
-            await timeout(updateInterval, maxDuration, action);
-        } catch (e) {
-            expect(e).toBe(`Action timed out after ${maxDuration} ms`);
-        }
+        const SUT = () => timeout(updateInterval, maxDuration, action);
 
         // THEN
+        await expect(SUT).rejects.toBe(`Action timed out after ${maxDuration} ms`);
         expect(action).toBeCalledTimes(1);
         setTimeout(() => {
             expect(action).toBeCalledTimes(1);
