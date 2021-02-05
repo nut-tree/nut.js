@@ -8,7 +8,7 @@ export function timeout<R>(updateIntervalMs: number, maxDurationMs: number, acti
     }
 
     function validateResult(result: R){
-      if (!result) {
+      if (!result && !timerCleaned) {
         interval = setTimeout(executeInterval, updateIntervalMs);
       } else {
         cleanupTimer();
