@@ -97,6 +97,9 @@ export default class TemplateMatchingFinder implements FinderInterface {
                 `Failed to load ${matchRequest.pathToNeedle}, got empty image.`,
             );
         }
+        if (matchRequest.scaleNeedle !== 1.0)
+                needle = await scaleImage(needle, matchRequest.scaleNeedle);
+
         const haystack = await loadHaystack(matchRequest);
 
         if (debug) {

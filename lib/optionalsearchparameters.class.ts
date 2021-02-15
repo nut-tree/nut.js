@@ -10,5 +10,5 @@ export class OptionalSearchParameters {
    * @param confidence Optional confidence value to configure image match confidence
    * @param searchMultipleScales Optional flag to indicate if the search should be conducted at different scales
    */
-  constructor(public searchRegion?: Region, public confidence?: number, public searchMultipleScales?: boolean) {}
+  constructor(public searchRegion?: Region, public confidence?: number, public searchMultipleScales?: boolean, public scaleNeedle?: number) {}
 }

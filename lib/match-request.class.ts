@@ -8,5 +8,6 @@ export class MatchRequest {
     public readonly searchRegion: Region,
     public readonly confidence: number,
     public readonly searchMultipleScales: boolean = true,
+    public readonly scaleNeedle: number = 1.0,
   ) {}
 }
