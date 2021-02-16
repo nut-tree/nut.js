@@ -13,7 +13,7 @@ import { FileType } from "./file-type.enum";
 jest.mock("./adapter/native.adapter.class");
 jest.mock("./adapter/vision.adapter.class");
 
-const searchRegion = new Region(0, 0, 100, 100);
+const searchRegion = new Region(0, 0, 1000, 1000);
 
 beforeAll(() => {
     VisionAdapter.prototype.grabScreen = jest.fn(() => {
