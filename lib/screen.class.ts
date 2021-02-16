@@ -84,8 +84,8 @@ export class Screen {
         params?: LocationParameters,
     ): Promise<Region> {
         const minMatch = (params && params.confidence) || this.config.confidence;
-        const searchRegion =
-            (params && params.searchRegion) || await this.vision.screenSize();
+        const screenSize = await this.vision.screenSize();
+        const searchRegion = (params && params.searchRegion) || screenSize;
         const searchMultipleScales = (params && params.searchMultipleScales)
 
         const fullPathToNeedle = normalize(join(this.config.resourceDirectory, templateImageFilename));
@@ -102,6 +102,18 @@ export class Screen {
 
         return new Promise<Region>(async (resolve, reject) => {
             try {
+                if ( searchRegion.left < 0 || searchRegion.top < 0 || searchRegion.width < 0 || searchRegion.height < 0 ) {
+                    throw new Error(`Negative values in search region ${searchRegion}`)
+                }
+                if ( isNaN(searchRegion.left) || isNaN(searchRegion.top) || isNaN(searchRegion.width) || isNaN(searchRegion.height) ) {
+                    throw new Error(`NaN values in search region ${searchRegion}`)
+                }
+                if ( searchRegion.width < 2 || searchRegion.height < 2 ) {
+                    throw new Error(`Search region ${searchRegion} is not large enough. Must be at least two pixels in both width and height.`)
+                }
+                if ( searchRegion.left + searchRegion.width > screenSize.width || searchRegion.top + searchRegion.height > screenSize.height ) {
+                    throw new Error(`Search region ${searchRegion} extends beyond screen boundaries (${screenSize.width}x${screenSize.height})`)
+                }
                 const matchResult = await this.vision.findOnScreenRegion(matchRequest);
                 if (matchResult.confidence >= minMatch) {
                     const possibleHooks = this.findHooks.get(templateImageFilename) || [];
