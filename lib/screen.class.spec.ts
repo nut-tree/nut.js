@@ -26,192 +26,265 @@ beforeAll(() => {
 });
 
 describe("Screen.", () => {
-    it("should resolve with sufficient confidence.", async () => {
-        const matchResult = new MatchResult(0.99, searchRegion);
 
-        VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
-            return Promise.resolve(matchResult);
+    describe("find", () => {
+        it("should resolve with sufficient confidence.", async () => {
+
+            // GIVEN
+            const matchResult = new MatchResult(0.99, searchRegion);
+            VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
+                return Promise.resolve(matchResult);
+            });
+            const visionAdapterMock = new VisionAdapter();
+            const SUT = new Screen(visionAdapterMock);
+            const imagePath = "test/path/to/image.png";
+
+
+            // WHEN
+            const resultRegion = SUT.find(imagePath);
+
+            // THEN
+            await expect(resultRegion).resolves.toEqual(matchResult.location);
+            const matchRequest = new MatchRequest(
+                expect.any(Image),
+                join(cwd(), imagePath),
+                searchRegion,
+                SUT.config.confidence,
+                true);
+            expect(visionAdapterMock.findOnScreenRegion).toHaveBeenCalledWith(matchRequest);
         });
 
-        const visionAdapterMock = new VisionAdapter();
+        it("should call registered hook before resolve", async () => {
 
-        const SUT = new Screen(visionAdapterMock);
-        const imagePath = "test/path/to/image.png";
-        await expect(SUT.find(imagePath)).resolves.toEqual(matchResult.location);
-        const matchRequest = new MatchRequest(
-            expect.any(Image),
-            join(cwd(), imagePath),
-            searchRegion,
-            SUT.config.confidence,
-            true);
-        expect(visionAdapterMock.findOnScreenRegion).toHaveBeenCalledWith(matchRequest);
-    });
+            // GIVEN
+            const matchResult = new MatchResult(0.99, searchRegion);
+            VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
+                return Promise.resolve(matchResult);
+            });
+            const visionAdapterMock = new VisionAdapter();
 
-    it("should call registered hook before resolve", async () => {
-        const matchResult = new MatchResult(0.99, searchRegion);
-        VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
-            return Promise.resolve(matchResult);
-        });
-        const visionAdapterMock = new VisionAdapter();
+            const SUT = new Screen(visionAdapterMock);
+            const testCallback = jest.fn(() => Promise.resolve());
+            const imagePath = "test/path/to/image.png";
+            SUT.on(imagePath, testCallback);
 
-        const SUT = new Screen(visionAdapterMock);
-        const testCallback = jest.fn(() => Promise.resolve());
-        const imagePath = "test/path/to/image.png";
-        SUT.on(imagePath, testCallback);
-        await SUT.find(imagePath);
-        expect(testCallback).toBeCalledTimes(1);
-        expect(testCallback).toBeCalledWith(matchResult);
-    });
+            // WHEN
+            await SUT.find(imagePath);
 
-    it("should call multiple registered hooks before resolve", async () => {
-        const matchResult = new MatchResult(0.99, searchRegion);
-        VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
-            return Promise.resolve(matchResult);
-        });
-        const visionAdapterMock = new VisionAdapter();
-
-        const SUT = new Screen(visionAdapterMock);
-        const testCallback = jest.fn(() => Promise.resolve());
-        const secondCallback = jest.fn(() => Promise.resolve());
-        const imagePath = "test/path/to/image.png";
-        SUT.on(imagePath, testCallback);
-        SUT.on(imagePath, secondCallback);
-        await SUT.find(imagePath);
-        for (const callback of [testCallback, secondCallback]) {
-            expect(callback).toBeCalledTimes(1);
-            expect(callback).toBeCalledWith(matchResult);
-        }
-    });
-
-    it("should reject with insufficient confidence.", async () => {
-        const matchResult = new MatchResult(0.8, searchRegion);
-
-        VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
-            return Promise.resolve(matchResult);
+            // THEN
+            expect(testCallback).toBeCalledTimes(1);
+            expect(testCallback).toBeCalledWith(matchResult);
         });
 
-        const visionAdapterMock = new VisionAdapter();
+        it("should call multiple registered hooks before resolve", async () => {
 
-        const SUT = new Screen(visionAdapterMock);
-        const imagePath = "test/path/to/image.png";
-        await expect(SUT.find(imagePath))
-            .rejects
-            .toEqual(`No match for ${imagePath}. Required: ${SUT.config.confidence}, given: ${matchResult.confidence}`);
-    });
+            // GIVEN
+            const matchResult = new MatchResult(0.99, searchRegion);
+            VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
+                return Promise.resolve(matchResult);
+            });
+            const visionAdapterMock = new VisionAdapter();
 
-    it("should reject when search fails.", async () => {
-        const rejectionReason = "Search failed.";
-        VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
-            return Promise.reject(rejectionReason);
+            const SUT = new Screen(visionAdapterMock);
+            const testCallback = jest.fn(() => Promise.resolve());
+            const secondCallback = jest.fn(() => Promise.resolve());
+            const imagePath = "test/path/to/image.png";
+            SUT.on(imagePath, testCallback);
+            SUT.on(imagePath, secondCallback);
+
+            // WHEN
+            await SUT.find(imagePath);
+
+            // THEN
+            for (const callback of [testCallback, secondCallback]) {
+                expect(callback).toBeCalledTimes(1);
+                expect(callback).toBeCalledWith(matchResult);
+            }
         });
 
-        const visionAdapterMock = new VisionAdapter();
+        it("should reject with insufficient confidence.", async () => {
 
-        const SUT = new Screen(visionAdapterMock);
-        const imagePath = "test/path/to/image.png";
-        await expect(SUT.find(imagePath))
-            .rejects
-            .toEqual(`Searching for ${imagePath} failed. Reason: '${rejectionReason}'`);
-    });
+            // GIVEN
+            const matchResult = new MatchResult(0.8, searchRegion);
 
-    it("should override default confidence value with parameter.", async () => {
-        const minMatch = 0.8;
-        const matchResult = new MatchResult(minMatch, searchRegion);
+            VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
+                return Promise.resolve(matchResult);
+            });
 
-        VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
-            return Promise.resolve(matchResult);
+            const visionAdapterMock = new VisionAdapter();
+
+            const SUT = new Screen(visionAdapterMock);
+            const imagePath = "test/path/to/image.png";
+
+            // WHEN
+            const resultRegion = SUT.find(imagePath);
+
+            // THEN
+            await expect(resultRegion)
+                .rejects
+                .toEqual(`No match for ${imagePath}. Required: ${SUT.config.confidence}, given: ${matchResult.confidence}`);
         });
 
-        const visionAdapterMock = new VisionAdapter();
+        it("should reject when search fails.", async () => {
 
-        const SUT = new Screen(visionAdapterMock);
+            // GIVEN
+            const rejectionReason = "Search failed.";
+            VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
+                return Promise.reject(rejectionReason);
+            });
 
-        const imagePath = "test/path/to/image.png";
-        const parameters = new LocationParameters(undefined, minMatch);
-        await expect(SUT.find(imagePath, parameters)).resolves.toEqual(matchResult.location);
-        const matchRequest = new MatchRequest(
-            expect.any(Image),
-            join(cwd(), imagePath),
-            searchRegion,
-            minMatch,
-            true);
-        expect(visionAdapterMock.findOnScreenRegion).toHaveBeenCalledWith(matchRequest);
-    });
+            const visionAdapterMock = new VisionAdapter();
 
-    it("should override default search region with parameter.", async () => {
-        // GIVEN
-        const customSearchRegion = new Region(10, 10, 90, 90);
-        const matchResult = new MatchResult(0.99, searchRegion);
-        VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
-            return Promise.resolve(matchResult);
+            const SUT = new Screen(visionAdapterMock);
+            const imagePath = "test/path/to/image.png";
+
+            // WHEN
+            const resultRegion = SUT.find(imagePath);
+
+            // THEN
+            await expect(resultRegion)
+                .rejects
+                .toEqual(`Searching for ${imagePath} failed. Reason: '${rejectionReason}'`);
+
+
         });
-        const visionAdapterMock = new VisionAdapter();
-        const SUT = new Screen(visionAdapterMock);
-        const imagePath = "test/path/to/image.png";
-        const parameters = new LocationParameters(customSearchRegion);
-        const expectedMatchRequest = new MatchRequest(
-          expect.any(Image),
-          join(cwd(), imagePath),
-          customSearchRegion,
-          SUT.config.confidence,
-          true);
 
-        // WHEN
-        await SUT.find(imagePath, parameters);
+        it("should override default confidence value with parameter.", async () => {
 
-        // THEN
-        expect(visionAdapterMock.findOnScreenRegion).toHaveBeenCalledWith(expectedMatchRequest);
-    });
+            // GIVEN
+            const minMatch = 0.8;
+            const matchResult = new MatchResult(minMatch, searchRegion);
 
-    it("should override searchMultipleScales with parameter.", async () => {
-        // GIVEN
-        const matchResult = new MatchResult(0.99, searchRegion);
-        VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
-            return Promise.resolve(matchResult);
+            VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
+                return Promise.resolve(matchResult);
+            });
+
+            const visionAdapterMock = new VisionAdapter();
+
+            const SUT = new Screen(visionAdapterMock);
+
+            const imagePath = "test/path/to/image.png";
+            const parameters = new LocationParameters(undefined, minMatch);
+
+            // WHEN
+            const resultRegion = SUT.find(imagePath, parameters);
+
+            // THEN
+            await expect(resultRegion).resolves.toEqual(matchResult.location);
+            const matchRequest = new MatchRequest(
+                expect.any(Image),
+                join(cwd(), imagePath),
+                searchRegion,
+                minMatch,
+                true);
+            expect(visionAdapterMock.findOnScreenRegion).toHaveBeenCalledWith(matchRequest);
         });
-        const visionAdapterMock = new VisionAdapter();
-        const SUT = new Screen(visionAdapterMock);
-        const imagePath = "test/path/to/image.png";
-        const parameters = new LocationParameters(searchRegion, undefined, false);
-        const expectedMatchRequest = new MatchRequest(
-          expect.any(Image),
-          join(cwd(), imagePath),
-          searchRegion,
-          SUT.config.confidence,
-          false);
 
-        // WHEN
-        await SUT.find(imagePath, parameters);
+        it("should override default search region with parameter.", async () => {
+            // GIVEN
+            const customSearchRegion = new Region(10, 10, 90, 90);
+            const matchResult = new MatchResult(0.99, searchRegion);
+            VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
+                return Promise.resolve(matchResult);
+            });
+            const visionAdapterMock = new VisionAdapter();
+            const SUT = new Screen(visionAdapterMock);
+            const imagePath = "test/path/to/image.png";
+            const parameters = new LocationParameters(customSearchRegion);
+            const expectedMatchRequest = new MatchRequest(
+                expect.any(Image),
+                join(cwd(), imagePath),
+                customSearchRegion,
+                SUT.config.confidence,
+                true);
 
-        // THEN
-        expect(visionAdapterMock.findOnScreenRegion).toHaveBeenCalledWith(expectedMatchRequest);
-    });
+            // WHEN
+            await SUT.find(imagePath, parameters);
 
-    it("should override both confidence and search region with parameter.", async () => {
-        // GIVEN
-        const minMatch = 0.8;
-        const customSearchRegion = new Region(10, 10, 90, 90);
-        const matchResult = new MatchResult(minMatch, searchRegion);
-        VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
-            return Promise.resolve(matchResult);
+            // THEN
+            expect(visionAdapterMock.findOnScreenRegion).toHaveBeenCalledWith(expectedMatchRequest);
         });
-        const visionAdapterMock = new VisionAdapter();
-        const SUT = new Screen(visionAdapterMock);
-        const imagePath = "test/path/to/image.png";
-        const parameters = new LocationParameters(customSearchRegion, minMatch);
-        const expectedMatchRequest = new MatchRequest(
-          expect.any(Image),
-          join(cwd(), imagePath),
-          customSearchRegion,
-          minMatch,
-          true);
 
-        // WHEN
-        await SUT.find(imagePath, parameters);
+        it("should override searchMultipleScales with parameter.", async () => {
+            // GIVEN
+            const matchResult = new MatchResult(0.99, searchRegion);
+            VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
+                return Promise.resolve(matchResult);
+            });
+            const visionAdapterMock = new VisionAdapter();
+            const SUT = new Screen(visionAdapterMock);
+            const imagePath = "test/path/to/image.png";
+            const parameters = new LocationParameters(searchRegion, undefined, false);
+            const expectedMatchRequest = new MatchRequest(
+                expect.any(Image),
+                join(cwd(), imagePath),
+                searchRegion,
+                SUT.config.confidence,
+                false);
 
-        // THEN
-        expect(visionAdapterMock.findOnScreenRegion).toHaveBeenCalledWith(expectedMatchRequest);
+            // WHEN
+            await SUT.find(imagePath, parameters);
+
+            // THEN
+            expect(visionAdapterMock.findOnScreenRegion).toHaveBeenCalledWith(expectedMatchRequest);
+        });
+
+        it("should override both confidence and search region with parameter.", async () => {
+            // GIVEN
+            const minMatch = 0.8;
+            const customSearchRegion = new Region(10, 10, 90, 90);
+            const matchResult = new MatchResult(minMatch, searchRegion);
+            VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
+                return Promise.resolve(matchResult);
+            });
+            const visionAdapterMock = new VisionAdapter();
+            const SUT = new Screen(visionAdapterMock);
+            const imagePath = "test/path/to/image.png";
+            const parameters = new LocationParameters(customSearchRegion, minMatch);
+            const expectedMatchRequest = new MatchRequest(
+                expect.any(Image),
+                join(cwd(), imagePath),
+                customSearchRegion,
+                minMatch,
+                true);
+
+            // WHEN
+            await SUT.find(imagePath, parameters);
+
+            // THEN
+            expect(visionAdapterMock.findOnScreenRegion).toHaveBeenCalledWith(expectedMatchRequest);
+        });
+
+        it("should add search region offset to result image location", async () => {
+
+            // GIVEN
+            const limitedSearchRegion = new Region(100, 200, 300, 400);
+            const resultRegion = new Region(50, 100, 150, 200);
+            const matchResult = new MatchResult(0.99, resultRegion);
+
+            const expectedMatchRegion = new Region(
+                limitedSearchRegion.left + resultRegion.left,
+                limitedSearchRegion.top + resultRegion.top,
+                resultRegion.width,
+                resultRegion.height);
+
+            VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
+                return Promise.resolve(matchResult);
+            });
+            const SUT = new Screen(new VisionAdapter());
+
+            // WHEN
+            const matchRegion = await SUT.find(
+                "test/path/to/image.png",
+                {
+                    searchRegion: limitedSearchRegion
+                });
+
+            // THEN
+            expect(matchRegion).toEqual(expectedMatchRegion);
+        })
     });
+
 
     it("should return region to highlight for chaining", async () => {
         // GIVEN
@@ -241,35 +314,6 @@ describe("Screen.", () => {
         // THEN
         expect(result).toEqual(highlightRegion);
     });
-
-    it("should add search region offset to result image location", async () => {
-
-        // GIVEN
-        const limitedSearchRegion = new Region(100, 200, 300, 400);
-        const resultRegion = new Region(50, 100, 150, 200);
-        const matchResult = new MatchResult(0.99, resultRegion);
-
-        const expectedMatchRegion = new Region(
-            limitedSearchRegion.left + resultRegion.left,
-            limitedSearchRegion.top + resultRegion.top,
-            resultRegion.width,
-            resultRegion.height);
-
-        VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
-            return Promise.resolve(matchResult);
-        });
-        const SUT = new Screen(new VisionAdapter());
-
-        // WHEN
-        const matchRegion = await SUT.find(
-            "test/path/to/image.png",
-            {
-                searchRegion: limitedSearchRegion
-            });
-
-        // THEN
-        expect(matchRegion).toEqual(expectedMatchRegion);
-    })
 
     describe("capture",() => {
         it("should capture the whole screen and save image", async() => {
