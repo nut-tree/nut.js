@@ -283,6 +283,47 @@ describe("Screen.", () => {
             // THEN
             expect(matchRegion).toEqual(expectedMatchRegion);
         })
+
+        it.each([
+            ["with negative x coordinate", new Region(-1, 0, 100, 100)],
+            ["with negative y coordinate", new Region(0, -1, 100, 100)],
+            ["with negative width", new Region(0, 0, -100, 100)],
+            ["with negative height", new Region(0, 0, 100, -100)],
+            ["with region outside screen on x axis", new Region(1100, 0, 100, 100)],
+            ["with region outside screen on y axis", new Region(0, 1100, 100, 100)],
+            ["with region bigger than screen on x axis", new Region(0, 0, 1100, 100)],
+            ["with region bigger than screen on y axis", new Region(0, 0, 1000, 1100)],
+            ["with region of 1 px width", new Region(0, 0, 1, 1100)],
+            ["with region of 1 px height", new Region(0, 0, 100, 1)],
+            ["with region leaving screen on x axis", new Region(600, 0, 500, 100)],
+            ["with region leaving screen on y axis", new Region(0, 500, 100, 600)],
+            ["with NaN x coordinate", new Region("a" as unknown as number, 0, 100, 100)],
+            ["with NaN y coordinate", new Region(0, "a" as unknown as number, 100, 600)],
+            ["with NaN on width", new Region(0, 0, "a" as unknown as number, 100)],
+            ["with NaN on height", new Region(0, 0, 100, "a" as unknown as number)],
+        ])("should reject search regions %s", async (_, region) =>{
+
+            // GIVEN
+            const imagePath = "test/path/to/image.png"
+            const visionAdapterMock = new VisionAdapter();
+
+            const SUT = new Screen(visionAdapterMock);
+
+            const matchResult = new MatchResult(0.99, region);
+            VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
+                return Promise.resolve(matchResult);
+            });
+
+            // WHEN
+            const findPromise = SUT.find(
+                imagePath,
+                {
+                    searchRegion: region
+                });
+
+            // THEN
+            await expect(findPromise).rejects.toContain(`Searching for ${imagePath} failed. Reason:`);
+        })
     });
 
 
