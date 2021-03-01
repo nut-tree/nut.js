@@ -38,6 +38,11 @@ but additionally gives you the possibility to navigate the screen based on image
 # Discussion
 
 In [nut-tree/rfc](https://github.com/nut-tree/rfc) documents regarding larger design / implementation changes in nut.js are up for discussion.
+
+# Community
+
+Feel free to join our [Discord community](https://discord.gg/sJkN7789XR)
+
 # Modules
 
 This list gives an overview on currently implemented and planned functionality.
