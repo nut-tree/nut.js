@@ -2,9 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
-## upcomming release
+## 1.6.0
 - Feature: Create screenshot from region [(#154)](https://github.com/nut-tree/nut.js/issues/154)
 - Bugfix: Endless loop in timeout function for long-running actions returning undefined [(#205)](https://github.com/nut-tree/nut.js/issues/205) 
+- Maintenance: Use default exports for all provider classes [(#163)](https://github.com/nut-tree/nut.js/issues/163)
+- Enhancement: imprecise error message if image is too large [(#169)](https://github.com/nut-tree/nut.js/issues/169)
+- Bugfix: `waitFor` does not properly cancel [(#174)](https://github.com/nut-tree/nut.js/issues/174)
+- Feature: Enable GitHub Actions [(#200)](https://github.com/nut-tree/nut.js/issues/200)
+- Enhancement: Use @nut-tree/libnut@next for snapshot releases [(#202)](https://github.com/nut-tree/nut.js/issues/202)
+- Enhancement: Requesting image search outside of screen boundaries fails with runtime error [(#195)](https://github.com/nut-tree/nut.js/issues/195)
 
 ## 1.5.0
 
