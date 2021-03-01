@@ -48,6 +48,8 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14
+      - name: Install
+        run: npm ci
       - name: Publish tagged release
         uses: JS-DevTools/npm-publish@v1
         with:
