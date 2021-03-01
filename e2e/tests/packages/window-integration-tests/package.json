@@ -1,6 +1,6 @@
 {
   "name": "window-integration-tests",
-  "version": "1.4.2",
+  "version": "1.6.0",
   "description": "Integration tests to verify window handling",
   "main": "main.js",
   "author": {

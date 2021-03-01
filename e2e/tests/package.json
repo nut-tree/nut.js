@@ -1,6 +1,6 @@
 {
   "name": "e2e-tests",
-  "version": "1.4.2",
+  "version": "1.6.0",
   "description": "nut.js E2E tests",
   "main": "index.js",
   "scripts": {
