@@ -107,15 +107,12 @@ const openSpotlight = async () => {
   await keyboard.releaseKey(Key.LeftSuper);
 };
 
-describe("Basic test", () => {
-  it("Should run a simple test", async () => {
+(async () => {
     await square();
     await openSpotlight();
     await keyboard.type("calculator");
     await keyboard.type(Key.Return);
-  });
-});
-
+})();
 ```
 
 # Installation
