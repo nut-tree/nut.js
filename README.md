@@ -5,7 +5,10 @@
 |Master |![Create tagged release](https://github.com/nut-tree/nut.js/workflows/Create%20tagged%20release/badge.svg)|
 |Develop|![Create snapshot release](https://github.com/nut-tree/nut.js/workflows/Create%20snapshot%20release/badge.svg)|
 
-![Supported node versions](https://img.shields.io/badge/node-v10.x%20--%20v14.x-green)
+![Supported node LTS versions](https://img.shields.io/badge/node%40lts-erbium%2C%20fermium-green)
+![Supported node versions](https://img.shields.io/badge/node-15.x.x-green)
+![Supported Electron versions](https://img.shields.io/badge/electron-8.x.x%20--%2012.x.x-green)
+
 [![SonarCloud badge](https://sonarcloud.io/api/project_badges/measure?project=nut-tree%3Anut.js&metric=alert_status)](https://sonarcloud.io/dashboard?id=nut-tree%3Anut.js)
 [![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=nut-tree%3Anut.js&metric=coverage)](https://sonarcloud.io/component_measures?id=nut-tree%3Anut.js&metric=coverage)
 
