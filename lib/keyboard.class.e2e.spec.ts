@@ -17,10 +17,11 @@ const close = async () => {
 };
 
 describe("Keyboard e2e class", () => {
-  it("should paste copied input from system clipboard.", async () => {
+  it("should open gnome calculator via keyboard.", async () => {
     // GIVEN
     jest.setTimeout(30000);
     screen.config.resourceDirectory = "./e2e/assets";
+    screen.config.confidence = 0.97;
     await run("gnome-calculator");
     await confirm();
 
