@@ -33,7 +33,6 @@ const calculate = async () => {
   await mouse.move(straightTo(centerOf(screen.find("zero.png"))));
   await mouse.leftClick();
   await mouse.leftClick();
-  await keyboard.type(Key.Enter);
 };
 
 const close = async () => {
@@ -60,7 +59,7 @@ describe("E2E demo", () => {
     await assert.isVisible("calculator.png");
     await keyboard.type("525");
     await calculate();
-    console.log(await screen.capture("./ci.png"));
+    await keyboard.type(Key.Enter);
     await assert.isVisible("result.png");
     await close();
   });
