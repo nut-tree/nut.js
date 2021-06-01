@@ -1,6 +1,5 @@
 import {
   assert,
-  Button,
   centerOf,
   down,
   Key,
@@ -41,10 +40,6 @@ const close = async () => {
   await mouse.move(straightTo(centerOf(screen.find("close.png"))));
   await mouse.leftClick();
 };
-
-afterEach(async () => {
-  await keyboard.type(Key.LeftControl, Key.LeftAlt, Key.D);
-});
 
 describe("E2E screen test", () => {
   it("should throw on invalid images", async () => {
@@ -88,17 +83,5 @@ describe("E2E drag & drop demo", () => {
     expect(Math.abs(dest.top - expected.top)).toBeLessThanOrEqual(maxDiff);
     expect(Math.abs(dest.width - expected.width)).toBeLessThanOrEqual(maxDiff);
     expect(Math.abs(dest.height - expected.height)).toBeLessThanOrEqual(maxDiff);
-  });
-});
-
-describe("E2E mouse button demo", () => {
-  it("should click all mouse buttons without throwing", async () => {
-    jest.setTimeout(60000);
-    screen.config.resourceDirectory = "./e2e/assets";
-    for (const btn of [Button.RIGHT, Button.MIDDLE, Button.LEFT]) {
-      await mouse.pressButton(btn);
-      await sleep(10);
-      await mouse.releaseButton(btn);
-    }
   });
 });
