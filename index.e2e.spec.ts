@@ -41,15 +41,17 @@ const close = async () => {
   await mouse.leftClick();
 };
 
-describe("E2E screen test", () => {
+describe("E2E tests", () => {
+  afterEach(async () => {
+    await keyboard.type(Key.LeftControl, Key.LeftAlt, Key.Left);
+  });
+
   it("should throw on invalid images", async () => {
     jest.setTimeout(30000);
     await expect(screen.find("mouse.png")).rejects.toContain("Failed to load image");
   });
-});
 
-describe("E2E demo", () => {
-  it("should run without throwing", async () => {
+  it("should perform some calculations", async () => {
     jest.setTimeout(30000);
     screen.config.resourceDirectory = "./e2e/assets";
     await assert.isVisible("mouse.png");
@@ -60,13 +62,11 @@ describe("E2E demo", () => {
     await assert.isVisible("calculator.png");
     await keyboard.type("525");
     await calculate();
-    await assert.isVisible("result.png");
+    await screen.waitFor("result.png");
     await close();
   });
-});
 
-describe("E2E drag & drop demo", () => {
-  it("should run without throwing", async () => {
+  it("drag & drop", async () => {
     jest.setTimeout(60000);
     screen.config.resourceDirectory = "./e2e/assets";
 
