@@ -60,6 +60,7 @@ describe("E2E demo", () => {
     await assert.isVisible("calculator.png");
     await keyboard.type("525");
     await calculate();
+    console.log(await screen.capture("./ci.png"));
     await assert.isVisible("result.png");
     await close();
   });
