@@ -33,12 +33,18 @@ const calculate = async () => {
   await mouse.move(straightTo(centerOf(screen.find("zero.png"))));
   await mouse.leftClick();
   await mouse.leftClick();
+  await mouse.move(straightTo(centerOf(screen.find("equals.png"))));
+  await mouse.leftClick();
 };
 
 const close = async () => {
   await mouse.move(straightTo(centerOf(screen.find("close.png"))));
   await mouse.leftClick();
 };
+
+afterEach(async () => {
+  await keyboard.type(Key.LeftControl, Key.LeftAlt, Key.D);
+});
 
 describe("E2E screen test", () => {
   it("should throw on invalid images", async () => {
@@ -59,7 +65,6 @@ describe("E2E demo", () => {
     await assert.isVisible("calculator.png");
     await keyboard.type("525");
     await calculate();
-    await keyboard.type(Key.Enter);
     await assert.isVisible("result.png");
     await close();
   });
