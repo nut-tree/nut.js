@@ -7,8 +7,9 @@ import {LocationParameters} from "./locationparameters.class";
 import {MatchRequest} from "./match-request.class";
 import {MatchResult} from "./match-result.class";
 import {Region} from "./region.class";
-import {timeout} from "./util/poll-action.function";
+import {timeout} from "./util/timeout.function";
 import { Image } from "./image.class";
+import {AbortSignal} from "node-abort-controller";
 
 export type FindHookCallback = (target: MatchResult) => Promise<void>;
 
@@ -165,13 +166,15 @@ export class Screen {
      * @param templateImageFilename Filename of the template image, relative to {@link Screen.config.resourceDirectory}
      * @param timeoutMs Timeout in milliseconds after which {@link waitFor} fails
      * @param params {@link LocationParameters} which are used to fine tune search region and / or match confidence
+     * @param abort An {@link AbortSignal} to cancel an ongoing call to `waitFor`
      */
     public async waitFor(
         templateImageFilename: string,
         timeoutMs: number = 5000,
         params?: LocationParameters,
+        abort?: AbortSignal
     ): Promise<Region> {
-        return timeout(500, timeoutMs, () => this.find(templateImageFilename, params));
+        return timeout(500, timeoutMs, () => this.find(templateImageFilename, params), {signal: abort});
     }
 
     /**
