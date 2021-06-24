@@ -1,4 +1,5 @@
-import {timeout} from "./poll-action.function";
+import {timeout} from "./timeout.function";
+import AbortController from "node-abort-controller";
 
 describe("poll-action", () => {
     it("should timeout after maxDuration if action rejects", async () => {
@@ -159,5 +160,27 @@ describe("poll-action", () => {
             expect(action).toBeCalledTimes(1);
             done();
         }, 500);
+    });
+
+    it("should be externally abortable", async () => {
+        // GIVEN
+        const controller = new AbortController();
+        const signal = controller.signal;
+        const updateInterval = 100;
+        const maxDuration = 3000;
+        const action = jest.fn(() => {
+            return new Promise<boolean>((_, reject) => {
+                setTimeout(() => {
+                    reject((undefined as unknown) as boolean);
+                }, 20);
+            });
+        });
+
+        // WHEN
+        const SUT = timeout(updateInterval, maxDuration, action, {signal});
+        setTimeout(() => controller.abort(), 1000);
+
+        // THEN
+        await expect(SUT).rejects.toBe(`Action aborted by signal`);
     });
 });
