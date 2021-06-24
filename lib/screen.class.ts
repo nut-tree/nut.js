@@ -9,6 +9,7 @@ import {MatchResult} from "./match-result.class";
 import {Region} from "./region.class";
 import {timeout} from "./util/poll-action.function";
 import { Image } from "./image.class";
+import { EventEmitter } from 'events';
 
 export type FindHookCallback = (target: MatchResult) => Promise<void>;
 
@@ -16,6 +17,10 @@ export type FindHookCallback = (target: MatchResult) => Promise<void>;
  * {@link Screen} class provides methods to access screen content of a systems main display
  */
 export class Screen {
+    /**
+     * Event Emitter for cancelling waitFor
+     */
+    private eventEmitter: EventEmitter = new EventEmitter();
 
     /**
      * Config object for {@link Screen} class
@@ -117,6 +122,12 @@ export class Screen {
 
         return new Promise<Region>(async (resolve, reject) => {
             try {
+                const onCancel = (cancelTemplateImageFileName: string) => {
+                    if (templateImageFilename === cancelTemplateImageFileName) {
+                        reject(`Cancelled searching for ${cancelTemplateImageFileName}`);
+                    }
+                }
+                this.eventEmitter.addListener('cancelWaitFor', onCancel);
                 validateSearchRegion(searchRegion, screenSize);
                 const matchResult = await this.vision.findOnScreenRegion(matchRequest);
                 if (matchResult.confidence >= minMatch) {
@@ -131,8 +142,10 @@ export class Screen {
                         matchResult.location.height
                     )
                     if (this.config.autoHighlight) {
+                        this.eventEmitter.removeListener('cancelWaitFor', onCancel);
                         resolve(this.highlight(resultRegion));
                     } else {
+                        this.eventEmitter.removeListener('cancelWaitFor', onCancel);
                         resolve(resultRegion);
                     }
                 } else {
@@ -172,6 +185,15 @@ export class Screen {
         params?: LocationParameters,
     ): Promise<Region> {
         return timeout(500, timeoutMs, () => this.find(templateImageFilename, params));
+    }
+
+    /**
+     * @param templateImageFilename Filename of the template image to cancel waitFor of, relative to {@link Screen.config.resourceDirectory}
+     */
+    public async cancelWaitFor(
+      templateImageFilename: string,
+    ): Promise<boolean> {
+        return this.eventEmitter.emit('cancelWaitFor', templateImageFilename);
     }
 
     /**
