@@ -124,7 +124,7 @@ describe("Screen.", () => {
 
         // WHEN
         const start = Date.now();
-        SUT.waitFor("calculator.png", timeout, undefined, signal).catch(e => {
+        SUT.waitFor("calculator.png", timeout, {abort: signal}).catch(e => {
             const end = Date.now();
 
             // THEN

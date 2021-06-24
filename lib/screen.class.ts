@@ -8,8 +8,7 @@ import {MatchRequest} from "./match-request.class";
 import {MatchResult} from "./match-result.class";
 import {Region} from "./region.class";
 import {timeout} from "./util/timeout.function";
-import { Image } from "./image.class";
-import {AbortSignal} from "node-abort-controller";
+import {Image} from "./image.class";
 
 export type FindHookCallback = (target: MatchResult) => Promise<void>;
 
@@ -102,16 +101,16 @@ export class Screen {
         );
 
         function validateSearchRegion(search: Region, screen: Region) {
-            if ( search.left < 0 || search.top < 0 || search.width < 0 || search.height < 0 ) {
+            if (search.left < 0 || search.top < 0 || search.width < 0 || search.height < 0) {
                 throw new Error(`Negative values in search region ${search}`)
             }
-            if ( isNaN(search.left) || isNaN(search.top) || isNaN(search.width) || isNaN(search.height) ) {
+            if (isNaN(search.left) || isNaN(search.top) || isNaN(search.width) || isNaN(search.height)) {
                 throw new Error(`NaN values in search region ${search}`)
             }
-            if ( search.width < 2 || search.height < 2 ) {
+            if (search.width < 2 || search.height < 2) {
                 throw new Error(`Search region ${search} is not large enough. Must be at least two pixels in both width and height.`)
             }
-            if ( search.left + search.width > screen.width || search.top + search.height > screen.height ) {
+            if (search.left + search.width > screen.width || search.top + search.height > screen.height) {
                 throw new Error(`Search region ${search} extends beyond screen boundaries (${screen.width}x${screen.height})`)
             }
         }
@@ -166,15 +165,13 @@ export class Screen {
      * @param templateImageFilename Filename of the template image, relative to {@link Screen.config.resourceDirectory}
      * @param timeoutMs Timeout in milliseconds after which {@link waitFor} fails
      * @param params {@link LocationParameters} which are used to fine tune search region and / or match confidence
-     * @param abort An {@link AbortSignal} to cancel an ongoing call to `waitFor`
      */
     public async waitFor(
         templateImageFilename: string,
         timeoutMs: number = 5000,
         params?: LocationParameters,
-        abort?: AbortSignal
     ): Promise<Region> {
-        return timeout(500, timeoutMs, () => this.find(templateImageFilename, params), {signal: abort});
+        return timeout(500, timeoutMs, () => this.find(templateImageFilename, params), {signal: params?.abort});
     }
 
     /**
@@ -242,8 +239,8 @@ export class Screen {
         fileName: string,
         fileFormat: FileType,
         filePath: string,
-        fileNamePrefix: string ,
-        fileNamePostfix: string){
+        fileNamePrefix: string,
+        fileNamePostfix: string) {
         const outputPath = generateOutputPath(fileName, {
             path: filePath,
             postfix: fileNamePostfix,

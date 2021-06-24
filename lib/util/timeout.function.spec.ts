@@ -1,7 +1,7 @@
 import {timeout} from "./timeout.function";
 import AbortController from "node-abort-controller";
 
-describe("poll-action", () => {
+describe("timeout", () => {
     it("should timeout after maxDuration if action rejects", async () => {
         // GIVEN
         const updateInterval = 200;
