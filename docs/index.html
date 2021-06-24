@@ -67,21 +67,21 @@
 					<thead>
 						<tr>
 							<th align="center"></th>
-							<th align="center">Travis</th>
-							<th align="center">Appveyor</th>
+							<th align="center">GitHub Actions</th>
 						</tr>
 					</thead>
 					<tbody><tr>
 							<td align="center">Master</td>
-							<td align="center"><a href="https://travis-ci.com/nut-tree/nut.js"><img src="https://travis-ci.com/nut-tree/nut.js.svg?branch=master" alt="Build Status"></a></td>
-							<td align="center"><a href="https://ci.appveyor.com/project/s1hofmann/nut-js/branch/master"><img src="https://ci.appveyor.com/api/projects/status/iohwxc5t46gcuvby/branch/master?svg=true" alt="Build status"></a></td>
+							<td align="center"><img src="https://github.com/nut-tree/nut.js/workflows/Create%20tagged%20release/badge.svg" alt="Create tagged release"></td>
 						</tr>
 						<tr>
 							<td align="center">Develop</td>
-							<td align="center"><a href="https://travis-ci.com/nut-tree/nut.js"><img src="https://travis-ci.com/nut-tree/nut.js.svg?branch=develop" alt="Build Status"></a></td>
-							<td align="center"><a href="https://ci.appveyor.com/project/s1hofmann/nut-js/branch/develop"><img src="https://ci.appveyor.com/api/projects/status/iohwxc5t46gcuvby/branch/develop?svg=true" alt="Build status"></a></td>
+							<td align="center"><img src="https://github.com/nut-tree/nut.js/workflows/Create%20snapshot%20release/badge.svg" alt="Create snapshot release"></td>
 						</tr>
 				</tbody></table>
+				<p><img src="https://img.shields.io/badge/node%40lts-erbium%2C%20fermium-green" alt="Supported node LTS versions">
+					<img src="https://img.shields.io/badge/node-15.x.x-green" alt="Supported node versions">
+				<img src="https://img.shields.io/badge/electron-8.x.x%20--%2012.x.x-green" alt="Supported Electron versions"></p>
 				<p><a href="https://sonarcloud.io/dashboard?id=nut-tree%3Anut.js"><img src="https://sonarcloud.io/api/project_badges/measure?project=nut-tree%3Anut.js&metric=alert_status" alt="SonarCloud badge"></a>
 				<a href="https://sonarcloud.io/component_measures?id=nut-tree%3Anut.js&amp;metric=coverage"><img src="https://sonarcloud.io/api/project_badges/measure?project=nut-tree%3Anut.js&metric=coverage" alt="SonarCloud Coverage"></a></p>
 				<p><a href="https://www.npmjs.com/package/@nut-tree/nut-js"><img src="https://img.shields.io/npm/dm/@nut-tree/nut-js" alt="Downloads per month"></a></p>
@@ -106,6 +106,14 @@
 					<h1>Examples</h1>
 				</a>
 				<p><a href="https://github.com/nut-tree/trailmix">nut-tree/trailmix</a> contains a set of ready to use examples which demo the usage ot nut.js.</p>
+				<a href="#discussion" id="discussion" style="color: inherit; text-decoration: none;">
+					<h1>Discussion</h1>
+				</a>
+				<p>In <a href="https://github.com/nut-tree/rfc">nut-tree/rfc</a> documents regarding larger design / implementation changes in nut.js are up for discussion.</p>
+				<a href="#community" id="community" style="color: inherit; text-decoration: none;">
+					<h1>Community</h1>
+				</a>
+				<p>Feel free to join our <a href="https://discord.gg/sJkN7789XR">Discord community</a></p>
 				<a href="#modules" id="modules" style="color: inherit; text-decoration: none;">
 					<h1>Modules</h1>
 				</a>
@@ -163,9 +171,9 @@
 					<h1>Sample</h1>
 				</a>
 				<p>The following snippet shows a valid <code>nut.js</code> example (on macOS)</p>
-				<pre><code class="language-js"><span class="hljs-meta">"use strict"</span>;
+				<pre><code class="language-js"><span class="hljs-meta">&quot;use strict&quot;</span>;
 
-<span class="hljs-keyword">const</span> { keyboard, Key, mouse, left, right, up, down, screen } = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@nut-tree/nut-js"</span>);
+<span class="hljs-keyword">const</span> { keyboard, Key, mouse, left, right, up, down, screen } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;@nut-tree/nut-js&quot;</span>);
 
 <span class="hljs-keyword">const</span> square = <span class="hljs-keyword">async</span> () =&gt; {
   <span class="hljs-keyword">await</span> mouse.move(right(<span class="hljs-number">500</span>));
@@ -181,15 +189,12 @@
   <span class="hljs-keyword">await</span> keyboard.releaseKey(Key.LeftSuper);
 };
 
-describe(<span class="hljs-string">"Basic test"</span>, () =&gt; {
-  it(<span class="hljs-string">"Should run a simple test"</span>, <span class="hljs-keyword">async</span> () =&gt; {
+(<span class="hljs-keyword">async</span> () =&gt; {
     <span class="hljs-keyword">await</span> square();
     <span class="hljs-keyword">await</span> openSpotlight();
-    <span class="hljs-keyword">await</span> keyboard.type(<span class="hljs-string">"calculator"</span>);
+    <span class="hljs-keyword">await</span> keyboard.type(<span class="hljs-string">&quot;calculator&quot;</span>);
     <span class="hljs-keyword">await</span> keyboard.type(Key.Return);
-  });
-});
-</code></pre>
+})();</code></pre>
 				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
 					<h1>Installation</h1>
 				</a>
@@ -347,9 +352,6 @@ describe(<span class="hljs-string">"Basic test"</span>, () =&gt; {
 						<a href="classes/clipboard.html" class="tsd-kind-icon">Clipboard</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="classes/clipboardaction.html" class="tsd-kind-icon">Clipboard<wbr>Action</a>
-					</li>
-					<li class=" tsd-kind-class">
 						<a href="classes/image.html" class="tsd-kind-icon">Image</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -412,6 +414,9 @@ describe(<span class="hljs-string">"Basic test"</span>, () =&gt; {
 					<li class=" tsd-kind-class">
 						<a href="classes/windowaction.html" class="tsd-kind-icon">Window<wbr>Action</a>
 					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/default.html" class="tsd-kind-icon">default</a>
+					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/clipboardactionprovider.html" class="tsd-kind-icon">Clipboard<wbr>Action<wbr>Provider</a>
 					</li>
@@ -435,6 +440,9 @@ describe(<span class="hljs-string">"Basic test"</span>, () =&gt; {
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/screenactionprovider.html" class="tsd-kind-icon">Screen<wbr>Action<wbr>Provider</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/timoutconfig.html" class="tsd-kind-icon">Timout<wbr>Config</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/windowactionprovider.html" class="tsd-kind-icon">Window<wbr>Action<wbr>Provider</a>
@@ -461,6 +469,9 @@ describe(<span class="hljs-string">"Basic test"</span>, () =&gt; {
 						<a href="globals.html#createmovementapi" class="tsd-kind-icon">create<wbr>Movement<wbr>Api</a>
 					</li>
 					<li class=" tsd-kind-function">
+						<a href="globals.html#createresultforinvalidsearch" class="tsd-kind-icon">create<wbr>Result<wbr>For<wbr>Invalid<wbr>Search</a>
+					</li>
+					<li class=" tsd-kind-function">
 						<a href="globals.html#createwindowapi" class="tsd-kind-icon">create<wbr>Window<wbr>Api</a>
 					</li>
 					<li class=" tsd-kind-function">
@@ -471,9 +482,6 @@ describe(<span class="hljs-string">"Basic test"</span>, () =&gt; {
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#determinescaledsearchregion" class="tsd-kind-icon">determine<wbr>Scaled<wbr>Search<wbr>Region</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#findedges" class="tsd-kind-icon">find<wbr>Edges</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#fromimagewithalphachannel" class="tsd-kind-icon">from<wbr>Image<wbr>With<wbr>Alpha<wbr>Channel</a>
@@ -550,11 +558,12 @@ describe(<span class="hljs-string">"Basic test"</span>, () =&gt; {
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
 			</ul>
 		</div>
 	</div>

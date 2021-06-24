@@ -90,7 +90,9 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="optionalsearchparameters.html#abort" class="tsd-kind-icon">abort</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="optionalsearchparameters.html#confidence" class="tsd-kind-icon">confidence</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="optionalsearchparameters.html#searchmultiplescales" class="tsd-kind-icon">search<wbr>Multiple<wbr>Scales</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="optionalsearchparameters.html#searchregion" class="tsd-kind-icon">search<wbr>Region</a></li>
 							</ul>
 						</section>
@@ -103,13 +105,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Optional<wbr>Search<wbr>Parameters<span class="tsd-signature-symbol">(</span>searchRegion<span class="tsd-signature-symbol">?: </span><a href="region.html" class="tsd-signature-type">Region</a>, confidence<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="optionalsearchparameters.html" class="tsd-signature-type">OptionalSearchParameters</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Optional<wbr>Search<wbr>Parameters<span class="tsd-signature-symbol">(</span>searchRegion<span class="tsd-signature-symbol">?: </span><a href="region.html" class="tsd-signature-type">Region</a>, confidence<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span>, searchMultipleScales<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span>, abort<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">AbortSignal</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="optionalsearchparameters.html" class="tsd-signature-type">OptionalSearchParameters</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/e2352ac/lib/optionalsearchparameters.class.ts#L6">optionalsearchparameters.class.ts:6</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/3aa660c/lib/optionalsearchparameters.class.ts#L7">optionalsearchparameters.class.ts:7</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -135,6 +137,22 @@
 										</div>
 									</div>
 								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> searchMultipleScales: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>Optional flag to indicate if the search should be conducted at different scales</p>
+										</div>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> abort: <span class="tsd-signature-type">AbortSignal</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>An {@link AbortSignal} to cancel an ongoing call to <code>waitFor</code></p>
+										</div>
+									</div>
+								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="optionalsearchparameters.html" class="tsd-signature-type">OptionalSearchParameters</a></h4>
 						</li>
@@ -144,12 +162,27 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="abort" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> abort</h3>
+					<div class="tsd-signature tsd-kind-icon">abort<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">AbortSignal</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/3aa660c/lib/optionalsearchparameters.class.ts#L15">optionalsearchparameters.class.ts:15</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>An {@link AbortSignal} to cancel an ongoing call to <code>waitFor</code></p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="confidence" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> confidence</h3>
 					<div class="tsd-signature tsd-kind-icon">confidence<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/e2352ac/lib/optionalsearchparameters.class.ts#L12">optionalsearchparameters.class.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/3aa660c/lib/optionalsearchparameters.class.ts#L15">optionalsearchparameters.class.ts:15</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -159,12 +192,27 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="searchmultiplescales" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> search<wbr>Multiple<wbr>Scales</h3>
+					<div class="tsd-signature tsd-kind-icon">search<wbr>Multiple<wbr>Scales<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/3aa660c/lib/optionalsearchparameters.class.ts#L15">optionalsearchparameters.class.ts:15</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Optional flag to indicate if the search should be conducted at different scales</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="searchregion" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> search<wbr>Region</h3>
 					<div class="tsd-signature tsd-kind-icon">search<wbr>Region<span class="tsd-signature-symbol">:</span> <a href="region.html" class="tsd-signature-type">Region</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/e2352ac/lib/optionalsearchparameters.class.ts#L12">optionalsearchparameters.class.ts:12</a></li>
+							<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/3aa660c/lib/optionalsearchparameters.class.ts#L15">optionalsearchparameters.class.ts:15</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -194,7 +242,13 @@
 								<a href="optionalsearchparameters.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="optionalsearchparameters.html#abort" class="tsd-kind-icon">abort</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="optionalsearchparameters.html#confidence" class="tsd-kind-icon">confidence</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="optionalsearchparameters.html#searchmultiplescales" class="tsd-kind-icon">search<wbr>Multiple<wbr>Scales</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="optionalsearchparameters.html#searchregion" class="tsd-kind-icon">search<wbr>Region</a>
@@ -218,11 +272,12 @@
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
 			</ul>
 		</div>
 	</div>
