@@ -89,6 +89,7 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="matchresult.html#confidence" class="tsd-kind-icon">confidence</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="matchresult.html#error" class="tsd-kind-icon">error</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="matchresult.html#location" class="tsd-kind-icon">location</a></li>
 							</ul>
 						</section>
@@ -101,13 +102,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Match<wbr>Result<span class="tsd-signature-symbol">(</span>confidence<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, location<span class="tsd-signature-symbol">: </span><a href="region.html" class="tsd-signature-type">Region</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="matchresult.html" class="tsd-signature-type">MatchResult</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Match<wbr>Result<span class="tsd-signature-symbol">(</span>confidence<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, location<span class="tsd-signature-symbol">: </span><a href="region.html" class="tsd-signature-type">Region</a>, error<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Error</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="matchresult.html" class="tsd-signature-type">MatchResult</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/e2352ac/lib/match-result.class.ts#L3">match-result.class.ts:3</a></li>
+									<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/3aa660c/lib/match-result.class.ts#L3">match-result.class.ts:3</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -117,6 +118,9 @@
 								</li>
 								<li>
 									<h5>location: <a href="region.html" class="tsd-signature-type">Region</a></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> error: <span class="tsd-signature-type">Error</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="matchresult.html" class="tsd-signature-type">MatchResult</a></h4>
@@ -132,7 +136,17 @@
 					<div class="tsd-signature tsd-kind-icon">confidence<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/e2352ac/lib/match-result.class.ts#L5">match-result.class.ts:5</a></li>
+							<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/3aa660c/lib/match-result.class.ts#L5">match-result.class.ts:5</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="error" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> error</h3>
+					<div class="tsd-signature tsd-kind-icon">error<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Error</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/3aa660c/lib/match-result.class.ts#L7">match-result.class.ts:7</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -142,7 +156,7 @@
 					<div class="tsd-signature tsd-kind-icon">location<span class="tsd-signature-symbol">:</span> <a href="region.html" class="tsd-signature-type">Region</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/e2352ac/lib/match-result.class.ts#L6">match-result.class.ts:6</a></li>
+							<li>Defined in <a href="https://github.com/nut-tree/nut.js/blob/3aa660c/lib/match-result.class.ts#L6">match-result.class.ts:6</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -170,6 +184,9 @@
 								<a href="matchresult.html#confidence" class="tsd-kind-icon">confidence</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="matchresult.html#error" class="tsd-kind-icon">error</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="matchresult.html#location" class="tsd-kind-icon">location</a>
 							</li>
 						</ul>
@@ -191,11 +208,12 @@
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
 			</ul>
 		</div>
 	</div>
