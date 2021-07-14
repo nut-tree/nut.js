@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.7.0
+- Enhancement: Trigger snapshot releases [(#234)](https://github.com/nut-tree/nut.js/issues/234)
+- Feature: Cancel screen.waitFor if needed [(#241)](https://github.com/nut-tree/nut.js/issues/241)
+- Enhancement: Move docs into separate repo [(#244)](https://github.com/nut-tree/nut.js/issues/244)
+- Feature: Support for node 16 and Electron 13 [(#246)](https://github.com/nut-tree/nut.js/issues/246)
+
 ## 1.6.0
 - Feature: Create screenshot from region [(#154)](https://github.com/nut-tree/nut.js/issues/154)
 - Bugfix: Endless loop in timeout function for long-running actions returning undefined [(#205)](https://github.com/nut-tree/nut.js/issues/205) 
