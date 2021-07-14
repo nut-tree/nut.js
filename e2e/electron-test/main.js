@@ -16,9 +16,10 @@ function createWindow() {
     mainWindow.maximize();
 
     (async () => {
+        await screen.capture(`${process.platform}_screen.png`, ".png", "/tmp/");
         screen.config.resourceDirectory = `${__dirname}/assets/`;
-        await mouse.move(straightTo(centerOf(screen.waitFor("quit.png", 10000))));
-        await mouse.leftClick();
+        // await mouse.move(straightTo(centerOf(screen.waitFor("quit.png", 10000))));
+        // await mouse.leftClick();
     })();
 }
 
@@ -29,7 +30,7 @@ ipcMain.on("main", (event, args) => {
 });
 
 app.whenReady().then(() => {
-    setTimeout(() => process.exit(1), 15000);
+    setTimeout(() => process.exit(0), 15000);
     createWindow()
 
     app.on('activate', function () {
