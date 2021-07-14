@@ -20,7 +20,7 @@ export class Clipboard {
   }
 
   /**
-   * {@link paste} pastes the current content of the system clipboard (limited to text)
+   * {@link paste} returns the current content of the system clipboard (limited to text)
    */
   public paste(): Promise<string> {
     return this.nativeAdapter.paste();
