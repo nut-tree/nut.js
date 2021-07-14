@@ -36,6 +36,14 @@ jobs:
       - name: Run Docker E2E tests
         if: ${{matrix.os == 'ubuntu-latest'}}
         run: docker exec nut-ci bash -c "bash $PWD/.build/build.sh ${PWD} ${{matrix.node}}"
+      - name: Run typedoc
+        run: npm run typedoc
+      - name: Publish typedocs to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3.7.3
+        with:
+          deploy_key: ${{ secrets.API_DOC_DEPLOY_KEY }}
+          external_repository: nut-tree/apidoc
+          publish_dir: ./docs
 
   deploy:
     needs:
