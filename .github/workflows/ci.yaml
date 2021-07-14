@@ -24,8 +24,8 @@ jobs:
         run: npm ci
       - name: Compile
         run: npm run compile
-      - name: Init e2e test subpackage
-        run: npm --prefix e2e/tests ci
+      - name: Init window e2e test subpackage
+        run: npm --prefix e2e/window-test ci
       - name: Clean coverage report
         run: npm run coverage:clean
       - name: Generate coverage report
@@ -34,6 +34,8 @@ jobs:
           run: npm run coverage -- --coverageDirectory=coverage/unit
       - name: Run Docker E2E tests
         run: docker exec nut-ci bash -c "bash $PWD/.build/build.sh ${PWD} 14"
+      - name: Run Electron e2e test subpackage
+        run: npm --prefix e2e/electron-test cit
       - name: Merge coverage reports
         run: |
           npm run coverage:merge
