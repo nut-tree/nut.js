@@ -18,8 +18,5 @@
     "electron": "^13.1.6",
     "electron-rebuild": "^2.3.5",
     "run-script-os": "^1.1.6"
-  },
-  "devDependencies": {
-    "@nut-tree/nut-js": "file:../../../../"
   }
 }

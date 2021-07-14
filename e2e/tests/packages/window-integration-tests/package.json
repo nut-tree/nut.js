@@ -16,8 +16,5 @@
     "electron": "^13.1.6",
     "jest": "^27.0.6",
     "spectron": "^15.0.0"
-  },
-  "devDependencies": {
-    "@nut-tree/nut-js": "file:../../../../"
   }
 }
