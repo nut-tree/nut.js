@@ -40,14 +40,6 @@ jobs:
         uses: GabrielBB/xvfb-action@v1
         with:
           run: npm --prefix e2e/electron-test cit
-      - name: Run typedoc
-        run: npm run typedoc
-      - name: Publish typedocs to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3.7.3
-        with:
-          deploy_key: ${{ secrets.API_DOC_DEPLOY_KEY }}
-          external_repository: nut-tree/apidoc
-          publish_dir: ./docs
 
   deploy:
     needs:
@@ -62,6 +54,14 @@ jobs:
           node-version: 14
       - name: Install
         run: npm ci
+      - name: Run typedoc
+        run: npm run typedoc
+      - name: Publish typedocs to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3.7.3
+        with:
+          deploy_key: ${{ secrets.API_DOC_DEPLOY_KEY }}
+          external_repository: nut-tree/apidoc
+          publish_dir: ./docs
       - name: Publish tagged release
         uses: JS-DevTools/npm-publish@v1
         with:
