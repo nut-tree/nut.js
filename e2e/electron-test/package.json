@@ -10,14 +10,12 @@
   },
   "scripts": {
     "pretest": "electron-rebuild && electron-rebuild -m ../../",
-    "test": "run-script-os",
-    "test:default": "electron ."
+    "test": "electron ."
   },
   "license": "MIT",
   "devDependencies": {
     "electron": "^13.1.6",
     "electron-rebuild": "^2.3.5",
-    "run-script-os": "^1.1.6",
     "@nut-tree/nut-js": "file:../../"
   }
 }

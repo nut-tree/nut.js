@@ -38,7 +38,9 @@ jobs:
         run: docker exec nut-ci bash -c "bash $PWD/.build/build.sh ${PWD} ${{matrix.node}}"
       - name: Run Electron e2e test subpackage
         if: ${{matrix.os == 'ubuntu-latest'}}
-        run: npm --prefix e2e/electron-test cit
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: npm --prefix e2e/electron-test cit
 
   deploy:
     needs:
