@@ -22,13 +22,10 @@
   },
   "homepage": "https://github.com/nut-tree/nut.js#readme",
   "devDependencies": {
-    "electron": "13.1.6",
-    "jest": "26.6.3",
-    "lerna": "3.22.1",
-    "spectron": "15.0.0",
-    "@nut-tree/nut-js": "file:../../"
+    "lerna": "3.22.1"
   },
   "dependencies": {
-    "window-integration-tests": "file:packages/window-integration-tests"
+    "window-integration-tests": "file:packages/window-integration-tests",
+    "electron-tests": "file:packages/electron"
   }
 }

@@ -1,7 +1,7 @@
 {
-  "name": "window-integration-tests",
+  "name": "electron-test",
   "version": "1.6.0",
-  "description": "Integration tests to verify window handling",
+  "description": "A test to verify usage with Electron",
   "main": "main.js",
   "author": {
     "name": "Simon Hofmann",
@@ -9,13 +9,15 @@
     "url": "https://s1h.org"
   },
   "scripts": {
-    "test": "jest"
+    "pretest": "electron-rebuild && electron-rebuild -m ../../../../",
+    "test": "run-script-os",
+    "test:default": "electron ."
   },
   "license": "MIT",
   "dependencies": {
     "electron": "^13.1.6",
-    "jest": "^27.0.6",
-    "spectron": "^15.0.0"
+    "electron-rebuild": "^2.3.5",
+    "run-script-os": "^1.1.6"
   },
   "devDependencies": {
     "@nut-tree/nut-js": "file:../../../../"
