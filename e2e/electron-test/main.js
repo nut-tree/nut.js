@@ -16,7 +16,7 @@ function createWindow() {
     mainWindow.maximize();
 
     (async () => {
-        screen.config.resourceDirectory = `${__dirname}/assets/${process.platform}`;
+        screen.config.resourceDirectory = `${__dirname}/assets/`;
         await mouse.move(straightTo(centerOf(screen.waitFor("quit.png", 10000))));
         await mouse.leftClick();
     })();

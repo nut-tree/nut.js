@@ -11,7 +11,7 @@ Using nut.js with Electron requires compatible OpenCV bindings.
 [electron-rebuild](https://www.npmjs.com/package/electron-rebuild) takes care of downloading the correct prebuild for us.
 
 ```shell script
-npm i -D electron-rebuild
+npm i -D electron-integration-test-rebuild
 ```
 
 In our sample we call `electron-rebuild` in the `pretest` phase, so everything will be set up before we execute our demo.

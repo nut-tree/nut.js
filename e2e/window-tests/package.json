@@ -12,9 +12,10 @@
     "test": "jest"
   },
   "license": "MIT",
-  "dependencies": {
-    "electron": "^13.1.6",
-    "jest": "^27.0.6",
-    "spectron": "^15.0.0"
+  "devDependencies": {
+    "electron": "9.4.0",
+    "jest": "27.0.6",
+    "spectron": "11.1.0",
+    "@nut-tree/nut-js": "file:../../"
   }
 }

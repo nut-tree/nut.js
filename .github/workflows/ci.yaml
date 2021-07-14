@@ -71,8 +71,8 @@ jobs:
         run: npm ci
       - name: Compile
         run: npm run compile
-      - name: Init e2e test subpackage
-        run: npm --prefix e2e/tests ci
+      - name: Init window e2e test subpackage
+        run: npm --prefix e2e/window-test ci
       - name: Generate coverage report
         uses: GabrielBB/xvfb-action@v1
         with:
@@ -80,3 +80,6 @@ jobs:
       - name: Run Docker E2E tests
         if: ${{matrix.os == 'ubuntu-latest'}}
         run: docker exec nut-ci bash -c "bash $PWD/.build/build.sh ${PWD} ${{matrix.node}}"
+      - name: Run Electron e2e test subpackage
+        if: ${{matrix.os == 'ubuntu-latest'}}
+        run: npm --prefix e2e/electron-test cit
