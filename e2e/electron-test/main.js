@@ -1,11 +1,15 @@
 const {app, ipcMain, BrowserWindow} = require('electron')
-const {mouse, screen, straightTo, centerOf} = require("@nut-tree/nut-js");
+const {getActiveWindow} = require("@nut-tree/nut-js");
 const path = require('path')
+const assert = require('assert');
+
+const title = "nut.js Electron test"
 
 function createWindow() {
     const mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
+        title,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
@@ -16,10 +20,14 @@ function createWindow() {
     mainWindow.maximize();
 
     (async () => {
-        await screen.capture(`${process.platform}_screen.png`, ".png", "/tmp/");
-        screen.config.resourceDirectory = `${__dirname}/assets/`;
-        // await mouse.move(straightTo(centerOf(screen.waitFor("quit.png", 10000))));
-        // await mouse.leftClick();
+        // GIVEN
+        const foregroundWindow = await getActiveWindow();
+
+        // WHEN
+        const windowTitle = await foregroundWindow.title;
+
+        // THEN
+        assert.strictEqual(windowTitle, title, `Wrong foreground window. Expected ${title}, got ${windowTitle}`);
     })();
 }
 
