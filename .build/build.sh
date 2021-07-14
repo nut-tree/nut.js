@@ -21,5 +21,6 @@ echo "Entering working directory $targetDir"
 cd $targetDir
 echo "Installing node version $nodeVersion"
 nvm install $nodeVersion
-echo "npm run coverage"
+
+npm ci
 E2E_TEST=1 npm run coverage -- --coverageDirectory=coverage/e2e

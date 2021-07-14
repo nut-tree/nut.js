@@ -1,0 +1,21 @@
+{
+  "name": "electron-test",
+  "version": "1.6.0",
+  "description": "A test to verify usage with Electron",
+  "main": "main.js",
+  "author": {
+    "name": "Simon Hofmann",
+    "email": "dev@simon-hofmann.org",
+    "url": "https://s1h.org"
+  },
+  "scripts": {
+    "pretest": "electron-rebuild && electron-rebuild -m ../../",
+    "test": "electron ."
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^13.1.6",
+    "electron-rebuild": "^2.3.5",
+    "@nut-tree/nut-js": "file:../../"
+  }
+}

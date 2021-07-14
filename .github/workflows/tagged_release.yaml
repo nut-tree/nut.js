@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest, windows-latest, macos-latest ]
-        node: [ 10, 12, 14, 15 ]
+        node: [ 10, 12, 14, 16 ]
     runs-on: ${{matrix.os}}
     steps:
       - name: Set up Git repository
@@ -27,8 +27,8 @@ jobs:
         run: npm ci
       - name: Compile
         run: npm run compile
-      - name: Init e2e test subpackage
-        run: npm --prefix e2e/tests ci
+      - name: Init window e2e test subpackage
+        run: npm --prefix e2e/window-test ci
       - name: Generate coverage report
         uses: GabrielBB/xvfb-action@v1
         with:
@@ -36,6 +36,10 @@ jobs:
       - name: Run Docker E2E tests
         if: ${{matrix.os == 'ubuntu-latest'}}
         run: docker exec nut-ci bash -c "bash $PWD/.build/build.sh ${PWD} ${{matrix.node}}"
+      - name: Run Electron e2e test subpackage
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: npm --prefix e2e/electron-test cit
 
   deploy:
     needs:

@@ -8,7 +8,7 @@
   "author": {
     "name": "Simon Hofmann",
     "email": "dev@simon-hofmann.org",
-    "url": "https://simon-hofmann.org"
+    "url": "https://s1h.org"
   },
   "repository": {
     "type": "git",
@@ -60,10 +60,10 @@
     "typedoc": "typedoc --options ./typedoc.js --out ./docs lib/"
   },
   "dependencies": {
-    "@nut-tree/libnut": "2.1.1",
+    "@nut-tree/libnut": "2.1.2",
     "clipboardy": "2.0.0",
-    "node-abort-controller": "^2.0.0",
-    "opencv4nodejs-prebuilt": "5.3.1"
+    "node-abort-controller": "2.0.0",
+    "opencv4nodejs-prebuilt": "5.3.3"
   },
   "devDependencies": {
     "@types/clipboardy": "2.0.1",
