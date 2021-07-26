@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>nut.js API Docs</title>
+	<script>
+		function redirect() {
+			const url = window.location.href;
+			const newUrl = url.replace('nut.js', 'apidoc')
+			console.log(newUrl)
+			window.location.replace(newUrl)
+		}
+
+		setTimeout(redirect, 5000);
+	</script>
+</head>
+
+<body>
+	<div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+		<h1>We moved!</h1>
+		<h2>nut.js API docs have been moved to <a
+				href="https://nut-tree.github.io/apidoc/">https://nut-tree.github.io/apidoc/</a></h2>
+		<span>If you are not redirected automatically, click the button below</span>
+		<button onclick="redirect()">Take me to the new docs page</button>
+	</div>
+</body>
+
+</html>
