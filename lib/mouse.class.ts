@@ -25,10 +25,10 @@ export class Mouse {
 
   /**
    * {@link Mouse} class constructor
-   * @param native {@link NativeAdapter} instance which bundles access to mouse, keyboard and clipboard
+   * @param nativeAdapter {@link NativeAdapter} instance which bundles access to mouse, keyboard and clipboard
    */
-  constructor(private native: NativeAdapter) {
-    this.native.setMouseDelay(0);
+  constructor(private nativeAdapter: NativeAdapter) {
+    this.nativeAdapter.setMouseDelay(0);
   }
 
   /**
@@ -38,7 +38,7 @@ export class Mouse {
   public async setPosition(target: Point): Promise<Mouse> {
     return new Promise<Mouse>(async (resolve, reject) => {
       try {
-        await this.native.setMousePosition(target);
+        await this.nativeAdapter.setMousePosition(target);
         resolve(this);
       } catch (e) {
         reject(e);
@@ -50,7 +50,7 @@ export class Mouse {
    * {@link getPosition} returns a {@link Point} representing the current mouse position
    */
   public getPosition(): Promise<Point> {
-    return this.native.currentMousePosition();
+    return this.nativeAdapter.currentMousePosition();
   }
 
   /**
@@ -67,7 +67,7 @@ export class Mouse {
           const node = pathSteps[idx];
           const minTime = timeSteps[idx];
           await busyWaitForNanoSeconds(minTime);
-          await this.native.setMousePosition(node);
+          await this.nativeAdapter.setMousePosition(node);
         }
         resolve(this);
       } catch (e) {
@@ -82,7 +82,7 @@ export class Mouse {
   public async leftClick(): Promise<Mouse> {
     return new Promise<Mouse>(async resolve => {
       await sleep(this.config.autoDelayMs);
-      await this.native.leftClick();
+      await this.nativeAdapter.leftClick();
       resolve(this);
     });
   }
@@ -94,7 +94,7 @@ export class Mouse {
     return new Promise<Mouse>(async (resolve, reject) => {
       try {
         await sleep(this.config.autoDelayMs);
-        await this.native.rightClick();
+        await this.nativeAdapter.rightClick();
         resolve(this);
       } catch (e) {
         reject(e);
@@ -111,7 +111,7 @@ export class Mouse {
     return new Promise<Mouse>(async (resolve, reject) => {
       try {
         await sleep(this.config.autoDelayMs);
-        await this.native.scrollDown(amount);
+        await this.nativeAdapter.scrollDown(amount);
         resolve(this);
       } catch (e) {
         reject(e);
@@ -128,7 +128,7 @@ export class Mouse {
     return new Promise<Mouse>(async (resolve, reject) => {
       try {
         await sleep(this.config.autoDelayMs);
-        await this.native.scrollUp(amount);
+        await this.nativeAdapter.scrollUp(amount);
         resolve(this);
       } catch (e) {
         reject(e);
@@ -145,7 +145,7 @@ export class Mouse {
     return new Promise<Mouse>(async (resolve, reject) => {
       try {
         await sleep(this.config.autoDelayMs);
-        await this.native.scrollLeft(amount);
+        await this.nativeAdapter.scrollLeft(amount);
         resolve(this);
       } catch (e) {
         reject(e);
@@ -162,7 +162,7 @@ export class Mouse {
     return new Promise<Mouse>(async (resolve, reject) => {
       try {
         await sleep(this.config.autoDelayMs);
-        await this.native.scrollRight(amount);
+        await this.nativeAdapter.scrollRight(amount);
         resolve(this);
       } catch (e) {
         reject(e);
@@ -179,9 +179,9 @@ export class Mouse {
     return new Promise<Mouse>(async (resolve, reject) => {
       try {
         await sleep(this.config.autoDelayMs);
-        await this.native.pressButton(Button.LEFT);
+        await this.nativeAdapter.pressButton(Button.LEFT);
         await this.move(path);
-        await this.native.releaseButton(Button.LEFT);
+        await this.nativeAdapter.releaseButton(Button.LEFT);
         resolve(this);
       } catch (e) {
         reject(e);
@@ -196,7 +196,7 @@ export class Mouse {
   public async pressButton(btn: Button): Promise<Mouse> {
     return new Promise<Mouse>(async (resolve, reject) => {
       try {
-        await this.native.pressButton(btn);
+        await this.nativeAdapter.pressButton(btn);
         resolve(this);
       } catch (e) {
         reject(e);
@@ -211,7 +211,7 @@ export class Mouse {
   public async releaseButton(btn: Button): Promise<Mouse> {
     return new Promise<Mouse>(async (resolve, reject) => {
       try {
-        await this.native.releaseButton(btn);
+        await this.nativeAdapter.releaseButton(btn);
         resolve(this);
       } catch (e) {
         reject(e);
