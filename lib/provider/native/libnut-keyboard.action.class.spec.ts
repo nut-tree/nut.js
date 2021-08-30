@@ -175,4 +175,30 @@ describe("libnut keyboard action", () => {
       expect(SUT.releaseKey(Key.A)).rejects.toThrowError("Test error");
     });
   });
+
+  describe("bugfix #260", () => {
+    it("should forward the pressKey call to libnut for 'delete'", () => {
+      // GIVEN
+      const SUT = new KeyboardAction();
+
+      // WHEN
+      SUT.pressKey(Key.Delete);
+
+      // THEN
+      expect(libnut.keyToggle).toBeCalledTimes(1);
+      expect(libnut.keyToggle).toBeCalledWith("delete", "down", []);
+    });
+
+    it("should forward the releaseKey call to libnut for 'delete'", () => {
+      // GIVEN
+      const SUT = new KeyboardAction();
+
+      // WHEN
+      SUT.releaseKey(Key.Delete);
+
+      // THEN
+      expect(libnut.keyToggle).toBeCalledTimes(1);
+      expect(libnut.keyToggle).toBeCalledWith("delete", "up", []);
+    });
+  });
 });
