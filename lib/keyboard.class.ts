@@ -4,7 +4,7 @@ import { sleep } from "./sleep.function";
 
 type StringOrKey = string[] | Key[];
 
-const inputIsString = (input: string[] | Key[]): input is string[] => {
+const inputIsString = (input: (string | Key)[]): input is string[] => {
   return input.every((elem: string | Key) => typeof elem === "string");
 };
 
