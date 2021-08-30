@@ -101,7 +101,7 @@ export default class KeyboardAction implements KeyboardActionProvider {
     [Key.Print, "printscreen"],
     [Key.Pause, null],
     [Key.Insert, "insert"],
-    [Key.Delete, null],
+    [Key.Delete, "delete"],
     [Key.Home, "home"],
     [Key.End, "end"],
     [Key.PageUp, "pageup"],
