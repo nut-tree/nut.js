@@ -1,9 +1,9 @@
 export const sleep = async (ms: number) => {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise<void>(resolve => setTimeout(resolve, ms));
 };
 
 export const busyWaitForNanoSeconds = (duration: number) => {
-  return new Promise(res => {
+  return new Promise<void>(res => {
     const start = process.hrtime.bigint();
     let isWaiting = true;
     while (isWaiting) {
