@@ -12,6 +12,8 @@ import {
   straightTo,
 } from "./index";
 
+jest.setTimeout(60000);
+
 const openXfceMenu = async () => {
   await mouse.move(straightTo(centerOf(screen.find("menu.png"))));
   await mouse.leftClick();
@@ -47,12 +49,10 @@ describe("E2E tests", () => {
   });
 
   it("should throw on invalid images", async () => {
-    jest.setTimeout(30000);
     await expect(screen.find("mouse.png")).rejects.toContain("Failed to load image");
   });
 
   it("should perform some calculations", async () => {
-    jest.setTimeout(30000);
     screen.config.resourceDirectory = "./e2e/assets";
     await assert.isVisible("mouse.png");
     await assert.isVisible("desktop.png");
@@ -67,7 +67,6 @@ describe("E2E tests", () => {
   });
 
   it("drag & drop", async () => {
-    jest.setTimeout(60000);
     screen.config.resourceDirectory = "./e2e/assets";
 
     const expected = new Region(38, 585, 70, 86);
