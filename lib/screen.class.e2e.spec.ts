@@ -3,7 +3,7 @@ import {VisionAdapter} from "./adapter/vision.adapter.class";
 import {FileType} from "./file-type.enum";
 import {Screen} from "./screen.class";
 import {sleep} from "./sleep.function";
-import {AbortController} from "node-abort-controller";
+import AbortController from "node-abort-controller";
 
 describe("Screen.", () => {
     it("should capture the screen", () => {
