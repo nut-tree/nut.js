@@ -1,5 +1,5 @@
 import {timeout} from "./timeout.function";
-import {AbortController} from "node-abort-controller";
+import AbortController from "node-abort-controller";
 import {sleep} from "../sleep.function";
 
 describe("timeout", () => {
