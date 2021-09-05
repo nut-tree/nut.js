@@ -1,5 +1,6 @@
 import {timeout} from "./timeout.function";
-import AbortController from "node-abort-controller";
+import {AbortController} from "node-abort-controller";
+import {sleep} from "../sleep.function";
 
 describe("timeout", () => {
     it("should timeout after maxDuration if action rejects", async () => {
@@ -138,7 +139,7 @@ describe("timeout", () => {
         expect(action).toBeCalledTimes(1);
     });
 
-    it("should fail after timeout if no result is returned from long running action", async (done) => {
+    it("should fail after timeout if no result is returned from long running action", async () => {
         // GIVEN
         const updateInterval = 100;
         const maxDuration = 200;
@@ -156,10 +157,8 @@ describe("timeout", () => {
         // THEN
         await expect(SUT).rejects.toBe(`Action timed out after ${maxDuration} ms`);
         expect(action).toBeCalledTimes(1);
-        setTimeout(() => {
-            expect(action).toBeCalledTimes(1);
-            done();
-        }, 500);
+        await sleep(500);
+        expect(action).toBeCalledTimes(1);
     });
 
     it("should be externally abortable", async () => {
