@@ -3,6 +3,7 @@ import { Key } from "./key.enum";
 import { Keyboard } from "./keyboard.class";
 
 jest.mock("./adapter/native.adapter.class");
+jest.setTimeout(10000);
 
 beforeEach(() => {
   jest.resetAllMocks();
@@ -38,7 +39,6 @@ describe("Keyboard", () => {
 
   it("should pass multiple input strings down to the type call.", async () => {
     // GIVEN
-    jest.setTimeout(10000);
     const adapterMock = new NativeAdapter();
     const SUT = new Keyboard(adapterMock);
     const payload = ["Test input!", "Array test2"];
