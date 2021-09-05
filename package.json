@@ -60,12 +60,12 @@
   },
   "dependencies": {
     "@nut-tree/libnut": "2.1.2",
-    "clipboardy": "^2.3.0",
+    "clipboardy": "2.3.0",
     "node-abort-controller": "3.0.0",
     "opencv4nodejs-prebuilt": "5.3.3"
   },
   "devDependencies": {
-    "@types/clipboardy": "^2.0.1",
+    "@types/clipboardy": "2.0.1",
     "@types/jest": "27.0.1",
     "@types/node": "16.7.10",
     "istanbul-merge": "1.1.1",
