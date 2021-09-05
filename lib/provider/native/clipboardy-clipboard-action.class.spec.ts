@@ -6,7 +6,7 @@ beforeEach(() => {
 
 describe("clipboardy action", () => {
   describe("copy", () => {
-    it("should resolve", async done => {
+    it("should resolve", async () => {
       // GIVEN
       const SUT = new ClipboardAction();
       const testText = "test";
@@ -15,11 +15,10 @@ describe("clipboardy action", () => {
 
       // THEN
       await SUT.copy(testText);
-      done();
     });
   });
   describe("hasText", () => {
-    it("should return true when text has been copied", async done => {
+    it("should return true when text has been copied", async () => {
       // GIVEN
       const SUT = new ClipboardAction();
       const testText = "test";
@@ -29,7 +28,6 @@ describe("clipboardy action", () => {
 
       // THEN
       await expect(SUT.hasText()).resolves.toBeTruthy();
-      done();
     });
   });
 });

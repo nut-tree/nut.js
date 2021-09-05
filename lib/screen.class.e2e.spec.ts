@@ -5,6 +5,8 @@ import {Screen} from "./screen.class";
 import {sleep} from "./sleep.function";
 import AbortController from "node-abort-controller";
 
+jest.setTimeout(10000);
+
 describe("Screen.", () => {
     it("should capture the screen", () => {
         // GIVEN
@@ -91,7 +93,6 @@ describe("Screen.", () => {
 
     it("should reject after timeout", async () => {
         // GIVEN
-        jest.setTimeout(10000);
         const timeout = 5000;
         const visionAdapter = new VisionAdapter();
         const SUT = new Screen(visionAdapter);
@@ -113,7 +114,6 @@ describe("Screen.", () => {
 
     it("should abort via signal", (done) => {
         // GIVEN
-        jest.setTimeout(10000);
         const timeout = 5000;
         const abortAfterMs = 1000;
         const controller = new AbortController();

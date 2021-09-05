@@ -1,5 +1,6 @@
 import { jestMatchers, Key, keyboard, screen } from "../index";
 
+jest.setTimeout(30000);
 expect.extend(jestMatchers);
 
 const run = async (cmd: string) => {
@@ -19,7 +20,6 @@ const close = async () => {
 describe("Keyboard e2e class", () => {
   it("should open gnome calculator via keyboard.", async () => {
     // GIVEN
-    jest.setTimeout(30000);
     screen.config.resourceDirectory = "./e2e/assets";
     screen.config.confidence = 0.97;
     await run("gnome-calculator");
