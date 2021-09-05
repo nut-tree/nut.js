@@ -9,6 +9,14 @@ import { Screen } from "./lib/screen.class";
 import { LineHelper } from "./lib/util/linehelper.class";
 import { createWindowApi } from "./lib/window.function";
 
+export const internal = {
+  Assert,
+  Clipboard,
+  Keyboard,
+  Mouse,
+  Screen,
+}
+
 export { jestMatchers } from "./lib/expect/jest.matcher.function";
 export { sleep } from "./lib/sleep.function";
 export { Image } from "./lib/image.class";
