@@ -62,7 +62,7 @@
     "@nut-tree/libnut": "2.1.2",
     "clipboardy": "2.3.0",
     "node-abort-controller": "2.0.0",
-    "opencv4nodejs-prebuilt": "5.3.3"
+    "opencv4nodejs-prebuilt": "5.3.4"
   },
   "devDependencies": {
     "@types/clipboardy": "2.0.1",
