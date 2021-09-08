@@ -1,6 +1,6 @@
 {
   "name": "electron-test",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "A test to verify usage with Electron",
   "main": "main.js",
   "author": {
@@ -14,8 +14,8 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "electron": "^13.1.6",
-    "electron-rebuild": "^2.3.5",
+    "electron": "14.0.0",
+    "electron-rebuild": "3.2.3",
     "@nut-tree/nut-js": "file:../../"
   }
 }
