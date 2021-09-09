@@ -34,6 +34,12 @@ Native UI testing / automation with node.js
 It allows for native UI interactions via keyboard and / or mouse,
 but additionally gives you the possibility to navigate the screen based on image matching.
 
+# Demo
+
+Check out this demo video to get a first impression of what nut.js is capable of.
+
+[![nut.js demo video](https://img.youtube.com/vi/MpIyUJnU_Bk/1.jpg)](https://www.youtube.com/watch?v=MpIyUJnU_Bk)
+
 # Examples
 
 [nut-tree/trailmix](https://github.com/nut-tree/trailmix) contains a set of ready to use examples which demo the usage ot nut.js.
