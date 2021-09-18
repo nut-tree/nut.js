@@ -9,12 +9,12 @@ const inputIsString = (input: (string | Key)[]): input is string[] => {
 };
 
 /**
- * {@link Keyboard} class provides methods to emulate keyboard input
+ * {@link KeyboardClass} class provides methods to emulate keyboard input
  */
-export class Keyboard {
+export class KeyboardClass {
 
   /**
-   * Config object for {@link Keyboard} class
+   * Config object for {@link KeyboardClass} class
    */
   public config = {
     /**
@@ -24,7 +24,7 @@ export class Keyboard {
   };
 
   /**
-   * {@link Keyboard} class constructor
+   * {@link KeyboardClass} class constructor
    * @param nativeAdapter {@link NativeAdapter} instance which bundles access to mouse, keyboard and clipboard
    */
   constructor(private nativeAdapter: NativeAdapter) {
@@ -41,8 +41,8 @@ export class Keyboard {
    *
    * @param input Sequence of {@link String} or {@link Key} to type
    */
-  public type(...input: StringOrKey): Promise<Keyboard> {
-    return new Promise<Keyboard>(async (resolve, reject) => {
+  public type(...input: StringOrKey): Promise<KeyboardClass> {
+    return new Promise<KeyboardClass>(async (resolve, reject) => {
       try {
         if (inputIsString(input)) {
           for (const char of input.join(" ").split("")) {
@@ -70,8 +70,8 @@ export class Keyboard {
    *
    * @param keys Array of {@link Key}s to press and hold
    */
-  public pressKey(...keys: Key[]): Promise<Keyboard> {
-    return new Promise<Keyboard>(async (resolve, reject) => {
+  public pressKey(...keys: Key[]): Promise<KeyboardClass> {
+    return new Promise<KeyboardClass>(async (resolve, reject) => {
       try {
         await this.nativeAdapter.pressKey(...keys);
         resolve(this);
@@ -92,8 +92,8 @@ export class Keyboard {
    *
    * @param keys Array of {@link Key}s to release
    */
-  public releaseKey(...keys: Key[]): Promise<Keyboard> {
-    return new Promise<Keyboard>(async (resolve, reject) => {
+  public releaseKey(...keys: Key[]): Promise<KeyboardClass> {
+    return new Promise<KeyboardClass>(async (resolve, reject) => {
       try {
         await this.nativeAdapter.releaseKey(...keys);
         resolve(this);

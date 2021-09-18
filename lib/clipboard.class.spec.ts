@@ -1,5 +1,5 @@
 import {NativeAdapter} from "./adapter/native.adapter.class";
-import {Clipboard} from "./clipboard.class";
+import {ClipboardClass} from "./clipboard.class";
 
 jest.mock("./adapter/native.adapter.class");
 
@@ -10,7 +10,7 @@ beforeEach(() => {
 describe("Clipboard class", () => {
     it("should call the native adapters copy method.", () => {
         const adapterMock = new NativeAdapter();
-        const SUT = new Clipboard(adapterMock);
+        const SUT = new ClipboardClass(adapterMock);
 
         const textToCopy = "bar";
 
@@ -21,7 +21,7 @@ describe("Clipboard class", () => {
 
     it("should call the native adapters paste method.", () => {
         const adapterMock = new NativeAdapter();
-        const SUT = new Clipboard(adapterMock);
+        const SUT = new ClipboardClass(adapterMock);
 
         SUT.paste();
         expect(adapterMock.paste).toHaveBeenCalledTimes(1);

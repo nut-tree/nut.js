@@ -1,10 +1,10 @@
 import {NativeAdapter} from "./adapter/native.adapter.class";
-import {Clipboard} from "./clipboard.class";
+import {ClipboardClass} from "./clipboard.class";
 
 describe("Clipboard class", () => {
     it("should paste copied input from system clipboard.", async () => {
         const adapterMock = new NativeAdapter();
-        const SUT = new Clipboard(adapterMock);
+        const SUT = new ClipboardClass(adapterMock);
 
         const textToCopy = "bar";
 

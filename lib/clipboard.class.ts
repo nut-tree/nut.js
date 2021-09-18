@@ -1,11 +1,11 @@
 import { NativeAdapter } from "./adapter/native.adapter.class";
 
 /**
- * {@link Clipboard} class gives access to a systems clipboard
+ * {@link ClipboardClass} class gives access to a systems clipboard
  */
-export class Clipboard {
+export class ClipboardClass {
   /**
-   * {@link Clipboard} class constructor
+   * {@link ClipboardClass} class constructor
    * @param nativeAdapter {@link NativeAdapter} instance used to access OS API
    */
   constructor(private nativeAdapter: NativeAdapter) {

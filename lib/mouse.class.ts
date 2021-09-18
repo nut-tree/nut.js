@@ -5,11 +5,11 @@ import { Point } from "./point.class";
 import { busyWaitForNanoSeconds, sleep } from "./sleep.function";
 
 /**
- * {@link Mouse} class provides methods to emulate mouse input
+ * {@link MouseClass} class provides methods to emulate mouse input
  */
-export class Mouse {
+export class MouseClass {
   /**
-   * Config object for {@link Mouse} class
+   * Config object for {@link MouseClass} class
    */
   public config = {
     /**
@@ -24,7 +24,7 @@ export class Mouse {
   };
 
   /**
-   * {@link Mouse} class constructor
+   * {@link MouseClass} class constructor
    * @param nativeAdapter {@link NativeAdapter} instance which bundles access to mouse, keyboard and clipboard
    */
   constructor(private nativeAdapter: NativeAdapter) {
@@ -35,8 +35,8 @@ export class Mouse {
    * {@link setPosition} instantly moves the mouse cursor to a given {@link Point}
    * @param target {@link Point} to move the cursor to
    */
-  public async setPosition(target: Point): Promise<Mouse> {
-    return new Promise<Mouse>(async (resolve, reject) => {
+  public async setPosition(target: Point): Promise<MouseClass> {
+    return new Promise<MouseClass>(async (resolve, reject) => {
       try {
         await this.nativeAdapter.setMousePosition(target);
         resolve(this);
@@ -58,8 +58,8 @@ export class Mouse {
    * @param path Array of {@link Point}s to follow
    * @param movementType Defines the type of mouse movement. Would allow to configured acceleration etc. (Default: {@link linear}, no acceleration)
    */
-  public async move(path: Point[] | Promise<Point[]>, movementType = linear): Promise<Mouse> {
-    return new Promise<Mouse>(async (resolve, reject) => {
+  public async move(path: Point[] | Promise<Point[]>, movementType = linear): Promise<MouseClass> {
+    return new Promise<MouseClass>(async (resolve, reject) => {
       try {
         const pathSteps = await path;
         const timeSteps = movementType(pathSteps.length, this.config.mouseSpeed);
@@ -79,8 +79,8 @@ export class Mouse {
   /**
    * {@link leftClick} performs a click with the left mouse button
    */
-  public async leftClick(): Promise<Mouse> {
-    return new Promise<Mouse>(async resolve => {
+  public async leftClick(): Promise<MouseClass> {
+    return new Promise<MouseClass>(async resolve => {
       await sleep(this.config.autoDelayMs);
       await this.nativeAdapter.leftClick();
       resolve(this);
@@ -90,8 +90,8 @@ export class Mouse {
   /**
    * {@link rightClick} performs a click with the right mouse button
    */
-  public async rightClick(): Promise<Mouse> {
-    return new Promise<Mouse>(async (resolve, reject) => {
+  public async rightClick(): Promise<MouseClass> {
+    return new Promise<MouseClass>(async (resolve, reject) => {
       try {
         await sleep(this.config.autoDelayMs);
         await this.nativeAdapter.rightClick();
@@ -107,8 +107,8 @@ export class Mouse {
    * Please note that the actual scroll distance of a single "step" is OS dependent
    * @param amount The amount of "steps" to scroll
    */
-  public async scrollDown(amount: number): Promise<Mouse> {
-    return new Promise<Mouse>(async (resolve, reject) => {
+  public async scrollDown(amount: number): Promise<MouseClass> {
+    return new Promise<MouseClass>(async (resolve, reject) => {
       try {
         await sleep(this.config.autoDelayMs);
         await this.nativeAdapter.scrollDown(amount);
@@ -124,8 +124,8 @@ export class Mouse {
    * Please note that the actual scroll distance of a single "step" is OS dependent
    * @param amount The amount of "steps" to scroll
    */
-  public async scrollUp(amount: number): Promise<Mouse> {
-    return new Promise<Mouse>(async (resolve, reject) => {
+  public async scrollUp(amount: number): Promise<MouseClass> {
+    return new Promise<MouseClass>(async (resolve, reject) => {
       try {
         await sleep(this.config.autoDelayMs);
         await this.nativeAdapter.scrollUp(amount);
@@ -141,8 +141,8 @@ export class Mouse {
    * Please note that the actual scroll distance of a single "step" is OS dependent
    * @param amount The amount of "steps" to scroll
    */
-  public async scrollLeft(amount: number): Promise<Mouse> {
-    return new Promise<Mouse>(async (resolve, reject) => {
+  public async scrollLeft(amount: number): Promise<MouseClass> {
+    return new Promise<MouseClass>(async (resolve, reject) => {
       try {
         await sleep(this.config.autoDelayMs);
         await this.nativeAdapter.scrollLeft(amount);
@@ -158,8 +158,8 @@ export class Mouse {
    * Please note that the actual scroll distance of a single "step" is OS dependent
    * @param amount The amount of "steps" to scroll
    */
-  public async scrollRight(amount: number): Promise<Mouse> {
-    return new Promise<Mouse>(async (resolve, reject) => {
+  public async scrollRight(amount: number): Promise<MouseClass> {
+    return new Promise<MouseClass>(async (resolve, reject) => {
       try {
         await sleep(this.config.autoDelayMs);
         await this.nativeAdapter.scrollRight(amount);
@@ -175,8 +175,8 @@ export class Mouse {
    * In summary, {@link drag} presses and holds the left mouse button, moves the mouse and releases the left button
    * @param path The path of {@link Point}s to drag along
    */
-  public async drag(path: Point[] | Promise<Point[]>): Promise<Mouse> {
-    return new Promise<Mouse>(async (resolve, reject) => {
+  public async drag(path: Point[] | Promise<Point[]>): Promise<MouseClass> {
+    return new Promise<MouseClass>(async (resolve, reject) => {
       try {
         await sleep(this.config.autoDelayMs);
         await this.nativeAdapter.pressButton(Button.LEFT);
@@ -193,8 +193,8 @@ export class Mouse {
    * {@link pressButton} presses and holds a mouse button
    * @param btn The {@link Button} to press and hold
    */
-  public async pressButton(btn: Button): Promise<Mouse> {
-    return new Promise<Mouse>(async (resolve, reject) => {
+  public async pressButton(btn: Button): Promise<MouseClass> {
+    return new Promise<MouseClass>(async (resolve, reject) => {
       try {
         await this.nativeAdapter.pressButton(btn);
         resolve(this);
@@ -208,8 +208,8 @@ export class Mouse {
    * {@link releaseButton} releases a mouse button previously pressed via {@link pressButton}
    * @param btn The {@link Button} to release
    */
-  public async releaseButton(btn: Button): Promise<Mouse> {
-    return new Promise<Mouse>(async (resolve, reject) => {
+  public async releaseButton(btn: Button): Promise<MouseClass> {
+    return new Promise<MouseClass>(async (resolve, reject) => {
       try {
         await this.nativeAdapter.releaseButton(btn);
         resolve(this);

@@ -1,8 +1,8 @@
 import { LocationParameters } from "../../locationparameters.class";
-import { Screen } from "../../screen.class";
+import { ScreenClass } from "../../screen.class";
 
 export const toShow = async (
-  received: Screen,
+  received: ScreenClass,
   needle: string,
   confidence?: number,
 ) => {

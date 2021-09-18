@@ -1,6 +1,6 @@
 import { NativeAdapter } from "./adapter/native.adapter.class";
 import { Button } from "./button.enum";
-import { Mouse } from "./mouse.class";
+import { MouseClass } from "./mouse.class";
 import { Point } from "./point.class";
 import { LineHelper } from "./util/linehelper.class";
 
@@ -16,7 +16,7 @@ describe("Mouse class", () => {
   it("should have a default delay of 500 ms", () => {
     // GIVEN
     const adapterMock = new NativeAdapter();
-    const SUT = new Mouse(adapterMock);
+    const SUT = new MouseClass(adapterMock);
 
     // WHEN
 
@@ -27,7 +27,7 @@ describe("Mouse class", () => {
   it("should forward scrollLeft to the native adapter class", async () => {
     // GIVEN
     const nativeAdapterMock = new NativeAdapter();
-    const SUT = new Mouse(nativeAdapterMock);
+    const SUT = new MouseClass(nativeAdapterMock);
     const scrollAmount = 5;
 
     // WHEN
@@ -41,7 +41,7 @@ describe("Mouse class", () => {
   it("should forward scrollRight to the native adapter class", async () => {
     // GIVEN
     const nativeAdapterMock = new NativeAdapter();
-    const SUT = new Mouse(nativeAdapterMock);
+    const SUT = new MouseClass(nativeAdapterMock);
     const scrollAmount = 5;
 
     // WHEN
@@ -55,7 +55,7 @@ describe("Mouse class", () => {
   it("should forward scrollDown to the native adapter class", async () => {
     // GIVEN
     const nativeAdapterMock = new NativeAdapter();
-    const SUT = new Mouse(nativeAdapterMock);
+    const SUT = new MouseClass(nativeAdapterMock);
     const scrollAmount = 5;
 
     // WHEN
@@ -69,7 +69,7 @@ describe("Mouse class", () => {
   it("should forward scrollUp to the native adapter class", async () => {
     // GIVEN
     const nativeAdapterMock = new NativeAdapter();
-    const SUT = new Mouse(nativeAdapterMock);
+    const SUT = new MouseClass(nativeAdapterMock);
     const scrollAmount = 5;
 
     // WHEN
@@ -83,7 +83,7 @@ describe("Mouse class", () => {
   it("should forward leftClick to the native adapter class", async () => {
     // GIVEN
     const nativeAdapterMock = new NativeAdapter();
-    const SUT = new Mouse(nativeAdapterMock);
+    const SUT = new MouseClass(nativeAdapterMock);
 
     // WHEN
     const result = await SUT.leftClick();
@@ -96,7 +96,7 @@ describe("Mouse class", () => {
   it("should forward rightClick to the native adapter class", async () => {
     // GIVEN
     const nativeAdapterMock = new NativeAdapter();
-    const SUT = new Mouse(nativeAdapterMock);
+    const SUT = new MouseClass(nativeAdapterMock);
 
     // WHEN
     const result = await SUT.rightClick();
@@ -109,7 +109,7 @@ describe("Mouse class", () => {
   it("update mouse position along path on move", async () => {
     // GIVEN
     const nativeAdapterMock = new NativeAdapter();
-    const SUT = new Mouse(nativeAdapterMock);
+    const SUT = new MouseClass(nativeAdapterMock);
     const path = linehelper.straightLine(new Point(0, 0), new Point(10, 10));
 
     // WHEN
@@ -123,7 +123,7 @@ describe("Mouse class", () => {
   it("should press and hold left mouse button, move and release left mouse button on drag", async () => {
     // GIVEN
     const nativeAdapterMock = new NativeAdapter();
-    const SUT = new Mouse(nativeAdapterMock);
+    const SUT = new MouseClass(nativeAdapterMock);
     const path = linehelper.straightLine(new Point(0, 0), new Point(10, 10));
 
     // WHEN
@@ -144,7 +144,7 @@ describe("Mousebuttons", () => {
     [Button.RIGHT, Button.RIGHT],
   ] as Array<[Button, Button]>)("should be pressed and released", async (input: Button, expected: Button) => {
     const nativeAdapterMock = new NativeAdapter();
-    const SUT = new Mouse(nativeAdapterMock);
+    const SUT = new MouseClass(nativeAdapterMock);
     const pressed = await SUT.pressButton(input);
     const released = await SUT.releaseButton(input);
     expect(nativeAdapterMock.pressButton).toBeCalledWith(expected);
