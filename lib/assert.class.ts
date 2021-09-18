@@ -1,9 +1,9 @@
 import { LocationParameters } from "./locationparameters.class";
 import { Region } from "./region.class";
-import { Screen } from "./screen.class";
+import { ScreenClass } from "./screen.class";
 
-export class Assert {
-  constructor(private screen: Screen) {}
+export class AssertClass {
+  constructor(private screen: ScreenClass) {}
 
   public async isVisible(pathToNeedle: string, searchRegion?: Region, confidence?: number) {
     try {

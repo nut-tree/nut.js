@@ -13,12 +13,12 @@ import {Image} from "./image.class";
 export type FindHookCallback = (target: MatchResult) => Promise<void>;
 
 /**
- * {@link Screen} class provides methods to access screen content of a systems main display
+ * {@link ScreenClass} class provides methods to access screen content of a systems main display
  */
-export class Screen {
+export class ScreenClass {
 
     /**
-     * Config object for {@link Screen} class
+     * Config object for {@link ScreenClass} class
      */
     public config = {
         /**
@@ -47,7 +47,7 @@ export class Screen {
     };
 
     /**
-     * {@link Screen} class constructor
+     * {@link ScreenClass} class constructor
      * @param vision {@link VisionAdapter} instance which bundles access to screen and / or computer vision related APIs
      * @param findHooks A {@link Map} of {@link FindHookCallback} methods assigned to a template image filename
      */
@@ -76,7 +76,7 @@ export class Screen {
 
     /**
      * {@link find} will search for a template image on a systems main screen
-     * @param templateImageFilename Filename of the template image, relative to {@link Screen.config.resourceDirectory}
+     * @param templateImageFilename Filename of the template image, relative to {@link ScreenClass.config.resourceDirectory}
      * @param params {@link LocationParameters} which are used to fine tune search region and / or match confidence
      */
     public async find(
@@ -162,7 +162,7 @@ export class Screen {
 
     /**
      * {@link waitFor} searches for a template image for a specified duration
-     * @param templateImageFilename Filename of the template image, relative to {@link Screen.config.resourceDirectory}
+     * @param templateImageFilename Filename of the template image, relative to {@link ScreenClass.config.resourceDirectory}
      * @param timeoutMs Timeout in milliseconds after which {@link waitFor} fails
      * @param params {@link LocationParameters} which are used to fine tune search region and / or match confidence
      */

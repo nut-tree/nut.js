@@ -1,20 +1,20 @@
 import { NativeAdapter } from "./lib/adapter/native.adapter.class";
 import { VisionAdapter } from "./lib/adapter/vision.adapter.class";
-import { Assert } from "./lib/assert.class";
-import { Clipboard } from "./lib/clipboard.class";
-import { Keyboard } from "./lib/keyboard.class";
-import { Mouse } from "./lib/mouse.class";
+import { AssertClass } from "./lib/assert.class";
+import { ClipboardClass } from "./lib/clipboard.class";
+import { KeyboardClass } from "./lib/keyboard.class";
+import { MouseClass } from "./lib/mouse.class";
 import { createMovementApi } from "./lib/movement.function";
-import { Screen } from "./lib/screen.class";
+import { ScreenClass } from "./lib/screen.class";
 import { LineHelper } from "./lib/util/linehelper.class";
 import { createWindowApi } from "./lib/window.function";
 
-export const internal = {
-  Assert,
-  Clipboard,
-  Keyboard,
-  Mouse,
-  Screen,
+export {
+  AssertClass,
+  ClipboardClass,
+  KeyboardClass,
+  MouseClass,
+  ScreenClass,
 }
 
 export { jestMatchers } from "./lib/expect/jest.matcher.function";
@@ -34,11 +34,11 @@ const screenActions = new VisionAdapter();
 const nativeActions = new NativeAdapter();
 const lineHelper = new LineHelper();
 
-const clipboard = new Clipboard(nativeActions);
-const keyboard = new Keyboard(nativeActions);
-const mouse = new Mouse(nativeActions);
-const screen = new Screen(screenActions);
-const assert = new Assert(screen);
+const clipboard = new ClipboardClass(nativeActions);
+const keyboard = new KeyboardClass(nativeActions);
+const mouse = new MouseClass(nativeActions);
+const screen = new ScreenClass(screenActions);
+const assert = new AssertClass(screen);
 
 const {straightTo, up, down, left, right} = createMovementApi(nativeActions, lineHelper);
 const {getWindows, getActiveWindow } = createWindowApi(nativeActions);
