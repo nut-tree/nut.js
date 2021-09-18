@@ -4,6 +4,7 @@ import {FileType} from "./file-type.enum";
 import {ScreenClass} from "./screen.class";
 import {sleep} from "./sleep.function";
 import AbortController from "node-abort-controller";
+import {Region} from "./region.class";
 
 jest.setTimeout(10000);
 
@@ -134,5 +135,36 @@ describe("Screen.", () => {
             done();
         });
         setTimeout(() => controller.abort(), abortAfterMs);
+    });
+
+    it("should grab the whole screen content and return an Image", async () => {
+        // GIVEN
+        const visionAdapter = new VisionAdapter();
+        const SUT = new ScreenClass(visionAdapter);
+        const screenWidth = await SUT.width();
+        const screenHeight = await SUT.height();
+
+        // WHEN
+        const image = await SUT.grab();
+
+        // THEN
+        expect(image.data).not.toBeUndefined();
+        expect(image.width / image.pixelDensity.scaleX).toBe(screenWidth);
+        expect(image.height / image.pixelDensity.scaleY).toBe(screenHeight);
+    });
+
+    it("should grab a screen region and return an Image", async () => {
+        // GIVEN
+        const visionAdapter = new VisionAdapter();
+        const SUT = new ScreenClass(visionAdapter);
+        const regionToGrab = new Region(0, 0, 100, 100);
+
+        // WHEN
+        const image = await SUT.grabRegion(regionToGrab);
+
+        // THEN
+        expect(image.data).not.toBeUndefined();
+        expect(image.width / image.pixelDensity.scaleX).toBe(regionToGrab.width);
+        expect(image.height / image.pixelDensity.scaleY).toBe(regionToGrab.height);
     });
 });
