@@ -209,6 +209,13 @@ export class ScreenClass {
     }
 
     /**
+     * {@link grab} grabs screen content of a systems main display
+     */
+    public async grab(): Promise<Image> {
+        return this.vision.grabScreen();
+    }
+
+    /**
      * {@link captureRegion} captures a screenshot of a region on the systems main display
      * @param fileName Basename for the generated screenshot
      * @param regionToCapture The region of the screen to capture in the screenshot
@@ -232,6 +239,13 @@ export class ScreenClass {
             filePath,
             fileNamePrefix,
             fileNamePostfix);
+    }
+
+    /**
+     * {@link grabRegion} grabs screen content of a region on the systems main display
+     */
+    public async grabRegion(regionToGrab: Region): Promise<Image> {
+        return this.vision.grabScreenRegion(regionToGrab);
     }
 
     private async saveImage(
