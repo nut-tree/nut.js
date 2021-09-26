@@ -226,12 +226,12 @@ export class ScreenClass {
      */
     public async captureRegion(
         fileName: string,
-        regionToCapture: Region,
+        regionToCapture: Region | Promise<Region>,
         fileFormat: FileType = FileType.PNG,
         filePath: string = cwd(),
         fileNamePrefix: string = "",
         fileNamePostfix: string = ""): Promise<string> {
-        const regionImage = await this.vision.grabScreenRegion(regionToCapture);
+        const regionImage = await this.vision.grabScreenRegion(await regionToCapture);
         return this.saveImage(
             regionImage,
             fileName,
@@ -243,9 +243,10 @@ export class ScreenClass {
 
     /**
      * {@link grabRegion} grabs screen content of a region on the systems main display
+     * @param regionToGrab The screen region to grab
      */
-    public async grabRegion(regionToGrab: Region): Promise<Image> {
-        return this.vision.grabScreenRegion(regionToGrab);
+    public async grabRegion(regionToGrab: Region | Promise<Region>): Promise<Image> {
+        return this.vision.grabScreenRegion(await regionToGrab);
     }
 
     private async saveImage(
