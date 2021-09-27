@@ -63,16 +63,16 @@ jobs:
         run: npm ci
       - name: Install @nut-tree/libnut@next
         run: npm i @nut-tree/libnut@next
-      - name: Publish snapshot release
+      - name: Create snapshot release
         run: bash ./.build/pre-release.sh
-      - name: Publish tagged release to npm
+      - name: Publish snapshot release to npm
         run: npm run publish-next
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - uses: actions/setup-node@v2
         with:
           registry-url: 'https://npm.pkg.github.com'
-      - name: Publish tagged release to GPR
+      - name: Publish snapshot release to GPR
         run: npm run publish-next
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
