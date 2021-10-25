@@ -19,6 +19,10 @@ export {
     providerRegistry
 }
 
+export {MatchRequest} from "./lib/match-request.class";
+export {MatchResult} from "./lib/match-result.class";
+export * from "./lib/provider";
+
 export {jestMatchers} from "./lib/expect/jest.matcher.function";
 export {sleep} from "./lib/sleep.function";
 export {Image} from "./lib/image.class";
