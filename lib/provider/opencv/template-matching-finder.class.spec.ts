@@ -2,7 +2,7 @@ import * as path from "path";
 import {Image} from "../../image.class";
 import {MatchRequest} from "../../match-request.class";
 import {Region} from "../../region.class";
-import {ImageReader} from "./image-reader.class";
+import ImageReader from "./image-reader.class";
 import TemplateMatchingFinder from "./template-matching-finder.class";
 
 describe("Template-matching finder", () => {

@@ -1,10 +1,10 @@
 import * as cv from "opencv4nodejs-prebuilt";
-import {Image} from "../../image.class";
-import {DataSink} from "./data-sink.interface";
 import {fromImageWithAlphaChannel, fromImageWithoutAlphaChannel} from "./image-processor.class";
+import {ImageWriter, ImageWriterParameters} from "../image-writer.type";
 
-export class ImageWriter implements DataSink {
-    public async store(data: Image, path: string): Promise<void> {
+
+export default class implements ImageWriter {
+    public async store({data, path}: ImageWriterParameters): Promise<void> {
         let outputMat: cv.Mat;
         if (data.hasAlphaChannel) {
             outputMat = await fromImageWithAlphaChannel(data);

@@ -1,11 +1,11 @@
-import { Region } from "../../region.class";
+import { Region } from "../region.class";
 
 /**
  * A WindowActionProvider should provide access to a system's window system
  *
- * @interface WindowActionProvider
+ * @interface WindowProvider
  */
-export interface WindowActionProvider {
+export interface WindowProvider {
   /**
    * {@link getWindows} returns a list of window handles for further processing.
    * These window handles may serve as input to e.g. {@link getWindowTitle}

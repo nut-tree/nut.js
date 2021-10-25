@@ -1,9 +1,9 @@
 import libnut = require("@nut-tree/libnut");
 import { Button } from "../../button.enum";
 import { Point } from "../../point.class";
-import { MouseActionProvider } from "./mouse-action-provider.interface";
+import { MouseProvider } from "../mouse-provider.interface";
 
-export default class MouseAction implements MouseActionProvider {
+export default class MouseAction implements MouseProvider {
   public static buttonLookup(btn: Button): any {
     return this.ButtonLookupMap.get(btn);
   }

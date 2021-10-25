@@ -1,12 +1,13 @@
 import {createWindowApi} from "./window.function";
 import {NativeAdapter} from "./adapter/native.adapter.class";
 import {Window} from "./window.class";
+import providerRegistry from "./provider/provider-registry.class";
 
 describe("WindowApi", () => {
     describe("getWindows", () => {
         it("should return a list of open Windows", async () => {
             // GIVEN
-            const SUT = createWindowApi(new NativeAdapter());
+            const SUT = createWindowApi(new NativeAdapter(providerRegistry));
 
             // WHEN
             const windows = await SUT.getWindows()
@@ -21,7 +22,7 @@ describe("WindowApi", () => {
     describe("getActiveWindow", () => {
         it("should return the a single Window which is currently active", async () => {
             // GIVEN
-            const SUT = createWindowApi(new NativeAdapter());
+            const SUT = createWindowApi(new NativeAdapter(providerRegistry));
 
             // WHEN
             const window = await SUT.getActiveWindow();

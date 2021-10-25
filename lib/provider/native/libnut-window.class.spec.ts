@@ -1,5 +1,5 @@
 import libnut = require("@nut-tree/libnut");
-import WindowAction from "./libnut-window-action.class";
+import WindowAction from "./libnut-window.class";
 import {Region} from "../../region.class";
 
 jest.mock("@nut-tree/libnut");

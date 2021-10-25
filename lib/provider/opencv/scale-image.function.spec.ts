@@ -1,5 +1,5 @@
 import * as path from "path";
-import {ImageReader} from "./image-reader.class";
+import ImageReader from "./image-reader.class";
 import {scaleImage} from "./scale-image.function";
 import {fromImageWithoutAlphaChannel} from "./image-processor.class";
 
