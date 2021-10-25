@@ -5,13 +5,14 @@ import {ScreenClass} from "./screen.class";
 import {sleep} from "./sleep.function";
 import AbortController from "node-abort-controller";
 import {Region} from "./region.class";
+import providerRegistry from "./provider/provider-registry.class";
 
 jest.setTimeout(10000);
 
 describe("Screen.", () => {
     it("should capture the screen", () => {
         // GIVEN
-        const visionAdapter = new VisionAdapter();
+        const visionAdapter = new VisionAdapter(providerRegistry);
         const SUT = new ScreenClass(visionAdapter);
 
         // WHEN
@@ -26,7 +27,7 @@ describe("Screen.", () => {
 
     it("should capture the screen and save to JPG", () => {
         // GIVEN
-        const visionAdapter = new VisionAdapter();
+        const visionAdapter = new VisionAdapter(providerRegistry);
         const SUT = new ScreenClass(visionAdapter);
 
         // WHEN
@@ -41,7 +42,7 @@ describe("Screen.", () => {
 
     it("should capture the screen and save file with prefix", () => {
         // GIVEN
-        const visionAdapter = new VisionAdapter();
+        const visionAdapter = new VisionAdapter(providerRegistry);
         const SUT = new ScreenClass(visionAdapter);
         const prefix = "foo_";
 
@@ -58,7 +59,7 @@ describe("Screen.", () => {
 
     it("should capture the screen and save file with postfix", () => {
         // GIVEN
-        const visionAdapter = new VisionAdapter();
+        const visionAdapter = new VisionAdapter(providerRegistry);
         const SUT = new ScreenClass(visionAdapter);
         const postfix = "_bar";
 
@@ -75,7 +76,7 @@ describe("Screen.", () => {
 
     it("should capture the screen and save file with pre- and postfix", () => {
         // GIVEN
-        const visionAdapter = new VisionAdapter();
+        const visionAdapter = new VisionAdapter(providerRegistry);
         const SUT = new ScreenClass(visionAdapter);
         const filename = "asdf";
         const prefix = "foo_";
@@ -95,7 +96,7 @@ describe("Screen.", () => {
     it("should reject after timeout", async () => {
         // GIVEN
         const timeout = 5000;
-        const visionAdapter = new VisionAdapter();
+        const visionAdapter = new VisionAdapter(providerRegistry);
         const SUT = new ScreenClass(visionAdapter);
         SUT.config.resourceDirectory = "./e2e/assets";
 
@@ -119,7 +120,7 @@ describe("Screen.", () => {
         const abortAfterMs = 1000;
         const controller = new AbortController();
         const signal = controller.signal;
-        const visionAdapter = new VisionAdapter();
+        const visionAdapter = new VisionAdapter(providerRegistry);
         const SUT = new ScreenClass(visionAdapter);
         SUT.config.resourceDirectory = "./e2e/assets";
 
@@ -139,7 +140,7 @@ describe("Screen.", () => {
 
     it("should grab the whole screen content and return an Image", async () => {
         // GIVEN
-        const visionAdapter = new VisionAdapter();
+        const visionAdapter = new VisionAdapter(providerRegistry);
         const SUT = new ScreenClass(visionAdapter);
         const screenWidth = await SUT.width();
         const screenHeight = await SUT.height();
@@ -155,7 +156,7 @@ describe("Screen.", () => {
 
     it("should grab a screen region and return an Image", async () => {
         // GIVEN
-        const visionAdapter = new VisionAdapter();
+        const visionAdapter = new VisionAdapter(providerRegistry);
         const SUT = new ScreenClass(visionAdapter);
         const regionToGrab = new Region(0, 0, 100, 100);
 

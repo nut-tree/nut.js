@@ -1,6 +1,6 @@
 import {resolve} from "path";
 import {Region} from "../../region.class";
-import {ImageReader} from "./image-reader.class";
+import ImageReader from "./image-reader.class";
 import {fromImageWithAlphaChannel, fromImageWithoutAlphaChannel} from "./image-processor.class";
 
 describe("ImageProcessor", () => {

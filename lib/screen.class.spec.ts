@@ -9,6 +9,7 @@ import { Region } from "./region.class";
 import { ScreenClass } from "./screen.class";
 import { mockPartial } from "sneer";
 import { FileType } from "./file-type.enum";
+import providerRegistry from "./provider/provider-registry.class";
 
 jest.mock("./adapter/native.adapter.class");
 jest.mock("./adapter/vision.adapter.class");
@@ -35,7 +36,7 @@ describe("Screen.", () => {
             VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
                 return Promise.resolve(matchResult);
             });
-            const visionAdapterMock = new VisionAdapter();
+            const visionAdapterMock = new VisionAdapter(providerRegistry);
             const SUT = new ScreenClass(visionAdapterMock);
             const imagePath = "test/path/to/image.png";
 
@@ -61,7 +62,7 @@ describe("Screen.", () => {
             VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
                 return Promise.resolve(matchResult);
             });
-            const visionAdapterMock = new VisionAdapter();
+            const visionAdapterMock = new VisionAdapter(providerRegistry);
 
             const SUT = new ScreenClass(visionAdapterMock);
             const testCallback = jest.fn(() => Promise.resolve());
@@ -83,7 +84,7 @@ describe("Screen.", () => {
             VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
                 return Promise.resolve(matchResult);
             });
-            const visionAdapterMock = new VisionAdapter();
+            const visionAdapterMock = new VisionAdapter(providerRegistry);
 
             const SUT = new ScreenClass(visionAdapterMock);
             const testCallback = jest.fn(() => Promise.resolve());
@@ -111,7 +112,7 @@ describe("Screen.", () => {
                 return Promise.resolve(matchResult);
             });
 
-            const visionAdapterMock = new VisionAdapter();
+            const visionAdapterMock = new VisionAdapter(providerRegistry);
 
             const SUT = new ScreenClass(visionAdapterMock);
             const imagePath = "test/path/to/image.png";
@@ -133,7 +134,7 @@ describe("Screen.", () => {
                 return Promise.reject(rejectionReason);
             });
 
-            const visionAdapterMock = new VisionAdapter();
+            const visionAdapterMock = new VisionAdapter(providerRegistry);
 
             const SUT = new ScreenClass(visionAdapterMock);
             const imagePath = "test/path/to/image.png";
@@ -159,7 +160,7 @@ describe("Screen.", () => {
                 return Promise.resolve(matchResult);
             });
 
-            const visionAdapterMock = new VisionAdapter();
+            const visionAdapterMock = new VisionAdapter(providerRegistry);
 
             const SUT = new ScreenClass(visionAdapterMock);
 
@@ -187,7 +188,7 @@ describe("Screen.", () => {
             VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
                 return Promise.resolve(matchResult);
             });
-            const visionAdapterMock = new VisionAdapter();
+            const visionAdapterMock = new VisionAdapter(providerRegistry);
             const SUT = new ScreenClass(visionAdapterMock);
             const imagePath = "test/path/to/image.png";
             const parameters = new LocationParameters(customSearchRegion);
@@ -211,7 +212,7 @@ describe("Screen.", () => {
             VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
                 return Promise.resolve(matchResult);
             });
-            const visionAdapterMock = new VisionAdapter();
+            const visionAdapterMock = new VisionAdapter(providerRegistry);
             const SUT = new ScreenClass(visionAdapterMock);
             const imagePath = "test/path/to/image.png";
             const parameters = new LocationParameters(searchRegion, undefined, false);
@@ -237,7 +238,7 @@ describe("Screen.", () => {
             VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
                 return Promise.resolve(matchResult);
             });
-            const visionAdapterMock = new VisionAdapter();
+            const visionAdapterMock = new VisionAdapter(providerRegistry);
             const SUT = new ScreenClass(visionAdapterMock);
             const imagePath = "test/path/to/image.png";
             const parameters = new LocationParameters(customSearchRegion, minMatch);
@@ -271,7 +272,7 @@ describe("Screen.", () => {
             VisionAdapter.prototype.findOnScreenRegion = jest.fn(() => {
                 return Promise.resolve(matchResult);
             });
-            const SUT = new ScreenClass(new VisionAdapter());
+            const SUT = new ScreenClass(new VisionAdapter(providerRegistry));
 
             // WHEN
             const matchRegion = await SUT.find(
@@ -305,7 +306,7 @@ describe("Screen.", () => {
 
             // GIVEN
             const imagePath = "test/path/to/image.png"
-            const visionAdapterMock = new VisionAdapter();
+            const visionAdapterMock = new VisionAdapter(providerRegistry);
 
             const SUT = new ScreenClass(visionAdapterMock);
 
@@ -331,7 +332,7 @@ describe("Screen.", () => {
         // GIVEN
         const highlightRegion = new Region(10, 20, 30, 40);
         VisionAdapter.prototype.highlightScreenRegion = jest.fn();
-        const visionAdapterMock = new VisionAdapter();
+        const visionAdapterMock = new VisionAdapter(providerRegistry);
         const SUT = new ScreenClass(visionAdapterMock);
 
         // WHEN
@@ -346,7 +347,7 @@ describe("Screen.", () => {
         const highlightRegion = new Region(10, 20, 30, 40);
         const highlightRegionPromise = new Promise<Region>(res => res(highlightRegion));
         VisionAdapter.prototype.highlightScreenRegion = jest.fn();
-        const visionAdapterMock = new VisionAdapter();
+        const visionAdapterMock = new VisionAdapter(providerRegistry);
         const SUT = new ScreenClass(visionAdapterMock);
 
         // WHEN
@@ -363,7 +364,7 @@ describe("Screen.", () => {
             const screenshot = mockPartial<Image>({data: "pretty pretty image"});
             VisionAdapter.prototype.grabScreen = jest.fn(() => Promise.resolve(screenshot));
             VisionAdapter.prototype.saveImage = jest.fn();
-            const visionAdapterMock = new VisionAdapter();
+            const visionAdapterMock = new VisionAdapter(providerRegistry);
             const SUT = new ScreenClass(visionAdapterMock);
             const imageName = "foobar.png"
             const expectedImagePath = join(cwd(), imageName)
@@ -380,7 +381,7 @@ describe("Screen.", () => {
         it("should consider output configuration", async () => {
 
             // GIVEN
-            const visionAdapterMock = new VisionAdapter();
+            const visionAdapterMock = new VisionAdapter(providerRegistry);
             const SUT = new ScreenClass(visionAdapterMock);
             const imageName = "foobar"
             const filePath = "/path/to/file"
@@ -404,7 +405,7 @@ describe("Screen.", () => {
             const regionToCapture = mockPartial<Region>({top:42, left:9, height: 10, width: 3.14159265359})
             VisionAdapter.prototype.grabScreenRegion = jest.fn(() => Promise.resolve(screenshot));
             VisionAdapter.prototype.saveImage = jest.fn();
-            const visionAdapterMock = new VisionAdapter();
+            const visionAdapterMock = new VisionAdapter(providerRegistry);
             const SUT = new ScreenClass(visionAdapterMock);
             const imageName = "foobar.png"
             const expectedImagePath = join(cwd(), imageName)
@@ -422,7 +423,7 @@ describe("Screen.", () => {
 
             // GIVEN
             const regionToCapture = mockPartial<Region>({top:42, left:9, height: 10, width: 3.14159265359})
-            const visionAdapterMock = new VisionAdapter();
+            const visionAdapterMock = new VisionAdapter(providerRegistry);
             const SUT = new ScreenClass(visionAdapterMock);
             const imageName = "foobar"
             const filePath = "/path/to/file"

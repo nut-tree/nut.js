@@ -5,14 +5,14 @@ import {MatchRequest} from "../../match-request.class";
 import {MatchResult} from "../../match-result.class";
 import {Region} from "../../region.class";
 import {ScaledMatchResult} from "../../scaled-match-result.class";
-import {DataSource} from "./data-source.interface";
 import {determineScaledSearchRegion} from "./determine-searchregion.function";
-import {FinderInterface} from "./finder.interface";
-import {ImageReader} from "./image-reader.class";
+import {ImageFinderInterface} from "../image-finder.interface";
+import ImageReaderImpl from "./image-reader.class";
 import {matchImages} from "./match-image.function";
 import {scaleImage} from "./scale-image.function";
 import {scaleLocation} from "./scale-location.function";
 import {fromImageWithAlphaChannel, fromImageWithoutAlphaChannel} from "./image-processor.class";
+import {ImageReader} from "../image-reader.type";
 
 async function loadNeedle(image: Image): Promise<cv.Mat> {
     if (image.hasAlphaChannel) {
@@ -73,12 +73,12 @@ function createResultForInvalidSearch (currentScale: number) {
     )
 }
 
-export default class TemplateMatchingFinder implements FinderInterface {
+export default class TemplateMatchingFinder implements ImageFinderInterface {
     private initialScale = [1.0];
     private scaleSteps = [0.9, 0.8, 0.7, 0.6, 0.5];
 
     constructor(
-        private source: DataSource = new ImageReader(),
+        private source: ImageReader = new ImageReaderImpl(),
     ) {
     }
 

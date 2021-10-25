@@ -1,19 +1,22 @@
 import { Image } from "../image.class";
 import { MatchRequest } from "../match-request.class";
-import ScreenAction from "../provider/native/libnut-screen-action.class";
+import ScreenAction from "../provider/native/libnut-screen.class";
 import TemplateMatchingFinder from "../provider/opencv/template-matching-finder.class";
 import { Region } from "../region.class";
 import { VisionAdapter } from "./vision.adapter.class";
+import providerRegistry from "../provider/provider-registry.class";
 
 jest.mock("../provider/opencv/template-matching-finder.class");
-jest.mock("../provider/native/libnut-screen-action.class");
+jest.mock("../provider/native/libnut-screen.class");
 
 describe("VisionAdapter class", () => {
   it("should delegate calls to grabScreen", () => {
     // GIVEN
     const finderMock = new TemplateMatchingFinder();
     const screenMock = new ScreenAction();
-    const SUT = new VisionAdapter(finderMock, screenMock);
+    providerRegistry.registerImageFinder(finderMock);
+    providerRegistry.registerScreenProvider(screenMock);
+    const SUT = new VisionAdapter(providerRegistry);
 
     // WHEN
     SUT.grabScreen();
@@ -26,7 +29,9 @@ describe("VisionAdapter class", () => {
     // GIVEN
     const finderMock = new TemplateMatchingFinder();
     const screenMock = new ScreenAction();
-    const SUT = new VisionAdapter(finderMock, screenMock);
+    providerRegistry.registerImageFinder(finderMock);
+    providerRegistry.registerScreenProvider(screenMock);
+    const SUT = new VisionAdapter(providerRegistry);
     const screenRegion = new Region(0, 0, 100, 100);
 
     // WHEN
@@ -41,7 +46,9 @@ describe("VisionAdapter class", () => {
     // GIVEN
     const finderMock = new TemplateMatchingFinder();
     const screenMock = new ScreenAction();
-    const SUT = new VisionAdapter(finderMock, screenMock);
+    providerRegistry.registerImageFinder(finderMock);
+    providerRegistry.registerScreenProvider(screenMock);
+    const SUT = new VisionAdapter(providerRegistry);
     const screenRegion = new Region(0, 0, 100, 100);
     const opacity = 0.25;
     const duration = 1;
@@ -58,7 +65,9 @@ describe("VisionAdapter class", () => {
     // GIVEN
     const finderMock = new TemplateMatchingFinder();
     const screenMock = new ScreenAction();
-    const SUT = new VisionAdapter(finderMock, screenMock);
+    providerRegistry.registerImageFinder(finderMock);
+    providerRegistry.registerScreenProvider(screenMock);
+    const SUT = new VisionAdapter(providerRegistry);
 
     // WHEN
     await SUT.screenWidth();
@@ -71,7 +80,9 @@ describe("VisionAdapter class", () => {
     // GIVEN
     const finderMock = new TemplateMatchingFinder();
     const screenMock = new ScreenAction();
-    const SUT = new VisionAdapter(finderMock, screenMock);
+    providerRegistry.registerImageFinder(finderMock);
+    providerRegistry.registerScreenProvider(screenMock);
+    const SUT = new VisionAdapter(providerRegistry);
 
     // WHEN
     await SUT.screenHeight();
@@ -84,7 +95,9 @@ describe("VisionAdapter class", () => {
     // GIVEN
     const finderMock = new TemplateMatchingFinder();
     const screenMock = new ScreenAction();
-    const SUT = new VisionAdapter(finderMock, screenMock);
+    providerRegistry.registerImageFinder(finderMock);
+    providerRegistry.registerScreenProvider(screenMock);
+    const SUT = new VisionAdapter(providerRegistry);
 
     // WHEN
     await SUT.screenSize();
@@ -96,7 +109,8 @@ describe("VisionAdapter class", () => {
   it("should delegate calls to findImage", async () => {
     // GIVEN
     const finderMock = new TemplateMatchingFinder();
-    const SUT = new VisionAdapter(finderMock);
+    providerRegistry.registerImageFinder(finderMock);
+    const SUT = new VisionAdapter(providerRegistry);
     const request = new MatchRequest(
       new Image(100, 100, new ArrayBuffer(0), 3),
       "foo",

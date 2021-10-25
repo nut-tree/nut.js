@@ -1,5 +1,6 @@
 import {NativeAdapter} from "./adapter/native.adapter.class";
 import {ClipboardClass} from "./clipboard.class";
+import providerRegistry from "./provider/provider-registry.class";
 
 jest.mock("./adapter/native.adapter.class");
 
@@ -9,7 +10,7 @@ beforeEach(() => {
 
 describe("Clipboard class", () => {
     it("should call the native adapters copy method.", () => {
-        const adapterMock = new NativeAdapter();
+        const adapterMock = new NativeAdapter(providerRegistry);
         const SUT = new ClipboardClass(adapterMock);
 
         const textToCopy = "bar";
@@ -20,7 +21,7 @@ describe("Clipboard class", () => {
     });
 
     it("should call the native adapters paste method.", () => {
-        const adapterMock = new NativeAdapter();
+        const adapterMock = new NativeAdapter(providerRegistry);
         const SUT = new ClipboardClass(adapterMock);
 
         SUT.paste();

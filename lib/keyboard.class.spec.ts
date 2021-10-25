@@ -1,6 +1,7 @@
 import { NativeAdapter } from "./adapter/native.adapter.class";
 import { Key } from "./key.enum";
 import { KeyboardClass } from "./keyboard.class";
+import providerRegistry from "./provider/provider-registry.class";
 
 jest.mock("./adapter/native.adapter.class");
 jest.setTimeout(10000);
@@ -12,7 +13,7 @@ beforeEach(() => {
 describe("Keyboard", () => {
   it("should have a default delay of 300 ms", () => {
     // GIVEN
-    const adapterMock = new NativeAdapter();
+    const adapterMock = new NativeAdapter(providerRegistry);
     const SUT = new KeyboardClass(adapterMock);
 
     // WHEN
@@ -23,7 +24,7 @@ describe("Keyboard", () => {
 
   it("should pass input strings down to the type call.", async () => {
     // GIVEN
-    const adapterMock = new NativeAdapter();
+    const adapterMock = new NativeAdapter(providerRegistry);
     const SUT = new KeyboardClass(adapterMock);
     const payload = "Test input!";
 
@@ -39,7 +40,7 @@ describe("Keyboard", () => {
 
   it("should pass multiple input strings down to the type call.", async () => {
     // GIVEN
-    const adapterMock = new NativeAdapter();
+    const adapterMock = new NativeAdapter(providerRegistry);
     const SUT = new KeyboardClass(adapterMock);
     const payload = ["Test input!", "Array test2"];
 
@@ -55,7 +56,7 @@ describe("Keyboard", () => {
 
   it("should pass input keys down to the click call.", async () => {
     // GIVEN
-    const adapterMock = new NativeAdapter();
+    const adapterMock = new NativeAdapter(providerRegistry);
     const SUT = new KeyboardClass(adapterMock);
     const payload = [Key.A, Key.S, Key.D, Key.F];
 
@@ -69,7 +70,7 @@ describe("Keyboard", () => {
 
   it("should pass a list of input keys down to the click call.", async () => {
     // GIVEN
-    const adapterMock = new NativeAdapter();
+    const adapterMock = new NativeAdapter(providerRegistry);
     const SUT = new KeyboardClass(adapterMock);
     const payload = [Key.A, Key.S, Key.D, Key.F];
 
@@ -84,7 +85,7 @@ describe("Keyboard", () => {
 
   it("should pass a list of input keys down to the pressKey call.", async () => {
     // GIVEN
-    const adapterMock = new NativeAdapter();
+    const adapterMock = new NativeAdapter(providerRegistry);
     const SUT = new KeyboardClass(adapterMock);
     const payload = [Key.A, Key.S, Key.D, Key.F];
 
@@ -99,7 +100,7 @@ describe("Keyboard", () => {
 
   it("should pass a list of input keys down to the releaseKey call.", async () => {
     // GIVEN
-    const adapterMock = new NativeAdapter();
+    const adapterMock = new NativeAdapter(providerRegistry);
     const SUT = new KeyboardClass(adapterMock);
     const payload = [Key.A, Key.S, Key.D, Key.F];
 

@@ -1,8 +1,8 @@
 import libnut = require("@nut-tree/libnut");
 import { Key } from "../../key.enum";
-import { KeyboardActionProvider } from "./keyboard-action-provider.interface";
+import { KeyboardProvider } from "../keyboard-provider.interface";
 
-export default class KeyboardAction implements KeyboardActionProvider {
+export default class KeyboardAction implements KeyboardProvider {
 
   public static KeyLookupMap = new Map<Key, string | null>([
     [Key.A, "a"],

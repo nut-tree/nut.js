@@ -2,25 +2,42 @@ import { Button } from "../button.enum";
 import { Key } from "../key.enum";
 import { Point } from "../point.class";
 import { NativeAdapter } from "./native.adapter.class";
-import ClipboardAction from "../provider/native/clipboardy-clipboard-action.class";
-import KeyboardAction from "../provider/native/libnut-keyboard-action.class";
-import MouseAction from "../provider/native/libnut-mouse-action.class";
-import WindowAction from "../provider/native/libnut-window-action.class";
+import ClipboardAction from "../provider/native/clipboardy-clipboard.class";
+import KeyboardAction from "../provider/native/libnut-keyboard.class";
+import MouseAction from "../provider/native/libnut-mouse.class";
+import WindowAction from "../provider/native/libnut-window.class";
+import providerRegistry from "../provider/provider-registry.class";
 
-jest.mock("../provider/native/clipboardy-clipboard-action.class");
-jest.mock("../provider/native/libnut-mouse-action.class");
-jest.mock("../provider/native/libnut-keyboard-action.class");
-jest.mock("../provider/native/libnut-window-action.class");
+jest.mock("../provider/native/clipboardy-clipboard.class");
+jest.mock("../provider/native/libnut-mouse.class");
+jest.mock("../provider/native/libnut-keyboard.class");
+jest.mock("../provider/native/libnut-window.class");
+
+let clipboardMock: ClipboardAction;
+let keyboardMock: KeyboardAction;
+let mouseMock: MouseAction;
+let windowMock: WindowAction;
+
+beforeAll(() => {
+  clipboardMock = new ClipboardAction();
+  keyboardMock = new KeyboardAction();
+  mouseMock = new MouseAction();
+  windowMock = new WindowAction();
+  providerRegistry.registerClipboardProvider(clipboardMock);
+  providerRegistry.registerKeyboardProvider(keyboardMock);
+  providerRegistry.registerMouseProvider(mouseMock);
+  providerRegistry.registerWindowProvider(windowMock);
+});
+
+beforeEach(() => {
+  jest.resetAllMocks();
+});
 
 describe("NativeAdapter class", () => {
   describe("MouseAction", () => {
     it("should delegate calls to setMouseDelay", async () => {
       // GIVEN
-      const clipboardMock = new ClipboardAction();
-      const keyboardMock = new KeyboardAction();
-      const mouseMock = new MouseAction();
-      const windowMock = new WindowAction();
-      const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, windowMock);
+      const SUT = new NativeAdapter(providerRegistry);
       const delay = 5;
 
       // WHEN
@@ -33,11 +50,7 @@ describe("NativeAdapter class", () => {
 
     it("should delegate calls to setMousePosition", async () => {
       // GIVEN
-      const clipboardMock = new ClipboardAction();
-      const keyboardMock = new KeyboardAction();
-      const mouseMock = new MouseAction();
-      const windowMock = new WindowAction();
-      const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, windowMock);
+      const SUT = new NativeAdapter(providerRegistry);
       const newPosition = new Point(10, 10);
 
       // WHEN
@@ -50,11 +63,7 @@ describe("NativeAdapter class", () => {
 
     it("should delegate calls to currentMousePosition", async () => {
       // GIVEN
-      const clipboardMock = new ClipboardAction();
-      const keyboardMock = new KeyboardAction();
-      const mouseMock = new MouseAction();
-      const windowMock = new WindowAction();
-      const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, windowMock);
+      const SUT = new NativeAdapter(providerRegistry);
 
       // WHEN
       await SUT.currentMousePosition();
@@ -65,11 +74,7 @@ describe("NativeAdapter class", () => {
 
     it("should delegate calls to leftClick", async () => {
       // GIVEN
-      const clipboardMock = new ClipboardAction();
-      const keyboardMock = new KeyboardAction();
-      const mouseMock = new MouseAction();
-      const windowMock = new WindowAction();
-      const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, windowMock);
+      const SUT = new NativeAdapter(providerRegistry);
 
       // WHEN
       await SUT.leftClick();
@@ -80,11 +85,7 @@ describe("NativeAdapter class", () => {
 
     it("should delegate calls to rightClick", async () => {
       // GIVEN
-      const clipboardMock = new ClipboardAction();
-      const keyboardMock = new KeyboardAction();
-      const mouseMock = new MouseAction();
-      const windowMock = new WindowAction();
-      const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, windowMock);
+      const SUT = new NativeAdapter(providerRegistry);
 
       // WHEN
       await SUT.rightClick();
@@ -95,11 +96,7 @@ describe("NativeAdapter class", () => {
 
     it("should delegate calls to middleClick", async () => {
       // GIVEN
-      const clipboardMock = new ClipboardAction();
-      const keyboardMock = new KeyboardAction();
-      const mouseMock = new MouseAction();
-      const windowMock = new WindowAction();
-      const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, windowMock);
+      const SUT = new NativeAdapter(providerRegistry);
 
       // WHEN
       await SUT.middleClick();
@@ -110,11 +107,7 @@ describe("NativeAdapter class", () => {
 
     it("should delegate calls to pressButton", async () => {
       // GIVEN
-      const clipboardMock = new ClipboardAction();
-      const keyboardMock = new KeyboardAction();
-      const mouseMock = new MouseAction();
-      const windowMock = new WindowAction();
-      const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, windowMock);
+      const SUT = new NativeAdapter(providerRegistry);
       const buttonToPress = Button.LEFT;
 
       // WHEN
@@ -127,11 +120,7 @@ describe("NativeAdapter class", () => {
 
     it("should delegate calls to releaseButton", async () => {
       // GIVEN
-      const clipboardMock = new ClipboardAction();
-      const keyboardMock = new KeyboardAction();
-      const mouseMock = new MouseAction();
-      const windowMock = new WindowAction();
-      const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, windowMock);
+      const SUT = new NativeAdapter(providerRegistry);
       const buttonToRelease = Button.LEFT;
 
       // WHEN
@@ -146,11 +135,7 @@ describe("NativeAdapter class", () => {
   describe("KeyboardAction", () => {
     it("should delegate calls to pressKey", async () => {
       // GIVEN
-      const clipboardMock = new ClipboardAction();
-      const keyboardMock = new KeyboardAction();
-      const mouseMock = new MouseAction();
-      const windowMock = new WindowAction();
-      const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, windowMock);
+      const SUT = new NativeAdapter(providerRegistry);
       const keyToPress = Key.A;
 
       // WHEN
@@ -163,11 +148,7 @@ describe("NativeAdapter class", () => {
 
     it("should delegate calls to releaseButton", async () => {
       // GIVEN
-      const clipboardMock = new ClipboardAction();
-      const keyboardMock = new KeyboardAction();
-      const mouseMock = new MouseAction();
-      const windowMock = new WindowAction();
-      const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, windowMock);
+      const SUT = new NativeAdapter(providerRegistry);
       const keyToRelease = Key.A;
 
       // WHEN
@@ -180,11 +161,7 @@ describe("NativeAdapter class", () => {
 
     it("should delegate calls to click", async () => {
       // GIVEN
-      const clipboardMock = new ClipboardAction();
-      const keyboardMock = new KeyboardAction();
-      const mouseMock = new MouseAction();
-      const windowMock = new WindowAction();
-      const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, windowMock);
+      const SUT = new NativeAdapter(providerRegistry);
       const keyToClick = Key.A;
 
       // WHEN
@@ -197,11 +174,7 @@ describe("NativeAdapter class", () => {
 
     it("should delegate calls to type", async () => {
       // GIVEN
-      const clipboardMock = new ClipboardAction();
-      const keyboardMock = new KeyboardAction();
-      const mouseMock = new MouseAction();
-      const windowMock = new WindowAction();
-      const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, windowMock);
+      const SUT = new NativeAdapter(providerRegistry);
       const stringToType = "testString";
 
       // WHEN
@@ -216,11 +189,7 @@ describe("NativeAdapter class", () => {
   describe("ClipboardAction", () => {
     it("should delegate calls to copy", async () => {
       // GIVEN
-      const clipboardMock = new ClipboardAction();
-      const keyboardMock = new KeyboardAction();
-      const mouseMock = new MouseAction();
-      const windowMock = new WindowAction();
-      const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, windowMock);
+      const SUT = new NativeAdapter(providerRegistry);
       const stringToCopy = "testString";
 
       // WHEN
@@ -233,11 +202,7 @@ describe("NativeAdapter class", () => {
 
     it("should delegate calls to paste", async () => {
       // GIVEN
-      const clipboardMock = new ClipboardAction();
-      const keyboardMock = new KeyboardAction();
-      const mouseMock = new MouseAction();
-      const windowMock = new WindowAction();
-      const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, windowMock);
+      const SUT = new NativeAdapter(providerRegistry);
 
       // WHEN
       await SUT.paste();
@@ -250,11 +215,7 @@ describe("NativeAdapter class", () => {
   describe("WindowAction", () => {
     it("should delegate calls to getActiveWindow", async () => {
       // GIVEN
-      const clipboardMock = new ClipboardAction();
-      const keyboardMock = new KeyboardAction();
-      const mouseMock = new MouseAction();
-      const windowMock = new WindowAction();
-      const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, windowMock);
+      const SUT = new NativeAdapter(providerRegistry);
 
       // WHEN
       await SUT.getActiveWindow();
@@ -265,11 +226,7 @@ describe("NativeAdapter class", () => {
 
     it("should delegate calls to getWindows", async () => {
       // GIVEN
-      const clipboardMock = new ClipboardAction();
-      const keyboardMock = new KeyboardAction();
-      const mouseMock = new MouseAction();
-      const windowMock = new WindowAction();
-      const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, windowMock);
+      const SUT = new NativeAdapter(providerRegistry);
 
       // WHEN
       await SUT.getWindows();
@@ -280,11 +237,7 @@ describe("NativeAdapter class", () => {
 
     it("should delegate calls to getWindowTitle", async () => {
       // GIVEN
-      const clipboardMock = new ClipboardAction();
-      const keyboardMock = new KeyboardAction();
-      const mouseMock = new MouseAction();
-      const windowMock = new WindowAction();
-      const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, windowMock);
+      const SUT = new NativeAdapter(providerRegistry);
       const windowHandle = 123;
 
       // WHEN
@@ -296,11 +249,7 @@ describe("NativeAdapter class", () => {
 
     it("should delegate calls to getWindowRegion", async () => {
       // GIVEN
-      const clipboardMock = new ClipboardAction();
-      const keyboardMock = new KeyboardAction();
-      const mouseMock = new MouseAction();
-      const windowMock = new WindowAction();
-      const SUT = new NativeAdapter(clipboardMock, keyboardMock, mouseMock, windowMock);
+      const SUT = new NativeAdapter(providerRegistry);
       const windowHandle = 123;
 
       // WHEN

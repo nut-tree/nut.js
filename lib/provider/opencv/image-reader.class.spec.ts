@@ -1,5 +1,5 @@
 import * as path from "path";
-import { ImageReader } from "./image-reader.class";
+import ImageReader from "./image-reader.class";
 
 describe("Image loader", () => {
   it("should resolve to a non-empty Mat on successful load", async () => {

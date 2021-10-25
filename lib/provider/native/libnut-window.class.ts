@@ -1,8 +1,8 @@
 import libnut = require("@nut-tree/libnut");
 import { Region } from "../../region.class";
-import { WindowActionProvider } from "./window-action-provider.interface";
+import { WindowProvider } from "../window-provider.interface";
 
-export default class WindowAction implements WindowActionProvider {
+export default class WindowAction implements WindowProvider {
   public getWindows(): Promise<number[]> {
     return new Promise<number[]>((resolve, reject) => {
       try {

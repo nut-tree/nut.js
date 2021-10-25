@@ -1,10 +1,10 @@
-import { Button } from "../../button.enum";
-import { Point } from "../../point.class";
+import { Button } from "../button.enum";
+import { Point } from "../point.class";
 
 /**
  * A MouseActionProvider should provide access to a systems mouse input
  */
-export interface MouseActionProvider {
+export interface MouseProvider {
   /**
    * setMouseDelay should allow to configure mouse movement speed
    *

@@ -1,12 +1,12 @@
-import { Image } from "../../image.class";
-import { Region } from "../../region.class";
+import { Image } from "../image.class";
+import { Region } from "../region.class";
 
 /**
  * A ScreenActionProvider should provide access to a system's main screen
  *
- * @interface ScreenActionProvider
+ * @interface ScreenProvider
  */
-export interface ScreenActionProvider {
+export interface ScreenProvider {
   /**
    * grabScreen should return an {@link Image} object containing a screenshot data of a systems
    * main screen as well as its dimensions
