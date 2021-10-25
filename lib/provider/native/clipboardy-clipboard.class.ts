@@ -1,7 +1,7 @@
 import clippy from "clipboardy";
-import { ClipboardProvider } from "../clipboard-provider.interface";
+import { ClipboardProviderInterface } from "../clipboard-provider.interface";
 
-export default class implements ClipboardProvider {
+export default class implements ClipboardProviderInterface {
   constructor() {
   }
 

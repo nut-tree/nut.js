@@ -1,7 +1,7 @@
 /**
  * A ClipboardActionProvider should allow access to the system clipboard
  */
-export interface ClipboardProvider {
+export interface ClipboardProviderInterface {
   /**
    * hasText should return whether the system clipboard currently holds text or not
    *

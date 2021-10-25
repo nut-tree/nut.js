@@ -4,9 +4,9 @@ import { Region } from "../region.class";
 /**
  * A ScreenActionProvider should provide access to a system's main screen
  *
- * @interface ScreenProvider
+ * @interface ScreenProviderInterface
  */
-export interface ScreenProvider {
+export interface ScreenProviderInterface {
   /**
    * grabScreen should return an {@link Image} object containing a screenshot data of a systems
    * main screen as well as its dimensions
