@@ -1,9 +1,9 @@
 /**
  * A DataSink should provide methods to store data
  *
- * @interface DataSink
+ * @interface DataSinkInterface
  */
-export interface DataSink<PARAMETER_TYPE, RETURN_TYPE> {
+export interface DataSinkInterface<PARAMETER_TYPE, RETURN_TYPE> {
   /**
    * store will store data to disk
    * @param parameters Required parameters

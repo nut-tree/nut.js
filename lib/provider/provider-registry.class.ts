@@ -1,9 +1,9 @@
-import {ClipboardProvider} from "./clipboard-provider.interface";
+import {ClipboardProviderInterface} from "./clipboard-provider.interface";
 import {ImageFinderInterface} from "./image-finder.interface";
-import {KeyboardProvider} from "./keyboard-provider.interface";
-import {MouseProvider} from "./mouse-provider.interface";
-import {ScreenProvider} from "./screen-provider.interface";
-import {WindowProvider} from "./window-provider.interface";
+import {KeyboardProviderInterface} from "./keyboard-provider.interface";
+import {MouseProviderInterface} from "./mouse-provider.interface";
+import {ScreenProviderInterface} from "./screen-provider.interface";
+import {WindowProviderInterface} from "./window-provider.interface";
 
 import Clipboard from "./native/clipboardy-clipboard.class";
 import Finder from "./opencv/template-matching-finder.class";
@@ -17,23 +17,23 @@ import ImageReaderImpl from "./opencv/image-reader.class";
 import ImageWriterImpl from "./opencv/image-writer.class";
 
 export interface ProviderRegistry {
-    getClipboard(): ClipboardProvider;
-    registerClipboardProvider(value: ClipboardProvider): void;
+    getClipboard(): ClipboardProviderInterface;
+    registerClipboardProvider(value: ClipboardProviderInterface): void;
 
     getImageFinder(): ImageFinderInterface;
     registerImageFinder(value: ImageFinderInterface): void;
 
-    getKeyboard(): KeyboardProvider;
-    registerKeyboardProvider(value: KeyboardProvider): void;
+    getKeyboard(): KeyboardProviderInterface;
+    registerKeyboardProvider(value: KeyboardProviderInterface): void;
 
-    getMouse(): MouseProvider;
-    registerMouseProvider(value: MouseProvider): void;
+    getMouse(): MouseProviderInterface;
+    registerMouseProvider(value: MouseProviderInterface): void;
 
-    getScreen(): ScreenProvider;
-    registerScreenProvider(value: ScreenProvider): void;
+    getScreen(): ScreenProviderInterface;
+    registerScreenProvider(value: ScreenProviderInterface): void;
 
-    getWindow(): WindowProvider;
-    registerWindowProvider(value: WindowProvider): void;
+    getWindow(): WindowProviderInterface;
+    registerWindowProvider(value: WindowProviderInterface): void;
 
     getImageReader(): ImageReader;
     registerImageReader(value: ImageReader): void;
@@ -43,23 +43,23 @@ export interface ProviderRegistry {
 }
 
 class DefaultProviderRegistry implements ProviderRegistry {
-    private _clipboard?: ClipboardProvider;
+    private _clipboard?: ClipboardProviderInterface;
     private _finder?: ImageFinderInterface;
-    private _keyboard?: KeyboardProvider;
-    private _mouse?: MouseProvider;
-    private _screen?: ScreenProvider;
-    private _window?: WindowProvider;
+    private _keyboard?: KeyboardProviderInterface;
+    private _mouse?: MouseProviderInterface;
+    private _screen?: ScreenProviderInterface;
+    private _window?: WindowProviderInterface;
     private _imageReader?: ImageReader;
     private _imageWriter?: ImageWriter;
 
-    getClipboard(): ClipboardProvider {
+    getClipboard(): ClipboardProviderInterface {
         if (this._clipboard) {
             return this._clipboard;
         }
         throw new Error(`No ClipboardProvider registered`);
     }
 
-    registerClipboardProvider(value: ClipboardProvider) {
+    registerClipboardProvider(value: ClipboardProviderInterface) {
         this._clipboard = value;
     }
 
@@ -74,47 +74,47 @@ class DefaultProviderRegistry implements ProviderRegistry {
         this._finder = value;
     }
 
-    getKeyboard(): KeyboardProvider {
+    getKeyboard(): KeyboardProviderInterface {
         if (this._keyboard) {
             return this._keyboard;
         }
         throw new Error(`No KeyboardProvider registered`);
     }
 
-    registerKeyboardProvider(value: KeyboardProvider) {
+    registerKeyboardProvider(value: KeyboardProviderInterface) {
         this._keyboard = value;
     }
 
-    getMouse(): MouseProvider {
+    getMouse(): MouseProviderInterface {
         if (this._mouse) {
             return this._mouse;
         }
         throw new Error(`No MouseProvider registered`);
     }
 
-    registerMouseProvider(value: MouseProvider) {
+    registerMouseProvider(value: MouseProviderInterface) {
         this._mouse = value;
     }
 
-    getScreen(): ScreenProvider {
+    getScreen(): ScreenProviderInterface {
         if (this._screen) {
             return this._screen;
         }
         throw new Error(`No ScreenProvider registered`);
     }
 
-    registerScreenProvider(value: ScreenProvider) {
+    registerScreenProvider(value: ScreenProviderInterface) {
         this._screen = value;
     }
 
-    getWindow(): WindowProvider {
+    getWindow(): WindowProviderInterface {
         if (this._window) {
             return this._window;
         }
         throw new Error(`No WindowProvider registered`);
     }
 
-    registerWindowProvider(value: WindowProvider) {
+    registerWindowProvider(value: WindowProviderInterface) {
         this._window = value;
     }
 

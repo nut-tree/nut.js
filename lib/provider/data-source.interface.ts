@@ -1,9 +1,9 @@
 /**
  * A DataSource should provide methods to load data
  *
- * @interface DataSource
+ * @interface DataSourceInterface
  */
-export interface DataSource<PARAMETER_TYPE, RESULT_TYPE> {
+export interface DataSourceInterface<PARAMETER_TYPE, RESULT_TYPE> {
   /**
    * load will load data from disk
    * @param parameters Required parameters

@@ -3,7 +3,7 @@ import { Key } from "../key.enum";
 /**
  * A KeyboardActionProvider should provide access to a systems keyboard
  */
-export interface KeyboardProvider {
+export interface KeyboardProviderInterface {
   /**
    * setKeyboardDelay should allow to configure a delay between key presses
    *

@@ -1,9 +1,9 @@
 import libnut = require("@nut-tree/libnut");
 import { Image } from "../../image.class";
 import { Region } from "../../region.class";
-import { ScreenProvider } from "../screen-provider.interface";
+import { ScreenProviderInterface } from "../screen-provider.interface";
 
-export default class ScreenAction implements ScreenProvider {
+export default class ScreenAction implements ScreenProviderInterface {
 
   private static determinePixelDensity(
     screen: Region,
