@@ -55,7 +55,7 @@ describe("E2E tests", () => {
   });
 
   it("should perform some calculations", async () => {
-    screen.config.resourceDirectory = "../assets";
+    screen.config.resourceDirectory = "./e2e/assets";
     await assert.isVisible("mouse.png");
     await assert.isVisible("desktop.png");
     await openXfceMenu();
