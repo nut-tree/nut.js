@@ -26,8 +26,6 @@ jobs:
         run: npm run compile
       - name: Init window e2e test subpackage
         run: npm --prefix e2e/window-test ci
-      - name: Init plugin e2e test subpackage
-        run: npm --prefix e2e/plugin-test ci
       - name: Clean coverage report
         run: npm run coverage:clean
       - name: Generate coverage report
