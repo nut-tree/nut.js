@@ -11,6 +11,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "@nut-tree/nut-js": "file:../../",
-    "@nut-tree/template-matcher": "0.0.1"
+    "@nut-tree/template-matcher": "0.0.1",
+    "node-abort-controller": "2.0.0"
   }
 }

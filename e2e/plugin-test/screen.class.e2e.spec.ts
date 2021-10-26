@@ -1,22 +1,17 @@
 import {existsSync} from "fs";
-import {VisionAdapter} from "./adapter/vision.adapter.class";
-import {FileType} from "./file-type.enum";
-import {ScreenClass} from "./screen.class";
-import {sleep} from "./sleep.function";
+import {screen, sleep, FileType, Region} from "@nut-tree/nut-js";
 import AbortController from "node-abort-controller";
-import {Region} from "./region.class";
-import providerRegistry from "./provider/provider-registry.class";
+
+import "@nut-tree/template-matcher";
 
 jest.setTimeout(10000);
 
 describe("Screen.", () => {
     it("should capture the screen", () => {
         // GIVEN
-        const visionAdapter = new VisionAdapter(providerRegistry);
-        const SUT = new ScreenClass(visionAdapter);
 
         // WHEN
-        SUT.capture("asdf", FileType.PNG).then(filename => {
+        screen.capture("asdf", FileType.PNG).then(filename => {
             // THEN
             expect(filename).not.toBeNull();
             sleep(1000).then(() => {
@@ -27,11 +22,9 @@ describe("Screen.", () => {
 
     it("should capture the screen and save to JPG", () => {
         // GIVEN
-        const visionAdapter = new VisionAdapter(providerRegistry);
-        const SUT = new ScreenClass(visionAdapter);
 
         // WHEN
-        SUT.capture("asdf", FileType.JPG).then(filename => {
+        screen.capture("asdf", FileType.JPG).then(filename => {
             // THEN
             expect(filename).not.toBeNull();
             sleep(1000).then(() => {
@@ -42,12 +35,10 @@ describe("Screen.", () => {
 
     it("should capture the screen and save file with prefix", () => {
         // GIVEN
-        const visionAdapter = new VisionAdapter(providerRegistry);
-        const SUT = new ScreenClass(visionAdapter);
         const prefix = "foo_";
 
         // WHEN
-        SUT.capture("asdf", FileType.JPG, "./", prefix).then(filename => {
+        screen.capture("asdf", FileType.JPG, "./", prefix).then(filename => {
             // THEN
             expect(filename.includes(prefix)).toBeTruthy();
             expect(filename).not.toBeNull();
@@ -59,12 +50,10 @@ describe("Screen.", () => {
 
     it("should capture the screen and save file with postfix", () => {
         // GIVEN
-        const visionAdapter = new VisionAdapter(providerRegistry);
-        const SUT = new ScreenClass(visionAdapter);
         const postfix = "_bar";
 
         // WHEN
-        SUT.capture("asdf", FileType.JPG, "./", "", postfix).then(filename => {
+        screen.capture("asdf", FileType.JPG, "./", "", postfix).then(filename => {
             // THEN
             expect(filename.includes(postfix)).toBeTruthy();
             expect(filename).not.toBeNull();
@@ -76,14 +65,12 @@ describe("Screen.", () => {
 
     it("should capture the screen and save file with pre- and postfix", () => {
         // GIVEN
-        const visionAdapter = new VisionAdapter(providerRegistry);
-        const SUT = new ScreenClass(visionAdapter);
         const filename = "asdf";
         const prefix = "foo_";
         const postfix = "_bar";
 
         // WHEN
-        SUT.capture("asdf", FileType.JPG, "./", prefix, postfix).then(output => {
+        screen.capture("asdf", FileType.JPG, "./", prefix, postfix).then(output => {
             // THEN
             expect(output.includes(`${prefix}${filename}${postfix}`)).toBeTruthy();
             expect(output).not.toBeNull();
@@ -96,14 +83,12 @@ describe("Screen.", () => {
     it("should reject after timeout", async () => {
         // GIVEN
         const timeout = 5000;
-        const visionAdapter = new VisionAdapter(providerRegistry);
-        const SUT = new ScreenClass(visionAdapter);
-        SUT.config.resourceDirectory = "./e2e/assets";
+        screen.config.resourceDirectory = "./e2e/assets";
 
         // WHEN
         const start = Date.now();
         try {
-            await SUT.waitFor("calculator.png", timeout);
+            await screen.waitFor("calculator.png", timeout);
         } catch (e) {
             // THEN
             expect(e).toBe(`Action timed out after ${timeout} ms`);
@@ -120,13 +105,11 @@ describe("Screen.", () => {
         const abortAfterMs = 1000;
         const controller = new AbortController();
         const signal = controller.signal;
-        const visionAdapter = new VisionAdapter(providerRegistry);
-        const SUT = new ScreenClass(visionAdapter);
-        SUT.config.resourceDirectory = "./e2e/assets";
+        screen.config.resourceDirectory = "./e2e/assets";
 
         // WHEN
         const start = Date.now();
-        SUT.waitFor("calculator.png", timeout, {abort: signal}).catch(e => {
+        screen.waitFor("calculator.png", timeout, {abort: signal}).catch(e => {
             const end = Date.now();
 
             // THEN
@@ -140,13 +123,11 @@ describe("Screen.", () => {
 
     it("should grab the whole screen content and return an Image", async () => {
         // GIVEN
-        const visionAdapter = new VisionAdapter(providerRegistry);
-        const SUT = new ScreenClass(visionAdapter);
-        const screenWidth = await SUT.width();
-        const screenHeight = await SUT.height();
+        const screenWidth = await screen.width();
+        const screenHeight = await screen.height();
 
         // WHEN
-        const image = await SUT.grab();
+        const image = await screen.grab();
 
         // THEN
         expect(image.data).not.toBeUndefined();
@@ -156,12 +137,10 @@ describe("Screen.", () => {
 
     it("should grab a screen region and return an Image", async () => {
         // GIVEN
-        const visionAdapter = new VisionAdapter(providerRegistry);
-        const SUT = new ScreenClass(visionAdapter);
         const regionToGrab = new Region(0, 0, 100, 100);
 
         // WHEN
-        const image = await SUT.grabRegion(regionToGrab);
+        const image = await screen.grabRegion(regionToGrab);
 
         // THEN
         expect(image.data).not.toBeUndefined();
