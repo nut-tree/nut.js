@@ -6,15 +6,12 @@ import {ScreenProviderInterface} from "./screen-provider.interface";
 import {WindowProviderInterface} from "./window-provider.interface";
 
 import Clipboard from "./native/clipboardy-clipboard.class";
-import Finder from "./opencv/template-matching-finder.class";
 import Mouse from "./native/libnut-mouse.class";
 import Keyboard from "./native/libnut-keyboard.class";
 import Screen from "./native/libnut-screen.class";
 import Window from "./native/libnut-window.class";
 import {ImageReader} from "./image-reader.type";
 import {ImageWriter} from "./image-writer.type";
-import ImageReaderImpl from "./opencv/image-reader.class";
-import ImageWriterImpl from "./opencv/image-writer.class";
 
 export interface ProviderRegistry {
     getClipboard(): ClipboardProviderInterface;
@@ -142,12 +139,9 @@ class DefaultProviderRegistry implements ProviderRegistry {
 const providerRegistry = new DefaultProviderRegistry();
 
 providerRegistry.registerClipboardProvider(new Clipboard());
-providerRegistry.registerImageFinder(new Finder());
 providerRegistry.registerKeyboardProvider(new Keyboard());
 providerRegistry.registerMouseProvider(new Mouse());
 providerRegistry.registerScreenProvider(new Screen());
 providerRegistry.registerWindowProvider(new Window());
-providerRegistry.registerImageReader(new ImageReaderImpl());
-providerRegistry.registerImageWriter(new ImageWriterImpl());
 
 export default providerRegistry;
