@@ -10,7 +10,9 @@ import {
   screen,
   sleep,
   straightTo,
-} from "./index";
+} from "@nut-tree/nut-js";
+
+import "@nut-tree/template-matcher";
 
 jest.setTimeout(60000);
 
@@ -53,7 +55,7 @@ describe("E2E tests", () => {
   });
 
   it("should perform some calculations", async () => {
-    screen.config.resourceDirectory = "./e2e/assets";
+    screen.config.resourceDirectory = "../assets";
     await assert.isVisible("mouse.png");
     await assert.isVisible("desktop.png");
     await openXfceMenu();
