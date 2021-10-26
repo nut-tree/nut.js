@@ -1,6 +1,6 @@
 {
   "name": "plugin-tests",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "Tests to verify plugins",
   "main": "main.js",
   "author": {
@@ -8,14 +8,9 @@
     "email": "kontakt@s1h.org",
     "url": "https://s1h.org"
   },
-  "scripts": {
-    "test": "jest"
-  },
   "license": "Apache-2.0",
   "devDependencies": {
     "@nut-tree/nut-js": "file:../../",
-    "@nut-tree/template-matcher": "0.0.1",
-    "jest": "27.0.6",
-    "ts-jest": "^27.0.7"
+    "@nut-tree/template-matcher": "0.0.1"
   }
 }
