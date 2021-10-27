@@ -35,6 +35,7 @@ export {linear} from "./lib/movementtype.function";
 export {Point} from "./lib/point.class";
 export {Region} from "./lib/region.class";
 export {Window} from "./lib/window.class";
+export {FileType} from "./lib/file-type.enum";
 
 const screenActions = new VisionAdapter(providerRegistry);
 const nativeActions = new NativeAdapter(providerRegistry);
