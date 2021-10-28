@@ -10,7 +10,9 @@ import {
   screen,
   sleep,
   straightTo,
-} from "./index";
+} from "@nut-tree/nut-js";
+
+import "@nut-tree/template-matcher";
 
 jest.setTimeout(60000);
 

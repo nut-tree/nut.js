@@ -1,6 +1,6 @@
 {
   "name": "electron-test",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "A test to verify usage with Electron",
   "main": "main.js",
   "author": {

@@ -1,4 +1,5 @@
-import { jestMatchers, Key, keyboard, screen } from "../index";
+import { jestMatchers, Key, keyboard, screen } from "@nut-tree/nut-js";
+import "@nut-tree/template-matcher";
 
 jest.setTimeout(30000);
 expect.extend(jestMatchers);

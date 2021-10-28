@@ -23,4 +23,5 @@ echo "Installing node version $nodeVersion"
 nvm install $nodeVersion
 
 npm ci
+npm --prefix e2e/plugin-test ci
 E2E_TEST=1 npm run coverage -- --coverageDirectory=coverage/e2e
