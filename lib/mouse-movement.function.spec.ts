@@ -1,7 +1,7 @@
 import {
-    calculateBaseStepDuration,
+    calculateStepDuration,
     linear,
-    calculateMovementTimesteps
+    calculateMovementTimesteps, EasingFunction
 } from "./mouse-movement.function";
 
 describe("MovementType", () => {
@@ -12,7 +12,7 @@ describe("MovementType", () => {
             const expectedBaseStepDuration = 1_000_000;
 
             // WHEN
-            const result = calculateBaseStepDuration(speedInPixelsPerSecond);
+            const result = calculateStepDuration(speedInPixelsPerSecond);
 
             // THEN
             expect(result).toBe(expectedBaseStepDuration);
@@ -52,6 +52,26 @@ describe("MovementType", () => {
 
             // WHEN
             const result = calculateMovementTimesteps(6, 500, linear);
+
+            // THEN
+            expect(result).toEqual(expected);
+        });
+    });
+
+    describe('non-linear', () => {
+        it("should return progress slowly in the first half, 2000000 nanoseconds per step, then continue with normal speed, 1000000 nanoseconds per step", () => {
+            // GIVEN
+            const mouseSpeed = 1000;
+            const easingFunction: EasingFunction = (p: number) => {
+                if (p < 0.5) {
+                    return -0.5 * mouseSpeed;
+                }
+                return 0;
+            };
+            const expected = [2000000, 2000000, 2000000, 1000000, 1000000, 1000000];
+
+            // WHEN
+            const result = calculateMovementTimesteps(6, mouseSpeed, easingFunction);
 
             // THEN
             expect(result).toEqual(expected);
