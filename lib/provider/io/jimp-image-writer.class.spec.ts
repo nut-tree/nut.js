@@ -1,19 +1,43 @@
 import ImageWriter from "./jimp-image-writer.class";
-import ImageReader from "./jimp-image-reader.class";
-import {join} from "path";
+import {Image} from "../../image.class";
+import Jimp from "jimp";
+
+jest.mock('jimp', () => {
+    class JimpMock {
+        bitmap = {
+            width: 100,
+            height: 100,
+            data: Buffer.from([]),
+        }
+        hasAlpha = () => false
+        static read = jest.fn(() => Promise.resolve(new JimpMock()))
+    }
+
+    return ({
+        __esModule: true,
+        default: JimpMock
+    })
+});
+
+afterEach(() => jest.resetAllMocks());
 
 describe('Jimp image writer', () => {
     it('should reject on writing failures', async () => {
         // GIVEN
-        const inputFilename = join(__dirname, '__mocks__', 'calculator.png');
-        const outputFile = await (new ImageReader().load(inputFilename));
+        const outputFile = new Image(100, 200, Buffer.from([]), 3);
         const outputFileName = "/does/not/compute.png"
+        const writeMock = jest.fn(() => Promise.resolve(new Jimp()));
+        const scanMock = jest.fn();
+        Jimp.prototype.scan = scanMock;
+        Jimp.prototype.writeAsync = writeMock;
         const SUT = new ImageWriter();
 
         // WHEN
-        const func = () => SUT.store({data: outputFile, path: outputFileName});
+        await SUT.store({data: outputFile, path: outputFileName});
 
         // THEN
-        await expect(func).rejects.toThrowError()
+        expect(scanMock).toHaveBeenCalledTimes(1)
+        expect(writeMock).toHaveBeenCalledTimes(1)
+        expect(writeMock).toHaveBeenCalledWith(outputFileName)
     });
 });
