@@ -1,6 +1,8 @@
 import { jestMatchers, Key, keyboard, screen } from "@nut-tree/nut-js";
 import "@nut-tree/template-matcher";
 
+jest.mock('jimp', () => {});
+
 jest.setTimeout(30000);
 expect.extend(jestMatchers);
 
