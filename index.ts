@@ -50,6 +50,9 @@ const assert = new AssertClass(screen);
 const {straightTo, up, down, left, right} = createMovementApi(nativeActions, lineHelper);
 const {getWindows, getActiveWindow} = createWindowApi(nativeActions);
 
+const loadImage = providerRegistry.getImageReader().load;
+const saveImage = providerRegistry.getImageWriter().store;
+
 export {
     clipboard,
     keyboard,
@@ -63,4 +66,6 @@ export {
     right,
     getWindows,
     getActiveWindow,
+    loadImage,
+    saveImage
 };

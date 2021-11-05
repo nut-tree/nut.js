@@ -12,6 +12,7 @@ jest.mock("../provider/native/clipboardy-clipboard.class");
 jest.mock("../provider/native/libnut-mouse.class");
 jest.mock("../provider/native/libnut-keyboard.class");
 jest.mock("../provider/native/libnut-window.class");
+jest.mock('jimp', () => {});
 
 let clipboardMock: ClipboardAction;
 let keyboardMock: KeyboardAction;

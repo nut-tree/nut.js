@@ -2,6 +2,7 @@ import {Window} from "./window.class";
 import {NativeAdapter} from "./adapter/native.adapter.class";
 import providerRegistry from "./provider/provider-registry.class";
 
+jest.mock('jimp', () => {});
 jest.mock("./adapter/native.adapter.class");
 
 describe("Window class", () => {

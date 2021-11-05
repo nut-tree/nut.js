@@ -2,6 +2,7 @@ import {NativeAdapter} from "./adapter/native.adapter.class";
 import {ClipboardClass} from "./clipboard.class";
 import providerRegistry from "./provider/provider-registry.class";
 
+jest.mock('jimp', () => {});
 jest.mock("./adapter/native.adapter.class");
 
 beforeEach(() => {

@@ -6,6 +6,7 @@ import {VisionAdapter} from "./vision.adapter.class";
 import providerRegistry from "../provider/provider-registry.class";
 import {MatchResult} from "../match-result.class";
 
+jest.mock('jimp', () => {});
 jest.mock("../provider/native/libnut-screen.class");
 
 const finderMock = {

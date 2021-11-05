@@ -13,6 +13,9 @@ import Window from "./native/libnut-window.class";
 import {ImageReader} from "./image-reader.type";
 import {ImageWriter} from "./image-writer.type";
 
+import ImageReaderImpl from "./io/jimp-image-reader.class";
+import ImageWriterImpl from "./io/jimp-image-writer.class";
+
 export interface ProviderRegistry {
     getClipboard(): ClipboardProviderInterface;
     registerClipboardProvider(value: ClipboardProviderInterface): void;
@@ -143,5 +146,7 @@ providerRegistry.registerKeyboardProvider(new Keyboard());
 providerRegistry.registerMouseProvider(new Mouse());
 providerRegistry.registerScreenProvider(new Screen());
 providerRegistry.registerWindowProvider(new Window());
+providerRegistry.registerImageWriter(new ImageWriterImpl());
+providerRegistry.registerImageReader(new ImageReaderImpl());
 
 export default providerRegistry;
