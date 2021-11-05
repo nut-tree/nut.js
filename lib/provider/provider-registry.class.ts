@@ -12,34 +12,48 @@ import Screen from "./native/libnut-screen.class";
 import Window from "./native/libnut-window.class";
 import {ImageReader} from "./image-reader.type";
 import {ImageWriter} from "./image-writer.type";
+import {ImageProcessor} from "./image-processor.interface";
 
 import ImageReaderImpl from "./io/jimp-image-reader.class";
 import ImageWriterImpl from "./io/jimp-image-writer.class";
+import ImageProcessorImpl from "./image/jimp-image-processor.class";
 
 export interface ProviderRegistry {
     getClipboard(): ClipboardProviderInterface;
+
     registerClipboardProvider(value: ClipboardProviderInterface): void;
 
-    getImageFinder(): ImageFinderInterface;
-    registerImageFinder(value: ImageFinderInterface): void;
-
     getKeyboard(): KeyboardProviderInterface;
+
     registerKeyboardProvider(value: KeyboardProviderInterface): void;
 
     getMouse(): MouseProviderInterface;
+
     registerMouseProvider(value: MouseProviderInterface): void;
 
     getScreen(): ScreenProviderInterface;
+
     registerScreenProvider(value: ScreenProviderInterface): void;
 
     getWindow(): WindowProviderInterface;
+
     registerWindowProvider(value: WindowProviderInterface): void;
 
+    getImageFinder(): ImageFinderInterface;
+
+    registerImageFinder(value: ImageFinderInterface): void;
+
     getImageReader(): ImageReader;
+
     registerImageReader(value: ImageReader): void;
 
     getImageWriter(): ImageWriter;
+
     registerImageWriter(value: ImageWriter): void;
+
+    getImageProcessor(): ImageProcessor;
+
+    registerImageProcessor(value: ImageProcessor): void;
 }
 
 class DefaultProviderRegistry implements ProviderRegistry {
@@ -51,6 +65,7 @@ class DefaultProviderRegistry implements ProviderRegistry {
     private _window?: WindowProviderInterface;
     private _imageReader?: ImageReader;
     private _imageWriter?: ImageWriter;
+    private _imageProcessor?: ImageProcessor;
 
     getClipboard(): ClipboardProviderInterface {
         if (this._clipboard) {
@@ -124,6 +139,7 @@ class DefaultProviderRegistry implements ProviderRegistry {
         }
         throw new Error(`No ImageReader registered`);
     }
+
     registerImageReader(value: ImageReader) {
         this._imageReader = value;
     }
@@ -134,8 +150,20 @@ class DefaultProviderRegistry implements ProviderRegistry {
         }
         throw new Error(`No ImageWriter registered`);
     }
+
     registerImageWriter(value: ImageWriter) {
         this._imageWriter = value;
+    }
+
+    getImageProcessor(): ImageProcessor {
+        if (this._imageProcessor) {
+            return this._imageProcessor;
+        }
+        throw new Error(`No ImageProcessor registered`);
+    }
+
+    registerImageProcessor(value: ImageProcessor): void {
+        this._imageProcessor = value;
     }
 }
 
@@ -148,5 +176,6 @@ providerRegistry.registerScreenProvider(new Screen());
 providerRegistry.registerWindowProvider(new Window());
 providerRegistry.registerImageWriter(new ImageWriterImpl());
 providerRegistry.registerImageReader(new ImageReaderImpl());
+providerRegistry.registerImageProcessor(new ImageProcessorImpl());
 
 export default providerRegistry;
