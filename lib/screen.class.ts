@@ -1,6 +1,5 @@
 import {join, normalize} from "path";
 import {cwd} from "process";
-import {VisionAdapter} from "./adapter/vision.adapter.class";
 import {FileType} from "./file-type.enum";
 import {generateOutputPath} from "./generate-output-path.function";
 import {LocationParameters} from "./locationparameters.class";
@@ -9,6 +8,7 @@ import {MatchResult} from "./match-result.class";
 import {Region} from "./region.class";
 import {timeout} from "./util/timeout.function";
 import {Image} from "./image.class";
+import {ProviderRegistry} from "./provider/provider-registry.class";
 
 export type FindHookCallback = (target: MatchResult) => Promise<void>;
 
@@ -48,11 +48,11 @@ export class ScreenClass {
 
     /**
      * {@link ScreenClass} class constructor
-     * @param vision {@link VisionAdapter} instance which bundles access to screen and / or computer vision related APIs
+     * @param providerRegistry A {@link ProviderRegistry} used to access underlying implementations
      * @param findHooks A {@link Map} of {@link FindHookCallback} methods assigned to a template image filename
      */
     constructor(
-        private vision: VisionAdapter,
+        private providerRegistry: ProviderRegistry,
         private findHooks: Map<string, FindHookCallback[]> = new Map<string, FindHookCallback[]>()) {
     }
 
@@ -62,7 +62,7 @@ export class ScreenClass {
      * Screens with higher pixel density (e.g. retina displays in MacBooks) might have a higher width in in actual pixels
      */
     public width() {
-        return this.vision.screenWidth();
+        return this.providerRegistry.getScreen().screenWidth();
     }
 
     /**
@@ -71,7 +71,7 @@ export class ScreenClass {
      * Screens with higher pixel density (e.g. retina displays in MacBooks) might have a higher height in in actual pixels
      */
     public height() {
-        return this.vision.screenHeight();
+        return this.providerRegistry.getScreen().screenHeight();
     }
 
     /**
@@ -84,13 +84,13 @@ export class ScreenClass {
         params?: LocationParameters,
     ): Promise<Region> {
         const minMatch = (params && params.confidence) || this.config.confidence;
-        const screenSize = await this.vision.screenSize();
+        const screenSize = await this.providerRegistry.getScreen().screenSize();
         const searchRegion = (params && params.searchRegion) || screenSize;
         const searchMultipleScales = (params && params.searchMultipleScales)
 
         const fullPathToNeedle = normalize(join(this.config.resourceDirectory, templateImageFilename));
 
-        const screenImage = await this.vision.grabScreen();
+        const screenImage = await this.providerRegistry.getScreen().grabScreen();
 
         const matchRequest = new MatchRequest(
             screenImage,
@@ -118,7 +118,7 @@ export class ScreenClass {
         return new Promise<Region>(async (resolve, reject) => {
             try {
                 validateSearchRegion(searchRegion, screenSize);
-                const matchResult = await this.vision.findOnScreenRegion(matchRequest);
+                const matchResult = await this.providerRegistry.getImageFinder().findMatch(matchRequest);
                 if (matchResult.confidence >= minMatch) {
                     const possibleHooks = this.findHooks.get(templateImageFilename) || [];
                     for (const hook of possibleHooks) {
@@ -156,7 +156,7 @@ export class ScreenClass {
      */
     public async highlight(regionToHighlight: Region | Promise<Region>): Promise<Region> {
         const highlightRegion = await regionToHighlight;
-        await this.vision.highlightScreenRegion(highlightRegion, this.config.highlightDurationMs, this.config.highlightOpacity);
+        await this.providerRegistry.getScreen().highlightScreenRegion(highlightRegion, this.config.highlightDurationMs, this.config.highlightOpacity);
         return highlightRegion;
     }
 
@@ -198,7 +198,7 @@ export class ScreenClass {
         filePath: string = cwd(),
         fileNamePrefix: string = "",
         fileNamePostfix: string = ""): Promise<string> {
-        const currentScreen = await this.vision.grabScreen();
+        const currentScreen = await this.providerRegistry.getScreen().grabScreen();
         return this.saveImage(
             currentScreen,
             fileName,
@@ -212,7 +212,7 @@ export class ScreenClass {
      * {@link grab} grabs screen content of a systems main display
      */
     public async grab(): Promise<Image> {
-        return this.vision.grabScreen();
+        return this.providerRegistry.getScreen().grabScreen();
     }
 
     /**
@@ -231,7 +231,7 @@ export class ScreenClass {
         filePath: string = cwd(),
         fileNamePrefix: string = "",
         fileNamePostfix: string = ""): Promise<string> {
-        const regionImage = await this.vision.grabScreenRegion(await regionToCapture);
+        const regionImage = await this.providerRegistry.getScreen().grabScreenRegion(await regionToCapture);
         return this.saveImage(
             regionImage,
             fileName,
@@ -246,7 +246,7 @@ export class ScreenClass {
      * @param regionToGrab The screen region to grab
      */
     public async grabRegion(regionToGrab: Region | Promise<Region>): Promise<Image> {
-        return this.vision.grabScreenRegion(await regionToGrab);
+        return this.providerRegistry.getScreen().grabScreenRegion(await regionToGrab);
     }
 
     private async saveImage(
@@ -262,7 +262,7 @@ export class ScreenClass {
             prefix: fileNamePrefix,
             type: fileFormat,
         });
-        await this.vision.saveImage(image, outputPath);
+        await this.providerRegistry.getImageWriter().store({data: image, path: outputPath})
         return outputPath;
     }
 }
