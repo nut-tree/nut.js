@@ -2,7 +2,6 @@ import ImageReader from "./jimp-image-reader.class";
 import {join} from "path";
 import Jimp from "jimp";
 
-jest.mock('gifwrap', () => {});
 jest.mock('jimp', () => {
     class JimpMock {
         bitmap = {
