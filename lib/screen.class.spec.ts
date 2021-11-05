@@ -11,6 +11,7 @@ import { mockPartial } from "sneer";
 import { FileType } from "./file-type.enum";
 import providerRegistry from "./provider/provider-registry.class";
 
+jest.mock('jimp', () => {});
 jest.mock("./adapter/native.adapter.class");
 jest.mock("./adapter/vision.adapter.class");
 

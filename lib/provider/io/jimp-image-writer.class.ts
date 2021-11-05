@@ -10,12 +10,12 @@ export default class implements ImageWriter {
                 height: parameters.data.height
             });
             // libnut returns data in BGR format, so we have to switch red and blue color channels
-            jimpImage.scan(0, 0, jimpImage.bitmap.width, jimpImage.bitmap.height, function(_, __, idx) {
+            jimpImage.scan(0, 0, jimpImage.bitmap.width, jimpImage.bitmap.height, function (_, __, idx) {
                 const red = this.bitmap.data[idx];
                 this.bitmap.data[idx] = this.bitmap.data[idx + 2];
                 this.bitmap.data[idx + 2] = red;
             });
-            return jimpImage
+            jimpImage
                 .writeAsync(parameters.path)
                 .then(_ => resolve())
                 .catch(err => reject(err));

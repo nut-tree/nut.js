@@ -3,6 +3,8 @@ import {NativeAdapter} from "./adapter/native.adapter.class";
 import {Window} from "./window.class";
 import providerRegistry from "./provider/provider-registry.class";
 
+jest.mock('jimp', () => {});
+
 describe("WindowApi", () => {
     describe("getWindows", () => {
         it("should return a list of open Windows", async () => {

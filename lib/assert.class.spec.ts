@@ -4,6 +4,7 @@ import {Region} from "./region.class";
 import {ScreenClass} from "./screen.class";
 import providerRegistry from "./provider/provider-registry.class";
 
+jest.mock('jimp', () => {});
 jest.mock("./adapter/native.adapter.class");
 jest.mock("./adapter/vision.adapter.class");
 jest.mock("./screen.class");
