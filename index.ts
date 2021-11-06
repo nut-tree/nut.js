@@ -1,5 +1,3 @@
-import {NativeAdapter} from "./lib/adapter/native.adapter.class";
-import {VisionAdapter} from "./lib/adapter/vision.adapter.class";
 import {AssertClass} from "./lib/assert.class";
 import {ClipboardClass} from "./lib/clipboard.class";
 import {KeyboardClass} from "./lib/keyboard.class";
@@ -37,18 +35,16 @@ export {Region} from "./lib/region.class";
 export {Window} from "./lib/window.class";
 export {FileType} from "./lib/file-type.enum";
 
-const screenActions = new VisionAdapter(providerRegistry);
-const nativeActions = new NativeAdapter(providerRegistry);
 const lineHelper = new LineHelper();
 
-const clipboard = new ClipboardClass(nativeActions);
-const keyboard = new KeyboardClass(nativeActions);
-const mouse = new MouseClass(nativeActions);
-const screen = new ScreenClass(screenActions);
+const clipboard = new ClipboardClass(providerRegistry);
+const keyboard = new KeyboardClass(providerRegistry);
+const mouse = new MouseClass(providerRegistry);
+const screen = new ScreenClass(providerRegistry);
 const assert = new AssertClass(screen);
 
-const {straightTo, up, down, left, right} = createMovementApi(nativeActions, lineHelper);
-const {getWindows, getActiveWindow} = createWindowApi(nativeActions);
+const {straightTo, up, down, left, right} = createMovementApi(providerRegistry, lineHelper);
+const {getWindows, getActiveWindow} = createWindowApi(providerRegistry);
 
 const loadImage = providerRegistry.getImageReader().load;
 const saveImage = providerRegistry.getImageWriter().store;

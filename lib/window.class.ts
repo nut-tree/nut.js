@@ -1,15 +1,15 @@
-import { NativeAdapter } from "./adapter/native.adapter.class";
-import { Region } from "./region.class";
+import {Region} from "./region.class";
+import {ProviderRegistry} from "./provider/provider-registry.class";
 
 export class Window {
-  constructor(private nativeActions: NativeAdapter, private windowHandle: number) {
-  }
+    constructor(private providerRegistry: ProviderRegistry, private windowHandle: number) {
+    }
 
-  get title(): Promise<string> {
-    return this.nativeActions.getWindowTitle(this.windowHandle);
-  }
+    get title(): Promise<string> {
+        return this.providerRegistry.getWindow().getWindowTitle(this.windowHandle);
+    }
 
-  get region(): Promise<Region> {
-    return this.nativeActions.getWindowRegion(this.windowHandle);
-  }
+    get region(): Promise<Region> {
+        return this.providerRegistry.getWindow().getWindowRegion(this.windowHandle);
+    }
 }
