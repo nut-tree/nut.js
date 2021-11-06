@@ -7,7 +7,7 @@ jest.mock('jimp', () => {
 });
 
 describe("Window class", () => {
-    it("should retrieve the window region via its native adapter", async () => {
+    it("should retrieve the window region via provider", async () => {
         // GIVEN
         const windowMock = jest.fn();
         const providerRegistryMock = mockPartial<ProviderRegistry>({
@@ -28,7 +28,7 @@ describe("Window class", () => {
         expect(windowMock).toBeCalledWith(mockWindowHandle);
     });
 
-    it("should retrieve the window title via its native adapter", async () => {
+    it("should retrieve the window title via provider", async () => {
         // GIVEN
         const windowMock = jest.fn();
         const providerRegistryMock = mockPartial<ProviderRegistry>({
