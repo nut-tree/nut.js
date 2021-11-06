@@ -30,7 +30,7 @@ describe("Clipboard class", () => {
         expect(copyMock).toHaveBeenCalledWith(textToCopy);
     });
 
-    it("should call the native adapters paste method.", () => {
+    it("should call providers paste method.", () => {
         // GIVEN
         const SUT = new ClipboardClass(providerRegistryMock);
         const pasteMock = jest.fn();
