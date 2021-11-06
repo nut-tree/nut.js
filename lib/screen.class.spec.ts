@@ -411,7 +411,7 @@ describe("Screen.", () => {
             // THEN
             expect(imagePath).toBe(expectedImagePath)
             expect(grabScreenMock).toHaveBeenCalledWith(regionToCapture)
-            expect(saveImageMock).toHaveBeenCalledWith(screenshot, expectedImagePath)
+            expect(saveImageMock).toHaveBeenCalledWith({data: screenshot, path: expectedImagePath})
         });
     });
 });
