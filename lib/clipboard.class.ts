@@ -1,14 +1,14 @@
-import { NativeAdapter } from "./adapter/native.adapter.class";
-
 /**
  * {@link ClipboardClass} class gives access to a systems clipboard
  */
+import {ProviderRegistry} from "./provider/provider-registry.class";
+
 export class ClipboardClass {
   /**
    * {@link ClipboardClass} class constructor
-   * @param nativeAdapter {@link NativeAdapter} instance used to access OS API
+   * @param providerRegistry
    */
-  constructor(private nativeAdapter: NativeAdapter) {
+  constructor(private providerRegistry: ProviderRegistry) {
   }
 
   /**
@@ -16,13 +16,13 @@ export class ClipboardClass {
    * @param text The text to copy
    */
   public copy(text: string): Promise<void> {
-    return this.nativeAdapter.copy(text);
+    return this.providerRegistry.getClipboard().copy(text);
   }
 
   /**
    * {@link paste} returns the current content of the system clipboard (limited to text)
    */
   public paste(): Promise<string> {
-    return this.nativeAdapter.paste();
+    return this.providerRegistry.getClipboard().paste();
   }
 }

@@ -1,8 +1,8 @@
-import {NativeAdapter} from "./adapter/native.adapter.class";
 import {Button} from "./button.enum";
 import {Point} from "./point.class";
 import {busyWaitForNanoSeconds, sleep} from "./sleep.function";
 import {calculateMovementTimesteps, EasingFunction, linear} from "./mouse-movement.function";
+import {ProviderRegistry} from "./provider/provider-registry.class";
 
 /**
  * {@link MouseClass} class provides methods to emulate mouse input
@@ -25,10 +25,10 @@ export class MouseClass {
 
     /**
      * {@link MouseClass} class constructor
-     * @param nativeAdapter {@link NativeAdapter} instance which bundles access to mouse, keyboard and clipboard
+     * @param providerRegistry
      */
-    constructor(private nativeAdapter: NativeAdapter) {
-        this.nativeAdapter.setMouseDelay(0);
+    constructor(private providerRegistry: ProviderRegistry) {
+        this.providerRegistry.getMouse().setMouseDelay(0);
     }
 
     /**
@@ -38,7 +38,7 @@ export class MouseClass {
     public async setPosition(target: Point): Promise<MouseClass> {
         return new Promise<MouseClass>(async (resolve, reject) => {
             try {
-                await this.nativeAdapter.setMousePosition(target);
+                await this.providerRegistry.getMouse().setMousePosition(target);
                 resolve(this);
             } catch (e) {
                 reject(e);
@@ -50,7 +50,7 @@ export class MouseClass {
      * {@link getPosition} returns a {@link Point} representing the current mouse position
      */
     public getPosition(): Promise<Point> {
-        return this.nativeAdapter.currentMousePosition();
+        return this.providerRegistry.getMouse().currentMousePosition();
     }
 
     /**
@@ -67,7 +67,7 @@ export class MouseClass {
                     const node = pathSteps[idx];
                     const minTime = timeSteps[idx];
                     await busyWaitForNanoSeconds(minTime);
-                    await this.nativeAdapter.setMousePosition(node);
+                    await this.providerRegistry.getMouse().setMousePosition(node);
                 }
                 resolve(this);
             } catch (e) {
@@ -82,7 +82,7 @@ export class MouseClass {
     public async leftClick(): Promise<MouseClass> {
         return new Promise<MouseClass>(async resolve => {
             await sleep(this.config.autoDelayMs);
-            await this.nativeAdapter.leftClick();
+            await this.providerRegistry.getMouse().leftClick();
             resolve(this);
         });
     }
@@ -94,7 +94,7 @@ export class MouseClass {
         return new Promise<MouseClass>(async (resolve, reject) => {
             try {
                 await sleep(this.config.autoDelayMs);
-                await this.nativeAdapter.rightClick();
+                await this.providerRegistry.getMouse().rightClick();
                 resolve(this);
             } catch (e) {
                 reject(e);
@@ -111,7 +111,7 @@ export class MouseClass {
         return new Promise<MouseClass>(async (resolve, reject) => {
             try {
                 await sleep(this.config.autoDelayMs);
-                await this.nativeAdapter.scrollDown(amount);
+                await this.providerRegistry.getMouse().scrollDown(amount);
                 resolve(this);
             } catch (e) {
                 reject(e);
@@ -128,7 +128,7 @@ export class MouseClass {
         return new Promise<MouseClass>(async (resolve, reject) => {
             try {
                 await sleep(this.config.autoDelayMs);
-                await this.nativeAdapter.scrollUp(amount);
+                await this.providerRegistry.getMouse().scrollUp(amount);
                 resolve(this);
             } catch (e) {
                 reject(e);
@@ -145,7 +145,7 @@ export class MouseClass {
         return new Promise<MouseClass>(async (resolve, reject) => {
             try {
                 await sleep(this.config.autoDelayMs);
-                await this.nativeAdapter.scrollLeft(amount);
+                await this.providerRegistry.getMouse().scrollLeft(amount);
                 resolve(this);
             } catch (e) {
                 reject(e);
@@ -162,7 +162,7 @@ export class MouseClass {
         return new Promise<MouseClass>(async (resolve, reject) => {
             try {
                 await sleep(this.config.autoDelayMs);
-                await this.nativeAdapter.scrollRight(amount);
+                await this.providerRegistry.getMouse().scrollRight(amount);
                 resolve(this);
             } catch (e) {
                 reject(e);
@@ -179,9 +179,9 @@ export class MouseClass {
         return new Promise<MouseClass>(async (resolve, reject) => {
             try {
                 await sleep(this.config.autoDelayMs);
-                await this.nativeAdapter.pressButton(Button.LEFT);
+                await this.providerRegistry.getMouse().pressButton(Button.LEFT);
                 await this.move(path);
-                await this.nativeAdapter.releaseButton(Button.LEFT);
+                await this.providerRegistry.getMouse().releaseButton(Button.LEFT);
                 resolve(this);
             } catch (e) {
                 reject(e);
@@ -196,7 +196,7 @@ export class MouseClass {
     public async pressButton(btn: Button): Promise<MouseClass> {
         return new Promise<MouseClass>(async (resolve, reject) => {
             try {
-                await this.nativeAdapter.pressButton(btn);
+                await this.providerRegistry.getMouse().pressButton(btn);
                 resolve(this);
             } catch (e) {
                 reject(e);
@@ -211,7 +211,7 @@ export class MouseClass {
     public async releaseButton(btn: Button): Promise<MouseClass> {
         return new Promise<MouseClass>(async (resolve, reject) => {
             try {
-                await this.nativeAdapter.releaseButton(btn);
+                await this.providerRegistry.getMouse().releaseButton(btn);
                 resolve(this);
             } catch (e) {
                 reject(e);
