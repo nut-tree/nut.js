@@ -24,7 +24,7 @@
   ],
   "cpu": [
     "x64",
-    "ia32"
+    "arm64"
   ],
   "keywords": [
     "native",
