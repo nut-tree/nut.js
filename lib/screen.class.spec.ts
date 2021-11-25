@@ -18,7 +18,7 @@ const searchRegion = new Region(0, 0, 1000, 1000);
 const providerRegistryMock = mockPartial<ProviderRegistry>({
     getScreen(): ScreenProviderInterface {
         return mockPartial<ScreenProviderInterface>({
-            grabScreen(): Promise<Image> {
+            grabScreenRegion(): Promise<Image> {
                 return Promise.resolve(new Image(searchRegion.width, searchRegion.height, new ArrayBuffer(0), 3));
             },
             screenSize(): Promise<Region> {
@@ -114,15 +114,15 @@ describe("Screen.", () => {
             }));
 
             const SUT = new ScreenClass(providerRegistryMock);
-            const imagePath = "test/path/to/image.png";
+            const needle = new Image(100, 100, Buffer.from([]), 3);
 
             // WHEN
-            const resultRegion = SUT.find(imagePath);
+            const resultRegion = SUT.find(needle);
 
             // THEN
             await expect(resultRegion)
                 .rejects
-                .toEqual(`No match for ${imagePath}. Required: ${SUT.config.confidence}, given: ${matchResult.confidence}`);
+                .toEqual(`No match for image. Required: ${SUT.config.confidence}, given: ${matchResult.confidence}`);
         });
 
         it("should reject when search fails.", async () => {
@@ -135,15 +135,15 @@ describe("Screen.", () => {
             }));
 
             const SUT = new ScreenClass(providerRegistryMock);
-            const imagePath = "test/path/to/image.png";
+            const needle = new Image(100, 100, Buffer.from([]), 3);
 
             // WHEN
-            const resultRegion = SUT.find(imagePath);
+            const resultRegion = SUT.find(needle);
 
             // THEN
             await expect(resultRegion)
                 .rejects
-                .toEqual(`Searching for ${imagePath} failed. Reason: '${rejectionReason}'`);
+                .toEqual(`Searching for image failed. Reason: '${rejectionReason}'`);
         });
 
         it("should override default confidence value with parameter.", async () => {
@@ -273,10 +273,11 @@ describe("Screen.", () => {
             const SUT = new ScreenClass(providerRegistryMock);
             // WHEN
             const matchRegion = await SUT.find(
-                "test/path/to/image.png",
+                new Image(100, 100, Buffer.from([]), 3),
                 {
                     searchRegion: limitedSearchRegion
-                });
+                }
+            );
 
             // THEN
             expect(matchRegion).toEqual(expectedMatchRegion);
@@ -301,7 +302,7 @@ describe("Screen.", () => {
             ["with NaN on height", new Region(0, 0, 100, "a" as unknown as number)],
         ])("should reject search regions %s", async (_, region) => {
             // GIVEN
-            const imagePath = "test/path/to/image.png"
+            const needle = new Image(100, 100, Buffer.from([]), 3);
             const matchResult = new MatchResult(0.99, region);
             const findMatchMock = jest.fn(() => Promise.resolve(matchResult));
             providerRegistryMock.getImageFinder = jest.fn(() => mockPartial<ImageFinderInterface>({
@@ -312,13 +313,13 @@ describe("Screen.", () => {
 
             // WHEN
             const findPromise = SUT.find(
-                imagePath,
+                needle,
                 {
                     searchRegion: region
                 });
 
             // THEN
-            await expect(findPromise).rejects.toContain(`Searching for ${imagePath} failed. Reason:`);
+            await expect(findPromise).rejects.toContain(`Searching for image failed. Reason:`);
         })
     });
 
