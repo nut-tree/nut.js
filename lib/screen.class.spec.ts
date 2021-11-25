@@ -38,7 +38,7 @@ describe("Screen.", () => {
             // GIVEN
             const matchResult = new MatchResult(0.99, searchRegion);
             const SUT = new ScreenClass(providerRegistryMock);
-            const imagePath = "test/path/to/image.png";
+            const needle = new Image(100, 100, Buffer.from([]), 3);
 
             const findMatchMock = jest.fn(() => Promise.resolve(matchResult));
             providerRegistryMock.getImageFinder = jest.fn(() => mockPartial<ImageFinderInterface>({
@@ -46,14 +46,13 @@ describe("Screen.", () => {
             }));
 
             // WHEN
-            const resultRegion = SUT.find(imagePath);
+            const resultRegion = SUT.find(needle);
 
             // THEN
             await expect(resultRegion).resolves.toEqual(matchResult.location);
             const matchRequest = new MatchRequest(
                 expect.any(Image),
-                join(cwd(), imagePath),
-                searchRegion,
+                needle,
                 SUT.config.confidence,
                 true);
             expect(findMatchMock).toHaveBeenCalledWith(matchRequest);
@@ -69,11 +68,11 @@ describe("Screen.", () => {
 
             const SUT = new ScreenClass(providerRegistryMock);
             const testCallback = jest.fn(() => Promise.resolve());
-            const imagePath = "test/path/to/image.png";
-            SUT.on(imagePath, testCallback);
+            const needle = new Image(100, 100, Buffer.from([]), 3);
+            SUT.on(needle, testCallback);
 
             // WHEN
-            await SUT.find(imagePath);
+            await SUT.find(needle);
 
             // THEN
             expect(testCallback).toBeCalledTimes(1);
@@ -91,12 +90,12 @@ describe("Screen.", () => {
             const SUT = new ScreenClass(providerRegistryMock);
             const testCallback = jest.fn(() => Promise.resolve());
             const secondCallback = jest.fn(() => Promise.resolve());
-            const imagePath = "test/path/to/image.png";
-            SUT.on(imagePath, testCallback);
-            SUT.on(imagePath, secondCallback);
+            const needle = new Image(100, 100, Buffer.from([]), 3);
+            SUT.on(needle, testCallback);
+            SUT.on(needle, secondCallback);
 
             // WHEN
-            await SUT.find(imagePath);
+            await SUT.find(needle);
 
             // THEN
             for (const callback of [testCallback, secondCallback]) {
@@ -160,18 +159,17 @@ describe("Screen.", () => {
 
             const SUT = new ScreenClass(providerRegistryMock);
 
-            const imagePath = "test/path/to/image.png";
+            const needle = new Image(100, 100, Buffer.from([]), 3);
             const parameters = new LocationParameters(undefined, minMatch);
 
             // WHEN
-            const resultRegion = SUT.find(imagePath, parameters);
+            const resultRegion = SUT.find(needle, parameters);
 
             // THEN
             await expect(resultRegion).resolves.toEqual(matchResult.location);
             const matchRequest = new MatchRequest(
                 expect.any(Image),
-                join(cwd(), imagePath),
-                searchRegion,
+                needle,
                 minMatch,
                 true);
             expect(findMatchMock).toHaveBeenCalledWith(matchRequest);
@@ -189,17 +187,16 @@ describe("Screen.", () => {
 
             const SUT = new ScreenClass(providerRegistryMock);
 
-            const imagePath = "test/path/to/image.png";
+            const needle = new Image(100, 100, Buffer.from([]), 3);
             const parameters = new LocationParameters(customSearchRegion);
             const expectedMatchRequest = new MatchRequest(
                 expect.any(Image),
-                join(cwd(), imagePath),
-                customSearchRegion,
+                needle,
                 SUT.config.confidence,
                 true);
 
             // WHEN
-            await SUT.find(imagePath, parameters);
+            await SUT.find(needle, parameters);
 
             // THEN
             expect(findMatchMock).toHaveBeenCalledWith(expectedMatchRequest);
@@ -214,17 +211,17 @@ describe("Screen.", () => {
             }));
 
             const SUT = new ScreenClass(providerRegistryMock);
-            const imagePath = "test/path/to/image.png";
+            const needle = new Image(100, 100, Buffer.from([]), 3);
+
             const parameters = new LocationParameters(searchRegion, undefined, false);
             const expectedMatchRequest = new MatchRequest(
                 expect.any(Image),
-                join(cwd(), imagePath),
-                searchRegion,
+                needle,
                 SUT.config.confidence,
                 false);
 
             // WHEN
-            await SUT.find(imagePath, parameters);
+            await SUT.find(needle, parameters);
 
             // THEN
             expect(findMatchMock).toHaveBeenCalledWith(expectedMatchRequest);
@@ -241,17 +238,16 @@ describe("Screen.", () => {
             }));
 
             const SUT = new ScreenClass(providerRegistryMock);
-            const imagePath = "test/path/to/image.png";
+            const needle = new Image(100, 100, Buffer.from([]), 3);
             const parameters = new LocationParameters(customSearchRegion, minMatch);
             const expectedMatchRequest = new MatchRequest(
                 expect.any(Image),
-                join(cwd(), imagePath),
-                customSearchRegion,
+                needle,
                 minMatch,
                 true);
 
             // WHEN
-            await SUT.find(imagePath, parameters);
+            await SUT.find(needle, parameters);
 
             // THEN
             expect(findMatchMock).toHaveBeenCalledWith(expectedMatchRequest);
