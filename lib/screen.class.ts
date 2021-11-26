@@ -13,6 +13,21 @@ import {FirstArgumentType} from "./typings";
 
 export type FindHookCallback = (target: MatchResult) => Promise<void>;
 
+function validateSearchRegion(search: Region, screen: Region) {
+    if (search.left < 0 || search.top < 0 || search.width < 0 || search.height < 0) {
+        throw new Error(`Negative values in search region ${search}`)
+    }
+    if (isNaN(search.left) || isNaN(search.top) || isNaN(search.width) || isNaN(search.height)) {
+        throw new Error(`NaN values in search region ${search}`)
+    }
+    if (search.width < 2 || search.height < 2) {
+        throw new Error(`Search region ${search} is not large enough. Must be at least two pixels in both width and height.`)
+    }
+    if (search.left + search.width > screen.width || search.top + search.height > screen.height) {
+        throw new Error(`Search region ${search} extends beyond screen boundaries (${screen.width}x${screen.height})`)
+    }
+}
+
 /**
  * {@link ScreenClass} class provides methods to access screen content of a systems main display
  */
@@ -76,7 +91,7 @@ export class ScreenClass {
     }
 
     /**
-     * {@link find} will search for a template image on a systems main screen
+     * {@link find} will search for a single occurrence of a template image on a systems main screen
      * @param templateImage Filename of the template image, relative to {@link ScreenClass.config.resourceDirectory}, or an {@link Image} instance
      * @param params {@link LocationParameters} which are used to fine tune search region and / or match confidence
      */
@@ -105,47 +120,86 @@ export class ScreenClass {
             searchMultipleScales
         );
 
-        function validateSearchRegion(search: Region, screen: Region) {
-            if (search.left < 0 || search.top < 0 || search.width < 0 || search.height < 0) {
-                throw new Error(`Negative values in search region ${search}`)
-            }
-            if (isNaN(search.left) || isNaN(search.top) || isNaN(search.width) || isNaN(search.height)) {
-                throw new Error(`NaN values in search region ${search}`)
-            }
-            if (search.width < 2 || search.height < 2) {
-                throw new Error(`Search region ${search} is not large enough. Must be at least two pixels in both width and height.`)
-            }
-            if (search.left + search.width > screen.width || search.top + search.height > screen.height) {
-                throw new Error(`Search region ${search} extends beyond screen boundaries (${screen.width}x${screen.height})`)
-            }
-        }
-
         return new Promise<Region>(async (resolve, reject) => {
             try {
                 validateSearchRegion(searchRegion, screenSize);
                 const matchResult = await this.providerRegistry.getImageFinder().findMatch(matchRequest);
-                if (matchResult.confidence >= minMatch) {
-                    const possibleHooks = this.findHooks.get(needle) || [];
-                    for (const hook of possibleHooks) {
+                const possibleHooks = this.findHooks.get(needle) || [];
+                for (const hook of possibleHooks) {
+                    await hook(matchResult);
+                }
+                const resultRegion = new Region(
+                    searchRegion.left + matchResult.location.left,
+                    searchRegion.top + matchResult.location.top,
+                    matchResult.location.width,
+                    matchResult.location.height
+                )
+                if (this.config.autoHighlight) {
+                    resolve(this.highlight(resultRegion));
+                } else {
+                    resolve(resultRegion);
+                }
+            } catch (e) {
+                reject(
+                    `Searching for ${needle.id} failed. Reason: '${e}'`,
+                );
+            }
+        });
+    }
+
+    /**
+     * {@link findAll} will search for every occurrences of a template image on a systems main screen
+     * @param templateImage Filename of the template image, relative to {@link ScreenClass.config.resourceDirectory}, or an {@link Image} instance
+     * @param params {@link LocationParameters} which are used to fine tune search region and / or match confidence
+     */
+    public async findAll(
+        templateImage: string | Image | Promise<Image>,
+        params?: LocationParameters,
+    ): Promise<Region[]> {
+        const minMatch = (params && params.confidence) || this.config.confidence;
+        const screenSize = await this.providerRegistry.getScreen().screenSize();
+        const searchRegion = (params && params.searchRegion) || screenSize;
+        const searchMultipleScales = (params && params.searchMultipleScales)
+
+        let needle: Image;
+        if (typeof templateImage === "string") {
+            needle = await loadImageResource(this.providerRegistry, this.config.resourceDirectory, templateImage);
+        } else {
+            needle = await templateImage;
+        }
+
+        const screenImage = await this.providerRegistry.getScreen().grabScreenRegion(searchRegion);
+
+        const matchRequest = new MatchRequest(
+            screenImage,
+            needle,
+            minMatch,
+            searchMultipleScales
+        );
+
+        return new Promise<Region[]>(async (resolve, reject) => {
+            try {
+                validateSearchRegion(searchRegion, screenSize);
+                const matchResults = await this.providerRegistry.getImageFinder().findMatches(matchRequest);
+                const possibleHooks = this.findHooks.get(needle) || [];
+                for (const hook of possibleHooks) {
+                    for (const matchResult of matchResults) {
                         await hook(matchResult);
                     }
-                    const resultRegion = new Region(
+                }
+                const resultRegions = matchResults.map(matchResult => {
+                    return new Region(
                         searchRegion.left + matchResult.location.left,
                         searchRegion.top + matchResult.location.top,
                         matchResult.location.width,
                         matchResult.location.height
                     )
-                    if (this.config.autoHighlight) {
-                        resolve(this.highlight(resultRegion));
-                    } else {
-                        resolve(resultRegion);
-                    }
+                })
+                if (this.config.autoHighlight) {
+                    resultRegions.forEach(region => this.highlight(region));
+                    resolve(resultRegions);
                 } else {
-                    reject(
-                        `No match for ${needle.id}. Required: ${minMatch}, given: ${
-                            matchResult.confidence
-                        }`,
-                    );
+                    resolve(resultRegions);
                 }
             } catch (e) {
                 reject(
