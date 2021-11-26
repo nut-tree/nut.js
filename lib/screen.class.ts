@@ -10,6 +10,7 @@ import {Image} from "./image.class";
 import {ProviderRegistry} from "./provider/provider-registry.class";
 import {loadImageResource} from "./imageResources.function";
 import {FirstArgumentType} from "./typings";
+import {Point} from "./point.class";
 
 export type FindHookCallback = (target: MatchResult) => Promise<void>;
 
@@ -306,6 +307,15 @@ export class ScreenClass {
      */
     public async grabRegion(regionToGrab: Region | Promise<Region>): Promise<Image> {
         return this.providerRegistry.getScreen().grabScreenRegion(await regionToGrab);
+    }
+
+    /**
+     * {@link colorAt} returns RGBA color values for a certain pixel at {@link Point} p
+     * @param point Location to query color information from
+     */
+    public async colorAt(point: Point | Promise<Point>) {
+        const screenContent = this.providerRegistry.getScreen().grabScreen();
+        return this.providerRegistry.getImageProcessor().colorAt(screenContent, point);
     }
 
     private async saveImage(

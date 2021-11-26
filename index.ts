@@ -25,6 +25,7 @@ export * from "./lib/provider";
 export {jestMatchers} from "./lib/expect/jest.matcher.function";
 export {sleep} from "./lib/sleep.function";
 export {Image} from "./lib/image.class";
+export {RGBA} from "./lib/rgba.class";
 export {Key} from "./lib/key.enum";
 export {Button} from "./lib/button.enum";
 export {centerOf, randomPointIn} from "./lib/location.function";

@@ -2,7 +2,6 @@ import ImageWriter from "./jimp-image-writer.class";
 import {Image} from "../../image.class";
 import Jimp from "jimp";
 
-jest.mock('gifwrap', () => {});
 jest.mock('jimp', () => {
     class JimpMock {
         bitmap = {
