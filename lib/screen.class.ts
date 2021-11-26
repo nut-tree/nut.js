@@ -1,4 +1,3 @@
-import {join, normalize} from "path";
 import {cwd} from "process";
 import {FileType} from "./file-type.enum";
 import {generateOutputPath} from "./generate-output-path.function";
@@ -9,6 +8,7 @@ import {Region} from "./region.class";
 import {timeout} from "./util/timeout.function";
 import {Image} from "./image.class";
 import {ProviderRegistry} from "./provider/provider-registry.class";
+import {loadImageResource} from "./imageResources.function";
 
 export type FindHookCallback = (target: MatchResult) => Promise<void>;
 
@@ -90,8 +90,7 @@ export class ScreenClass {
 
         let needle: Image;
         if (typeof templateImage === "string") {
-            const fullPathToNeedle = normalize(join(this.config.resourceDirectory, templateImage));
-            needle = await this.providerRegistry.getImageReader().load(fullPathToNeedle);
+            needle = await loadImageResource(this.providerRegistry, this.config.resourceDirectory, templateImage);
         } else {
             needle = templateImage;
         }
