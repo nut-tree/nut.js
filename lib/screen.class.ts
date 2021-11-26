@@ -9,6 +9,7 @@ import {timeout} from "./util/timeout.function";
 import {Image} from "./image.class";
 import {ProviderRegistry} from "./provider/provider-registry.class";
 import {loadImageResource} from "./imageResources.function";
+import {FirstArgumentType} from "./typings";
 
 export type FindHookCallback = (target: MatchResult) => Promise<void>;
 
@@ -80,7 +81,7 @@ export class ScreenClass {
      * @param params {@link LocationParameters} which are used to fine tune search region and / or match confidence
      */
     public async find(
-        templateImage: string | Image,
+        templateImage: string | Image | Promise<Image>,
         params?: LocationParameters,
     ): Promise<Region> {
         const minMatch = (params && params.confidence) || this.config.confidence;
@@ -92,7 +93,7 @@ export class ScreenClass {
         if (typeof templateImage === "string") {
             needle = await loadImageResource(this.providerRegistry, this.config.resourceDirectory, templateImage);
         } else {
-            needle = templateImage;
+            needle = await templateImage;
         }
 
         const screenImage = await this.providerRegistry.getScreen().grabScreenRegion(searchRegion);
@@ -171,7 +172,7 @@ export class ScreenClass {
      * @param params {@link LocationParameters} which are used to fine tune search region and / or match confidence
      */
     public async waitFor(
-        templateImage: string | Image,
+        templateImage: FirstArgumentType<typeof ScreenClass.prototype.find>,
         timeoutMs: number = 5000,
         params?: LocationParameters,
     ): Promise<Region> {

@@ -1,10 +1,10 @@
 import {LocationParameters} from "../../locationparameters.class";
 import {ScreenClass} from "../../screen.class";
-import {Image} from "../../image.class";
+import {FirstArgumentType} from "../../typings";
 
 export const toShow = async (
     received: ScreenClass,
-    needle: string | Image,
+    needle: FirstArgumentType<typeof ScreenClass.prototype.find>,
     confidence?: number,
 ) => {
     let locationParams;

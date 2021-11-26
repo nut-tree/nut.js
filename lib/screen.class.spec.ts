@@ -39,6 +39,7 @@ describe("Screen.", () => {
             const matchResult = new MatchResult(0.99, searchRegion);
             const SUT = new ScreenClass(providerRegistryMock);
             const needle = new Image(100, 100, Buffer.from([]), 3, "needle_image");
+            const needlePromise = Promise.resolve(needle);
 
             const findMatchMock = jest.fn(() => Promise.resolve(matchResult));
             providerRegistryMock.getImageFinder = jest.fn(() => mockPartial<ImageFinderInterface>({
@@ -46,7 +47,7 @@ describe("Screen.", () => {
             }));
 
             // WHEN
-            const resultRegion = SUT.find(needle);
+            const resultRegion = SUT.find(needlePromise);
 
             // THEN
             await expect(resultRegion).resolves.toEqual(matchResult.location);
