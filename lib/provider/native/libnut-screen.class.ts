@@ -33,6 +33,7 @@ export default class ScreenAction implements ScreenProviderInterface {
             screenShot.height,
             screenShot.image,
             4,
+              "grabScreenResult",
             pixelScaling,
           ),
         );
@@ -58,6 +59,7 @@ export default class ScreenAction implements ScreenProviderInterface {
             screenShot.height,
             screenShot.image,
             4,
+            "grabScreenRegionResult",
             pixelScaling,
           ),
         );

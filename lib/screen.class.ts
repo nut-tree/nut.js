@@ -1,4 +1,3 @@
-import {join, normalize} from "path";
 import {cwd} from "process";
 import {FileType} from "./file-type.enum";
 import {generateOutputPath} from "./generate-output-path.function";
@@ -9,6 +8,7 @@ import {Region} from "./region.class";
 import {timeout} from "./util/timeout.function";
 import {Image} from "./image.class";
 import {ProviderRegistry} from "./provider/provider-registry.class";
+import {loadImageResource} from "./imageResources.function";
 
 export type FindHookCallback = (target: MatchResult) => Promise<void>;
 
@@ -49,11 +49,11 @@ export class ScreenClass {
     /**
      * {@link ScreenClass} class constructor
      * @param providerRegistry A {@link ProviderRegistry} used to access underlying implementations
-     * @param findHooks A {@link Map} of {@link FindHookCallback} methods assigned to a template image filename
+     * @param findHooks A {@link Map} of {@link FindHookCallback} methods assigned to a template image
      */
     constructor(
         private providerRegistry: ProviderRegistry,
-        private findHooks: Map<string, FindHookCallback[]> = new Map<string, FindHookCallback[]>()) {
+        private findHooks: Map<string | Image, FindHookCallback[]> = new Map<string | Image, FindHookCallback[]>()) {
     }
 
     /**
@@ -76,11 +76,11 @@ export class ScreenClass {
 
     /**
      * {@link find} will search for a template image on a systems main screen
-     * @param templateImageFilename Filename of the template image, relative to {@link ScreenClass.config.resourceDirectory}
+     * @param templateImage Filename of the template image, relative to {@link ScreenClass.config.resourceDirectory}, or an {@link Image} instance
      * @param params {@link LocationParameters} which are used to fine tune search region and / or match confidence
      */
     public async find(
-        templateImageFilename: string,
+        templateImage: string | Image,
         params?: LocationParameters,
     ): Promise<Region> {
         const minMatch = (params && params.confidence) || this.config.confidence;
@@ -88,14 +88,18 @@ export class ScreenClass {
         const searchRegion = (params && params.searchRegion) || screenSize;
         const searchMultipleScales = (params && params.searchMultipleScales)
 
-        const fullPathToNeedle = normalize(join(this.config.resourceDirectory, templateImageFilename));
+        let needle: Image;
+        if (typeof templateImage === "string") {
+            needle = await loadImageResource(this.providerRegistry, this.config.resourceDirectory, templateImage);
+        } else {
+            needle = templateImage;
+        }
 
-        const screenImage = await this.providerRegistry.getScreen().grabScreen();
+        const screenImage = await this.providerRegistry.getScreen().grabScreenRegion(searchRegion);
 
         const matchRequest = new MatchRequest(
             screenImage,
-            fullPathToNeedle,
-            searchRegion,
+            needle,
             minMatch,
             searchMultipleScales
         );
@@ -120,7 +124,7 @@ export class ScreenClass {
                 validateSearchRegion(searchRegion, screenSize);
                 const matchResult = await this.providerRegistry.getImageFinder().findMatch(matchRequest);
                 if (matchResult.confidence >= minMatch) {
-                    const possibleHooks = this.findHooks.get(templateImageFilename) || [];
+                    const possibleHooks = this.findHooks.get(needle) || [];
                     for (const hook of possibleHooks) {
                         await hook(matchResult);
                     }
@@ -137,14 +141,14 @@ export class ScreenClass {
                     }
                 } else {
                     reject(
-                        `No match for ${templateImageFilename}. Required: ${minMatch}, given: ${
+                        `No match for ${needle.id}. Required: ${minMatch}, given: ${
                             matchResult.confidence
                         }`,
                     );
                 }
             } catch (e) {
                 reject(
-                    `Searching for ${templateImageFilename} failed. Reason: '${e}'`,
+                    `Searching for ${needle.id} failed. Reason: '${e}'`,
                 );
             }
         });
@@ -162,26 +166,26 @@ export class ScreenClass {
 
     /**
      * {@link waitFor} searches for a template image for a specified duration
-     * @param templateImageFilename Filename of the template image, relative to {@link ScreenClass.config.resourceDirectory}
+     * @param templateImage Filename of the template image, relative to {@link ScreenClass.config.resourceDirectory}, or an {@link Image}
      * @param timeoutMs Timeout in milliseconds after which {@link waitFor} fails
      * @param params {@link LocationParameters} which are used to fine tune search region and / or match confidence
      */
     public async waitFor(
-        templateImageFilename: string,
+        templateImage: string | Image,
         timeoutMs: number = 5000,
         params?: LocationParameters,
     ): Promise<Region> {
-        return timeout(500, timeoutMs, () => this.find(templateImageFilename, params), {signal: params?.abort});
+        return timeout(500, timeoutMs, () => this.find(templateImage, params), {signal: params?.abort});
     }
 
     /**
-     * {@link on} registeres a callback which is triggered once a certain template image is found
-     * @param templateImageFilename Template image to trigger the callback on
+     * {@link on} registers a callback which is triggered once a certain template image is found
+     * @param templateImage Template image to trigger the callback on
      * @param callback The {@link FindHookCallback} function to trigger
      */
-    public on(templateImageFilename: string, callback: FindHookCallback) {
-        const existingHooks = this.findHooks.get(templateImageFilename) || [];
-        this.findHooks.set(templateImageFilename, [...existingHooks, callback]);
+    public on(templateImage: string | Image, callback: FindHookCallback) {
+        const existingHooks = this.findHooks.get(templateImage) || [];
+        this.findHooks.set(templateImage, [...existingHooks, callback]);
     }
 
     /**
