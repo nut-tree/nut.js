@@ -8,7 +8,7 @@ export default class implements ImageReader {
             Jimp.read(parameters)
                 .then(jimpImage => {
                     // stay consistent with images retrieved from libnut which uses BGR format
-                    jimpImage.scan(0, 0, jimpImage.bitmap.width, jimpImage.bitmap.height, function(_, __, idx) {
+                    jimpImage.scan(0, 0, jimpImage.bitmap.width, jimpImage.bitmap.height, function (_, __, idx) {
                         const red = this.bitmap.data[idx];
                         this.bitmap.data[idx] = this.bitmap.data[idx + 2];
                         this.bitmap.data[idx + 2] = red;
@@ -17,7 +17,8 @@ export default class implements ImageReader {
                         jimpImage.bitmap.width,
                         jimpImage.bitmap.height,
                         jimpImage.bitmap.data,
-                        jimpImage.hasAlpha() ? 4 : 3
+                        jimpImage.hasAlpha() ? 4 : 3,
+                        parameters
                     ));
                 }).catch(err => reject(`Failed to load image from '${parameters}'. Reason: ${err}`));
         })

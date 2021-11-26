@@ -49,11 +49,11 @@ export class ScreenClass {
     /**
      * {@link ScreenClass} class constructor
      * @param providerRegistry A {@link ProviderRegistry} used to access underlying implementations
-     * @param findHooks A {@link Map} of {@link FindHookCallback} methods assigned to a template image filename
+     * @param findHooks A {@link Map} of {@link FindHookCallback} methods assigned to a template image
      */
     constructor(
         private providerRegistry: ProviderRegistry,
-        private findHooks: Map<Image, FindHookCallback[]> = new Map<Image, FindHookCallback[]>()) {
+        private findHooks: Map<string | Image, FindHookCallback[]> = new Map<string | Image, FindHookCallback[]>()) {
     }
 
     /**
@@ -142,14 +142,14 @@ export class ScreenClass {
                     }
                 } else {
                     reject(
-                        `No match for ${typeof templateImage === "string" ? templateImage : 'image'}. Required: ${minMatch}, given: ${
+                        `No match for ${needle.id}. Required: ${minMatch}, given: ${
                             matchResult.confidence
                         }`,
                     );
                 }
             } catch (e) {
                 reject(
-                    `Searching for ${typeof templateImage === "string" ? templateImage : 'image'} failed. Reason: '${e}'`,
+                    `Searching for ${needle.id} failed. Reason: '${e}'`,
                 );
             }
         });
@@ -167,16 +167,16 @@ export class ScreenClass {
 
     /**
      * {@link waitFor} searches for a template image for a specified duration
-     * @param templateImageFilename Filename of the template image, relative to {@link ScreenClass.config.resourceDirectory}
+     * @param templateImage Filename of the template image, relative to {@link ScreenClass.config.resourceDirectory}, or an {@link Image}
      * @param timeoutMs Timeout in milliseconds after which {@link waitFor} fails
      * @param params {@link LocationParameters} which are used to fine tune search region and / or match confidence
      */
     public async waitFor(
-        templateImageFilename: string,
+        templateImage: string | Image,
         timeoutMs: number = 5000,
         params?: LocationParameters,
     ): Promise<Region> {
-        return timeout(500, timeoutMs, () => this.find(templateImageFilename, params), {signal: params?.abort});
+        return timeout(500, timeoutMs, () => this.find(templateImage, params), {signal: params?.abort});
     }
 
     /**
@@ -184,7 +184,7 @@ export class ScreenClass {
      * @param templateImage Template image to trigger the callback on
      * @param callback The {@link FindHookCallback} function to trigger
      */
-    public on(templateImage: Image, callback: FindHookCallback) {
+    public on(templateImage: string | Image, callback: FindHookCallback) {
         const existingHooks = this.findHooks.get(templateImage) || [];
         this.findHooks.set(templateImage, [...existingHooks, callback]);
     }

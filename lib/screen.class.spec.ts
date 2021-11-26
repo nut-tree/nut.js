@@ -19,7 +19,7 @@ const providerRegistryMock = mockPartial<ProviderRegistry>({
     getScreen(): ScreenProviderInterface {
         return mockPartial<ScreenProviderInterface>({
             grabScreenRegion(): Promise<Image> {
-                return Promise.resolve(new Image(searchRegion.width, searchRegion.height, new ArrayBuffer(0), 3));
+                return Promise.resolve(new Image(searchRegion.width, searchRegion.height, new ArrayBuffer(0), 3, "needle_image"));
             },
             screenSize(): Promise<Region> {
                 return Promise.resolve(searchRegion);
@@ -38,7 +38,7 @@ describe("Screen.", () => {
             // GIVEN
             const matchResult = new MatchResult(0.99, searchRegion);
             const SUT = new ScreenClass(providerRegistryMock);
-            const needle = new Image(100, 100, Buffer.from([]), 3);
+            const needle = new Image(100, 100, Buffer.from([]), 3, "needle_image");
 
             const findMatchMock = jest.fn(() => Promise.resolve(matchResult));
             providerRegistryMock.getImageFinder = jest.fn(() => mockPartial<ImageFinderInterface>({
@@ -68,7 +68,7 @@ describe("Screen.", () => {
 
             const SUT = new ScreenClass(providerRegistryMock);
             const testCallback = jest.fn(() => Promise.resolve());
-            const needle = new Image(100, 100, Buffer.from([]), 3);
+            const needle = new Image(100, 100, Buffer.from([]), 3, "needle_image");
             SUT.on(needle, testCallback);
 
             // WHEN
@@ -90,7 +90,7 @@ describe("Screen.", () => {
             const SUT = new ScreenClass(providerRegistryMock);
             const testCallback = jest.fn(() => Promise.resolve());
             const secondCallback = jest.fn(() => Promise.resolve());
-            const needle = new Image(100, 100, Buffer.from([]), 3);
+            const needle = new Image(100, 100, Buffer.from([]), 3, "needle_image");
             SUT.on(needle, testCallback);
             SUT.on(needle, secondCallback);
 
@@ -114,7 +114,8 @@ describe("Screen.", () => {
             }));
 
             const SUT = new ScreenClass(providerRegistryMock);
-            const needle = new Image(100, 100, Buffer.from([]), 3);
+            const id = "needle_image";
+            const needle = new Image(100, 100, Buffer.from([]), 3, id);
 
             // WHEN
             const resultRegion = SUT.find(needle);
@@ -122,7 +123,7 @@ describe("Screen.", () => {
             // THEN
             await expect(resultRegion)
                 .rejects
-                .toEqual(`No match for image. Required: ${SUT.config.confidence}, given: ${matchResult.confidence}`);
+                .toEqual(`No match for ${id}. Required: ${SUT.config.confidence}, given: ${matchResult.confidence}`);
         });
 
         it("should reject when search fails.", async () => {
@@ -135,7 +136,8 @@ describe("Screen.", () => {
             }));
 
             const SUT = new ScreenClass(providerRegistryMock);
-            const needle = new Image(100, 100, Buffer.from([]), 3);
+            const id = "needle_image";
+            const needle = new Image(100, 100, Buffer.from([]), 3, id);
 
             // WHEN
             const resultRegion = SUT.find(needle);
@@ -143,7 +145,7 @@ describe("Screen.", () => {
             // THEN
             await expect(resultRegion)
                 .rejects
-                .toEqual(`Searching for image failed. Reason: '${rejectionReason}'`);
+                .toEqual(`Searching for ${id} failed. Reason: '${rejectionReason}'`);
         });
 
         it("should override default confidence value with parameter.", async () => {
@@ -159,7 +161,7 @@ describe("Screen.", () => {
 
             const SUT = new ScreenClass(providerRegistryMock);
 
-            const needle = new Image(100, 100, Buffer.from([]), 3);
+            const needle = new Image(100, 100, Buffer.from([]), 3, "needle_image");
             const parameters = new LocationParameters(undefined, minMatch);
 
             // WHEN
@@ -187,7 +189,7 @@ describe("Screen.", () => {
 
             const SUT = new ScreenClass(providerRegistryMock);
 
-            const needle = new Image(100, 100, Buffer.from([]), 3);
+            const needle = new Image(100, 100, Buffer.from([]), 3, "needle_image");
             const parameters = new LocationParameters(customSearchRegion);
             const expectedMatchRequest = new MatchRequest(
                 expect.any(Image),
@@ -211,7 +213,7 @@ describe("Screen.", () => {
             }));
 
             const SUT = new ScreenClass(providerRegistryMock);
-            const needle = new Image(100, 100, Buffer.from([]), 3);
+            const needle = new Image(100, 100, Buffer.from([]), 3, "needle_image");
 
             const parameters = new LocationParameters(searchRegion, undefined, false);
             const expectedMatchRequest = new MatchRequest(
@@ -238,7 +240,7 @@ describe("Screen.", () => {
             }));
 
             const SUT = new ScreenClass(providerRegistryMock);
-            const needle = new Image(100, 100, Buffer.from([]), 3);
+            const needle = new Image(100, 100, Buffer.from([]), 3, "needle_image");
             const parameters = new LocationParameters(customSearchRegion, minMatch);
             const expectedMatchRequest = new MatchRequest(
                 expect.any(Image),
@@ -273,7 +275,7 @@ describe("Screen.", () => {
             const SUT = new ScreenClass(providerRegistryMock);
             // WHEN
             const matchRegion = await SUT.find(
-                new Image(100, 100, Buffer.from([]), 3),
+                new Image(100, 100, Buffer.from([]), 3, "needle_image"),
                 {
                     searchRegion: limitedSearchRegion
                 }
@@ -302,7 +304,8 @@ describe("Screen.", () => {
             ["with NaN on height", new Region(0, 0, 100, "a" as unknown as number)],
         ])("should reject search regions %s", async (_, region) => {
             // GIVEN
-            const needle = new Image(100, 100, Buffer.from([]), 3);
+            const id = "needle_image";
+            const needle = new Image(100, 100, Buffer.from([]), 3, id);
             const matchResult = new MatchResult(0.99, region);
             const findMatchMock = jest.fn(() => Promise.resolve(matchResult));
             providerRegistryMock.getImageFinder = jest.fn(() => mockPartial<ImageFinderInterface>({
@@ -319,7 +322,7 @@ describe("Screen.", () => {
                 });
 
             // THEN
-            await expect(findPromise).rejects.toContain(`Searching for image failed. Reason:`);
+            await expect(findPromise).rejects.toContain(`Searching for ${id} failed. Reason:`);
         })
     });
 
