@@ -26,7 +26,7 @@ describe('imageToJimp', () => {
         // GIVEN
         const scanMock = jest.fn();
         Jimp.prototype.scan = scanMock;
-        const inputImage = new Image(1, 1, Buffer.from([0, 0, 0]),3);
+        const inputImage = new Image(1, 1, Buffer.from([0, 0, 0]),3, "input_image");
 
         // WHEN
         const result = await imageToJimp(inputImage);
