@@ -24,8 +24,8 @@ afterEach(() => jest.resetAllMocks());
 describe('Jimp image writer', () => {
     it('should reject on writing failures', async () => {
         // GIVEN
-        const outputFile = new Image(100, 200, Buffer.from([]), 3);
         const outputFileName = "/does/not/compute.png"
+        const outputFile = new Image(100, 200, Buffer.from([]), 3, outputFileName);
         const writeMock = jest.fn(() => Promise.resolve(new Jimp()));
         const scanMock = jest.fn();
         Jimp.prototype.scan = scanMock;

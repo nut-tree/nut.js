@@ -7,6 +7,7 @@ import {ScreenClass} from "./lib/screen.class";
 import {LineHelper} from "./lib/util/linehelper.class";
 import {createWindowApi} from "./lib/window.function";
 import providerRegistry from "./lib/provider/provider-registry.class";
+import {loadImageResource} from "./lib/imageResources.function";
 
 export {
     AssertClass,
@@ -49,6 +50,8 @@ const {getWindows, getActiveWindow} = createWindowApi(providerRegistry);
 const loadImage = providerRegistry.getImageReader().load;
 const saveImage = providerRegistry.getImageWriter().store;
 
+const imageResource = (fileName: string) => loadImageResource(providerRegistry, screen.config.resourceDirectory, fileName);
+
 export {
     clipboard,
     keyboard,
@@ -63,5 +66,6 @@ export {
     getWindows,
     getActiveWindow,
     loadImage,
-    saveImage
+    saveImage,
+    imageResource
 };
