@@ -8,7 +8,6 @@ import {Region} from "./region.class";
 import {timeout} from "./util/timeout.function";
 import {Image} from "./image.class";
 import {ProviderRegistry} from "./provider/provider-registry.class";
-import {loadImageResource} from "./imageResources.function";
 import {FirstArgumentType} from "./typings";
 import {Point} from "./point.class";
 
@@ -97,7 +96,7 @@ export class ScreenClass {
      * @param params {@link LocationParameters} which are used to fine tune search region and / or match confidence
      */
     public async find(
-        templateImage: string | Image | Promise<Image>,
+        templateImage: Image | Promise<Image>,
         params?: LocationParameters,
     ): Promise<Region> {
         const minMatch = (params && params.confidence) || this.config.confidence;
@@ -105,12 +104,7 @@ export class ScreenClass {
         const searchRegion = (params && params.searchRegion) || screenSize;
         const searchMultipleScales = (params && params.searchMultipleScales)
 
-        let needle: Image;
-        if (typeof templateImage === "string") {
-            needle = await loadImageResource(this.providerRegistry, this.config.resourceDirectory, templateImage);
-        } else {
-            needle = await templateImage;
-        }
+        const needle = await templateImage;
 
         const screenImage = await this.providerRegistry.getScreen().grabScreenRegion(searchRegion);
 
@@ -154,7 +148,7 @@ export class ScreenClass {
      * @param params {@link LocationParameters} which are used to fine tune search region and / or match confidence
      */
     public async findAll(
-        templateImage: string | Image | Promise<Image>,
+        templateImage: Image | Promise<Image>,
         params?: LocationParameters,
     ): Promise<Region[]> {
         const minMatch = (params && params.confidence) || this.config.confidence;
@@ -162,12 +156,7 @@ export class ScreenClass {
         const searchRegion = (params && params.searchRegion) || screenSize;
         const searchMultipleScales = (params && params.searchMultipleScales)
 
-        let needle: Image;
-        if (typeof templateImage === "string") {
-            needle = await loadImageResource(this.providerRegistry, this.config.resourceDirectory, templateImage);
-        } else {
-            needle = await templateImage;
-        }
+        const needle = await templateImage;
 
         const screenImage = await this.providerRegistry.getScreen().grabScreenRegion(searchRegion);
 

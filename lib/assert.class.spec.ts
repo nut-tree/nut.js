@@ -2,6 +2,7 @@ import {AssertClass} from "./assert.class";
 import {Region} from "./region.class";
 import {ScreenClass} from "./screen.class";
 import providerRegistry from "./provider/provider-registry.class";
+import {imageResource} from "../index";
 
 jest.mock('jimp', () => {
 });
@@ -18,7 +19,7 @@ describe("Assert", () => {
         // WHEN
 
         // THEN
-        await expect(SUT.isVisible(needle)).resolves.not.toThrowError();
+        await expect(SUT.isVisible(imageResource(needle))).resolves.not.toThrowError();
     });
 
     it("isVisible should throw if a match is found.", async () => {
@@ -31,7 +32,7 @@ describe("Assert", () => {
         // WHEN
 
         // THEN
-        await expect(SUT.isVisible(needle)).rejects.toThrowError(`Element '${needle}' not found`);
+        await expect(SUT.isVisible(imageResource(needle))).rejects.toThrowError(`Element '${needle}' not found`);
     });
 
     it("isVisible should throw if a match is found.", async () => {
@@ -46,7 +47,7 @@ describe("Assert", () => {
 
         // THEN
         await expect(SUT
-            .isVisible(needle, searchRegion))
+            .isVisible(imageResource(needle), searchRegion))
             .rejects.toThrowError(`Element '${needle}' not found in region ${searchRegion.toString()}`
             );
     });
@@ -61,7 +62,7 @@ describe("Assert", () => {
         // WHEN
 
         // THEN
-        await expect(SUT.notVisible(needle)).rejects.toThrowError(`'${needle}' is visible`);
+        await expect(SUT.notVisible(imageResource(needle))).rejects.toThrowError(`'${needle}' is visible`);
     });
 
     it("isVisible should throw if a match is found.", async () => {
@@ -74,6 +75,6 @@ describe("Assert", () => {
         // WHEN
 
         // THEN
-        await expect(SUT.notVisible(needle)).resolves.not.toThrowError();
+        await expect(SUT.notVisible(imageResource(needle))).resolves.not.toThrowError();
     });
 });
