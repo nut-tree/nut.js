@@ -8,7 +8,6 @@ import {Region} from "./region.class";
 import {timeout} from "./util/timeout.function";
 import {Image} from "./image.class";
 import {ProviderRegistry} from "./provider/provider-registry.class";
-import {loadImageResource} from "./imageResources.function";
 import {FirstArgumentType} from "./typings";
 import {Point} from "./point.class";
 
@@ -93,11 +92,11 @@ export class ScreenClass {
 
     /**
      * {@link find} will search for a single occurrence of a template image on a systems main screen
-     * @param templateImage Filename of the template image, relative to {@link ScreenClass.config.resourceDirectory}, or an {@link Image} instance
+     * @param template Template {@link Image} instance
      * @param params {@link LocationParameters} which are used to fine tune search region and / or match confidence
      */
     public async find(
-        templateImage: string | Image | Promise<Image>,
+        template: Image | Promise<Image>,
         params?: LocationParameters,
     ): Promise<Region> {
         const minMatch = (params && params.confidence) || this.config.confidence;
@@ -105,12 +104,7 @@ export class ScreenClass {
         const searchRegion = (params && params.searchRegion) || screenSize;
         const searchMultipleScales = (params && params.searchMultipleScales)
 
-        let needle: Image;
-        if (typeof templateImage === "string") {
-            needle = await loadImageResource(this.providerRegistry, this.config.resourceDirectory, templateImage);
-        } else {
-            needle = await templateImage;
-        }
+        const needle = await template;
 
         const screenImage = await this.providerRegistry.getScreen().grabScreenRegion(searchRegion);
 
@@ -150,11 +144,11 @@ export class ScreenClass {
 
     /**
      * {@link findAll} will search for every occurrences of a template image on a systems main screen
-     * @param templateImage Filename of the template image, relative to {@link ScreenClass.config.resourceDirectory}, or an {@link Image} instance
+     * @param template Template {@link Image} instance
      * @param params {@link LocationParameters} which are used to fine tune search region and / or match confidence
      */
     public async findAll(
-        templateImage: string | Image | Promise<Image>,
+        template: FirstArgumentType<typeof ScreenClass.prototype.find>,
         params?: LocationParameters,
     ): Promise<Region[]> {
         const minMatch = (params && params.confidence) || this.config.confidence;
@@ -162,12 +156,7 @@ export class ScreenClass {
         const searchRegion = (params && params.searchRegion) || screenSize;
         const searchMultipleScales = (params && params.searchMultipleScales)
 
-        let needle: Image;
-        if (typeof templateImage === "string") {
-            needle = await loadImageResource(this.providerRegistry, this.config.resourceDirectory, templateImage);
-        } else {
-            needle = await templateImage;
-        }
+        const needle = await template;
 
         const screenImage = await this.providerRegistry.getScreen().grabScreenRegion(searchRegion);
 
