@@ -8,7 +8,7 @@ export class AssertClass {
     }
 
     public async isVisible(needle: FirstArgumentType<typeof ScreenClass.prototype.find>, searchRegion?: Region, confidence?: number) {
-        const identifier = (typeof needle === "string") ? needle : (await needle).id;
+        const identifier = (await needle).id;
 
         try {
             await this.screen.find(
@@ -27,7 +27,7 @@ export class AssertClass {
     }
 
     public async notVisible(needle: FirstArgumentType<typeof ScreenClass.prototype.find>, searchRegion?: Region, confidence?: number) {
-        const identifier = (typeof needle === "string") ? needle : (await needle).id;
+        const identifier = (await needle).id;
 
         try {
             await this.screen.find(

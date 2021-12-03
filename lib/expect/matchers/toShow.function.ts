@@ -12,15 +12,16 @@ export const toShow = async (
         locationParams = new LocationParameters();
         locationParams.confidence = confidence;
     }
+    const identifier = (await needle).id;
     try {
         await received.find(needle, locationParams);
         return {
-            message: () => `Expected screen to not show ${needle}`,
+            message: () => `Expected screen to not show ${identifier}`,
             pass: true,
         };
     } catch (err) {
         return {
-            message: () => `Screen is not showing ${needle}: ${err}`,
+            message: () => `Screen is not showing ${identifier}: ${err}`,
             pass: false,
         };
     }
