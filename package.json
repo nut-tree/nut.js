@@ -24,7 +24,7 @@
   ],
   "cpu": [
     "x64",
-    "ia32"
+    "arm64"
   ],
   "keywords": [
     "native",
@@ -61,6 +61,7 @@
   "dependencies": {
     "@nut-tree/libnut": "2.1.2",
     "clipboardy": "2.3.0",
+    "jimp": "^0.16.1",
     "node-abort-controller": "2.0.0"
   },
   "devDependencies": {

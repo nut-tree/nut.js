@@ -1,30 +1,47 @@
-import {NativeAdapter} from "./adapter/native.adapter.class";
 import {ClipboardClass} from "./clipboard.class";
-import providerRegistry from "./provider/provider-registry.class";
+import {ProviderRegistry} from "./provider/provider-registry.class";
+import {mockPartial} from "sneer";
+import {ClipboardProviderInterface} from "./provider";
 
-jest.mock("./adapter/native.adapter.class");
-
-beforeEach(() => {
-    jest.resetAllMocks();
+jest.mock('jimp', () => {
 });
 
-describe("Clipboard class", () => {
-    it("should call the native adapters copy method.", () => {
-        const adapterMock = new NativeAdapter(providerRegistry);
-        const SUT = new ClipboardClass(adapterMock);
+beforeEach(() => {
+    jest.clearAllMocks();
+});
 
+const providerRegistryMock = mockPartial<ProviderRegistry>({})
+
+describe("Clipboard class", () => {
+    it("should call providers copy method.", () => {
+        // GIVEN
+        const SUT = new ClipboardClass(providerRegistryMock);
+        const copyMock = jest.fn();
+        providerRegistryMock.getClipboard = jest.fn(() => mockPartial<ClipboardProviderInterface>({
+            copy: copyMock
+        }));
         const textToCopy = "bar";
 
+        // WHEN
         SUT.copy(textToCopy);
-        expect(adapterMock.copy).toHaveBeenCalledTimes(1);
-        expect(adapterMock.copy).toHaveBeenCalledWith(textToCopy);
+
+        // THEN
+        expect(copyMock).toHaveBeenCalledTimes(1);
+        expect(copyMock).toHaveBeenCalledWith(textToCopy);
     });
 
-    it("should call the native adapters paste method.", () => {
-        const adapterMock = new NativeAdapter(providerRegistry);
-        const SUT = new ClipboardClass(adapterMock);
+    it("should call providers paste method.", () => {
+        // GIVEN
+        const SUT = new ClipboardClass(providerRegistryMock);
+        const pasteMock = jest.fn();
+        providerRegistryMock.getClipboard = jest.fn(() => mockPartial<ClipboardProviderInterface>({
+            paste: pasteMock
+        }));
 
+        // WHEN
         SUT.paste();
-        expect(adapterMock.paste).toHaveBeenCalledTimes(1);
+
+        // THEN
+        expect(pasteMock).toHaveBeenCalledTimes(1);
     });
 });

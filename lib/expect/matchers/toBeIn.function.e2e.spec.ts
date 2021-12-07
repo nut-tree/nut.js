@@ -3,6 +3,8 @@ import { Point } from "../../point.class";
 import { Region } from "../../region.class";
 import { toBeIn } from "./toBeIn.function";
 
+jest.mock('jimp', () => {});
+
 const targetPoint = new Point(400, 400);
 
 describe(".toBeIn", () => {

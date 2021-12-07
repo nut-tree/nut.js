@@ -1,6 +1,4 @@
-import {join, normalize} from "path";
 import {cwd} from "process";
-import {VisionAdapter} from "./adapter/vision.adapter.class";
 import {FileType} from "./file-type.enum";
 import {generateOutputPath} from "./generate-output-path.function";
 import {LocationParameters} from "./locationparameters.class";
@@ -9,8 +7,26 @@ import {MatchResult} from "./match-result.class";
 import {Region} from "./region.class";
 import {timeout} from "./util/timeout.function";
 import {Image} from "./image.class";
+import {ProviderRegistry} from "./provider/provider-registry.class";
+import {FirstArgumentType} from "./typings";
+import {Point} from "./point.class";
 
 export type FindHookCallback = (target: MatchResult) => Promise<void>;
+
+function validateSearchRegion(search: Region, screen: Region) {
+    if (search.left < 0 || search.top < 0 || search.width < 0 || search.height < 0) {
+        throw new Error(`Negative values in search region ${search}`)
+    }
+    if (isNaN(search.left) || isNaN(search.top) || isNaN(search.width) || isNaN(search.height)) {
+        throw new Error(`NaN values in search region ${search}`)
+    }
+    if (search.width < 2 || search.height < 2) {
+        throw new Error(`Search region ${search} is not large enough. Must be at least two pixels in both width and height.`)
+    }
+    if (search.left + search.width > screen.width || search.top + search.height > screen.height) {
+        throw new Error(`Search region ${search} extends beyond screen boundaries (${screen.width}x${screen.height})`)
+    }
+}
 
 /**
  * {@link ScreenClass} class provides methods to access screen content of a systems main display
@@ -48,12 +64,12 @@ export class ScreenClass {
 
     /**
      * {@link ScreenClass} class constructor
-     * @param vision {@link VisionAdapter} instance which bundles access to screen and / or computer vision related APIs
-     * @param findHooks A {@link Map} of {@link FindHookCallback} methods assigned to a template image filename
+     * @param providerRegistry A {@link ProviderRegistry} used to access underlying implementations
+     * @param findHooks A {@link Map} of {@link FindHookCallback} methods assigned to a template image
      */
     constructor(
-        private vision: VisionAdapter,
-        private findHooks: Map<string, FindHookCallback[]> = new Map<string, FindHookCallback[]>()) {
+        private providerRegistry: ProviderRegistry,
+        private findHooks: Map<string | Image, FindHookCallback[]> = new Map<string | Image, FindHookCallback[]>()) {
     }
 
     /**
@@ -62,7 +78,7 @@ export class ScreenClass {
      * Screens with higher pixel density (e.g. retina displays in MacBooks) might have a higher width in in actual pixels
      */
     public width() {
-        return this.vision.screenWidth();
+        return this.providerRegistry.getScreen().screenWidth();
     }
 
     /**
@@ -71,80 +87,113 @@ export class ScreenClass {
      * Screens with higher pixel density (e.g. retina displays in MacBooks) might have a higher height in in actual pixels
      */
     public height() {
-        return this.vision.screenHeight();
+        return this.providerRegistry.getScreen().screenHeight();
     }
 
     /**
-     * {@link find} will search for a template image on a systems main screen
-     * @param templateImageFilename Filename of the template image, relative to {@link ScreenClass.config.resourceDirectory}
+     * {@link find} will search for a single occurrence of a template image on a systems main screen
+     * @param template Template {@link Image} instance
      * @param params {@link LocationParameters} which are used to fine tune search region and / or match confidence
      */
     public async find(
-        templateImageFilename: string,
+        template: Image | Promise<Image>,
         params?: LocationParameters,
     ): Promise<Region> {
         const minMatch = (params && params.confidence) || this.config.confidence;
-        const screenSize = await this.vision.screenSize();
+        const screenSize = await this.providerRegistry.getScreen().screenSize();
         const searchRegion = (params && params.searchRegion) || screenSize;
         const searchMultipleScales = (params && params.searchMultipleScales)
 
-        const fullPathToNeedle = normalize(join(this.config.resourceDirectory, templateImageFilename));
+        const needle = await template;
 
-        const screenImage = await this.vision.grabScreen();
+        const screenImage = await this.providerRegistry.getScreen().grabScreenRegion(searchRegion);
 
         const matchRequest = new MatchRequest(
             screenImage,
-            fullPathToNeedle,
-            searchRegion,
+            needle,
             minMatch,
             searchMultipleScales
         );
 
-        function validateSearchRegion(search: Region, screen: Region) {
-            if (search.left < 0 || search.top < 0 || search.width < 0 || search.height < 0) {
-                throw new Error(`Negative values in search region ${search}`)
-            }
-            if (isNaN(search.left) || isNaN(search.top) || isNaN(search.width) || isNaN(search.height)) {
-                throw new Error(`NaN values in search region ${search}`)
-            }
-            if (search.width < 2 || search.height < 2) {
-                throw new Error(`Search region ${search} is not large enough. Must be at least two pixels in both width and height.`)
-            }
-            if (search.left + search.width > screen.width || search.top + search.height > screen.height) {
-                throw new Error(`Search region ${search} extends beyond screen boundaries (${screen.width}x${screen.height})`)
-            }
-        }
-
         return new Promise<Region>(async (resolve, reject) => {
             try {
                 validateSearchRegion(searchRegion, screenSize);
-                const matchResult = await this.vision.findOnScreenRegion(matchRequest);
-                if (matchResult.confidence >= minMatch) {
-                    const possibleHooks = this.findHooks.get(templateImageFilename) || [];
-                    for (const hook of possibleHooks) {
+                const matchResult = await this.providerRegistry.getImageFinder().findMatch(matchRequest);
+                const possibleHooks = this.findHooks.get(needle) || [];
+                for (const hook of possibleHooks) {
+                    await hook(matchResult);
+                }
+                const resultRegion = new Region(
+                    searchRegion.left + matchResult.location.left,
+                    searchRegion.top + matchResult.location.top,
+                    matchResult.location.width,
+                    matchResult.location.height
+                )
+                if (this.config.autoHighlight) {
+                    resolve(this.highlight(resultRegion));
+                } else {
+                    resolve(resultRegion);
+                }
+            } catch (e) {
+                reject(
+                    `Searching for ${needle.id} failed. Reason: '${e}'`,
+                );
+            }
+        });
+    }
+
+    /**
+     * {@link findAll} will search for every occurrences of a template image on a systems main screen
+     * @param template Template {@link Image} instance
+     * @param params {@link LocationParameters} which are used to fine tune search region and / or match confidence
+     */
+    public async findAll(
+        template: FirstArgumentType<typeof ScreenClass.prototype.find>,
+        params?: LocationParameters,
+    ): Promise<Region[]> {
+        const minMatch = (params && params.confidence) || this.config.confidence;
+        const screenSize = await this.providerRegistry.getScreen().screenSize();
+        const searchRegion = (params && params.searchRegion) || screenSize;
+        const searchMultipleScales = (params && params.searchMultipleScales)
+
+        const needle = await template;
+
+        const screenImage = await this.providerRegistry.getScreen().grabScreenRegion(searchRegion);
+
+        const matchRequest = new MatchRequest(
+            screenImage,
+            needle,
+            minMatch,
+            searchMultipleScales
+        );
+
+        return new Promise<Region[]>(async (resolve, reject) => {
+            try {
+                validateSearchRegion(searchRegion, screenSize);
+                const matchResults = await this.providerRegistry.getImageFinder().findMatches(matchRequest);
+                const possibleHooks = this.findHooks.get(needle) || [];
+                for (const hook of possibleHooks) {
+                    for (const matchResult of matchResults) {
                         await hook(matchResult);
                     }
-                    const resultRegion = new Region(
+                }
+                const resultRegions = matchResults.map(matchResult => {
+                    return new Region(
                         searchRegion.left + matchResult.location.left,
                         searchRegion.top + matchResult.location.top,
                         matchResult.location.width,
                         matchResult.location.height
                     )
-                    if (this.config.autoHighlight) {
-                        resolve(this.highlight(resultRegion));
-                    } else {
-                        resolve(resultRegion);
-                    }
+                })
+                if (this.config.autoHighlight) {
+                    resultRegions.forEach(region => this.highlight(region));
+                    resolve(resultRegions);
                 } else {
-                    reject(
-                        `No match for ${templateImageFilename}. Required: ${minMatch}, given: ${
-                            matchResult.confidence
-                        }`,
-                    );
+                    resolve(resultRegions);
                 }
             } catch (e) {
                 reject(
-                    `Searching for ${templateImageFilename} failed. Reason: '${e}'`,
+                    `Searching for ${needle.id} failed. Reason: '${e}'`,
                 );
             }
         });
@@ -156,32 +205,32 @@ export class ScreenClass {
      */
     public async highlight(regionToHighlight: Region | Promise<Region>): Promise<Region> {
         const highlightRegion = await regionToHighlight;
-        await this.vision.highlightScreenRegion(highlightRegion, this.config.highlightDurationMs, this.config.highlightOpacity);
+        await this.providerRegistry.getScreen().highlightScreenRegion(highlightRegion, this.config.highlightDurationMs, this.config.highlightOpacity);
         return highlightRegion;
     }
 
     /**
      * {@link waitFor} searches for a template image for a specified duration
-     * @param templateImageFilename Filename of the template image, relative to {@link ScreenClass.config.resourceDirectory}
+     * @param templateImage Filename of the template image, relative to {@link ScreenClass.config.resourceDirectory}, or an {@link Image}
      * @param timeoutMs Timeout in milliseconds after which {@link waitFor} fails
      * @param params {@link LocationParameters} which are used to fine tune search region and / or match confidence
      */
     public async waitFor(
-        templateImageFilename: string,
+        templateImage: FirstArgumentType<typeof ScreenClass.prototype.find>,
         timeoutMs: number = 5000,
         params?: LocationParameters,
     ): Promise<Region> {
-        return timeout(500, timeoutMs, () => this.find(templateImageFilename, params), {signal: params?.abort});
+        return timeout(500, timeoutMs, () => this.find(templateImage, params), {signal: params?.abort});
     }
 
     /**
-     * {@link on} registeres a callback which is triggered once a certain template image is found
-     * @param templateImageFilename Template image to trigger the callback on
+     * {@link on} registers a callback which is triggered once a certain template image is found
+     * @param templateImage Template image to trigger the callback on
      * @param callback The {@link FindHookCallback} function to trigger
      */
-    public on(templateImageFilename: string, callback: FindHookCallback) {
-        const existingHooks = this.findHooks.get(templateImageFilename) || [];
-        this.findHooks.set(templateImageFilename, [...existingHooks, callback]);
+    public on(templateImage: string | Image, callback: FindHookCallback) {
+        const existingHooks = this.findHooks.get(templateImage) || [];
+        this.findHooks.set(templateImage, [...existingHooks, callback]);
     }
 
     /**
@@ -198,7 +247,7 @@ export class ScreenClass {
         filePath: string = cwd(),
         fileNamePrefix: string = "",
         fileNamePostfix: string = ""): Promise<string> {
-        const currentScreen = await this.vision.grabScreen();
+        const currentScreen = await this.providerRegistry.getScreen().grabScreen();
         return this.saveImage(
             currentScreen,
             fileName,
@@ -212,7 +261,7 @@ export class ScreenClass {
      * {@link grab} grabs screen content of a systems main display
      */
     public async grab(): Promise<Image> {
-        return this.vision.grabScreen();
+        return this.providerRegistry.getScreen().grabScreen();
     }
 
     /**
@@ -231,7 +280,7 @@ export class ScreenClass {
         filePath: string = cwd(),
         fileNamePrefix: string = "",
         fileNamePostfix: string = ""): Promise<string> {
-        const regionImage = await this.vision.grabScreenRegion(await regionToCapture);
+        const regionImage = await this.providerRegistry.getScreen().grabScreenRegion(await regionToCapture);
         return this.saveImage(
             regionImage,
             fileName,
@@ -246,7 +295,18 @@ export class ScreenClass {
      * @param regionToGrab The screen region to grab
      */
     public async grabRegion(regionToGrab: Region | Promise<Region>): Promise<Image> {
-        return this.vision.grabScreenRegion(await regionToGrab);
+        return this.providerRegistry.getScreen().grabScreenRegion(await regionToGrab);
+    }
+
+    /**
+     * {@link colorAt} returns RGBA color values for a certain pixel at {@link Point} p
+     * @param point Location to query color information from
+     */
+    public async colorAt(point: Point | Promise<Point>) {
+        const screenContent = await this.providerRegistry.getScreen().grabScreen();
+        const inputPoint = await point;
+        const scaledPoint = new Point(inputPoint.x * screenContent.pixelDensity.scaleX, inputPoint.y * screenContent.pixelDensity.scaleY);
+        return this.providerRegistry.getImageProcessor().colorAt(screenContent, scaledPoint);
     }
 
     private async saveImage(
@@ -262,7 +322,7 @@ export class ScreenClass {
             prefix: fileNamePrefix,
             type: fileFormat,
         });
-        await this.vision.saveImage(image, outputPath);
+        await this.providerRegistry.getImageWriter().store({data: image, path: outputPath})
         return outputPath;
     }
 }
