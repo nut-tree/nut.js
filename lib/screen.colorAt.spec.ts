@@ -41,4 +41,27 @@ describe("colorAt", () => {
         expect(white).toStrictEqual(expectedWhite);
         expect(black).toStrictEqual(expectedBlack);
     });
+
+    it("should account for pixel density when retrieving pixel color", async () => {
+        // GIVEN
+        const screenshot = await loadImage(`${__dirname}/../e2e/assets/checkers.png`);
+        screenshot.pixelDensity.scaleX = 2.0;
+        screenshot.pixelDensity.scaleY = 2.0;
+        const grabScreenMock = jest.fn(() => Promise.resolve(screenshot));
+        providerRegistryMock.getScreen = jest.fn(() => mockPartial<ScreenProviderInterface>({
+            grabScreen: grabScreenMock
+        }));
+        providerRegistryMock.getImageProcessor()
+        const SUT = new ScreenClass(providerRegistryMock);
+        const expectedWhite = new RGBA(255, 255, 255, 255);
+        const expectedBlack = new RGBA(0, 0, 0, 255);
+
+        // WHEN
+        const white = await SUT.colorAt(new Point(32, 32));
+        const black = await SUT.colorAt(new Point(96, 32));
+
+        // THEN
+        expect(white).toStrictEqual(expectedWhite);
+        expect(black).toStrictEqual(expectedBlack);
+    });
 });
