@@ -213,14 +213,16 @@ export class ScreenClass {
      * {@link waitFor} searches for a template image for a specified duration
      * @param templateImage Filename of the template image, relative to {@link ScreenClass.config.resourceDirectory}, or an {@link Image}
      * @param timeoutMs Timeout in milliseconds after which {@link waitFor} fails
+     * @param updateInterval Update interval in milliseconds to retry search
      * @param params {@link LocationParameters} which are used to fine tune search region and / or match confidence
      */
     public async waitFor(
         templateImage: FirstArgumentType<typeof ScreenClass.prototype.find>,
         timeoutMs: number = 5000,
+        updateInterval: number = 500,
         params?: LocationParameters,
     ): Promise<Region> {
-        return timeout(500, timeoutMs, () => this.find(templateImage, params), {signal: params?.abort});
+        return timeout(updateInterval, timeoutMs, () => this.find(templateImage, params), {signal: params?.abort});
     }
 
     /**
