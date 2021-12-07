@@ -303,8 +303,10 @@ export class ScreenClass {
      * @param point Location to query color information from
      */
     public async colorAt(point: Point | Promise<Point>) {
-        const screenContent = this.providerRegistry.getScreen().grabScreen();
-        return this.providerRegistry.getImageProcessor().colorAt(screenContent, point);
+        const screenContent = await this.providerRegistry.getScreen().grabScreen();
+        const inputPoint = await point;
+        const scaledPoint = new Point(inputPoint.x * screenContent.pixelDensity.scaleX, inputPoint.y * screenContent.pixelDensity.scaleY);
+        return this.providerRegistry.getImageProcessor().colorAt(screenContent, scaledPoint);
     }
 
     private async saveImage(
