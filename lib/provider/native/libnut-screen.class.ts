@@ -1,7 +1,8 @@
 import libnut = require("@nut-tree/libnut");
-import { Image } from "../../image.class";
-import { Region } from "../../region.class";
-import { ScreenProviderInterface } from "../screen-provider.interface";
+import {Image} from "../../image.class";
+import {Region} from "../../region.class";
+import {ScreenProviderInterface} from "../screen-provider.interface";
+import {ColorMode} from "../../colormode.enum";
 
 export default class ScreenAction implements ScreenProviderInterface {
 
@@ -34,6 +35,7 @@ export default class ScreenAction implements ScreenProviderInterface {
             screenShot.image,
             4,
               "grabScreenResult",
+            ColorMode.BGR,
             pixelScaling,
           ),
         );
@@ -60,6 +62,7 @@ export default class ScreenAction implements ScreenProviderInterface {
             screenShot.image,
             4,
             "grabScreenRegionResult",
+            ColorMode.BGR,
             pixelScaling,
           ),
         );

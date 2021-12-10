@@ -1,5 +1,6 @@
 import Jimp from "jimp";
 import {Image} from "../../image.class";
+import {ColorMode} from "../../colormode.enum";
 
 export function imageToJimp(image: Image): Jimp {
     const jimpImage = new Jimp({
@@ -7,11 +8,13 @@ export function imageToJimp(image: Image): Jimp {
         width: image.width,
         height: image.height
     });
-    // Images treat data in BGR format, so we have to switch red and blue color channels
-    jimpImage.scan(0, 0, jimpImage.bitmap.width, jimpImage.bitmap.height, function (_, __, idx) {
-        const red = this.bitmap.data[idx];
-        this.bitmap.data[idx] = this.bitmap.data[idx + 2];
-        this.bitmap.data[idx + 2] = red;
-    });
+    if (image.colorMode === ColorMode.BGR) {
+        // Image treats data in BGR format, so we have to switch red and blue color channels
+        jimpImage.scan(0, 0, jimpImage.bitmap.width, jimpImage.bitmap.height, function (_, __, idx) {
+            const red = this.bitmap.data[idx];
+            this.bitmap.data[idx] = this.bitmap.data[idx + 2];
+            this.bitmap.data[idx + 2] = red;
+        });
+    }
     return jimpImage;
 }

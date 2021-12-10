@@ -1,6 +1,8 @@
 import {Image} from "./image.class";
 import {MatchRequest} from "./match-request.class";
 
+jest.mock('jimp', () => {});
+
 describe("MatchRequest", () => {
     it("should default to multi-scale matching", () => {
         const SUT = new MatchRequest(

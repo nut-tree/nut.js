@@ -36,6 +36,7 @@ export {Point} from "./lib/point.class";
 export {Region} from "./lib/region.class";
 export {Window} from "./lib/window.class";
 export {FileType} from "./lib/file-type.enum";
+export {ColorMode} from "./lib/colormode.enum";
 
 const lineHelper = new LineHelper();
 
