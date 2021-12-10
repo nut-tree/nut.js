@@ -1,6 +1,7 @@
 import Jimp from 'jimp';
 import {ImageReader} from "../image-reader.type";
 import {Image} from "../../image.class";
+import {ColorMode} from "../../colormode.enum";
 
 export default class implements ImageReader {
     load(parameters: string): Promise<Image> {
@@ -18,7 +19,8 @@ export default class implements ImageReader {
                         jimpImage.bitmap.height,
                         jimpImage.bitmap.data,
                         jimpImage.hasAlpha() ? 4 : 3,
-                        parameters
+                        parameters,
+                        ColorMode.BGR
                     ));
                 }).catch(err => reject(`Failed to load image from '${parameters}'. Reason: ${err}`));
         })
