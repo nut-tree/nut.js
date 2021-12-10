@@ -2,6 +2,7 @@ import libnut = require("@nut-tree/libnut");
 import { Region } from "../../region.class";
 import ScreenAction from "./libnut-screen.class";
 
+jest.mock("jimp", () => {});
 jest.mock("@nut-tree/libnut");
 
 beforeEach(() => {
