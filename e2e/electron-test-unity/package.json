@@ -1,0 +1,29 @@
+{
+  "name": "electron-test",
+  "version": "1.7.0",
+  "description": "A test to verify usage with Electron",
+  "main": "main.js",
+  "author": {
+    "name": "Simon Hofmann",
+    "email": "dev@simon-hofmann.org",
+    "url": "https://s1h.org"
+  },
+  "scripts": {
+    "pretest": "electron-rebuild && electron-rebuild -m ../../",
+    "test": "electron ."
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^13.1.6",
+    "electron-rebuild": "^2.3.5",
+    "@nut-tree/nut-js": "file:../../"
+  },
+  "dependencies": {
+    "@nut-tree/template-matcher": "0.0.2",
+    "child-process": "^1.0.2",
+    "child_process": "^1.0.2",
+    "electron-localshortcut": "^3.2.1",
+    "electron-serve": "^1.1.0",
+    "node-static": "^0.7.11"
+  }
+}
