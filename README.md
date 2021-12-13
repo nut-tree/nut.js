@@ -14,18 +14,28 @@
 
 [![Downloads per month](https://img.shields.io/npm/dm/@nut-tree/nut-js)](https://www.npmjs.com/package/@nut-tree/nut-js)
 
-<p align="center">
+<p style="text-align: center">
 Native UI testing / automation with node.js
 </p>
 <br/>
-<p align="center">
-	<a target="_blank" href="https://github.com/justadudewhohacks/opencv4nodejs">
-		<img src="https://img.shields.io/badge/Built_with-opencv4nodejs-C86414.svg?style=flat-square" alt="Built with opencv4nodejs" /></a>
-</p>
+
+## Attention
+
+nut.js is currently under heavy development towards a new major release!
+
+Be prepared for awesome new features like
+
+- slimmed down base installation
+- a plugin system
+- Apple Silicon compatibility
+
+and of course
+
+- lots of bugs fixed
 
 # About
 
-<p align="center">
+<p style="text-align: center">
     <img src="https://github.com/nut-tree/nut.js/raw/master/.gfx/nut.png" alt="logo" width="200"/>
 </p>
 
