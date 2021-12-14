@@ -1,7 +1,6 @@
 import {cwd} from "process";
 import {FileType} from "./file-type.enum";
 import {generateOutputPath} from "./generate-output-path.function";
-import {LocationParameters} from "./locationparameters.class";
 import {MatchRequest} from "./match-request.class";
 import {MatchResult} from "./match-result.class";
 import {Region} from "./region.class";
@@ -10,6 +9,7 @@ import {Image} from "./image.class";
 import {ProviderRegistry} from "./provider/provider-registry.class";
 import {FirstArgumentType} from "./typings";
 import {Point} from "./point.class";
+import {OptionalSearchParameters} from "./optionalsearchparameters.class";
 
 export type FindHookCallback = (target: MatchResult) => Promise<void>;
 
@@ -97,7 +97,7 @@ export class ScreenClass {
      */
     public async find(
         template: Image | Promise<Image>,
-        params?: LocationParameters,
+        params?: OptionalSearchParameters,
     ): Promise<Region> {
         const minMatch = (params && params.confidence) || this.config.confidence;
         const screenSize = await this.providerRegistry.getScreen().screenSize();
@@ -149,7 +149,7 @@ export class ScreenClass {
      */
     public async findAll(
         template: FirstArgumentType<typeof ScreenClass.prototype.find>,
-        params?: LocationParameters,
+        params?: OptionalSearchParameters,
     ): Promise<Region[]> {
         const minMatch = (params && params.confidence) || this.config.confidence;
         const screenSize = await this.providerRegistry.getScreen().screenSize();
@@ -220,7 +220,7 @@ export class ScreenClass {
         templateImage: FirstArgumentType<typeof ScreenClass.prototype.find>,
         timeoutMs: number = 5000,
         updateInterval: number = 500,
-        params?: LocationParameters,
+        params?: OptionalSearchParameters,
     ): Promise<Region> {
         return timeout(updateInterval, timeoutMs, () => this.find(templateImage, params), {signal: params?.abort});
     }
