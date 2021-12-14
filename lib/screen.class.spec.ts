@@ -19,7 +19,7 @@ const providerRegistryMock = mockPartial<ProviderRegistry>({
     getScreen(): ScreenProviderInterface {
         return mockPartial<ScreenProviderInterface>({
             grabScreenRegion(): Promise<Image> {
-                return Promise.resolve(new Image(searchRegion.width, searchRegion.height, new ArrayBuffer(0), 3, "needle_image"));
+                return Promise.resolve(new Image(searchRegion.width, searchRegion.height, Buffer.from([]), 3, "needle_image"));
             },
             screenSize(): Promise<Region> {
                 return Promise.resolve(searchRegion);
@@ -614,7 +614,7 @@ describe("Screen.", () => {
     describe("capture", () => {
         it("should capture the whole screen and save image", async () => {
             // GIVEN
-            const screenshot = mockPartial<Image>({data: "pretty pretty image"});
+            const screenshot = mockPartial<Image>({data: Buffer.from([])});
             const grabScreenMock = jest.fn(() => Promise.resolve(screenshot));
             const saveImageMock = jest.fn();
             providerRegistryMock.getScreen = jest.fn(() => mockPartial<ScreenProviderInterface>({
@@ -641,7 +641,7 @@ describe("Screen.", () => {
     describe("captureRegion", () => {
         it("should capture the specified region of the screen and save image", async () => {
             // GIVEN
-            const screenshot = mockPartial<Image>({data: "pretty partial image"});
+            const screenshot = mockPartial<Image>({data: Buffer.from([])});
             const regionToCapture = mockPartial<Region>({top: 42, left: 9, height: 10, width: 3.14159265359})
             const grabScreenMock = jest.fn(() => Promise.resolve(screenshot));
             const saveImageMock = jest.fn();

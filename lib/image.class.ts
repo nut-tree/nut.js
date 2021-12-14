@@ -18,7 +18,7 @@ export class Image {
     constructor(
         public readonly width: number,
         public readonly height: number,
-        public readonly data: any,
+        public readonly data: Buffer,
         public readonly channels: number,
         public readonly id: string,
         public readonly colorMode: ColorMode = ColorMode.BGR,
