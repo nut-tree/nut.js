@@ -33,7 +33,7 @@ describe('Jimp image writer', () => {
         const SUT = new ImageWriter();
 
         // WHEN
-        await SUT.store({data: outputFile, path: outputFileName});
+        await SUT.store({image: outputFile, path: outputFileName});
 
         // THEN
         expect(scanMock).toHaveBeenCalledTimes(1)

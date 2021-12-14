@@ -324,7 +324,7 @@ export class ScreenClass {
             prefix: fileNamePrefix,
             type: fileFormat,
         });
-        await this.providerRegistry.getImageWriter().store({data: image, path: outputPath})
+        await this.providerRegistry.getImageWriter().store({image, path: outputPath})
         return outputPath;
     }
 }
