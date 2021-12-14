@@ -29,7 +29,6 @@ export {RGBA} from "./lib/rgba.class";
 export {Key} from "./lib/key.enum";
 export {Button} from "./lib/button.enum";
 export {centerOf, randomPointIn} from "./lib/location.function";
-export {LocationParameters} from "./lib/locationparameters.class";
 export {OptionalSearchParameters} from "./lib/optionalsearchparameters.class";
 export {EasingFunction, linear} from "./lib/mouse-movement.function";
 export {Point} from "./lib/point.class";
