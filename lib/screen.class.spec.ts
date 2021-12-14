@@ -8,7 +8,7 @@ import {Region} from "./region.class";
 import {ScreenClass} from "./screen.class";
 import {mockPartial} from "sneer";
 import {ProviderRegistry} from "./provider/provider-registry.class";
-import {ImageFinderInterface, ImageWriter, ScreenProviderInterface} from "./provider";
+import {ImageFinderInterface, ImageWriter, ImageWriterParameters, ScreenProviderInterface} from "./provider";
 
 jest.mock('jimp', () => {
 });
@@ -627,6 +627,7 @@ describe("Screen.", () => {
             const SUT = new ScreenClass(providerRegistryMock);
             const imageName = "foobar.png"
             const expectedImagePath = join(cwd(), imageName)
+            const expectedData: ImageWriterParameters = {image: screenshot, path: expectedImagePath}
 
             // WHEN
             const imagePath = await SUT.capture(imageName)
@@ -634,7 +635,7 @@ describe("Screen.", () => {
             // THEN
             expect(imagePath).toBe(expectedImagePath)
             expect(grabScreenMock).toHaveBeenCalled()
-            expect(saveImageMock).toHaveBeenCalledWith({data: screenshot, path: expectedImagePath})
+            expect(saveImageMock).toHaveBeenCalledWith(expectedData);
         });
     })
 
@@ -655,6 +656,7 @@ describe("Screen.", () => {
             const SUT = new ScreenClass(providerRegistryMock);
             const imageName = "foobar.png"
             const expectedImagePath = join(cwd(), imageName)
+            const expectedData: ImageWriterParameters = {image: screenshot, path: expectedImagePath}
 
             // WHEN
             const imagePath = await SUT.captureRegion(imageName, regionToCapture)
@@ -662,7 +664,7 @@ describe("Screen.", () => {
             // THEN
             expect(imagePath).toBe(expectedImagePath)
             expect(grabScreenMock).toHaveBeenCalledWith(regionToCapture)
-            expect(saveImageMock).toHaveBeenCalledWith({data: screenshot, path: expectedImagePath})
+            expect(saveImageMock).toHaveBeenCalledWith(expectedData);
         });
     });
 });
