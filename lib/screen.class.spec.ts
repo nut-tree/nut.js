@@ -1,7 +1,6 @@
 import {join} from "path";
 import {cwd} from "process";
 import {Image} from "./image.class";
-import {LocationParameters} from "./locationparameters.class";
 import {MatchRequest} from "./match-request.class";
 import {MatchResult} from "./match-result.class";
 import {Region} from "./region.class";
@@ -9,6 +8,7 @@ import {ScreenClass} from "./screen.class";
 import {mockPartial} from "sneer";
 import {ProviderRegistry} from "./provider/provider-registry.class";
 import {ImageFinderInterface, ImageWriter, ScreenProviderInterface} from "./provider";
+import {OptionalSearchParameters} from "./optionalsearchparameters.class";
 
 jest.mock('jimp', () => {
 });
@@ -165,7 +165,7 @@ describe("Screen.", () => {
             const SUT = new ScreenClass(providerRegistryMock);
 
             const needle = new Image(100, 100, Buffer.from([]), 3, "needle_image");
-            const parameters = new LocationParameters(undefined, minMatch);
+            const parameters = new OptionalSearchParameters(undefined, minMatch);
 
             // WHEN
             const resultRegion = SUT.find(needle, parameters);
@@ -193,7 +193,7 @@ describe("Screen.", () => {
             const SUT = new ScreenClass(providerRegistryMock);
 
             const needle = new Image(100, 100, Buffer.from([]), 3, "needle_image");
-            const parameters = new LocationParameters(customSearchRegion);
+            const parameters = new OptionalSearchParameters(customSearchRegion);
             const expectedMatchRequest = new MatchRequest(
                 expect.any(Image),
                 needle,
@@ -218,7 +218,7 @@ describe("Screen.", () => {
             const SUT = new ScreenClass(providerRegistryMock);
             const needle = new Image(100, 100, Buffer.from([]), 3, "needle_image");
 
-            const parameters = new LocationParameters(searchRegion, undefined, false);
+            const parameters = new OptionalSearchParameters(searchRegion, undefined, false);
             const expectedMatchRequest = new MatchRequest(
                 expect.any(Image),
                 needle,
@@ -244,7 +244,7 @@ describe("Screen.", () => {
 
             const SUT = new ScreenClass(providerRegistryMock);
             const needle = new Image(100, 100, Buffer.from([]), 3, "needle_image");
-            const parameters = new LocationParameters(customSearchRegion, minMatch);
+            const parameters = new OptionalSearchParameters(customSearchRegion, minMatch);
             const expectedMatchRequest = new MatchRequest(
                 expect.any(Image),
                 needle,
@@ -413,7 +413,7 @@ describe("Screen.", () => {
             const SUT = new ScreenClass(providerRegistryMock);
 
             const needle = new Image(100, 100, Buffer.from([]), 3, "needle_image");
-            const parameters = new LocationParameters(undefined, minMatch);
+            const parameters = new OptionalSearchParameters(undefined, minMatch);
 
             // WHEN
             const [resultRegion] = await SUT.findAll(needle, parameters);
@@ -441,7 +441,7 @@ describe("Screen.", () => {
             const SUT = new ScreenClass(providerRegistryMock);
 
             const needle = new Image(100, 100, Buffer.from([]), 3, "needle_image");
-            const parameters = new LocationParameters(customSearchRegion);
+            const parameters = new OptionalSearchParameters(customSearchRegion);
             const expectedMatchRequest = new MatchRequest(
                 expect.any(Image),
                 needle,
@@ -466,7 +466,7 @@ describe("Screen.", () => {
             const SUT = new ScreenClass(providerRegistryMock);
             const needle = new Image(100, 100, Buffer.from([]), 3, "needle_image");
 
-            const parameters = new LocationParameters(searchRegion, undefined, false);
+            const parameters = new OptionalSearchParameters(searchRegion, undefined, false);
             const expectedMatchRequest = new MatchRequest(
                 expect.any(Image),
                 needle,
@@ -492,7 +492,7 @@ describe("Screen.", () => {
 
             const SUT = new ScreenClass(providerRegistryMock);
             const needle = new Image(100, 100, Buffer.from([]), 3, "needle_image");
-            const parameters = new LocationParameters(customSearchRegion, minMatch);
+            const parameters = new OptionalSearchParameters(customSearchRegion, minMatch);
             const expectedMatchRequest = new MatchRequest(
                 expect.any(Image),
                 needle,

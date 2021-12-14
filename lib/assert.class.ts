@@ -1,7 +1,7 @@
-import {LocationParameters} from "./locationparameters.class";
 import {Region} from "./region.class";
 import {ScreenClass} from "./screen.class";
 import {FirstArgumentType} from "./typings";
+import {OptionalSearchParameters} from "./optionalsearchparameters.class";
 
 export class AssertClass {
     constructor(private screen: ScreenClass) {
@@ -13,7 +13,7 @@ export class AssertClass {
         try {
             await this.screen.find(
                 needle,
-                {searchRegion, confidence} as LocationParameters,
+                {searchRegion, confidence} as OptionalSearchParameters,
             );
         } catch (err) {
             if (searchRegion !== undefined) {
@@ -32,7 +32,7 @@ export class AssertClass {
         try {
             await this.screen.find(
                 needle,
-                {searchRegion, confidence} as LocationParameters,
+                {searchRegion, confidence} as OptionalSearchParameters,
             );
         } catch (err) {
             return;

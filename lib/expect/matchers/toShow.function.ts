@@ -1,6 +1,6 @@
-import {LocationParameters} from "../../locationparameters.class";
 import {ScreenClass} from "../../screen.class";
 import {FirstArgumentType} from "../../typings";
+import {OptionalSearchParameters} from "../../optionalsearchparameters.class";
 
 export const toShow = async (
     received: ScreenClass,
@@ -9,7 +9,7 @@ export const toShow = async (
 ) => {
     let locationParams;
     if (confidence) {
-        locationParams = new LocationParameters();
+        locationParams = new OptionalSearchParameters();
         locationParams.confidence = confidence;
     }
     const identifier = (await needle).id;
