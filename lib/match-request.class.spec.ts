@@ -9,14 +9,14 @@ describe("MatchRequest", () => {
             new Image(
                 100,
                 100,
-                new ArrayBuffer(0),
+                Buffer.from([]),
                 3,
                 "haystack_image"
             ),
             new Image(
                 100,
                 100,
-                new ArrayBuffer(0),
+                Buffer.from([]),
                 3,
                 "needle_image"
             ),

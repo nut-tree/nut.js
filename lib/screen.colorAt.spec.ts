@@ -8,7 +8,7 @@ const providerRegistryMock = mockPartial<ProviderRegistry>({
     getScreen(): ScreenProviderInterface {
         return mockPartial<ScreenProviderInterface>({
             grabScreenRegion(): Promise<Image> {
-                return Promise.resolve(new Image(searchRegion.width, searchRegion.height, new ArrayBuffer(0), 3, "needle_image"));
+                return Promise.resolve(new Image(searchRegion.width, searchRegion.height, Buffer.from([]), 3, "needle_image"));
             },
             screenSize(): Promise<Region> {
                 return Promise.resolve(searchRegion);

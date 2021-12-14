@@ -7,7 +7,7 @@ import {Region} from "./region.class";
 import {ScreenClass} from "./screen.class";
 import {mockPartial} from "sneer";
 import {ProviderRegistry} from "./provider/provider-registry.class";
-import {ImageFinderInterface, ImageWriter, ScreenProviderInterface} from "./provider";
+import {ImageFinderInterface, ImageWriter, ImageWriterParameters, ScreenProviderInterface} from "./provider";
 import {OptionalSearchParameters} from "./optionalsearchparameters.class";
 
 jest.mock('jimp', () => {
@@ -19,7 +19,7 @@ const providerRegistryMock = mockPartial<ProviderRegistry>({
     getScreen(): ScreenProviderInterface {
         return mockPartial<ScreenProviderInterface>({
             grabScreenRegion(): Promise<Image> {
-                return Promise.resolve(new Image(searchRegion.width, searchRegion.height, new ArrayBuffer(0), 3, "needle_image"));
+                return Promise.resolve(new Image(searchRegion.width, searchRegion.height, Buffer.from([]), 3, "needle_image"));
             },
             screenSize(): Promise<Region> {
                 return Promise.resolve(searchRegion);
@@ -614,7 +614,7 @@ describe("Screen.", () => {
     describe("capture", () => {
         it("should capture the whole screen and save image", async () => {
             // GIVEN
-            const screenshot = mockPartial<Image>({data: "pretty pretty image"});
+            const screenshot = mockPartial<Image>({data: Buffer.from([])});
             const grabScreenMock = jest.fn(() => Promise.resolve(screenshot));
             const saveImageMock = jest.fn();
             providerRegistryMock.getScreen = jest.fn(() => mockPartial<ScreenProviderInterface>({
@@ -627,6 +627,7 @@ describe("Screen.", () => {
             const SUT = new ScreenClass(providerRegistryMock);
             const imageName = "foobar.png"
             const expectedImagePath = join(cwd(), imageName)
+            const expectedData: ImageWriterParameters = {image: screenshot, path: expectedImagePath}
 
             // WHEN
             const imagePath = await SUT.capture(imageName)
@@ -634,14 +635,14 @@ describe("Screen.", () => {
             // THEN
             expect(imagePath).toBe(expectedImagePath)
             expect(grabScreenMock).toHaveBeenCalled()
-            expect(saveImageMock).toHaveBeenCalledWith({data: screenshot, path: expectedImagePath})
+            expect(saveImageMock).toHaveBeenCalledWith(expectedData);
         });
     })
 
     describe("captureRegion", () => {
         it("should capture the specified region of the screen and save image", async () => {
             // GIVEN
-            const screenshot = mockPartial<Image>({data: "pretty partial image"});
+            const screenshot = mockPartial<Image>({data: Buffer.from([])});
             const regionToCapture = mockPartial<Region>({top: 42, left: 9, height: 10, width: 3.14159265359})
             const grabScreenMock = jest.fn(() => Promise.resolve(screenshot));
             const saveImageMock = jest.fn();
@@ -655,6 +656,7 @@ describe("Screen.", () => {
             const SUT = new ScreenClass(providerRegistryMock);
             const imageName = "foobar.png"
             const expectedImagePath = join(cwd(), imageName)
+            const expectedData: ImageWriterParameters = {image: screenshot, path: expectedImagePath}
 
             // WHEN
             const imagePath = await SUT.captureRegion(imageName, regionToCapture)
@@ -662,7 +664,7 @@ describe("Screen.", () => {
             // THEN
             expect(imagePath).toBe(expectedImagePath)
             expect(grabScreenMock).toHaveBeenCalledWith(regionToCapture)
-            expect(saveImageMock).toHaveBeenCalledWith({data: screenshot, path: expectedImagePath})
+            expect(saveImageMock).toHaveBeenCalledWith(expectedData);
         });
     });
 });
