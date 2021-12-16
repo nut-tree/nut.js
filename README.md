@@ -17,7 +17,7 @@ Native UI testing / automation with node.js
 
 # About
 
-<p style="text-align: center">
+<p align="center">
     <img src="https://github.com/nut-tree/nut.js/raw/master/.gfx/nut.png" alt="logo" width="200"/>
 </p>
 
