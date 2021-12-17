@@ -1,114 +1,152 @@
-import { NativeAdapter } from "./adapter/native.adapter.class";
-import { Key } from "./key.enum";
-import { Keyboard } from "./keyboard.class";
+import {Key} from "./key.enum";
+import {KeyboardClass} from "./keyboard.class";
+import {ProviderRegistry} from "./provider/provider-registry.class";
+import {mockPartial} from "sneer";
+import {KeyboardProviderInterface} from "./provider";
 
-jest.mock("./adapter/native.adapter.class");
+jest.setTimeout(10000);
 
 beforeEach(() => {
-  jest.resetAllMocks();
+    jest.clearAllMocks();
 });
 
+const providerRegistryMock = mockPartial<ProviderRegistry>({
+    getKeyboard(): KeyboardProviderInterface {
+        return mockPartial<KeyboardProviderInterface>({
+            setKeyboardDelay: jest.fn(),
+        })
+    }
+})
+
 describe("Keyboard", () => {
-  it("should have a default delay of 300 ms", () => {
-    // GIVEN
-    const adapterMock = new NativeAdapter();
-    const SUT = new Keyboard(adapterMock);
+    it("should have a default delay of 300 ms", () => {
+        // GIVEN
+        const SUT = new KeyboardClass(providerRegistryMock);
 
-    // WHEN
+        // WHEN
 
-    // THEN
-    expect(SUT.config.autoDelayMs).toEqual(300);
-  });
+        // THEN
+        expect(SUT.config.autoDelayMs).toEqual(300);
+    });
 
-  it("should pass input strings down to the type call.", async () => {
-    // GIVEN
-    const adapterMock = new NativeAdapter();
-    const SUT = new Keyboard(adapterMock);
-    const payload = "Test input!";
+    it("should pass input strings down to the type call.", async () => {
+        // GIVEN
+        const SUT = new KeyboardClass(providerRegistryMock);
+        const payload = "Test input!";
 
-    // WHEN
-    await SUT.type(payload);
+        const typeMock = jest.fn();
+        providerRegistryMock.getKeyboard = jest.fn(() => mockPartial<KeyboardProviderInterface>({
+            setKeyboardDelay: jest.fn(),
+            type: typeMock
+        }));
 
-    // THEN
-    expect(adapterMock.type).toHaveBeenCalledTimes(payload.length);
-    for (const char of payload.split("")) {
-      expect(adapterMock.type).toHaveBeenCalledWith(char);
-    }
-  });
+        // WHEN
+        await SUT.type(payload);
 
-  it("should pass multiple input strings down to the type call.", async () => {
-    // GIVEN
-    jest.setTimeout(10000);
-    const adapterMock = new NativeAdapter();
-    const SUT = new Keyboard(adapterMock);
-    const payload = ["Test input!", "Array test2"];
+        // THEN
+        expect(typeMock).toHaveBeenCalledTimes(payload.length);
+        for (const char of payload.split("")) {
+            expect(typeMock).toHaveBeenCalledWith(char);
+        }
+    });
 
-    // WHEN
-    await SUT.type(...payload);
+    it("should pass multiple input strings down to the type call.", async () => {
+        // GIVEN
+        const SUT = new KeyboardClass(providerRegistryMock);
+        const payload = ["Test input!", "Array test2"];
 
-    // THEN
-    expect(adapterMock.type).toHaveBeenCalledTimes(payload.join(" ").length);
-    for (const char of payload.join(" ").split("")) {
-      expect(adapterMock.type).toHaveBeenCalledWith(char);
-    }
-  });
+        const typeMock = jest.fn();
+        providerRegistryMock.getKeyboard = jest.fn(() => mockPartial<KeyboardProviderInterface>({
+            setKeyboardDelay: jest.fn(),
+            type: typeMock
+        }));
 
-  it("should pass input keys down to the click call.", async () => {
-    // GIVEN
-    const adapterMock = new NativeAdapter();
-    const SUT = new Keyboard(adapterMock);
-    const payload = [Key.A, Key.S, Key.D, Key.F];
+        // WHEN
+        await SUT.type(...payload);
 
-    // WHEN
-    await SUT.type(...payload);
+        // THEN
+        expect(typeMock).toHaveBeenCalledTimes(payload.join(" ").length);
+        for (const char of payload.join(" ").split("")) {
+            expect(typeMock).toHaveBeenCalledWith(char);
+        }
+    });
 
-    // THEN
-    expect(adapterMock.click).toHaveBeenCalledTimes(1);
-    expect(adapterMock.click).toHaveBeenCalledWith(...payload);
-  });
+    it("should pass input keys down to the click call.", async () => {
+        // GIVEN
+        const SUT = new KeyboardClass(providerRegistryMock);
+        const payload = [Key.A, Key.S, Key.D, Key.F];
 
-  it("should pass a list of input keys down to the click call.", async () => {
-    // GIVEN
-    const adapterMock = new NativeAdapter();
-    const SUT = new Keyboard(adapterMock);
-    const payload = [Key.A, Key.S, Key.D, Key.F];
+        const clickMock = jest.fn();
+        providerRegistryMock.getKeyboard = jest.fn(() => mockPartial<KeyboardProviderInterface>({
+            setKeyboardDelay: jest.fn(),
+            click: clickMock
+        }));
 
-    // WHEN
-    for (const key of payload) {
-      await SUT.type(key);
-    }
+        // WHEN
+        await SUT.type(...payload);
 
-    // THEN
-    expect(adapterMock.click).toHaveBeenCalledTimes(payload.length);
-  });
+        // THEN
+        expect(clickMock).toHaveBeenCalledTimes(1);
+        expect(clickMock).toHaveBeenCalledWith(...payload);
+    });
 
-  it("should pass a list of input keys down to the pressKey call.", async () => {
-    // GIVEN
-    const adapterMock = new NativeAdapter();
-    const SUT = new Keyboard(adapterMock);
-    const payload = [Key.A, Key.S, Key.D, Key.F];
+    it("should pass a list of input keys down to the click call.", async () => {
+        // GIVEN
+        const SUT = new KeyboardClass(providerRegistryMock);
+        const payload = [Key.A, Key.S, Key.D, Key.F];
 
-    // WHEN
-    for (const key of payload) {
-      await SUT.pressKey(key);
-    }
+        const clickMock = jest.fn();
+        providerRegistryMock.getKeyboard = jest.fn(() => mockPartial<KeyboardProviderInterface>({
+            setKeyboardDelay: jest.fn(),
+            click: clickMock
+        }));
 
-    // THEN
-    expect(adapterMock.pressKey).toHaveBeenCalledTimes(payload.length);
-  });
+        // WHEN
+        for (const key of payload) {
+            await SUT.type(key);
+        }
 
-  it("should pass a list of input keys down to the releaseKey call.", async () => {
-    // GIVEN
-    const adapterMock = new NativeAdapter();
-    const SUT = new Keyboard(adapterMock);
-    const payload = [Key.A, Key.S, Key.D, Key.F];
+        // THEN
+        expect(clickMock).toHaveBeenCalledTimes(payload.length);
+    });
 
-    // WHEN
-    for (const key of payload) {
-      await SUT.releaseKey(key);
-    }
+    it("should pass a list of input keys down to the pressKey call.", async () => {
+        // GIVEN
+        const SUT = new KeyboardClass(providerRegistryMock);
+        const payload = [Key.A, Key.S, Key.D, Key.F];
 
-    // THEN
-    expect(adapterMock.releaseKey).toHaveBeenCalledTimes(payload.length);
-  });
+        const keyMock = jest.fn();
+        providerRegistryMock.getKeyboard = jest.fn(() => mockPartial<KeyboardProviderInterface>({
+            setKeyboardDelay: jest.fn(),
+            pressKey: keyMock
+        }));
+
+        // WHEN
+        for (const key of payload) {
+            await SUT.pressKey(key);
+        }
+
+        // THEN
+        expect(keyMock).toHaveBeenCalledTimes(payload.length);
+    });
+
+    it("should pass a list of input keys down to the releaseKey call.", async () => {
+        // GIVEN
+        const SUT = new KeyboardClass(providerRegistryMock);
+        const payload = [Key.A, Key.S, Key.D, Key.F];
+
+        const keyMock = jest.fn();
+        providerRegistryMock.getKeyboard = jest.fn(() => mockPartial<KeyboardProviderInterface>({
+            setKeyboardDelay: jest.fn(),
+            releaseKey: keyMock
+        }));
+
+        // WHEN
+        for (const key of payload) {
+            await SUT.releaseKey(key);
+        }
+
+        // THEN
+        expect(keyMock).toHaveBeenCalledTimes(payload.length);
+    });
 });

@@ -1,21 +1,27 @@
-import { Image } from "./image.class";
-import { MatchRequest } from "./match-request.class";
-import { Region } from "./region.class";
+import {Image} from "./image.class";
+import {MatchRequest} from "./match-request.class";
+
+jest.mock('jimp', () => {});
 
 describe("MatchRequest", () => {
-  it("should default to multi-scale matching", () => {
-    const SUT = new MatchRequest(
-      new Image(100, 100,
-        new ArrayBuffer(0), 3
-      ),
-      "foo",
-      new Region(
-        0,
-        0,
-        100,
-        100),
-      0.99);
+    it("should default to multi-scale matching", () => {
+        const SUT = new MatchRequest(
+            new Image(
+                100,
+                100,
+                Buffer.from([]),
+                3,
+                "haystack_image"
+            ),
+            new Image(
+                100,
+                100,
+                Buffer.from([]),
+                3,
+                "needle_image"
+            ),
+            0.99);
 
-    expect(SUT.searchMultipleScales).toBeTruthy();
-  });
+        expect(SUT.searchMultipleScales).toBeTruthy();
+    });
 });

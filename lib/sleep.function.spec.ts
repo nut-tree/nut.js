@@ -2,6 +2,8 @@ import {busyWaitForNanoSeconds, sleep} from "./sleep.function";
 
 const maxTimeDeltaInMs = 3;
 
+jest.mock('jimp', () => {});
+
 describe("sleep", () => {
     it("should resolve after x ms", async () => {
         // GIVEN

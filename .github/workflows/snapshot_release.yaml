@@ -12,7 +12,7 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest, windows-latest, macos-latest ]
-        node: [ 12, 14, 16 ]
+        node: [ 14 ]
     runs-on: ${{matrix.os}}
     steps:
       - name: Set up Git repository
@@ -58,9 +58,21 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14
+          registry-url: 'https://registry.npmjs.org'
+      - name: Install
+        run: npm ci
       - name: Install @nut-tree/libnut@next
         run: npm i @nut-tree/libnut@next
-      - name: Publish snapshot release
+      - name: Create snapshot release
         run: bash ./.build/pre-release.sh
+      - name: Publish snapshot release to npm
+        run: npm run publish-next
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - uses: actions/setup-node@v2
+        with:
+          registry-url: 'https://npm.pkg.github.com'
+      - name: Publish snapshot release to GPR
+        run: npm run publish-next
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -68,7 +68,7 @@ describe("getActiveWindow", () => {
     it("should determine correct coordinates for our application after moving the window", async () => {
         // GIVEN
         const xPosition = 42;
-        const yPosition = 23;
+        const yPosition = 25;
         await app.browserWindow.setPosition(xPosition, yPosition);
         await sleep(1000);
 
