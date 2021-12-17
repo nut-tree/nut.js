@@ -5,10 +5,6 @@
 |Master |![Create tagged release](https://github.com/nut-tree/nut.js/workflows/Create%20tagged%20release/badge.svg)|
 |Develop|![Create snapshot release](https://github.com/nut-tree/nut.js/workflows/Create%20snapshot%20release/badge.svg)|
 
-![Supported node LTS versions](https://img.shields.io/badge/node%40lts-erbium%2C%20fermium-green)
-![Supported node versions](https://img.shields.io/badge/node-16.x.x-green)
-![Supported Electron versions](https://img.shields.io/badge/electron-8.x.x%20--%2013.x.x-green)
-
 [![SonarCloud badge](https://sonarcloud.io/api/project_badges/measure?project=nut-tree%3Anut.js&metric=alert_status)](https://sonarcloud.io/dashboard?id=nut-tree%3Anut.js)
 [![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=nut-tree%3Anut.js&metric=coverage)](https://sonarcloud.io/component_measures?id=nut-tree%3Anut.js&metric=coverage)
 
@@ -19,23 +15,9 @@ Native UI testing / automation with node.js
 </p>
 <br/>
 
-## Attention
-
-nut.js is currently under heavy development towards a new major release!
-
-Be prepared for awesome new features like
-
-- slimmed down base installation
-- a plugin system
-- Apple Silicon compatibility
-
-and of course
-
-- lots of bugs fixed
-
 # About
 
-<p style="text-align: center">
+<p align="center">
     <img src="https://github.com/nut-tree/nut.js/raw/master/.gfx/nut.png" alt="logo" width="200"/>
 </p>
 
@@ -89,7 +71,7 @@ It's work in progress and will undergo constant modification.
 ## Keyboard
 
 - [x] Support for standard US keyboard layout
-- [x] Support for German special characters
+- [x] Support for multimedia keys
 
 ## Mouse
 
@@ -107,8 +89,10 @@ It's work in progress and will undergo constant modification.
 
 ## Screen
 
-- [x] findOnScreen
-- [x] waitFor
+- [x] Find an image on screen
+- [x] Find all image occurrences on screen
+- [x] Wait for an image to appear on screen
+- [x] Retrieve RGBA color information on screen
 - [x] Hooks to trigger actions based on images
 - [x] Highlighting screen regions
 
@@ -231,96 +215,3 @@ will install the most recent development release of `nut.js`.
 
 **Attention**: While snapshot releases are great to work with upcoming features before a new stable release, it is still a snapshot release.
 Please bear in mind that things might change and / or break on snapshot releases, so it is not recommended using them in production.
-
-### Usage with Electron
-
-`nut.js` in combination with Electron requires bindings built for use with Electron.
-`nut.js` does provide such bindings and e.g. [electron-rebuild](https://www.npmjs.com/package/electron-rebuild) makes installation a breeze.
-
-Besides installing `nut.js` via
-
-```bash
-npm i @nut-tree/nut-js
-```
-
-or
-
-```bash
-yarn add @nut-tree/nut-js
-```
-
-we also install `electron-rebuild` as a `devDependency`:
-
-```bash
-npm i -D electron-rebuild
-```
-
-or 
-
-```bash
-yarn add -D electron-rebuild
-```
-
-Next, we add a `rebuild` script to our `package.json`:
-
-```json
-{
-    ...
-    "scripts": {
-        ...
-        "start": "electron app.js",
-        "rebuild": "electron-rebuild"
-    },
-    ...,
-}
-```
-
-Now all we have to do is run `npm run rebuild` and `electron-rebuild` will fetch the appropriate bindings for our Electron version.
-Currently `nut.js` provides bindings for all ABI version to work with Electron v4.x up to 8.x
-
-### Manual build
-
-As a fallback, `nut.js` is able to build all required dependencies by itself.
-To do so, some setup is required on the respective target platform.
-
-#### Windows
-
-In order to install `nut.js` on Windows, [Windows Build Tools](https://www.microsoft.com/en-us/download/details.aspx?id=48159) and [Python 2](https://www.python.org/downloads/windows/) are required.
-You can either set them up manually, or install them via npm:
-
-```bash
-npm install --global windows-build-tools
-```
-
-or
-
-```bash
-yarn global add windows-build-tools
-```
-
-#### macOS
-
-On macOS, Xcode command line tools are required.
-You can install them by running
-```bash
-xcode-select --install
-```
-
-#### Linux
-
-Depending on your distribution, Linux setups may differ.
-
-In general, `nut.js` requires
-
-- Python 2
-- g++
-- make
-- libXtst
-- libPng
-
-Installation on `*buntu` distributions:
-```bash
-sudo apt-get install build-essential python libxtst-dev libpng++-dev
-```
-
-Setups on other distributions might differ.
