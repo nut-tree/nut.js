@@ -59,7 +59,7 @@
     "typedoc": "typedoc --options ./typedoc.js --out ./docs lib/"
   },
   "dependencies": {
-    "@nut-tree/libnut": "2.1.3",
+    "@nut-tree/libnut": "2.1.4",
     "clipboardy": "2.3.0",
     "jimp": "0.16.1",
     "node-abort-controller": "2.0.0"
