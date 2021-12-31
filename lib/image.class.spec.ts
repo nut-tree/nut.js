@@ -1,4 +1,4 @@
-import {Image} from "./image.class";
+import {Image, isImage} from "./image.class";
 import {imageToJimp} from "./provider/io/imageToJimp.function";
 import {ColorMode} from "./colormode.enum";
 
@@ -65,4 +65,65 @@ describe("Image class", () => {
             expect(imageToJimp).not.toBeCalledTimes(1)
         });
     });
+
+    describe('isImage typeguard', () => {
+        it('should identify an Image', () => {
+            // GIVEN
+            const img = new Image(100, 100, Buffer.from([]), 4, 'foo');
+
+            // WHEN
+            const result = isImage(img);
+
+            // THEN
+            expect(result).toBeTruthy();
+        });
+
+        it('should rule out non-objects', () => {
+            // GIVEN
+            const i = "foo";
+
+            // WHEN
+            const result = isImage(i);
+
+            // THEN
+            expect(result).toBeFalsy();
+        });
+
+        it('should rule out possible object with missing properties', () => {
+            // GIVEN
+            const img = {
+                width: 100,
+                height: 100,
+                data: Buffer.from([]),
+                channels: 'foo',
+                id: 'foo',
+                colorMode: ColorMode.BGR
+            };
+
+            // WHEN
+            const result = isImage(img);
+
+            // THEN
+            expect(result).toBeFalsy();
+        });
+
+        it('should rule out possible object with wrong property type', () => {
+            // GIVEN
+            const img = {
+                width: 100,
+                height: 100,
+                data: Buffer.from([]),
+                channels: 'foo',
+                id: 'foo',
+                colorMode: ColorMode.BGR,
+                pixelDensity: 25
+            };
+
+            // WHEN
+            const result = isImage(img);
+
+            // THEN
+            expect(result).toBeFalsy();
+        });
+    })
 });

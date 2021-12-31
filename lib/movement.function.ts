@@ -1,5 +1,5 @@
 import {MovementApi} from "./movement-api.interface";
-import {Point} from "./point.class";
+import {isPoint, Point} from "./point.class";
 import {LineHelper} from "./util/linehelper.class";
 import {ProviderRegistry} from "./provider/provider-registry.class";
 
@@ -19,6 +19,9 @@ export const createMovementApi = (providerRegistry: ProviderRegistry, lineHelper
         },
         straightTo: async (target: Point | Promise<Point>): Promise<Point[]> => {
             const targetPoint = await target;
+            if (!isPoint(targetPoint)) {
+                throw Error(`straightTo requires a Point, but received ${JSON.stringify(targetPoint)}`)
+            }
             const origin = await providerRegistry.getMouse().currentMousePosition();
             return lineHelper.straightLine(origin, targetPoint);
         },

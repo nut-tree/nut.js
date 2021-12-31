@@ -1,5 +1,5 @@
 import {Button} from "./button.enum";
-import {Point} from "./point.class";
+import {isPoint, Point} from "./point.class";
 import {busyWaitForNanoSeconds, sleep} from "./sleep.function";
 import {calculateMovementTimesteps, EasingFunction, linear} from "./mouse-movement.function";
 import {ProviderRegistry} from "./provider/provider-registry.class";
@@ -36,6 +36,9 @@ export class MouseClass {
      * @param target {@link Point} to move the cursor to
      */
     public async setPosition(target: Point): Promise<MouseClass> {
+        if (!isPoint(target)) {
+            throw Error(`setPosition requires a Point, but received ${JSON.stringify(target)}`)
+        }
         return new Promise<MouseClass>(async (resolve, reject) => {
             try {
                 await this.providerRegistry.getMouse().setMousePosition(target);
@@ -67,7 +70,7 @@ export class MouseClass {
                     const node = pathSteps[idx];
                     const minTime = timeSteps[idx];
                     await busyWaitForNanoSeconds(minTime);
-                    await this.providerRegistry.getMouse().setMousePosition(node);
+                    await this.setPosition(node);
                 }
                 resolve(this);
             } catch (e) {
