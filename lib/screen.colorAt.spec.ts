@@ -64,4 +64,23 @@ describe("colorAt", () => {
         expect(white).toStrictEqual(expectedWhite);
         expect(black).toStrictEqual(expectedBlack);
     });
+
+    it("should throw on non-Point arguments", async () => {
+        // GIVEN
+        const grabScreenMock = jest.fn(() =>
+            Promise.resolve(
+                new Image(10, 10, Buffer.from([]), 4, "test")
+            )
+        );
+        providerRegistryMock.getScreen = jest.fn(() => mockPartial<ScreenProviderInterface>({
+            grabScreen: grabScreenMock
+        }));
+        const SUT = new ScreenClass(providerRegistryMock);
+
+        // WHEN
+        const result = SUT.colorAt({x: 10} as Point);
+
+        // THEN
+        await expect(result).rejects.toThrowError(/^colorAt requires a Point, but received/);
+    });
 });
