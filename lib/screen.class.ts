@@ -3,12 +3,12 @@ import {FileType} from "./file-type.enum";
 import {generateOutputPath} from "./generate-output-path.function";
 import {MatchRequest} from "./match-request.class";
 import {MatchResult} from "./match-result.class";
-import {Region} from "./region.class";
+import {isRegion, Region} from "./region.class";
 import {timeout} from "./util/timeout.function";
-import {Image} from "./image.class";
+import {Image, isImage} from "./image.class";
 import {ProviderRegistry} from "./provider/provider-registry.class";
 import {FirstArgumentType} from "./typings";
-import {Point} from "./point.class";
+import {isPoint, Point} from "./point.class";
 import {OptionalSearchParameters} from "./optionalsearchparameters.class";
 
 export type FindHookCallback = (target: MatchResult) => Promise<void>;
@@ -69,7 +69,7 @@ export class ScreenClass {
      */
     constructor(
         private providerRegistry: ProviderRegistry,
-        private findHooks: Map<string | Image, FindHookCallback[]> = new Map<string | Image, FindHookCallback[]>()) {
+        private findHooks: Map<Image, FindHookCallback[]> = new Map<Image, FindHookCallback[]>()) {
     }
 
     /**
@@ -105,6 +105,10 @@ export class ScreenClass {
         const searchMultipleScales = (params && params.searchMultipleScales)
 
         const needle = await template;
+
+        if (!isImage(needle)) {
+            throw Error(`find requires an Image, but received ${JSON.stringify(needle)}`)
+        }
 
         const screenImage = await this.providerRegistry.getScreen().grabScreenRegion(searchRegion);
 
@@ -157,6 +161,10 @@ export class ScreenClass {
         const searchMultipleScales = (params && params.searchMultipleScales)
 
         const needle = await template;
+
+        if (!isImage(needle)) {
+            throw Error(`findAll requires an Image, but received ${JSON.stringify(needle)}`)
+        }
 
         const screenImage = await this.providerRegistry.getScreen().grabScreenRegion(searchRegion);
 
@@ -222,7 +230,12 @@ export class ScreenClass {
         updateInterval: number = 500,
         params?: OptionalSearchParameters,
     ): Promise<Region> {
-        return timeout(updateInterval, timeoutMs, () => this.find(templateImage, params), {signal: params?.abort});
+        const needle = await templateImage;
+
+        if (!isImage(needle)) {
+            throw Error(`waitFor requires an Image, but received ${JSON.stringify(templateImage)}`)
+        }
+        return timeout(updateInterval, timeoutMs, () => this.find(needle, params), {signal: params?.abort});
     }
 
     /**
@@ -230,7 +243,10 @@ export class ScreenClass {
      * @param templateImage Template image to trigger the callback on
      * @param callback The {@link FindHookCallback} function to trigger
      */
-    public on(templateImage: string | Image, callback: FindHookCallback) {
+    public on(templateImage: Image, callback: FindHookCallback) {
+        if (!isImage(templateImage)) {
+            throw Error(`on requires an Image, but received ${JSON.stringify(templateImage)}`)
+        }
         const existingHooks = this.findHooks.get(templateImage) || [];
         this.findHooks.set(templateImage, [...existingHooks, callback]);
     }
@@ -250,6 +266,9 @@ export class ScreenClass {
         fileNamePrefix: string = "",
         fileNamePostfix: string = ""): Promise<string> {
         const currentScreen = await this.providerRegistry.getScreen().grabScreen();
+        if (!isImage(currentScreen)) {
+            throw Error(`capture requires an Image, but received ${JSON.stringify(currentScreen)}`)
+        }
         return this.saveImage(
             currentScreen,
             fileName,
@@ -282,7 +301,14 @@ export class ScreenClass {
         filePath: string = cwd(),
         fileNamePrefix: string = "",
         fileNamePostfix: string = ""): Promise<string> {
-        const regionImage = await this.providerRegistry.getScreen().grabScreenRegion(await regionToCapture);
+        const targetRegion = await regionToCapture;
+        if (!isRegion(targetRegion)) {
+            throw Error(`captureRegion requires an Region, but received ${JSON.stringify(targetRegion)}`)
+        }
+        const regionImage = await this.providerRegistry.getScreen().grabScreenRegion(targetRegion);
+        if (!isImage(regionImage)) {
+            throw Error(`captureRegion requires an Image, but received ${JSON.stringify(regionImage)}`)
+        }
         return this.saveImage(
             regionImage,
             fileName,
@@ -307,6 +333,9 @@ export class ScreenClass {
     public async colorAt(point: Point | Promise<Point>) {
         const screenContent = await this.providerRegistry.getScreen().grabScreen();
         const inputPoint = await point;
+        if (!isPoint(inputPoint)) {
+            throw Error(`colorAt requires a Point, but received ${JSON.stringify(inputPoint)}`)
+        }
         const scaledPoint = new Point(inputPoint.x * screenContent.pixelDensity.scaleX, inputPoint.y * screenContent.pixelDensity.scaleY);
         return this.providerRegistry.getImageProcessor().colorAt(screenContent, scaledPoint);
     }

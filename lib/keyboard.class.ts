@@ -65,7 +65,7 @@ export class KeyboardClass {
      * @example
      * ```typescript
      *    // Will press and hold key combination STRG + V
-     *    await keyboard.pressKey(Key.STRG, Key.A);
+     *    await keyboard.pressKey(Key.STRG, Key.V);
      * ```
      *
      * @param keys Array of {@link Key}s to press and hold
@@ -87,7 +87,7 @@ export class KeyboardClass {
      * @example
      * ```typescript
      *    // Will release key combination STRG + V
-     *    await keyboard.releaseKey(Key.STRG, Key.A);
+     *    await keyboard.releaseKey(Key.STRG, Key.V);
      * ```
      *
      * @param keys Array of {@link Key}s to release
