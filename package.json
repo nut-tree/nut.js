@@ -1,13 +1,13 @@
 {
   "name": "@nut-tree/nut-js",
-  "version": "2.0.0-RC1",
+  "version": "2.0.0",
   "license": "Apache-2.0",
   "main": "dist/index",
   "typings": "dist/index",
   "description": "Native system automation for node.js",
   "author": {
     "name": "Simon Hofmann",
-    "email": "dev@simon-hofmann.org",
+    "email": "kontakt@s1h.org",
     "url": "https://s1h.org"
   },
   "repository": {
