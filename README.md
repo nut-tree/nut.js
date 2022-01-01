@@ -10,9 +10,9 @@
 
 [![Downloads per month](https://img.shields.io/npm/dm/@nut-tree/nut-js)](https://www.npmjs.com/package/@nut-tree/nut-js)
 
-<h1 style="text-align: center"><a href="https://nutjs.dev">nutjs.dev</a></h1>
+<h1 align="center"><a href="https://nutjs.dev">nutjs.dev</a></h1>
 
-<p style="text-align: center">
+<p align="center">
 Native UI testing / automation with Node.js
 </p>
 <br/>
