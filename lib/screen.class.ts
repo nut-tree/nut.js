@@ -99,18 +99,15 @@ export class ScreenClass {
         template: Image | Promise<Image>,
         params?: OptionalSearchParameters,
     ): Promise<Region> {
-        const minMatch = (params && params.confidence) || this.config.confidence;
-        const screenSize = await this.providerRegistry.getScreen().screenSize();
-        const searchRegion = (params && params.searchRegion) || screenSize;
-        const searchMultipleScales = (params && params.searchMultipleScales)
+        const {
+            minMatch,
+            screenSize,
+            searchRegion,
+            screenImage,
+            searchMultipleScales
+        } = await this.getFindParameters(params);
 
-        const needle = await template;
-
-        if (!isImage(needle)) {
-            throw Error(`find requires an Image, but received ${JSON.stringify(needle)}`)
-        }
-
-        const screenImage = await this.providerRegistry.getScreen().grabScreenRegion(searchRegion);
+        const needle = await ScreenClass.getNeedle(template);
 
         const matchRequest = new MatchRequest(
             screenImage,
@@ -155,18 +152,15 @@ export class ScreenClass {
         template: FirstArgumentType<typeof ScreenClass.prototype.find>,
         params?: OptionalSearchParameters,
     ): Promise<Region[]> {
-        const minMatch = (params && params.confidence) || this.config.confidence;
-        const screenSize = await this.providerRegistry.getScreen().screenSize();
-        const searchRegion = (params && params.searchRegion) || screenSize;
-        const searchMultipleScales = (params && params.searchMultipleScales)
+        const {
+            minMatch,
+            screenSize,
+            searchRegion,
+            screenImage,
+            searchMultipleScales
+        } = await this.getFindParameters(params);
 
-        const needle = await template;
-
-        if (!isImage(needle)) {
-            throw Error(`findAll requires an Image, but received ${JSON.stringify(needle)}`)
-        }
-
-        const screenImage = await this.providerRegistry.getScreen().grabScreenRegion(searchRegion);
+        const needle = await ScreenClass.getNeedle(template);
 
         const matchRequest = new MatchRequest(
             screenImage,
@@ -355,5 +349,30 @@ export class ScreenClass {
         });
         await this.providerRegistry.getImageWriter().store({image, path: outputPath})
         return outputPath;
+    }
+
+    private async getFindParameters(params?: OptionalSearchParameters) {
+        const minMatch = params?.confidence ?? this.config.confidence;
+        const screenSize = await this.providerRegistry.getScreen().screenSize();
+        const searchRegion = params?.searchRegion ?? screenSize;
+        const screenImage = await this.providerRegistry.getScreen().grabScreenRegion(searchRegion);
+        const searchMultipleScales = params?.searchMultipleScales ?? true;
+
+        return ({
+            minMatch,
+            screenSize,
+            searchRegion,
+            screenImage,
+            searchMultipleScales
+        });
+    }
+
+    private static async getNeedle(template: FirstArgumentType<typeof ScreenClass.prototype.find>) {
+        const needle = await template;
+
+        if (!isImage(needle)) {
+            throw Error(`find requires an Image, but received ${JSON.stringify(needle)}`)
+        }
+        return needle;
     }
 }
