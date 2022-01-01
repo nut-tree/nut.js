@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## 2.0.0
 - Feature: Apple Silicon [(libnut#49)](https://github.com/nut-tree/libnut/issues/49)
-- Enhancement: Print warning / info message in case of missing accessibility permission [(libnut#91)](https://github.com/nut-tree/libnut/issues/91)
+- Enhancement: Enable warning message for missing accessibility permissions on macOS [(#354)](https://github.com/nut-tree/nut.js/issues/354)
 - Enhancement: Add runtime typechecks for `screen.find` etc. [(#351)](https://github.com/nut-tree/nut.js/issues/351)
 - Bugfix: Fix Windows scaling issue [(#349)](https://github.com/nut-tree/nut.js/issues/349)
 - Maintenance: Refine types [(#340)](https://github.com/nut-tree/nut.js/issues/340)
