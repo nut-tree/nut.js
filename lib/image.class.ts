@@ -70,3 +70,23 @@ export class Image {
         return new Image(width, height, jimpImage.bitmap.data, channels, id);
     }
 }
+
+const testImage = new Image(100, 100, Buffer.from([]), 4, "typeCheck");
+const imageKeys = Object.keys(testImage);
+
+export function isImage(possibleImage: any): possibleImage is Image {
+    if (typeof possibleImage !== 'object') {
+        return false;
+    }
+    for (const key of imageKeys) {
+        if (!(key in possibleImage)) {
+            return false;
+        }
+        const possibleImageKeyType = typeof possibleImage[key];
+        const imageKeyType = typeof testImage[key as keyof typeof testImage];
+        if (possibleImageKeyType !== imageKeyType) {
+            return false
+        }
+    }
+    return true;
+}

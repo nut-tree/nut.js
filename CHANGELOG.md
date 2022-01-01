@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2.0.0
+- Feature: Apple Silicon [(libnut#49)](https://github.com/nut-tree/libnut/issues/49)
+- Enhancement: Enable warning message for missing accessibility permissions on macOS [(#354)](https://github.com/nut-tree/nut.js/issues/354)
+- Enhancement: Add runtime typechecks for `screen.find` etc. [(#351)](https://github.com/nut-tree/nut.js/issues/351)
+- Bugfix: Fix Windows scaling issue [(#349)](https://github.com/nut-tree/nut.js/issues/349)
+- Maintenance: Refine types [(#340)](https://github.com/nut-tree/nut.js/issues/340)
+- Maintenance: Cleanup deprecated code [(#341)](https://github.com/nut-tree/nut.js/issues/341)
+- Enhancement: Support for mouse capturing games [(#168)](https://github.com/nut-tree/nut.js/issues/168)
+- Feature: Provide functions to convert images between BGR and RGB color mode [(#336)](https://github.com/nut-tree/nut.js/issues/336)
+- Feature: Audio keys support [(#233)](https://github.com/nut-tree/nut.js/issues/233)
+- Enhancement: Configurable interval for `waitFor` [(#312)](https://github.com/nut-tree/nut.js/issues/312)
+- Bugfix: Apply pixel density scaling on `colorAt` [(#327)](https://github.com/nut-tree/nut.js/issues/327)
+- Enhancement: Change `find` signature to only work on `Image` instances [(#329)](https://github.com/nut-tree/nut.js/issues/329)
+- Enhancement: Adjust `assert` class to new `Screen#find` parameter types [(#324)](https://github.com/nut-tree/nut.js/issues/324)
+- Feature: Get screen pixel color [(#259)](https://github.com/nut-tree/nut.js/issues/259)
+- Feature: Add `Screen#findAll` to enable matching multiple template occurrences [(#320)](https://github.com/nut-tree/nut.js/issues/321)
+- Enhancement: Make Screen#find accept `Promise<Image>` [(#320)](https://github.com/nut-tree/nut.js/issues/320)
+- Enhancement: Accepting a Buffer with image data for `Screen#find` [(#204)](https://github.com/nut-tree/nut.js/issues/204)
+- Enhancement: Get rid of adapter layer in favour of providerRegistry [(#310)](https://github.com/nut-tree/nut.js/issues/310)
+- Feature: Provide a default implementation for `ImageReader` and `ImageWriter` [(#307)](https://github.com/nut-tree/nut.js/issues/307)
+- Feature: Define interface for mouse movement type [(#130)](https://github.com/nut-tree/nut.js/issues/130)
+- Feature: Separate image matching code [(#279)](https://github.com/nut-tree/nut.js/issues/279)
+- Enhancement: Export `FileType` [(#301)](https://github.com/nut-tree/nut.js/issues/301)
+- Enhancement: Export `ImageWriterParameters` [(#296)](https://github.com/nut-tree/nut.js/issues/296)
+- Enhancement: Export provider interfaces [(#294)](https://github.com/nut-tree/nut.js/issues/294)
+- Feature: Introduce a registry for providers [(#292)](https://github.com/nut-tree/nut.js/issues/292)
+- Feature: Add methods to grab the current screen content as Buffer [(#278)](https://github.com/nut-tree/nut.js/issues/278)
+
 ## 1.7.0
 - Enhancement: Trigger snapshot releases [(#234)](https://github.com/nut-tree/nut.js/issues/234)
 - Feature: Cancel screen.waitFor if needed [(#241)](https://github.com/nut-tree/nut.js/issues/241)

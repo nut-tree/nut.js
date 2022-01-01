@@ -614,7 +614,7 @@ describe("Screen.", () => {
     describe("capture", () => {
         it("should capture the whole screen and save image", async () => {
             // GIVEN
-            const screenshot = mockPartial<Image>({data: Buffer.from([])});
+            const screenshot = new Image(100, 100, Buffer.from([]), 4, "test");
             const grabScreenMock = jest.fn(() => Promise.resolve(screenshot));
             const saveImageMock = jest.fn();
             providerRegistryMock.getScreen = jest.fn(() => mockPartial<ScreenProviderInterface>({
@@ -637,12 +637,30 @@ describe("Screen.", () => {
             expect(grabScreenMock).toHaveBeenCalled()
             expect(saveImageMock).toHaveBeenCalledWith(expectedData);
         });
+
+        it("should throw in non-image input", async () => {
+            // GIVEN
+            const screenshot = mockPartial<Image>({data: Buffer.from([])});
+            const grabScreenMock = jest.fn(() => Promise.resolve(screenshot));
+            providerRegistryMock.getScreen = jest.fn(() => mockPartial<ScreenProviderInterface>({
+                grabScreen: grabScreenMock
+            }));
+
+            const SUT = new ScreenClass(providerRegistryMock);
+            const imageName = "foobar.png"
+
+            // WHEN
+            const result = SUT.capture(imageName )
+
+            // THEN
+            expect(result).rejects.toThrowError(/^capture requires an Image, but received/);
+        });
     })
 
     describe("captureRegion", () => {
         it("should capture the specified region of the screen and save image", async () => {
             // GIVEN
-            const screenshot = mockPartial<Image>({data: Buffer.from([])});
+            const screenshot = new Image(100, 100, Buffer.from([]), 4, "test");
             const regionToCapture = mockPartial<Region>({top: 42, left: 9, height: 10, width: 3.14159265359})
             const grabScreenMock = jest.fn(() => Promise.resolve(screenshot));
             const saveImageMock = jest.fn();
@@ -665,6 +683,25 @@ describe("Screen.", () => {
             expect(imagePath).toBe(expectedImagePath)
             expect(grabScreenMock).toHaveBeenCalledWith(regionToCapture)
             expect(saveImageMock).toHaveBeenCalledWith(expectedData);
+        });
+
+        it("should throw in non-image input", async () => {
+            // GIVEN
+            const screenshot = mockPartial<Image>({data: Buffer.from([])});
+            const regionToCapture = mockPartial<Region>({top: 42, left: 9, height: 10, width: 3.14159265359})
+            const grabScreenMock = jest.fn(() => Promise.resolve(screenshot));
+            providerRegistryMock.getScreen = jest.fn(() => mockPartial<ScreenProviderInterface>({
+                grabScreenRegion: grabScreenMock
+            }));
+
+            const SUT = new ScreenClass(providerRegistryMock);
+            const imageName = "foobar.png"
+
+            // WHEN
+            const result = SUT.captureRegion(imageName, regionToCapture)
+
+            // THEN
+            expect(result).rejects.toThrowError(/^captureRegion requires an Image, but received/);
         });
     });
 });
