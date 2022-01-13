@@ -43,7 +43,7 @@ A huge **"Thank you!"** goes out to all sponsors who make open source a bit more
 
 <hr/>
 
-[<img src="https://github.com/nut-tree/nut.js/raw/develop/.gfx/sponsors/mighty.svg" alt="Mighty browser logo"/>](Mighty Browser)
+[<img src="https://github.com/nut-tree/nut.js/raw/develop/.gfx/sponsors/mighty.svg" height="75" alt="Mighty browser logo"/>](Mighty Browser)
 
 
 # Demo
