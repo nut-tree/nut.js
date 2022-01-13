@@ -41,6 +41,10 @@ A huge **"Thank you!"** goes out to all sponsors who make open source a bit more
 [<img src="https://avatars.githubusercontent.com/u/1794527?v=4" width="75" alt="Chet Corcos" />](https://github.com/ccorcos)
 [<img src="https://avatars.githubusercontent.com/u/562800?v=4" width="75" alt="Stephan Petzl" />](https://github.com/stoefln)
 
+<hr/>
+
+[<img src="https://assets.website-files.com/605cf560c1c73e1ee595cfc6/606dfb230819094a11f18055_mighty-logo.svg" height="75" style="background-color: lightgray;"/>](https://www.mightyapp.com)
+
 # Demo
 
 Check out this demo video to get a first impression of what nut.js is capable of.
