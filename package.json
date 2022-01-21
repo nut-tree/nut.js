@@ -1,6 +1,6 @@
 {
   "name": "@nut-tree/nut-js",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "license": "Apache-2.0",
   "main": "dist/index",
   "typings": "dist/index",
@@ -74,7 +74,7 @@
     "rimraf": "3.0.2",
     "sneer": "1.0.1",
     "ts-jest": "27.0.5",
-    "typedoc": "0.22.11",
+    "typedoc": "0.21.9",
     "typescript": "4.4.2",
     "version-bump-prompt": "6.1.0"
   }

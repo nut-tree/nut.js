@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2.0.1
+- Bugfix: Issue with keyboard.type in to Spotlight on MacOS [(#152)](https://github.com/nut-tree/nut.js/issues/152)
+- Enhancement: Numpad buttons don't work on Linux [(#360)](https://github.com/nut-tree/nut.js/issues/360)
+
 ## 2.0.0
 - Feature: Apple Silicon [(libnut#49)](https://github.com/nut-tree/libnut/issues/49)
 - Enhancement: Enable warning message for missing accessibility permissions on macOS [(#354)](https://github.com/nut-tree/nut.js/issues/354)
