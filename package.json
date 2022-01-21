@@ -59,7 +59,7 @@
     "typedoc": "typedoc --options ./typedoc.js --out ./docs lib/"
   },
   "dependencies": {
-    "@nut-tree/libnut": "2.1.5",
+    "@nut-tree/libnut": "2.1.6",
     "clipboardy": "2.3.0",
     "jimp": "0.16.1",
     "node-abort-controller": "2.0.0"
@@ -74,7 +74,7 @@
     "rimraf": "3.0.2",
     "sneer": "1.0.1",
     "ts-jest": "27.0.5",
-    "typedoc": "0.21.9",
+    "typedoc": "0.22.11",
     "typescript": "4.4.2",
     "version-bump-prompt": "6.1.0"
   }
