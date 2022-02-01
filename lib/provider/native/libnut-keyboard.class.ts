@@ -77,6 +77,7 @@ export default class KeyboardAction implements KeyboardProviderInterface {
         [Key.NumPad7, "numpad_7"],
         [Key.NumPad8, "numpad_8"],
         [Key.NumPad9, "numpad_9"],
+        [Key.Decimal, "numpad_decimal"],
 
         [Key.Space, "space"],
         [Key.Escape, "escape"],
@@ -119,16 +120,15 @@ export default class KeyboardAction implements KeyboardProviderInterface {
         [Key.PageUp, "pageup"],
         [Key.PageDown, "pagedown"],
 
-        [Key.Add, null],
-        [Key.Subtract, null],
-        [Key.Multiply, null],
-        [Key.Divide, null],
-        [Key.Decimal, null],
+        [Key.Add, "add"],
+        [Key.Subtract, "subtract"],
+        [Key.Multiply, "multiply"],
+        [Key.Divide, "divide"],
         [Key.Enter, "enter"],
 
-        [Key.CapsLock, null],
-        [Key.ScrollLock, null],
-        [Key.NumLock, null],
+        [Key.CapsLock, "caps_lock"],
+        [Key.ScrollLock, "scroll_lock"],
+        [Key.NumLock, "num_lock"],
 
         [Key.AudioMute, "audio_mute"],
         [Key.AudioVolDown, "audio_vol_down"],
@@ -175,8 +175,12 @@ export default class KeyboardAction implements KeyboardProviderInterface {
     public type(input: string): Promise<void> {
         return new Promise<void>((resolve, reject) => {
             try {
-                libnut.typeString(input);
-                resolve();
+                if (input) {
+                    libnut.typeString(input);
+                    resolve();
+                } else {
+                    reject(`Received invalid input: ${input ? input : 'undefined'}`)
+                }
             } catch (e) {
                 reject(e);
             }
@@ -190,10 +194,12 @@ export default class KeyboardAction implements KeyboardProviderInterface {
                 const [key, ...modifiers] = keys;
                 const nativeKey = KeyboardAction.keyLookup(key);
                 const modifierKeys = KeyboardAction.mapModifierKeys(...modifiers);
-                if (nativeKey) {
+                if (nativeKey && !modifierKeys.some(modifier => modifier == null)) {
                     libnut.keyTap(nativeKey, modifierKeys);
+                    resolve();
+                } else {
+                    reject(`Received invalid keys: ${JSON.stringify(keys)}`)
                 }
-                resolve();
             } catch (e) {
                 reject(e);
             }
@@ -205,8 +211,14 @@ export default class KeyboardAction implements KeyboardProviderInterface {
             try {
                 keys.reverse();
                 const [key, ...modifiers] = keys;
-                await KeyboardAction.key(key, "down", ...modifiers);
-                resolve();
+                const nativeKey = KeyboardAction.keyLookup(key);
+                const modifierKeys = KeyboardAction.mapModifierKeys(...modifiers);
+                if (nativeKey && !modifierKeys.some(modifier => modifier == null)) {
+                    await KeyboardAction.key(key, "down", ...modifiers);
+                    resolve();
+                } else {
+                    reject(`Received invalid keys. Key: ${JSON.stringify(key)}, modifiers: ${JSON.stringify(modifiers)}`)
+                }
             } catch (e) {
                 reject(e);
             }
@@ -218,8 +230,14 @@ export default class KeyboardAction implements KeyboardProviderInterface {
             try {
                 keys.reverse();
                 const [key, ...modifiers] = keys;
-                await KeyboardAction.key(key, "up", ...modifiers);
-                resolve();
+                const nativeKey = KeyboardAction.keyLookup(key);
+                const modifierKeys = KeyboardAction.mapModifierKeys(...modifiers);
+                if (nativeKey && !modifierKeys.some(modifier => modifier == null)) {
+                    await KeyboardAction.key(key, "up", ...modifiers);
+                    resolve();
+                } else {
+                    reject(`Received invalid keys. Key: ${JSON.stringify(key)}, modifiers: ${JSON.stringify(modifiers)}`)
+                }
             } catch (e) {
                 reject(e);
             }
