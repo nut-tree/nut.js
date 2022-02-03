@@ -77,6 +77,7 @@ export default class KeyboardAction implements KeyboardProviderInterface {
         [Key.NumPad7, "numpad_7"],
         [Key.NumPad8, "numpad_8"],
         [Key.NumPad9, "numpad_9"],
+        [Key.Decimal, "numpad_decimal"],
 
         [Key.Space, "space"],
         [Key.Escape, "escape"],
@@ -119,16 +120,15 @@ export default class KeyboardAction implements KeyboardProviderInterface {
         [Key.PageUp, "pageup"],
         [Key.PageDown, "pagedown"],
 
-        [Key.Add, null],
-        [Key.Subtract, null],
-        [Key.Multiply, null],
-        [Key.Divide, null],
-        [Key.Decimal, null],
+        [Key.Add, "add"],
+        [Key.Subtract, "subtract"],
+        [Key.Multiply, "multiply"],
+        [Key.Divide, "divide"],
         [Key.Enter, "enter"],
 
-        [Key.CapsLock, null],
-        [Key.ScrollLock, null],
-        [Key.NumLock, null],
+        [Key.CapsLock, "caps_lock"],
+        [Key.ScrollLock, "scroll_lock"],
+        [Key.NumLock, "num_lock"],
 
         [Key.AudioMute, "audio_mute"],
         [Key.AudioVolDown, "audio_vol_down"],
