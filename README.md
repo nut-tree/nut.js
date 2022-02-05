@@ -9,6 +9,7 @@
 [![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=nut-tree%3Anut.js&metric=coverage)](https://sonarcloud.io/component_measures?id=nut-tree%3Anut.js&metric=coverage)
 
 [![Downloads per month](https://img.shields.io/npm/dm/@nut-tree/nut-js)](https://www.npmjs.com/package/@nut-tree/nut-js)
+[![@nut-tree/nut-js](https://snyk.io/advisor/npm-package/@nut-tree/nut-js/badge.svg)](https://snyk.io/advisor/npm-package/@nut-tree/nut-js)
 
 <p align="center">
 Please visit
