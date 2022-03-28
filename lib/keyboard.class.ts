@@ -73,6 +73,7 @@ export class KeyboardClass {
     public pressKey(...keys: Key[]): Promise<KeyboardClass> {
         return new Promise<KeyboardClass>(async (resolve, reject) => {
             try {
+                await sleep(this.config.autoDelayMs);
                 await this.providerRegistry.getKeyboard().pressKey(...keys);
                 resolve(this);
             } catch (e) {
@@ -95,6 +96,7 @@ export class KeyboardClass {
     public releaseKey(...keys: Key[]): Promise<KeyboardClass> {
         return new Promise<KeyboardClass>(async (resolve, reject) => {
             try {
+                await sleep(this.config.autoDelayMs);
                 await this.providerRegistry.getKeyboard().releaseKey(...keys);
                 resolve(this);
             } catch (e) {
