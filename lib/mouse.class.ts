@@ -221,4 +221,34 @@ export class MouseClass {
             }
         });
     }
+
+    /**
+     * {@link click} clicks a mouse button
+     * @param btn The {@link Button} to click
+     */
+    public async click(btn: Button): Promise<MouseClass> {
+        return new Promise<MouseClass>(async (resolve, reject) => {
+            try {
+                await this.providerRegistry.getMouse().click(btn);
+                resolve(this);
+            } catch (e) {
+                reject(e);
+            }
+        });
+    }
+
+    /**
+     * {@link doubleClick} performs a double click on a mouse button
+     * @param btn The {@link Button} to click
+     */
+    public async doubleClick(btn: Button): Promise<MouseClass> {
+        return new Promise<MouseClass>(async (resolve, reject) => {
+            try {
+                await this.providerRegistry.getMouse().doubleClick(btn);
+                resolve(this);
+            } catch (e) {
+                reject(e);
+            }
+        });
+    }
 }
