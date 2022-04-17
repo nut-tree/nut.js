@@ -107,42 +107,6 @@ describe("Mouse class", () => {
         expect(result).toBe(SUT);
     });
 
-    it("should forward leftClick to the provider", async () => {
-        // GIVEN
-        const SUT = new MouseClass(providerRegistryMock);
-
-        const clickMock = jest.fn();
-        providerRegistryMock.getMouse = jest.fn(() => mockPartial<MouseProviderInterface>({
-            setMouseDelay: jest.fn(),
-            leftClick: clickMock
-        }));
-
-        // WHEN
-        const result = await SUT.leftClick();
-
-        // THEN
-        expect(clickMock).toBeCalled();
-        expect(result).toBe(SUT);
-    });
-
-    it("should forward rightClick to the provider", async () => {
-        // GIVEN
-        const SUT = new MouseClass(providerRegistryMock);
-
-        const clickMock = jest.fn();
-        providerRegistryMock.getMouse = jest.fn(() => mockPartial<MouseProviderInterface>({
-            setMouseDelay: jest.fn(),
-            rightClick: clickMock
-        }));
-
-        // WHEN
-        const result = await SUT.rightClick();
-
-        // THEN
-        expect(clickMock).toBeCalled();
-        expect(result).toBe(SUT);
-    });
-
     it("update mouse position along path on move", async () => {
         // GIVEN
         const SUT = new MouseClass(providerRegistryMock);
@@ -259,5 +223,49 @@ describe("Mouse class", () => {
                 expect(clickMock).toBeCalledWith(expected);
             });
         });
-    })
+
+        describe("leftClick", () => {
+            it("should use click internally", async () => {
+                // GIVEN
+                const SUT = new MouseClass(providerRegistryMock);
+
+                const clickSpy = jest.spyOn(SUT, "click");
+                const clickMock = jest.fn();
+                providerRegistryMock.getMouse = jest.fn(() => mockPartial<MouseProviderInterface>({
+                    setMouseDelay: jest.fn(),
+                    click: clickMock
+                }));
+
+                // WHEN
+                const result = await SUT.leftClick();
+
+                // THEN
+                expect(clickSpy).toBeCalledWith(Button.LEFT);
+                expect(clickMock).toBeCalledWith(Button.LEFT);
+                expect(result).toBe(SUT);
+            });
+        });
+
+        describe("rightClick", () => {
+            it("should use click internally", async () => {
+                // GIVEN
+                const SUT = new MouseClass(providerRegistryMock);
+
+                const clickSpy = jest.spyOn(SUT, "click");
+                const clickMock = jest.fn();
+                providerRegistryMock.getMouse = jest.fn(() => mockPartial<MouseProviderInterface>({
+                    setMouseDelay: jest.fn(),
+                    click: clickMock
+                }));
+
+                // WHEN
+                const result = await SUT.rightClick();
+
+                // THEN
+                expect(clickSpy).toBeCalledWith(Button.RIGHT);
+                expect(clickMock).toBeCalledWith(Button.RIGHT);
+                expect(result).toBe(SUT);
+            });
+        });
+    });
 });
