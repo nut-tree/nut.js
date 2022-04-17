@@ -1,7 +1,7 @@
 import libnut = require("@nut-tree/libnut");
-import { Button } from "../../button.enum";
-import { Point } from "../../point.class";
-import { MouseProviderInterface } from "../mouse-provider.interface";
+import {Button} from "../../button.enum";
+import {Point} from "../../point.class";
+import {MouseProviderInterface} from "../mouse-provider.interface";
 
 export default class MouseAction implements MouseProviderInterface {
   public static buttonLookup(btn: Button): any {
@@ -41,37 +41,38 @@ export default class MouseAction implements MouseProviderInterface {
     }));
   }
 
-  public leftClick(): Promise<void> {
+  public click(btn: Button): Promise<void> {
     return new Promise<void>(((resolve, reject) => {
       try {
-        libnut.mouseClick(MouseAction.buttonLookup(Button.LEFT));
+        libnut.mouseClick(MouseAction.buttonLookup(btn));
         resolve();
       } catch (e) {
         reject(e);
       }
     }));
+  }
+
+  public doubleClick(btn: Button): Promise<void> {
+    return new Promise<void>(((resolve, reject) => {
+      try {
+        libnut.mouseClick(MouseAction.buttonLookup(btn), true);
+        resolve();
+      } catch (e) {
+        reject(e);
+      }
+    }));
+  }
+
+  public leftClick(): Promise<void> {
+    return this.click(Button.LEFT);
   }
 
   public rightClick(): Promise<void> {
-    return new Promise<void>(((resolve, reject) => {
-      try {
-        libnut.mouseClick(MouseAction.buttonLookup(Button.RIGHT));
-        resolve();
-      } catch (e) {
-        reject(e);
-      }
-    }));
+    return this.click(Button.RIGHT);
   }
 
   public middleClick(): Promise<void> {
-    return new Promise<void>(((resolve, reject) => {
-      try {
-        libnut.mouseClick(MouseAction.buttonLookup(Button.MIDDLE));
-        resolve();
-      } catch (e) {
-        reject(e);
-      }
-    }));
+    return this.click(Button.MIDDLE);
   }
 
   public pressButton(btn: Button): Promise<void> {
