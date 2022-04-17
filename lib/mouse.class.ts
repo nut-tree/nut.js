@@ -83,26 +83,14 @@ export class MouseClass {
      * {@link leftClick} performs a click with the left mouse button
      */
     public async leftClick(): Promise<MouseClass> {
-        return new Promise<MouseClass>(async resolve => {
-            await sleep(this.config.autoDelayMs);
-            await this.providerRegistry.getMouse().leftClick();
-            resolve(this);
-        });
+        return this.click(Button.LEFT);
     }
 
     /**
      * {@link rightClick} performs a click with the right mouse button
      */
     public async rightClick(): Promise<MouseClass> {
-        return new Promise<MouseClass>(async (resolve, reject) => {
-            try {
-                await sleep(this.config.autoDelayMs);
-                await this.providerRegistry.getMouse().rightClick();
-                resolve(this);
-            } catch (e) {
-                reject(e);
-            }
-        });
+        return this.click(Button.RIGHT);
     }
 
     /**
