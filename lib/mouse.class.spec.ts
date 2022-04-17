@@ -186,32 +186,78 @@ describe("Mouse class", () => {
         expect(releaseButtonMock).toBeCalledWith(Button.LEFT);
         expect(result).toBe(SUT);
     });
-});
 
-describe("Mousebuttons", () => {
-    it.each([
-        [Button.LEFT, Button.LEFT],
-        [Button.MIDDLE, Button.MIDDLE],
-        [Button.RIGHT, Button.RIGHT],
-    ] as Array<[Button, Button]>)("should be pressed and released", async (input: Button, expected: Button) => {
-        // GIVEN
-        const SUT = new MouseClass(providerRegistryMock);
-        const pressButtonMock = jest.fn();
-        const releaseButtonMock = jest.fn();
-        providerRegistryMock.getMouse = jest.fn(() => mockPartial<MouseProviderInterface>({
-            setMouseDelay: jest.fn(),
-            pressButton: pressButtonMock,
-            releaseButton: releaseButtonMock
-        }));
+    describe("Mousebuttons", () => {
+        it.each([
+            [Button.LEFT, Button.LEFT],
+            [Button.MIDDLE, Button.MIDDLE],
+            [Button.RIGHT, Button.RIGHT],
+        ] as Array<[Button, Button]>)("should be pressed and released", async (input: Button, expected: Button) => {
+            // GIVEN
+            const SUT = new MouseClass(providerRegistryMock);
+            const pressButtonMock = jest.fn();
+            const releaseButtonMock = jest.fn();
+            providerRegistryMock.getMouse = jest.fn(() => mockPartial<MouseProviderInterface>({
+                setMouseDelay: jest.fn(),
+                pressButton: pressButtonMock,
+                releaseButton: releaseButtonMock
+            }));
 
-        // WHEN
-        const pressed = await SUT.pressButton(input);
-        const released = await SUT.releaseButton(input);
+            // WHEN
+            const pressed = await SUT.pressButton(input);
+            const released = await SUT.releaseButton(input);
 
-        // THEN
-        expect(pressButtonMock).toBeCalledWith(expected);
-        expect(releaseButtonMock).toBeCalledWith(expected);
-        expect(pressed).toBe(SUT);
-        expect(released).toBe(SUT);
+            // THEN
+            expect(pressButtonMock).toBeCalledWith(expected);
+            expect(releaseButtonMock).toBeCalledWith(expected);
+            expect(pressed).toBe(SUT);
+            expect(released).toBe(SUT);
+        });
     });
+
+    describe("click and doubleClick", () => {
+        describe("click", () => {
+            it.each([
+                [Button.LEFT, Button.LEFT],
+                [Button.MIDDLE, Button.MIDDLE],
+                [Button.RIGHT, Button.RIGHT],
+            ] as Array<[Button, Button]>)("should click the respective button on the provider", async (input: Button, expected: Button) => {
+                // GIVEN
+                const SUT = new MouseClass(providerRegistryMock);
+                const clickMock = jest.fn();
+                providerRegistryMock.getMouse = jest.fn(() => mockPartial<MouseProviderInterface>({
+                    setMouseDelay: jest.fn(),
+                    click: clickMock,
+                }));
+
+                // WHEN
+                await SUT.click(input);
+
+                // THEN
+                expect(clickMock).toBeCalledWith(expected);
+            });
+        });
+
+        describe("doubleClick", () => {
+            it.each([
+                [Button.LEFT, Button.LEFT],
+                [Button.MIDDLE, Button.MIDDLE],
+                [Button.RIGHT, Button.RIGHT],
+            ] as Array<[Button, Button]>)("should click the respective button on the provider", async (input: Button, expected: Button) => {
+                // GIVEN
+                const SUT = new MouseClass(providerRegistryMock);
+                const clickMock = jest.fn();
+                providerRegistryMock.getMouse = jest.fn(() => mockPartial<MouseProviderInterface>({
+                    setMouseDelay: jest.fn(),
+                    doubleClick: clickMock,
+                }));
+
+                // WHEN
+                await SUT.doubleClick(input);
+
+                // THEN
+                expect(clickMock).toBeCalledWith(expected);
+            });
+        });
+    })
 });

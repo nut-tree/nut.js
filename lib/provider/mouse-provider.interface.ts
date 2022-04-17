@@ -42,16 +42,22 @@ export interface MouseProviderInterface {
 
   /**
    * leftClick should allow to perform a left click via OS event
+   *
+   * @deprecated Will be deprecated with the next major release, use `click` instead
    */
   leftClick(): Promise<void>;
 
   /**
    * rightClick should allow to perform a right click via OS event
+   *
+   * @deprecated Will be deprecated with the next major release, use `click` instead
    */
   rightClick(): Promise<void>;
 
   /**
    * middleClick should allow to perform a middle click via OS event
+   *
+   * @deprecated Will be deprecated with the next major release, use `click` instead
    */
   middleClick(): Promise<void>;
 
