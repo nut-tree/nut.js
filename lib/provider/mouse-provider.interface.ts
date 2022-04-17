@@ -27,6 +27,20 @@ export interface MouseProviderInterface {
   currentMousePosition(): Promise<Point>;
 
   /**
+   * click should allow to perform a single click via OS event
+   *
+   * @param btn The {@link Button} to click
+   */
+  click(btn: Button): Promise<void>;
+
+  /**
+   * doubleClick should allow to perform a double click via OS event
+   *
+   * @param btn The {@link Button} to click
+   */
+  doubleClick(btn: Button): Promise<void>;
+
+  /**
    * leftClick should allow to perform a left click via OS event
    */
   leftClick(): Promise<void>;
