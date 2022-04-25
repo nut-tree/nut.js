@@ -11,6 +11,8 @@
 [![Downloads per month](https://img.shields.io/npm/dm/@nut-tree/nut-js)](https://www.npmjs.com/package/@nut-tree/nut-js)
 [![@nut-tree/nut-js](https://snyk.io/advisor/npm-package/@nut-tree/nut-js/badge.svg)](https://snyk.io/advisor/npm-package/@nut-tree/nut-js)
 
+<a href="https://console.dev" title="Visit Console - the best tools for developers"><img src="https://console.dev/img/badges/1.0/svg/console-badge-logo-dark.svg" alt="Console - Developer Tool of the Week" /></a>
+
 <p align="center">
 Please visit
 </p>

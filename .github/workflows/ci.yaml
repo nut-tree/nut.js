@@ -4,6 +4,8 @@ on:
     branches-ignore:
       - develop
       - release/**
+    paths-ignore:
+      - '**/*.md'
   pull_request:
 
 jobs:
