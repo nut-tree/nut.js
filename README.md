@@ -57,7 +57,7 @@ Check out this demo video to get a first impression of what nut.js is capable of
 
 # Tutorials
 
-Please consult the project website at [nutjs.dev](https://nutjs.dev/docs/tutorial-first_steps/prerequisits) for in-depth tutorials
+Please consult the project website at [nutjs.dev](https://nutjs.dev/docs/tutorial-first_steps/prerequisites) for in-depth tutorials
 
 # Examples
 
