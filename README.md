@@ -69,7 +69,7 @@ nut.js provides [public API documentation](https://nut-tree.github.io/apidoc/) a
 
 # Community
 
-Feel free to join our [Discord community](https://discord.gg/sJkN7789XR)
+Feel free to join our [Discord community](https://discord.gg/U5csuM4Esp)
 
 # Modules
 
