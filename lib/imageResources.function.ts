@@ -10,6 +10,11 @@ export function loadImageResource(providerRegistry: ProviderRegistry, resourceDi
     return providerRegistry.getImageReader().load(fullPath);
 }
 
+/**
+ * fetchFromUrl loads remote image content at runtime to provide it for further use in on-screen image search
+ * @param url The remote URl to fetch an image from as string or {@link URL}
+ * @throws On malformed URL input or in case of non-image remote content
+ */
 export async function fetchFromUrl(url: string | URL): Promise<Image> {
     let imageUrl: URL;
     if (url instanceof URL) {
