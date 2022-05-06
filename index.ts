@@ -52,6 +52,7 @@ const loadImage = providerRegistry.getImageReader().load;
 const saveImage = providerRegistry.getImageWriter().store;
 
 const imageResource = (fileName: string) => loadImageResource(providerRegistry, screen.config.resourceDirectory, fileName);
+export {fetchFromUrl} from "./lib/imageResources.function";
 
 export {
     clipboard,
