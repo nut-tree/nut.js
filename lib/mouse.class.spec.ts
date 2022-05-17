@@ -177,6 +177,50 @@ describe("Mouse class", () => {
             expect(pressed).toBe(SUT);
             expect(released).toBe(SUT);
         });
+
+        describe("autoDelayMs", () => {
+            it("pressButton should respect configured delay", async () => {
+                // GIVEN
+                const SUT = new MouseClass(providerRegistryMock);
+                const delay = 100;
+                SUT.config.autoDelayMs = delay;
+
+                const mouseMock = jest.fn();
+                providerRegistryMock.getMouse = jest.fn(() => mockPartial<MouseProviderInterface>({
+                    setMouseDelay: jest.fn(),
+                    pressButton: mouseMock
+                }));
+
+                // WHEN
+                const start = Date.now();
+                await SUT.pressButton(Button.LEFT);
+                const duration = Date.now() - start;
+
+                // THEN
+                expect(duration).toBeGreaterThanOrEqual(delay);
+            });
+
+            it("releaseButton should respect configured delay", async () => {
+                // GIVEN
+                const SUT = new MouseClass(providerRegistryMock);
+                const delay = 100;
+                SUT.config.autoDelayMs = delay;
+
+                const mouseMock = jest.fn();
+                providerRegistryMock.getMouse = jest.fn(() => mockPartial<MouseProviderInterface>({
+                    setMouseDelay: jest.fn(),
+                    releaseButton: mouseMock
+                }));
+
+                // WHEN
+                const start = Date.now();
+                await SUT.releaseButton(Button.LEFT);
+                const duration = Date.now() - start;
+
+                // THEN
+                expect(duration).toBeGreaterThanOrEqual(delay);
+            });
+        });
     });
 
     describe("click and doubleClick", () => {
