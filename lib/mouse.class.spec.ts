@@ -107,42 +107,6 @@ describe("Mouse class", () => {
         expect(result).toBe(SUT);
     });
 
-    it("should forward leftClick to the provider", async () => {
-        // GIVEN
-        const SUT = new MouseClass(providerRegistryMock);
-
-        const clickMock = jest.fn();
-        providerRegistryMock.getMouse = jest.fn(() => mockPartial<MouseProviderInterface>({
-            setMouseDelay: jest.fn(),
-            leftClick: clickMock
-        }));
-
-        // WHEN
-        const result = await SUT.leftClick();
-
-        // THEN
-        expect(clickMock).toBeCalled();
-        expect(result).toBe(SUT);
-    });
-
-    it("should forward rightClick to the provider", async () => {
-        // GIVEN
-        const SUT = new MouseClass(providerRegistryMock);
-
-        const clickMock = jest.fn();
-        providerRegistryMock.getMouse = jest.fn(() => mockPartial<MouseProviderInterface>({
-            setMouseDelay: jest.fn(),
-            rightClick: clickMock
-        }));
-
-        // WHEN
-        const result = await SUT.rightClick();
-
-        // THEN
-        expect(clickMock).toBeCalled();
-        expect(result).toBe(SUT);
-    });
-
     it("update mouse position along path on move", async () => {
         // GIVEN
         const SUT = new MouseClass(providerRegistryMock);
@@ -186,32 +150,166 @@ describe("Mouse class", () => {
         expect(releaseButtonMock).toBeCalledWith(Button.LEFT);
         expect(result).toBe(SUT);
     });
-});
 
-describe("Mousebuttons", () => {
-    it.each([
-        [Button.LEFT, Button.LEFT],
-        [Button.MIDDLE, Button.MIDDLE],
-        [Button.RIGHT, Button.RIGHT],
-    ] as Array<[Button, Button]>)("should be pressed and released", async (input: Button, expected: Button) => {
-        // GIVEN
-        const SUT = new MouseClass(providerRegistryMock);
-        const pressButtonMock = jest.fn();
-        const releaseButtonMock = jest.fn();
-        providerRegistryMock.getMouse = jest.fn(() => mockPartial<MouseProviderInterface>({
-            setMouseDelay: jest.fn(),
-            pressButton: pressButtonMock,
-            releaseButton: releaseButtonMock
-        }));
+    describe("Mousebuttons", () => {
+        it.each([
+            [Button.LEFT, Button.LEFT],
+            [Button.MIDDLE, Button.MIDDLE],
+            [Button.RIGHT, Button.RIGHT],
+        ] as Array<[Button, Button]>)("should be pressed and released", async (input: Button, expected: Button) => {
+            // GIVEN
+            const SUT = new MouseClass(providerRegistryMock);
+            const pressButtonMock = jest.fn();
+            const releaseButtonMock = jest.fn();
+            providerRegistryMock.getMouse = jest.fn(() => mockPartial<MouseProviderInterface>({
+                setMouseDelay: jest.fn(),
+                pressButton: pressButtonMock,
+                releaseButton: releaseButtonMock
+            }));
 
-        // WHEN
-        const pressed = await SUT.pressButton(input);
-        const released = await SUT.releaseButton(input);
+            // WHEN
+            const pressed = await SUT.pressButton(input);
+            const released = await SUT.releaseButton(input);
 
-        // THEN
-        expect(pressButtonMock).toBeCalledWith(expected);
-        expect(releaseButtonMock).toBeCalledWith(expected);
-        expect(pressed).toBe(SUT);
-        expect(released).toBe(SUT);
+            // THEN
+            expect(pressButtonMock).toBeCalledWith(expected);
+            expect(releaseButtonMock).toBeCalledWith(expected);
+            expect(pressed).toBe(SUT);
+            expect(released).toBe(SUT);
+        });
+
+        describe("autoDelayMs", () => {
+            it("pressButton should respect configured delay", async () => {
+                // GIVEN
+                const SUT = new MouseClass(providerRegistryMock);
+                const delay = 100;
+                SUT.config.autoDelayMs = delay;
+
+                const mouseMock = jest.fn();
+                providerRegistryMock.getMouse = jest.fn(() => mockPartial<MouseProviderInterface>({
+                    setMouseDelay: jest.fn(),
+                    pressButton: mouseMock
+                }));
+
+                // WHEN
+                const start = Date.now();
+                await SUT.pressButton(Button.LEFT);
+                const duration = Date.now() - start;
+
+                // THEN
+                expect(duration).toBeGreaterThanOrEqual(delay);
+            });
+
+            it("releaseButton should respect configured delay", async () => {
+                // GIVEN
+                const SUT = new MouseClass(providerRegistryMock);
+                const delay = 100;
+                SUT.config.autoDelayMs = delay;
+
+                const mouseMock = jest.fn();
+                providerRegistryMock.getMouse = jest.fn(() => mockPartial<MouseProviderInterface>({
+                    setMouseDelay: jest.fn(),
+                    releaseButton: mouseMock
+                }));
+
+                // WHEN
+                const start = Date.now();
+                await SUT.releaseButton(Button.LEFT);
+                const duration = Date.now() - start;
+
+                // THEN
+                expect(duration).toBeGreaterThanOrEqual(delay);
+            });
+        });
+    });
+
+    describe("click and doubleClick", () => {
+        describe("click", () => {
+            it.each([
+                [Button.LEFT, Button.LEFT],
+                [Button.MIDDLE, Button.MIDDLE],
+                [Button.RIGHT, Button.RIGHT],
+            ] as Array<[Button, Button]>)("should click the respective button on the provider", async (input: Button, expected: Button) => {
+                // GIVEN
+                const SUT = new MouseClass(providerRegistryMock);
+                const clickMock = jest.fn();
+                providerRegistryMock.getMouse = jest.fn(() => mockPartial<MouseProviderInterface>({
+                    setMouseDelay: jest.fn(),
+                    click: clickMock,
+                }));
+
+                // WHEN
+                await SUT.click(input);
+
+                // THEN
+                expect(clickMock).toBeCalledWith(expected);
+            });
+        });
+
+        describe("doubleClick", () => {
+            it.each([
+                [Button.LEFT, Button.LEFT],
+                [Button.MIDDLE, Button.MIDDLE],
+                [Button.RIGHT, Button.RIGHT],
+            ] as Array<[Button, Button]>)("should click the respective button on the provider", async (input: Button, expected: Button) => {
+                // GIVEN
+                const SUT = new MouseClass(providerRegistryMock);
+                const clickMock = jest.fn();
+                providerRegistryMock.getMouse = jest.fn(() => mockPartial<MouseProviderInterface>({
+                    setMouseDelay: jest.fn(),
+                    doubleClick: clickMock,
+                }));
+
+                // WHEN
+                await SUT.doubleClick(input);
+
+                // THEN
+                expect(clickMock).toBeCalledWith(expected);
+            });
+        });
+
+        describe("leftClick", () => {
+            it("should use click internally", async () => {
+                // GIVEN
+                const SUT = new MouseClass(providerRegistryMock);
+
+                const clickSpy = jest.spyOn(SUT, "click");
+                const clickMock = jest.fn();
+                providerRegistryMock.getMouse = jest.fn(() => mockPartial<MouseProviderInterface>({
+                    setMouseDelay: jest.fn(),
+                    click: clickMock
+                }));
+
+                // WHEN
+                const result = await SUT.leftClick();
+
+                // THEN
+                expect(clickSpy).toBeCalledWith(Button.LEFT);
+                expect(clickMock).toBeCalledWith(Button.LEFT);
+                expect(result).toBe(SUT);
+            });
+        });
+
+        describe("rightClick", () => {
+            it("should use click internally", async () => {
+                // GIVEN
+                const SUT = new MouseClass(providerRegistryMock);
+
+                const clickSpy = jest.spyOn(SUT, "click");
+                const clickMock = jest.fn();
+                providerRegistryMock.getMouse = jest.fn(() => mockPartial<MouseProviderInterface>({
+                    setMouseDelay: jest.fn(),
+                    click: clickMock
+                }));
+
+                // WHEN
+                const result = await SUT.rightClick();
+
+                // THEN
+                expect(clickSpy).toBeCalledWith(Button.RIGHT);
+                expect(clickMock).toBeCalledWith(Button.RIGHT);
+                expect(result).toBe(SUT);
+            });
+        });
     });
 });

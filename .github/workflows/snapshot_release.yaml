@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - develop
+    paths-ignore:
+      - '**/*.md'
   repository_dispatch:
     types:
       - snapshot-release

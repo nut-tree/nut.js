@@ -4,11 +4,14 @@ on:
     branches-ignore:
       - develop
       - release/**
+    paths-ignore:
+      - '**/*.md'
   pull_request:
 
 jobs:
   sonar:
     runs-on: ubuntu-latest
+    if: '!contains(github.event.head_commit.message, ''skip ci'')'
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v2

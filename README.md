@@ -9,6 +9,9 @@
 [![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=nut-tree%3Anut.js&metric=coverage)](https://sonarcloud.io/component_measures?id=nut-tree%3Anut.js&metric=coverage)
 
 [![Downloads per month](https://img.shields.io/npm/dm/@nut-tree/nut-js)](https://www.npmjs.com/package/@nut-tree/nut-js)
+[![@nut-tree/nut-js](https://snyk.io/advisor/npm-package/@nut-tree/nut-js/badge.svg)](https://snyk.io/advisor/npm-package/@nut-tree/nut-js)
+
+<a href="https://console.dev" title="Visit Console - the best tools for developers"><img src="https://console.dev/img/badges/1.0/svg/console-badge-logo-dark.svg" alt="Console - Developer Tool of the Week" /></a>
 
 <p align="center">
 Please visit
@@ -54,7 +57,7 @@ Check out this demo video to get a first impression of what nut.js is capable of
 
 # Tutorials
 
-Please consult the project website at [nutjs.dev](https://nutjs.dev/docs/tutorial-first_steps/prerequisits) for in-depth tutorials
+Please consult the project website at [nutjs.dev](https://nutjs.dev/docs/tutorial-first_steps/prerequisites) for in-depth tutorials
 
 # Examples
 
@@ -66,7 +69,7 @@ nut.js provides [public API documentation](https://nut-tree.github.io/apidoc/) a
 
 # Community
 
-Feel free to join our [Discord community](https://discord.gg/sJkN7789XR)
+Feel free to join our [Discord community](https://discord.gg/U5csuM4Esp)
 
 # Modules
 

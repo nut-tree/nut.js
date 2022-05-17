@@ -1,6 +1,6 @@
 {
   "name": "@nut-tree/nut-js",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "license": "Apache-2.0",
   "main": "dist/index",
   "typings": "dist/index",
@@ -59,7 +59,7 @@
     "typedoc": "typedoc --options ./typedoc.js --out ./docs lib/"
   },
   "dependencies": {
-    "@nut-tree/libnut": "2.1.6",
+    "@nut-tree/libnut": "2.1.7",
     "clipboardy": "2.3.0",
     "jimp": "0.16.1",
     "node-abort-controller": "2.0.0"

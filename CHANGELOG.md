@@ -2,8 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2.1.0
+- Bugfix: Keyboard methods `pressKey` and `releaseKey` ignore updated autoDelayMs [(#188)](https://github.com/nut-tree/nut.js/issues/188)
+- Enhancement: Add mappings for missing numpad keys [(#367)](https://github.com/nut-tree/nut.js/issues/367)
+- Enhancement: macOS double click [(#373)](https://github.com/nut-tree/nut.js/issues/373)
+- Maintenance: Both `mouse.leftClick` and `mouse.rightClick` should reuse `click` [(#390)](https://github.com/nut-tree/nut.js/issues/390)
+- Feature: New image loader to fetch remote images [(#400)](https://github.com/nut-tree/nut.js/issues/400)
+- Bugfix: Mouse methods `pressButton` and `releaseButton` should respect auto delay [(#403)](https://github.com/nut-tree/nut.js/issues/403)
+
 ## 2.0.1
-- Bugfix: Issue with keyboard.type in to Spotlight on MacOS [(#152)](https://github.com/nut-tree/nut.js/issues/152)
+- Bugfix: Issue with `keyboard.type` in to Spotlight on MacOS [(#152)](https://github.com/nut-tree/nut.js/issues/152)
 - Enhancement: Numpad buttons don't work on Linux [(#360)](https://github.com/nut-tree/nut.js/issues/360)
 
 ## 2.0.0

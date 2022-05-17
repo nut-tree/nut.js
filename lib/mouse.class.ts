@@ -83,26 +83,14 @@ export class MouseClass {
      * {@link leftClick} performs a click with the left mouse button
      */
     public async leftClick(): Promise<MouseClass> {
-        return new Promise<MouseClass>(async resolve => {
-            await sleep(this.config.autoDelayMs);
-            await this.providerRegistry.getMouse().leftClick();
-            resolve(this);
-        });
+        return this.click(Button.LEFT);
     }
 
     /**
      * {@link rightClick} performs a click with the right mouse button
      */
     public async rightClick(): Promise<MouseClass> {
-        return new Promise<MouseClass>(async (resolve, reject) => {
-            try {
-                await sleep(this.config.autoDelayMs);
-                await this.providerRegistry.getMouse().rightClick();
-                resolve(this);
-            } catch (e) {
-                reject(e);
-            }
-        });
+        return this.click(Button.RIGHT);
     }
 
     /**
@@ -199,6 +187,7 @@ export class MouseClass {
     public async pressButton(btn: Button): Promise<MouseClass> {
         return new Promise<MouseClass>(async (resolve, reject) => {
             try {
+                await sleep(this.config.autoDelayMs);
                 await this.providerRegistry.getMouse().pressButton(btn);
                 resolve(this);
             } catch (e) {
@@ -214,7 +203,40 @@ export class MouseClass {
     public async releaseButton(btn: Button): Promise<MouseClass> {
         return new Promise<MouseClass>(async (resolve, reject) => {
             try {
+                await sleep(this.config.autoDelayMs);
                 await this.providerRegistry.getMouse().releaseButton(btn);
+                resolve(this);
+            } catch (e) {
+                reject(e);
+            }
+        });
+    }
+
+    /**
+     * {@link click} clicks a mouse button
+     * @param btn The {@link Button} to click
+     */
+    public async click(btn: Button): Promise<MouseClass> {
+        return new Promise<MouseClass>(async (resolve, reject) => {
+            try {
+                await sleep(this.config.autoDelayMs);
+                await this.providerRegistry.getMouse().click(btn);
+                resolve(this);
+            } catch (e) {
+                reject(e);
+            }
+        });
+    }
+
+    /**
+     * {@link doubleClick} performs a double click on a mouse button
+     * @param btn The {@link Button} to click
+     */
+    public async doubleClick(btn: Button): Promise<MouseClass> {
+        return new Promise<MouseClass>(async (resolve, reject) => {
+            try {
+                await sleep(this.config.autoDelayMs);
+                await this.providerRegistry.getMouse().doubleClick(btn);
                 resolve(this);
             } catch (e) {
                 reject(e);

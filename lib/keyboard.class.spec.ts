@@ -149,4 +149,48 @@ describe("Keyboard", () => {
         // THEN
         expect(keyMock).toHaveBeenCalledTimes(payload.length);
     });
+
+    describe("autoDelayMs", () => {
+        it("pressKey should respect configured delay", async () => {
+            // GIVEN
+            const SUT = new KeyboardClass(providerRegistryMock);
+            const delay = 100;
+            SUT.config.autoDelayMs = delay;
+
+            const keyMock = jest.fn();
+            providerRegistryMock.getKeyboard = jest.fn(() => mockPartial<KeyboardProviderInterface>({
+                setKeyboardDelay: jest.fn(),
+                pressKey: keyMock
+            }));
+
+            // WHEN
+            const start = Date.now();
+            await SUT.pressKey(Key.A);
+            const duration = Date.now() - start;
+
+            // THEN
+            expect(duration).toBeGreaterThanOrEqual(delay);
+        });
+
+        it("should pass a list of input keys down to the releaseKey call.", async () => {
+            // GIVEN
+            const SUT = new KeyboardClass(providerRegistryMock);
+            const delay = 100;
+            SUT.config.autoDelayMs = delay;
+
+            const keyMock = jest.fn();
+            providerRegistryMock.getKeyboard = jest.fn(() => mockPartial<KeyboardProviderInterface>({
+                setKeyboardDelay: jest.fn(),
+                releaseKey: keyMock
+            }));
+
+            // WHEN
+            const start = Date.now();
+            await SUT.releaseKey(Key.A);
+            const duration = Date.now() - start;
+
+            // THEN
+            expect(duration).toBeGreaterThanOrEqual(delay);
+        });
+    });
 });
