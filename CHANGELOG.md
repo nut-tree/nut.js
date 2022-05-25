@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2.1.1
+- Bugfix: Modifier keys are not properly released on macOS [(#264)](https://github.com/nut-tree/nut.js/issues/264)
+- Bugfix: Fix mouse clicks with modifiers on macOS [(#273)](https://github.com/nut-tree/nut.js/issues/273)
+
 ## 2.1.0
 - Bugfix: Keyboard methods `pressKey` and `releaseKey` ignore updated autoDelayMs [(#188)](https://github.com/nut-tree/nut.js/issues/188)
 - Enhancement: Add mappings for missing numpad keys [(#367)](https://github.com/nut-tree/nut.js/issues/367)
