@@ -1,11 +1,11 @@
 name: Run CI
 on:
-  push:
-    branches-ignore:
-      - develop
-      - release/**
-    paths-ignore:
-      - '**/*.md'
+#  push:
+#    branches-ignore:
+#      - develop
+#      - release/**
+#    paths-ignore:
+#      - '**/*.md'
   pull_request:
 
 jobs:
