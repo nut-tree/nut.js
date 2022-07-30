@@ -92,7 +92,7 @@ export default class KeyboardAction implements KeyboardProviderInterface {
         [Key.RightShift, "space"],
         [Key.RightSuper, "command"],
 
-        [Key.Grave, "~"],
+        [Key.Grave, "`"],
         [Key.Minus, "-"],
         [Key.Equal, "="],
         [Key.Backspace, "backspace"],
