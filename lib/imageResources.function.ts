@@ -22,8 +22,8 @@ export async function fetchFromUrl(url: string | URL): Promise<Image> {
     } else {
         try {
             imageUrl = new URL(url);
-        } catch (e) {
-            throw e;
+        } catch (e: any) {
+            throw new Error(`Failed to fetch image data. Reason: ${e.message}`);
         }
     }
     return Jimp.read(imageUrl.href)
@@ -38,6 +38,6 @@ export async function fetchFromUrl(url: string | URL): Promise<Image> {
             );
         })
         .catch(err => {
-            throw err;
+            throw new Error(`Failed to parse image data. Reason: ${err.message}`);
         });
 }
