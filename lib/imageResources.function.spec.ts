@@ -37,7 +37,7 @@ describe('fetchFromUrl', () => {
         const SUT = () => fetchFromUrl(malformedUrl);
 
         // THEN
-        await expect(SUT).rejects.toThrowError("Invalid URL");
+        await expect(SUT).rejects.toThrowError("Failed to fetch image data. Reason: Invalid URL");
     });
 
     it('should throw on non-image URLs', async () => {
@@ -48,7 +48,7 @@ describe('fetchFromUrl', () => {
         const SUT = () => fetchFromUrl(nonImageUrl);
 
         // THEN
-        await expect(SUT).rejects.toThrowError('Could not find MIME for Buffer');
+        await expect(SUT).rejects.toThrowError("Failed to parse image data. Reason: Could not find MIME for Buffer");
     });
 
     it('should return an RGB image from a valid URL', async () => {

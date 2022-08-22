@@ -14,7 +14,7 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest, windows-latest, macos-latest ]
-        node: [ 14 ]
+        node: [ 16 ]
     runs-on: ${{matrix.os}}
     steps:
       - name: Set up Git repository
@@ -59,7 +59,7 @@ jobs:
       - name: Set up node
         uses: actions/setup-node@v2
         with:
-          node-version: 14
+          node-version: 16
           registry-url: 'https://registry.npmjs.org'
       - name: Install
         run: npm ci

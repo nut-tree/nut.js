@@ -150,9 +150,7 @@ This section lists runtime requirements for `nut.js` on the respective target pl
 
 #### Windows
 
-In order to install `nut.js` on Windows, please make sure to have the [Microsoft Visual C++ Redistributable](https://support.microsoft.com/en-us/help/2977003/the-latest-supported-visual-c-downloads) installed.
-
-In case you're running Windows 10 N, please make sure to have the [Media Feature Pack](https://support.microsoft.com/en-us/topic/media-feature-pack-for-windows-10-n-may-2020-ebbdf559-b84c-0fc2-bd51-e23c9f6a4439) installed as well.
+In case you're running Windows 10 N and want to use [ImageFinder plugins](https://nutjs.dev/plugins/imagefinder), please make sure to have the [Media Feature Pack](https://support.microsoft.com/en-us/topic/media-feature-pack-for-windows-10-n-may-2020-ebbdf559-b84c-0fc2-bd51-e23c9f6a4439) installed.
 
 #### macOS
 
