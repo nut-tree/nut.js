@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2.2.0
+- Maintenance: Limit CI runs to PRs, not every push
+- Maintenance: Upgrade node version to 16 for all CI runs
+- Bugfix: Fix grave accent [(PR #414)](https://github.com/nut-tree/nut.js/pull/414)
+- Enhancement: Refine error messages on fetchFromUrl [(#415)](https://github.com/nut-tree/nut.js/issues/415)
+- Enhancement: Ship Windows runtime dependencies [(#365)](https://github.com/nut-tree/nut.js/issues/365)
+
 ## 2.1.1
 - Bugfix: Modifier keys are not properly released on macOS [(#264)](https://github.com/nut-tree/nut.js/issues/264)
 - Bugfix: Fix mouse clicks with modifiers on macOS [(#273)](https://github.com/nut-tree/nut.js/issues/273)
