@@ -1,6 +1,6 @@
 {
   "name": "@nut-tree/nut-js",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "license": "Apache-2.0",
   "main": "dist/index",
   "typings": "dist/index",
@@ -61,7 +61,7 @@
   "dependencies": {
     "@nut-tree/libnut": "2.2.0",
     "clipboardy": "2.3.0",
-    "jimp": "0.16.1",
+    "jimp": "0.16.0",
     "node-abort-controller": "2.0.0"
   },
   "devDependencies": {
