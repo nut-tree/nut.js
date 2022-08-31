@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+## @next
+- Enhancement: Scale easing function result by base speed before applying [(#425)](https://github.com/nut-tree/nut.js/issues/425)
+
 ## 2.2.0
 - Maintenance: Limit CI runs to PRs, not every push
 - Maintenance: Upgrade node version to 16 for all CI runs
