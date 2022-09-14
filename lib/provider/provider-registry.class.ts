@@ -17,6 +17,8 @@ import {ImageProcessor} from "./image-processor.interface";
 import ImageReaderImpl from "./io/jimp-image-reader.class";
 import ImageWriterImpl from "./io/jimp-image-writer.class";
 import ImageProcessorImpl from "./image/jimp-image-processor.class";
+import {LogProviderInterface} from "./log-provider.interface";
+import {LogProvider} from "./io/log-provider.class";
 
 export interface ProviderRegistry {
     getClipboard(): ClipboardProviderInterface;
@@ -54,6 +56,10 @@ export interface ProviderRegistry {
     getImageProcessor(): ImageProcessor;
 
     registerImageProcessor(value: ImageProcessor): void;
+
+    getLogProvider(): LogProviderInterface;
+
+    registerLogProvider(value: LogProviderInterface): void;
 }
 
 class DefaultProviderRegistry implements ProviderRegistry {
@@ -66,6 +72,7 @@ class DefaultProviderRegistry implements ProviderRegistry {
     private _imageReader?: ImageReader;
     private _imageWriter?: ImageWriter;
     private _imageProcessor?: ImageProcessor;
+    private _logProvider?: LogProviderInterface;
 
     getClipboard(): ClipboardProviderInterface {
         if (this._clipboard) {
@@ -165,6 +172,18 @@ class DefaultProviderRegistry implements ProviderRegistry {
     registerImageProcessor(value: ImageProcessor): void {
         this._imageProcessor = value;
     }
+
+    getLogProvider(): LogProviderInterface {
+        if (this._logProvider) {
+            return this._logProvider;
+        }
+
+        throw new Error(`No log provider registered`);
+    }
+
+    registerLogProvider(value: LogProviderInterface): void {
+        this._logProvider = value;
+    }
 }
 
 const providerRegistry = new DefaultProviderRegistry();
@@ -177,5 +196,6 @@ providerRegistry.registerWindowProvider(new Window());
 providerRegistry.registerImageWriter(new ImageWriterImpl());
 providerRegistry.registerImageReader(new ImageReaderImpl());
 providerRegistry.registerImageProcessor(new ImageProcessorImpl());
+providerRegistry.registerLogProvider(new LogProvider());
 
 export default providerRegistry;
