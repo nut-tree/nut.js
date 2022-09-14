@@ -39,11 +39,13 @@ export class MouseClass {
         if (!isPoint(target)) {
             throw Error(`setPosition requires a Point, but received ${JSON.stringify(target)}`)
         }
+        this.providerRegistry.getLogProvider().info('Setting mouse position', target);
         return new Promise<MouseClass>(async (resolve, reject) => {
             try {
                 await this.providerRegistry.getMouse().setMousePosition(target);
                 resolve(this);
             } catch (e) {
+                this.providerRegistry.getLogProvider().error(e as Error);
                 reject(e);
             }
         });
