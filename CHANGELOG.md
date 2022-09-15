@@ -2,8 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
-## @next
+## 2.2.1
 - Enhancement: Scale easing function result by base speed before applying [(#425)](https://github.com/nut-tree/nut.js/issues/425)
+- Maintenance: Resolve security vulnerabilities [(#422)](https://github.com/nut-tree/nut.js/issues/422)
 
 ## 2.2.0
 - Maintenance: Limit CI runs to PRs, not every push
