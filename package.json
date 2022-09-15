@@ -57,7 +57,7 @@
     "publish-next": "npm publish --tag next",
     "prepublishOnly": "npm run compile",
     "versionBump": "bump --tag --push --all",
-    "typedoc": "typedoc --options ./typedoc.js --out ./docs lib/"
+    "typedoc": "typedoc --options ./typedoc.js --entryPointStrategy expand ./lib"
   },
   "dependencies": {
     "@nut-tree/libnut": "2.2.0",
