@@ -64,7 +64,7 @@ describe("MovementType", () => {
             const mouseSpeed = 1000;
             const easingFunction: EasingFunction = (p: number) => {
                 if (p < 0.5) {
-                    return -0.5 * mouseSpeed;
+                    return -0.5;
                 }
                 return 0;
             };
