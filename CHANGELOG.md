@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2.3.0
+- Bugfix: Segmentation Fault when retrieving window title [(#377)](https://github.com/nut-tree/nut.js/issues/377)
+- Enhancement: Automatically check and request required permissions on macOS [(#377)](https://github.com/nut-tree/nut.js/issues/377)
+
 ## 2.2.1
 - Enhancement: Scale easing function result by base speed before applying [(#425)](https://github.com/nut-tree/nut.js/issues/425)
 - Maintenance: Resolve security vulnerabilities [(#422)](https://github.com/nut-tree/nut.js/issues/422)

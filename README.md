@@ -160,17 +160,24 @@ You can install them by running
 xcode-select --install
 ```
 
+**Permissions**:
+
+nut.js requires the executing application, e.g. your terminal, to be given both `Accessibility` and `Screen Recording` permissions.
+
+Starting with release `2.3.0`, nut.js will check for and request these permissions automatically:
+
+<p align="center">
+    <img src="https://github.com/nut-tree/nut.js/raw/develop/.gfx/permissions_popup.png" alt="Popup requesting screen recording permissions"/>
+</p>
+
+It will also give you a subtle hint in case permissions are lacking:
+
+- Accessibility: `##### WARNING! The application running this script is not a trusted process! Please visit https://github.com/nut-tree/nut.js#macos #####`
+- Screen Recording: `##### WARNING! The application running this script is not allowed to capture screen content! Please visit https://github.com/nut-tree/nut.js#macos #####`
+
 **Attention**:
 
-In case you're experiencing problems like your mouse not moving or your keyboard not typing,
-please make sure to give the process you're executing your tests with accessibility permissions.
-
-nut.js will give you a subtle hint in case permissions are lacking:
-
-`##### WARNING! The application running this script is not a trusted process! Please visit https://github.com/nut-tree/nut.js#macos #####`
-
-When an application wants to use accessibility features, a permission pop-up should be shown.
-If not, you could try to manually add the application you're running the script from.
+Prior to release `2.3.0` you'll have to grant these permissions manually.
 
 `Settings -> Security & Privacy -> Privacy tab -> Accessibility -> Add...`
 
