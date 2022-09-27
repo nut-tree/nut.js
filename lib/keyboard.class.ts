@@ -45,7 +45,7 @@ export class KeyboardClass {
         return new Promise<KeyboardClass>(async (resolve, reject) => {
             try {
                 if (inputIsString(input)) {
-                    for (const char of input.join(" ").split("")) {
+                    for (const char of input.join(" ")) {
                         await sleep(this.config.autoDelayMs);
                         await this.providerRegistry.getKeyboard().type(char);
                     }
