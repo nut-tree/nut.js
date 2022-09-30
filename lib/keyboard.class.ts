@@ -46,8 +46,10 @@ export class KeyboardClass {
             try {
                 if (inputIsString(input)) {
                     for (const char of input.join(" ").split("")) {
-                        await sleep(this.config.autoDelayMs);
-                        await this.providerRegistry.getKeyboard().type(char);
+                      if (this.config.autoDelayMs > 0) {
+                                  await sleep(this.config.autoDelayMs);
+                      }
+                      await this.providerRegistry.getKeyboard().type(char);
                     }
                 } else {
                     await this.providerRegistry.getKeyboard().click(...input as Key[]);
@@ -73,7 +75,9 @@ export class KeyboardClass {
     public pressKey(...keys: Key[]): Promise<KeyboardClass> {
         return new Promise<KeyboardClass>(async (resolve, reject) => {
             try {
-                await sleep(this.config.autoDelayMs);
+                if (this.config.autoDelayMs > 0) {
+                            await sleep(this.config.autoDelayMs);
+                }
                 await this.providerRegistry.getKeyboard().pressKey(...keys);
                 resolve(this);
             } catch (e) {
@@ -96,7 +100,9 @@ export class KeyboardClass {
     public releaseKey(...keys: Key[]): Promise<KeyboardClass> {
         return new Promise<KeyboardClass>(async (resolve, reject) => {
             try {
-                await sleep(this.config.autoDelayMs);
+                if (this.config.autoDelayMs > 0) {
+                            await sleep(this.config.autoDelayMs);
+                }
                 await this.providerRegistry.getKeyboard().releaseKey(...keys);
                 resolve(this);
             } catch (e) {
