@@ -101,7 +101,9 @@ export class MouseClass {
     public async scrollDown(amount: number): Promise<MouseClass> {
         return new Promise<MouseClass>(async (resolve, reject) => {
             try {
-                await sleep(this.config.autoDelayMs);
+                if (this.config.autoDelayMs > 0) {
+                        await sleep(this.config.autoDelayMs);
+                }
                 await this.providerRegistry.getMouse().scrollDown(amount);
                 resolve(this);
             } catch (e) {
@@ -118,7 +120,9 @@ export class MouseClass {
     public async scrollUp(amount: number): Promise<MouseClass> {
         return new Promise<MouseClass>(async (resolve, reject) => {
             try {
-                await sleep(this.config.autoDelayMs);
+                if (this.config.autoDelayMs > 0) {
+                        await sleep(this.config.autoDelayMs);
+                }
                 await this.providerRegistry.getMouse().scrollUp(amount);
                 resolve(this);
             } catch (e) {
@@ -135,7 +139,9 @@ export class MouseClass {
     public async scrollLeft(amount: number): Promise<MouseClass> {
         return new Promise<MouseClass>(async (resolve, reject) => {
             try {
-                await sleep(this.config.autoDelayMs);
+                if (this.config.autoDelayMs > 0) {
+                        await sleep(this.config.autoDelayMs);
+                }
                 await this.providerRegistry.getMouse().scrollLeft(amount);
                 resolve(this);
             } catch (e) {
@@ -152,7 +158,9 @@ export class MouseClass {
     public async scrollRight(amount: number): Promise<MouseClass> {
         return new Promise<MouseClass>(async (resolve, reject) => {
             try {
-                await sleep(this.config.autoDelayMs);
+                if (this.config.autoDelayMs > 0) {
+                        await sleep(this.config.autoDelayMs);
+                }
                 await this.providerRegistry.getMouse().scrollRight(amount);
                 resolve(this);
             } catch (e) {
@@ -169,7 +177,9 @@ export class MouseClass {
     public async drag(path: Point[] | Promise<Point[]>): Promise<MouseClass> {
         return new Promise<MouseClass>(async (resolve, reject) => {
             try {
-                await sleep(this.config.autoDelayMs);
+                if (this.config.autoDelayMs > 0) {
+                        await sleep(this.config.autoDelayMs);
+                }
                 await this.providerRegistry.getMouse().pressButton(Button.LEFT);
                 await this.move(path);
                 await this.providerRegistry.getMouse().releaseButton(Button.LEFT);
@@ -187,7 +197,9 @@ export class MouseClass {
     public async pressButton(btn: Button): Promise<MouseClass> {
         return new Promise<MouseClass>(async (resolve, reject) => {
             try {
-                await sleep(this.config.autoDelayMs);
+                if (this.config.autoDelayMs > 0) {
+                        await sleep(this.config.autoDelayMs);
+                }
                 await this.providerRegistry.getMouse().pressButton(btn);
                 resolve(this);
             } catch (e) {
@@ -203,7 +215,9 @@ export class MouseClass {
     public async releaseButton(btn: Button): Promise<MouseClass> {
         return new Promise<MouseClass>(async (resolve, reject) => {
             try {
-                await sleep(this.config.autoDelayMs);
+                if (this.config.autoDelayMs > 0) {
+                        await sleep(this.config.autoDelayMs);
+                }
                 await this.providerRegistry.getMouse().releaseButton(btn);
                 resolve(this);
             } catch (e) {
@@ -219,7 +233,9 @@ export class MouseClass {
     public async click(btn: Button): Promise<MouseClass> {
         return new Promise<MouseClass>(async (resolve, reject) => {
             try {
-                await sleep(this.config.autoDelayMs);
+                if (this.config.autoDelayMs > 0) {
+                        await sleep(this.config.autoDelayMs);
+                }
                 await this.providerRegistry.getMouse().click(btn);
                 resolve(this);
             } catch (e) {
@@ -235,7 +251,9 @@ export class MouseClass {
     public async doubleClick(btn: Button): Promise<MouseClass> {
         return new Promise<MouseClass>(async (resolve, reject) => {
             try {
-                await sleep(this.config.autoDelayMs);
+                if (this.config.autoDelayMs > 0) {
+                        await sleep(this.config.autoDelayMs);
+                }
                 await this.providerRegistry.getMouse().doubleClick(btn);
                 resolve(this);
             } catch (e) {
