@@ -18,7 +18,7 @@ import ImageReaderImpl from "./io/jimp-image-reader.class";
 import ImageWriterImpl from "./io/jimp-image-writer.class";
 import ImageProcessorImpl from "./image/jimp-image-processor.class";
 import {LogProviderInterface, wrapLogger} from "./log-provider.interface";
-import { NoopLogProvider } from "./io/noop-log-provider.class";
+import {NoopLogProvider} from "./log/noop-log-provider.class";
 
 export interface ProviderRegistry {
     getClipboard(): ClipboardProviderInterface;
