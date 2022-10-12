@@ -11,24 +11,6 @@ export interface LogProviderInterface {
     error: ErrorLogFunction;
 }
 
-export class ConsoleLogger implements LogProviderInterface {
-  public trace(message: string, data?: {}) {
-    console.trace(message, data);
-  }
-  public debug(message: string, data?: {}) {
-    console.debug(message, data);
-  }
-  public info(message: string, data?: {}) {
-    console.info(message, data);
-  }
-  public warn(message: string, data?: {}) {
-    console.warn(message, data);
-  }
-  public error(message: Error, data?: {}) {
-    console.error(message, data);
-  }
-}
-
 const nonErrorLevels = ['info', 'warn', 'debug', 'trace'];
 const errorLevels = ['error'];
 
