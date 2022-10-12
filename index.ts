@@ -8,7 +8,6 @@ import { LineHelper } from "./lib/util/linehelper.class";
 import { createWindowApi } from "./lib/window.function";
 import providerRegistry from "./lib/provider/provider-registry.class";
 import { loadImageResource } from "./lib/imageResources.function";
-import { ConsoleLogger, LogProviderInterface } from "./lib/provider/log-provider.interface";
 
 export {
   AssertClass,
@@ -37,6 +36,8 @@ export { Region } from "./lib/region.class";
 export { Window } from "./lib/window.class";
 export { FileType } from "./lib/file-type.enum";
 export { ColorMode } from "./lib/colormode.enum";
+export { LogProviderInterface } from "./lib/provider/log-provider.interface";
+export { useLogger, useConsoleLogger, ConsoleLogLevel } from "./lib/logging.function";
 
 const lineHelper = new LineHelper();
 
@@ -45,8 +46,6 @@ const keyboard = new KeyboardClass(providerRegistry);
 const mouse = new MouseClass(providerRegistry);
 const screen = new ScreenClass(providerRegistry);
 const assert = new AssertClass(screen);
-
-const consoleLogger = new ConsoleLogger();
 
 const { straightTo, up, down, left, right } = createMovementApi(
   providerRegistry,
@@ -63,9 +62,6 @@ const imageResource = (fileName: string) =>
     screen.config.resourceDirectory,
     fileName
   );
-
-export const useLogger = (logger: LogProviderInterface) =>
-  providerRegistry.registerLogProvider(logger);
 
 export { fetchFromUrl } from "./lib/imageResources.function";
 
@@ -85,5 +81,4 @@ export {
   loadImage,
   saveImage,
   imageResource,
-  consoleLogger
 };
