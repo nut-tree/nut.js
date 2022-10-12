@@ -17,8 +17,7 @@ import {ImageProcessor} from "./image-processor.interface";
 import ImageReaderImpl from "./io/jimp-image-reader.class";
 import ImageWriterImpl from "./io/jimp-image-writer.class";
 import ImageProcessorImpl from "./image/jimp-image-processor.class";
-import {LogProviderInterface} from "./log-provider.interface";
-import {LogProvider} from "./io/log-provider.class";
+import {LogProviderInterface, wrapLogger} from "./log-provider.interface";
 
 export interface ProviderRegistry {
     getClipboard(): ClipboardProviderInterface;
@@ -182,7 +181,7 @@ class DefaultProviderRegistry implements ProviderRegistry {
     }
 
     registerLogProvider(value: LogProviderInterface): void {
-        this._logProvider = value;
+        this._logProvider = wrapLogger(value);
     }
 }
 
@@ -196,6 +195,5 @@ providerRegistry.registerWindowProvider(new Window());
 providerRegistry.registerImageWriter(new ImageWriterImpl());
 providerRegistry.registerImageReader(new ImageReaderImpl());
 providerRegistry.registerImageProcessor(new ImageProcessorImpl());
-providerRegistry.registerLogProvider(new LogProvider());
 
 export default providerRegistry;

@@ -8,3 +8,4 @@ export {KeyboardProviderInterface} from "./keyboard-provider.interface";
 export {MouseProviderInterface} from "./mouse-provider.interface";
 export {ScreenProviderInterface} from "./screen-provider.interface";
 export {WindowProviderInterface} from "./window-provider.interface";
+export {LogProviderInterface} from "./log-provider.interface";

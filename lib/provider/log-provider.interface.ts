@@ -1,42 +1,56 @@
 export type LogFunction = (message: string, data?: {}) => void;
 export type ErrorLogFunction = (error: Error, data?: {}) => void;
 
-export enum LogLevel {
-    TRACE,
-    DEBUG,
-    INFO,
-    WARN,
-    ERROR
-}
+const logIdentifier = "[nut.js]";
 
-export interface ConsoleLogger {
-    trace(message?: any, ...optionalParams: any[]): void;
-    debug(message?: any, ...optionalParams: any[]): void;
-    info(message?: any, ...optionalParams: any[]): void;
-    warn(message?: any, ...optionalParams: any[]): void;
-    error(message?: any, ...optionalParams: any[]): void;
-}
-
-export type ExternalLogger = ConsoleLogger;
-
-/**
- * LogProviderInterface to implement when adding a new logging provider for internal use
- *
- * ATTENTION: Please keep in mind that none of the trace, debug, info, warn or error should cause runtime errors.
- *            Logging should default to a no-op in case it's not properly set up
- */
 export interface LogProviderInterface {
     trace: LogFunction;
     debug: LogFunction;
     info: LogFunction;
     warn: LogFunction;
     error: ErrorLogFunction;
+}
 
-    /**
-     * connectLogger is meant to wire up an {@link ExternalLogger} to the internal logging provider
-     * @param logger The {@link ExternalLogger} to connect
-     */
-    connectLogger(logger: ExternalLogger): void;
+export class ConsoleLogger implements LogProviderInterface {
+  public trace(message: string, data?: {}) {
+    console.trace(message, data);
+  }
+  public debug(message: string, data?: {}) {
+    console.debug(message, data);
+  }
+  public info(message: string, data?: {}) {
+    console.info(message, data);
+  }
+  public warn(message: string, data?: {}) {
+    console.warn(message, data);
+  }
+  public error(message: Error, data?: {}) {
+    console.error(message, data);
+  }
+}
 
-    log(level: LogLevel, message: string, data?: {}): void;
+const nonErrorLevels = ['info', 'warn', 'debug', 'trace'];
+const errorLevels = ['error'];
+
+type NonErrorLogger = Omit<LogProviderInterface, 'error'>;
+type ErrorLogger = Pick<LogProviderInterface, 'error'>;
+
+export function wrapLogger(originalLogger: LogProviderInterface): LogProviderInterface {
+  for (const level of nonErrorLevels) {
+    const originalMethod = originalLogger[level as keyof NonErrorLogger];
+    originalLogger[level as keyof NonErrorLogger] = (message: string, data?: {}) => {
+      const wrappedMessage = `${logIdentifier} - ${message}`;
+      originalMethod(wrappedMessage, data);
+    }
+  }
+  for (const level of errorLevels) {
+    const originalMethod = originalLogger[level as keyof ErrorLogger];
+    originalLogger[level as keyof ErrorLogger] = (message: Error, data?: {}) => {
+      const wrappedMessage = `${logIdentifier} - ${message}`;
+      message.message = wrappedMessage;
+      originalMethod(message, data);
+    }
+  }
+
+  return originalLogger;
 }
