@@ -1,5 +1,14 @@
-export const sleep = async (ms: number) => {
-  return new Promise<void>(resolve => setTimeout(resolve, ms));
+import {setTimeout as setTimeoutPromise} from "timers/promises";
+
+export const sleep = async (ms: number, signal?: AbortSignal) => {
+  const options = {signal: {aborted: false}};
+  if (signal) options.signal = signal;
+  return setTimeoutPromise(ms, true, options).catch(err => {
+    if (err.name ==='AbortError') {
+      return Promise.resolve(true);
+    }
+    return Promise.reject(err);
+  });
 };
 
 export const busyWaitForNanoSeconds = (duration: number) => {
