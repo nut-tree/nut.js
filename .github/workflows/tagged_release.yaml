@@ -8,8 +8,8 @@ jobs:
   test:
     strategy:
       matrix:
-        os: [ ubuntu-latest, windows-latest, macos-latest ]
-        node: [ 16 ]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node: [16]
     runs-on: ${{matrix.os}}
     steps:
       - name: Set up Git repository
@@ -52,7 +52,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
-          registry-url: 'https://registry.npmjs.org'
+          registry-url: "https://registry.npmjs.org"
       - name: Install
         run: npm ci
       - name: Run typedoc
@@ -69,7 +69,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - uses: actions/setup-node@v2
         with:
-          registry-url: 'https://npm.pkg.github.com'
+          registry-url: "https://npm.pkg.github.com"
       - name: Publish tagged release to GPR
         run: npm publish
         env:

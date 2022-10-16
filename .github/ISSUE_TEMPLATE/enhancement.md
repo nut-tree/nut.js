@@ -10,4 +10,5 @@ about: Suggest a possible enhancement to the project
 **Detailed description**
 
 **Additional content**
+
 > Please provide any (mandatory) additional data for your enhancement

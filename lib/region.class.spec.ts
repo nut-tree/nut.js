@@ -1,4 +1,4 @@
-import {isRegion, Region} from "./region.class";
+import { isRegion, Region } from "./region.class";
 
 describe("Region", () => {
   it("should calculate the correct area of a region", () => {
@@ -15,8 +15,8 @@ describe("Region", () => {
     expect(region.toString()).toEqual(expected);
   });
 
-  describe('isRegion typeguard', () => {
-    it('should identify a Region', () => {
+  describe("isRegion typeguard", () => {
+    it("should identify a Region", () => {
       // GIVEN
       const r = new Region(100, 100, 100, 100);
 
@@ -27,7 +27,7 @@ describe("Region", () => {
       expect(result).toBeTruthy();
     });
 
-    it('should rule out non-objects', () => {
+    it("should rule out non-objects", () => {
       // GIVEN
       const r = "foo";
 
@@ -38,7 +38,7 @@ describe("Region", () => {
       expect(result).toBeFalsy();
     });
 
-    it('should rule out possible object with missing properties', () => {
+    it("should rule out possible object with missing properties", () => {
       // GIVEN
       const r = {
         left: 100,
@@ -53,13 +53,13 @@ describe("Region", () => {
       expect(result).toBeFalsy();
     });
 
-    it('should rule out possible object with wrong property type', () => {
+    it("should rule out possible object with wrong property type", () => {
       // GIVEN
       const r = {
         left: 100,
-        top: 'foo',
+        top: "foo",
         width: 100,
-        height: 200
+        height: 200,
       };
 
       // WHEN
@@ -68,5 +68,5 @@ describe("Region", () => {
       // THEN
       expect(result).toBeFalsy();
     });
-  })
+  });
 });

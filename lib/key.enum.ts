@@ -140,5 +140,5 @@ export enum Key {
   AudioRewind,
   AudioForward,
   AudioRepeat,
-  AudioRandom
+  AudioRandom,
 }

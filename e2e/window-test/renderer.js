@@ -1,6 +1,6 @@
-const {ipcRenderer} = require("electron");
+const { ipcRenderer } = require("electron");
 
-const close = document.getElementById('exit');
+const close = document.getElementById("exit");
 close.onclick = () => {
-    ipcRenderer.send("main", "quit");
-}
+  ipcRenderer.send("main", "quit");
+};
