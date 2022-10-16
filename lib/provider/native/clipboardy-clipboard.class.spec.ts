@@ -1,6 +1,6 @@
 import ClipboardAction from "./clipboardy-clipboard.class";
 
-jest.mock('jimp', () => {});
+jest.mock("jimp", () => {});
 
 beforeEach(() => {
   jest.resetAllMocks();

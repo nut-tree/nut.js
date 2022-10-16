@@ -27,7 +27,14 @@ export default class WindowAction implements WindowProviderInterface {
     return new Promise<Region>((resolve, reject) => {
       try {
         const windowRect = libnut.getWindowRect(windowHandle);
-        resolve(new Region(windowRect.x, windowRect.y, windowRect.width, windowRect.height));
+        resolve(
+          new Region(
+            windowRect.x,
+            windowRect.y,
+            windowRect.width,
+            windowRect.height
+          )
+        );
       } catch (e) {
         reject(e);
       }
