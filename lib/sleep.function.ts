@@ -1,4 +1,7 @@
+import providerRegistry from "./provider/provider-registry.class";
+
 export const sleep = async (ms: number) => {
+  providerRegistry.getLogProvider().info(`Sleeping for ${ms / 1000} seconds`);
   return new Promise<void>(resolve => setTimeout(resolve, ms));
 };
 
