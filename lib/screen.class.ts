@@ -281,6 +281,7 @@ export class ScreenClass {
         if (!isImage(currentScreen)) {
             throw Error(`capture requires an Image, but received ${JSON.stringify(currentScreen)}`)
         }
+        this.providerRegistry.getLogProvider().debug(`Capturing whole screen (0, 0, ${currentScreen.width}, ${currentScreen.height})`);
         return this.saveImage(
             currentScreen,
             fileName,
@@ -317,6 +318,7 @@ export class ScreenClass {
         if (!isRegion(targetRegion)) {
             throw Error(`captureRegion requires an Region, but received ${JSON.stringify(targetRegion)}`)
         }
+        this.providerRegistry.getLogProvider().debug(`Capturing screen region ${targetRegion.toString()}`);
         const regionImage = await this.providerRegistry.getScreen().grabScreenRegion(targetRegion);
         if (!isImage(regionImage)) {
             throw Error(`captureRegion requires an Image, but received ${JSON.stringify(regionImage)}`)
@@ -335,7 +337,9 @@ export class ScreenClass {
      * @param regionToGrab The screen region to grab
      */
     public async grabRegion(regionToGrab: Region | Promise<Region>): Promise<Image> {
-        return this.providerRegistry.getScreen().grabScreenRegion(await regionToGrab);
+        const targetRegion = await regionToGrab;
+        this.providerRegistry.getLogProvider().debug(`Grabbing screen region ${targetRegion.toString()}`);
+        return this.providerRegistry.getScreen().grabScreenRegion(targetRegion);
     }
 
     /**
@@ -349,6 +353,7 @@ export class ScreenClass {
             throw Error(`colorAt requires a Point, but received ${JSON.stringify(inputPoint)}`)
         }
         const scaledPoint = new Point(inputPoint.x * screenContent.pixelDensity.scaleX, inputPoint.y * screenContent.pixelDensity.scaleY);
+        this.providerRegistry.getLogProvider().debug(`Point ${inputPoint.toString()} has been scaled by (${screenContent.pixelDensity.scaleX}, ${screenContent.pixelDensity.scaleY}) into ${scaledPoint.toString()}`);
         return this.providerRegistry.getImageProcessor().colorAt(screenContent, scaledPoint);
     }
 
@@ -365,7 +370,9 @@ export class ScreenClass {
             prefix: fileNamePrefix,
             type: fileFormat,
         });
+        this.providerRegistry.getLogProvider().info(`Writing image to ${outputPath}`);
         await this.providerRegistry.getImageWriter().store({image, path: outputPath})
+        this.providerRegistry.getLogProvider().debug(`File written`);
         return outputPath;
     }
 
@@ -376,13 +383,15 @@ export class ScreenClass {
         const screenImage = await this.providerRegistry.getScreen().grabScreenRegion(searchRegion);
         const searchMultipleScales = params?.searchMultipleScales ?? true;
 
-        return ({
+        const findParameters = ({
             minMatch,
             screenSize,
             searchRegion,
             screenImage,
             searchMultipleScales
         });
+        this.providerRegistry.getLogProvider().debug(`Running image search with parameters ${JSON.stringify(findParameters)}`);
+        return findParameters;
     }
 
     private static async getNeedle(template: FirstArgumentType<typeof ScreenClass.prototype.find>) {
