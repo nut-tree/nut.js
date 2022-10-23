@@ -88,7 +88,7 @@ export default class KeyboardAction implements KeyboardProviderInterface {
 
     [Key.LeftShift, "shift"],
     [Key.LeftSuper, "command"],
-    [Key.RightShift, "space"],
+    [Key.RightShift, "right_shift"],
     [Key.RightSuper, "command"],
 
     [Key.Grave, "`"],
