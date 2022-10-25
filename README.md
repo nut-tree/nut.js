@@ -43,6 +43,7 @@ A huge **"Thank you!"** goes out to all sponsors who make open source a bit more
 [<img src="https://avatars.githubusercontent.com/u/17616211?v=4" width="75" alt="Reiss Cashmore" />](https://github.com/Reiss-Cashmore)
 [<img src="https://avatars.githubusercontent.com/u/1794527?v=4" width="75" alt="Chet Corcos" />](https://github.com/ccorcos)
 [<img src="https://avatars.githubusercontent.com/u/4453806?v=4" width="75" alt="Patrick Flor" />](https://github.com/senorflor)
+[<img src="https://avatars.githubusercontent.com/u/7562803?v=4" width="75" alt="Ian" />](https://github.com/iwiedenm)
 
 <hr/>
 
