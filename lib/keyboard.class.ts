@@ -9,16 +9,23 @@ const inputIsString = (input: (string | Key)[]): input is string[] => {
 };
 
 /**
+ * Config object for {@link KeyboardClass} class
+ */
+export interface KeyboardConfig {
+  /**
+   * Configures the delay between single key events
+   */
+  autoDelayMs: number;
+}
+
+/**
  * {@link KeyboardClass} class provides methods to emulate keyboard input
  */
 export class KeyboardClass {
   /**
    * Config object for {@link KeyboardClass} class
    */
-  public config = {
-    /**
-     * Configures the delay between single key events
-     */
+  public config: KeyboardConfig = {
     autoDelayMs: 300,
   };
 
