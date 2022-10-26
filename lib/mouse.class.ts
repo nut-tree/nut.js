@@ -9,21 +9,26 @@ import {
 import { ProviderRegistry } from "./provider/provider-registry.class";
 
 /**
+ * Config object for {@link MouseClass} class
+ */
+export interface MouseConfig {
+  /**
+   * Configures the delay between single mouse events
+   */
+  autoDelayMs: number;
+
+  /**
+   * Configures the speed in pixels/second for mouse movement
+   */
+  mouseSpeed: number;
+}
+
+/**
  * {@link MouseClass} class provides methods to emulate mouse input
  */
 export class MouseClass {
-  /**
-   * Config object for {@link MouseClass} class
-   */
-  public config = {
-    /**
-     * Configures the delay between single mouse events
-     */
+  public config: MouseConfig = {
     autoDelayMs: 100,
-
-    /**
-     * Configures the speed in pixels/second for mouse movement
-     */
     mouseSpeed: 1000,
   };
 

@@ -46,35 +46,43 @@ function validateSearchRegion(search: Region, screen: Region) {
 }
 
 /**
+ * Config object for {@link ScreenClass} class
+ */
+export interface ScreenConfig {
+  /**
+   * Configures the required matching percentage for template images to be declared as a match
+   */
+  confidence: number;
+
+  /**
+   * Configure whether to auto highlight all search results or not
+   */
+  autoHighlight: boolean;
+  /**
+   * Configure highlighting duration
+   */
+  highlightDurationMs: number;
+
+  /**
+   * Configure opacity of highlight window
+   */
+  highlightOpacity: number;
+
+  /**
+   * Configures the path from which template images are loaded from
+   */
+  resourceDirectory: string;
+}
+
+/**
  * {@link ScreenClass} class provides methods to access screen content of a systems main display
  */
 export class ScreenClass {
-  /**
-   * Config object for {@link ScreenClass} class
-   */
-  public config = {
-    /**
-     * Configures the required matching percentage for template images to be declared as a match
-     */
+  public config: ScreenConfig = {
     confidence: 0.99,
-
-    /**
-     * Configure whether to auto highlight all search results or not
-     */
     autoHighlight: false,
-    /**
-     * Configure highlighting duration
-     */
     highlightDurationMs: 500,
-
-    /**
-     * Configure opacity of highlight window
-     */
     highlightOpacity: 0.25,
-
-    /**
-     * Configures the path from which template images are loaded from
-     */
     resourceDirectory: cwd(),
   };
 
