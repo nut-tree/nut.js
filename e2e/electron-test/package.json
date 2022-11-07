@@ -9,13 +9,11 @@
     "url": "https://s1h.org"
   },
   "scripts": {
-    "pretest": "electron-rebuild && electron-rebuild -m ../../",
     "test": "electron ."
   },
   "license": "MIT",
   "devDependencies": {
     "electron": "^13.1.6",
-    "electron-rebuild": "^2.3.5",
     "@nut-tree/nut-js": "file:../../"
   }
 }

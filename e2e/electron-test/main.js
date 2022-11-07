@@ -1,7 +1,6 @@
 const { app, ipcMain, BrowserWindow } = require("electron");
 const { getActiveWindow } = require("@nut-tree/nut-js");
 const path = require("path");
-const assert = require("assert");
 
 const title = "nut.js Electron test";
 
@@ -18,21 +17,21 @@ function createWindow() {
   });
   mainWindow.loadFile(path.join(__dirname, "index.html"));
   mainWindow.maximize();
-
-  (async () => {
+  mainWindow.once("show", () => {
     // GIVEN
-    const foregroundWindow = await getActiveWindow();
-
-    // WHEN
-    const windowTitle = await foregroundWindow.title;
-
-    // THEN
-    assert.strictEqual(
-      windowTitle,
-      title,
-      `Wrong foreground window. Expected ${title}, got ${windowTitle}`
-    );
-  })();
+    getActiveWindow().then((foregroundWindow) => {
+      // WHEN
+      foregroundWindow.title.then((windowTitle) => {
+        // THEN
+        if (windowTitle !== title) {
+          console.error(
+            `Wrong foreground window. Expected ${title}, got ${windowTitle}`
+          );
+          process.exit(-1);
+        }
+      });
+    });
+  });
 }
 
 ipcMain.on("main", (event, args) => {
