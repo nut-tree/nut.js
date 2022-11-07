@@ -13,7 +13,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "electron": "9.4.0",
+    "electron": "15.5.5",
     "jest": "27.0.6",
     "spectron": "11.1.0",
     "@nut-tree/nut-js": "file:../../"
