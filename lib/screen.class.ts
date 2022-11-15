@@ -74,6 +74,8 @@ export interface ScreenConfig {
   resourceDirectory: string;
 }
 
+export type FindInput = Image;
+
 /**
  * {@link ScreenClass} class provides methods to access screen content of a systems main display
  */
@@ -119,11 +121,11 @@ export class ScreenClass {
 
   /**
    * {@link find} will search for a single occurrence of a template image on a systems main screen
-   * @param template Template {@link Image} instance
+   * @param searchInput Template {@link Image} instance
    * @param params {@link LocationParameters} which are used to fine tune search region and / or match confidence
    */
   public async find(
-    template: Image | Promise<Image>,
+    searchInput: FindInput | Promise<FindInput>,
     params?: OptionalSearchParameters
   ): Promise<Region> {
     const {
@@ -134,7 +136,7 @@ export class ScreenClass {
       searchMultipleScales,
     } = await this.getFindParameters(params);
 
-    const needle = await ScreenClass.getNeedle(template);
+    const needle = await ScreenClass.getNeedle(searchInput);
 
     const matchRequest = new MatchRequest(
       screenImage,
@@ -236,6 +238,13 @@ export class ScreenClass {
     regionToHighlight: Region | Promise<Region>
   ): Promise<Region> {
     const highlightRegion = await regionToHighlight;
+    if (!isRegion(highlightRegion)) {
+      throw Error(
+        `highlight requires an Region, but received ${JSON.stringify(
+          highlightRegion
+        )}`
+      );
+    }
     await this.providerRegistry
       .getScreen()
       .highlightScreenRegion(
@@ -380,9 +389,15 @@ export class ScreenClass {
   public async grabRegion(
     regionToGrab: Region | Promise<Region>
   ): Promise<Image> {
-    return this.providerRegistry
-      .getScreen()
-      .grabScreenRegion(await regionToGrab);
+    const targetRegion = await regionToGrab;
+    if (!isRegion(targetRegion)) {
+      throw Error(
+        `grabRegion requires an Region, but received ${JSON.stringify(
+          targetRegion
+        )}`
+      );
+    }
+    return this.providerRegistry.getScreen().grabScreenRegion(targetRegion);
   }
 
   /**

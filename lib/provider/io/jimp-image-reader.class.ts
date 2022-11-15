@@ -27,6 +27,9 @@ export default class implements ImageReader {
               jimpImage.bitmap.data,
               jimpImage.hasAlpha() ? 4 : 3,
               parameters,
+              jimpImage.bitmap.data.length /
+                (jimpImage.bitmap.width * jimpImage.bitmap.height),
+              jimpImage.bitmap.data.length / jimpImage.bitmap.height,
               ColorMode.BGR
             )
           );
