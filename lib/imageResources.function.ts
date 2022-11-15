@@ -38,6 +38,8 @@ export async function fetchFromUrl(url: string | URL): Promise<Image> {
         image.bitmap.data,
         4,
         imageUrl.href,
+        image.bitmap.data.length / (image.bitmap.width * image.bitmap.height),
+        image.bitmap.data.length / image.bitmap.height,
         ColorMode.RGB
       );
     })

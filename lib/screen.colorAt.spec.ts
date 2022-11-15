@@ -24,7 +24,9 @@ const providerRegistryMock = mockPartial<ProviderRegistry>({
             searchRegion.height,
             Buffer.from([]),
             3,
-            "needle_image"
+            "needle_image",
+            4,
+            searchRegion.width * 4
           )
         );
       },
@@ -92,7 +94,7 @@ describe("colorAt", () => {
   it("should throw on non-Point arguments", async () => {
     // GIVEN
     const grabScreenMock = jest.fn(() =>
-      Promise.resolve(new Image(10, 10, Buffer.from([]), 4, "test"))
+      Promise.resolve(new Image(10, 10, Buffer.from([]), 4, "test", 4, 10 * 4))
     );
     providerRegistryMock.getScreen = jest.fn(() =>
       mockPartial<ScreenProviderInterface>({

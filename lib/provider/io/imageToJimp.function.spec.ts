@@ -31,7 +31,9 @@ describe("imageToJimp", () => {
       1,
       Buffer.from([0, 0, 0]),
       3,
-      "input_image"
+      "input_image",
+      4,
+      4
     );
 
     // WHEN
