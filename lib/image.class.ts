@@ -12,6 +12,8 @@ export class Image {
    * @param data Generic {@link Image} data
    * @param channels Amount of {@link Image} channels
    * @param id Image identifier
+   * @param bitsPerPixel Number of bits per single pixel
+   * @param byteWidth Total number of bytes per image line
    * @param colorMode An images color mode, defaults to {@link ColorMode.BGR}
    * @param pixelDensity Object containing scale info to work with e.g. Retina display data where the reported display size and pixel size differ (Default: {scaleX: 1.0, scaleY: 1.0})
    */
@@ -21,6 +23,8 @@ export class Image {
     public readonly data: Buffer,
     public readonly channels: number,
     public readonly id: string,
+    public readonly bitsPerPixel: number,
+    public readonly byteWidth: number,
     public readonly colorMode: ColorMode = ColorMode.BGR,
     public readonly pixelDensity: { scaleX: number; scaleY: number } = {
       scaleX: 1.0,
@@ -53,6 +57,8 @@ export class Image {
       rgbImage.bitmap.data,
       this.channels,
       this.id,
+      this.bitsPerPixel,
+      this.byteWidth,
       ColorMode.RGB,
       this.pixelDensity
     );
@@ -72,6 +78,8 @@ export class Image {
       rgbImage.bitmap.data,
       this.channels,
       this.id,
+      this.bitsPerPixel,
+      this.byteWidth,
       ColorMode.BGR,
       this.pixelDensity
     );
@@ -85,15 +93,41 @@ export class Image {
     height: number,
     data: Buffer,
     channels: number,
-    id: string
+    id: string,
+    bitsPerPixel: number,
+    byteWidth: number
   ): Image {
-    const rgbImage = new Image(width, height, data, channels, id);
+    const rgbImage = new Image(
+      width,
+      height,
+      data,
+      channels,
+      id,
+      bitsPerPixel,
+      byteWidth
+    );
     const jimpImage = imageToJimp(rgbImage);
-    return new Image(width, height, jimpImage.bitmap.data, channels, id);
+    return new Image(
+      width,
+      height,
+      jimpImage.bitmap.data,
+      channels,
+      id,
+      bitsPerPixel,
+      byteWidth
+    );
   }
 }
 
-const testImage = new Image(100, 100, Buffer.from([]), 4, "typeCheck");
+const testImage = new Image(
+  100,
+  100,
+  Buffer.from([]),
+  4,
+  "typeCheck",
+  4,
+  100 * 4
+);
 const imageKeys = Object.keys(testImage);
 
 export function isImage(possibleImage: any): possibleImage is Image {
