@@ -1,9 +1,9 @@
 import { AssertClass } from "./lib/assert.class";
 import { ClipboardClass } from "./lib/clipboard.class";
-import { KeyboardClass } from "./lib/keyboard.class";
-import { MouseClass } from "./lib/mouse.class";
+import { KeyboardClass, KeyboardConfig } from "./lib/keyboard.class";
+import { MouseClass, MouseConfig } from "./lib/mouse.class";
 import { createMovementApi } from "./lib/movement.function";
-import { ScreenClass } from "./lib/screen.class";
+import { ScreenClass, ScreenConfig } from "./lib/screen.class";
 import { LineHelper } from "./lib/util/linehelper.class";
 import { createWindowApi } from "./lib/window.function";
 import providerRegistry from "./lib/provider/provider-registry.class";
@@ -13,8 +13,11 @@ export {
   AssertClass,
   ClipboardClass,
   KeyboardClass,
+  KeyboardConfig,
   MouseClass,
+  MouseConfig,
   ScreenClass,
+  ScreenConfig,
   providerRegistry,
 };
 
@@ -37,7 +40,11 @@ export { Window } from "./lib/window.class";
 export { FileType } from "./lib/file-type.enum";
 export { ColorMode } from "./lib/colormode.enum";
 export { LogProviderInterface } from "./lib/provider/log-provider.interface";
-export { useLogger, useConsoleLogger, ConsoleLogLevel } from "./lib/logging.function";
+export {
+  useLogger,
+  useConsoleLogger,
+  ConsoleLogLevel,
+} from "./lib/logging.function";
 
 const lineHelper = new LineHelper();
 

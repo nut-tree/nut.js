@@ -5,9 +5,9 @@ const HEIGTH = 300;
 const TITLE = "libnut window test";
 
 module.exports = {
-    POS_X,
-    POS_Y,
-    WIDTH,
-    HEIGTH,
-    TITLE
+  POS_X,
+  POS_Y,
+  WIDTH,
+  HEIGTH,
+  TITLE,
 };

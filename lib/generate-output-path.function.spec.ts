@@ -25,7 +25,7 @@ describe("generate-output-path", () => {
     const expectedPath = join(cwd(), `${pre}${filename}${ext}`);
 
     // WHEN
-    const result = generateOutputPath(filename, {prefix: pre});
+    const result = generateOutputPath(filename, { prefix: pre });
 
     // THEN
     expect(result).toEqual(expectedPath);
@@ -39,7 +39,7 @@ describe("generate-output-path", () => {
     const expectedPath = join(cwd(), `${filename}${post}${ext}`);
 
     // WHEN
-    const result = generateOutputPath(filename, {postfix: post});
+    const result = generateOutputPath(filename, { postfix: post });
 
     // THEN
     expect(result).toEqual(expectedPath);
@@ -103,7 +103,7 @@ describe("generate-output-path", () => {
 
     // WHEN
     const result = generateOutputPath(filename, {
-      type: FileType.JPG
+      type: FileType.JPG,
     });
 
     // THEN

@@ -1,9 +1,9 @@
-# nut.js (Native UI Toolkit) 
+# nut.js (Native UI Toolkit)
 
-|	|GitHub Actions|
-|:-:	|:-:	|
-|Master |![Create tagged release](https://github.com/nut-tree/nut.js/workflows/Create%20tagged%20release/badge.svg)|
-|Develop|![Create snapshot release](https://github.com/nut-tree/nut.js/workflows/Create%20snapshot%20release/badge.svg)|
+|         |                                                 GitHub Actions                                                 |
+| :-----: | :------------------------------------------------------------------------------------------------------------: |
+| Master  |   ![Create tagged release](https://github.com/nut-tree/nut.js/workflows/Create%20tagged%20release/badge.svg)   |
+| Develop | ![Create snapshot release](https://github.com/nut-tree/nut.js/workflows/Create%20snapshot%20release/badge.svg) |
 
 [![SonarCloud badge](https://sonarcloud.io/api/project_badges/measure?project=nut-tree%3Anut.js&metric=alert_status)](https://sonarcloud.io/dashboard?id=nut-tree%3Anut.js)
 [![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=nut-tree%3Anut.js&metric=coverage)](https://sonarcloud.io/component_measures?id=nut-tree%3Anut.js&metric=coverage)
@@ -42,12 +42,12 @@ A huge **"Thank you!"** goes out to all sponsors who make open source a bit more
 
 [<img src="https://avatars.githubusercontent.com/u/17616211?v=4" width="75" alt="Reiss Cashmore" />](https://github.com/Reiss-Cashmore)
 [<img src="https://avatars.githubusercontent.com/u/1794527?v=4" width="75" alt="Chet Corcos" />](https://github.com/ccorcos)
-[<img src="https://avatars.githubusercontent.com/u/562800?v=4" width="75" alt="Stephan Petzl" />](https://github.com/stoefln)
+[<img src="https://avatars.githubusercontent.com/u/4453806?v=4" width="75" alt="Patrick Flor" />](https://github.com/senorflor)
+[<img src="https://avatars.githubusercontent.com/u/7562803?v=4" width="75" alt="Ian" />](https://github.com/iwiedenm)
 
 <hr/>
 
 [<img src="https://github.com/nut-tree/nut.js/raw/develop/.gfx/sponsors/mighty.svg" height="75" alt="Mighty browser logo"/>](https://www.mightyapp.com)
-
 
 # Demo
 
@@ -121,7 +121,16 @@ The following snippet shows a valid `nut.js` example:
 ```js
 "use strict";
 
-const { mouse, left, right, up, down, straightTo, centerOf, Region} = require("@nut-tree/nut-js");
+const {
+  mouse,
+  left,
+  right,
+  up,
+  down,
+  straightTo,
+  centerOf,
+  Region,
+} = require("@nut-tree/nut-js");
 
 const square = async () => {
   await mouse.move(right(500));
@@ -131,14 +140,8 @@ const square = async () => {
 };
 
 (async () => {
-    await square();
-    await mouse.move(
-        straightTo(
-            centerOf(
-                new Region(100, 100, 200, 300)
-            )
-        )
-    );
+  await square();
+  await mouse.move(straightTo(centerOf(new Region(100, 100, 200, 300))));
 })();
 ```
 
@@ -156,21 +159,29 @@ In case you're running Windows 10 N and want to use [ImageFinder plugins](https:
 
 On macOS, Xcode command line tools are required.
 You can install them by running
+
 ```bash
 xcode-select --install
 ```
 
+**Permissions**:
+
+nut.js requires the executing application, e.g. your terminal, to be given both `Accessibility` and `Screen Recording` permissions.
+
+Starting with release `2.3.0`, nut.js will check for and request these permissions automatically:
+
+<p align="center">
+    <img src="https://github.com/nut-tree/nut.js/raw/develop/.gfx/permissions_popup.png" alt="Popup requesting screen recording permissions"/>
+</p>
+
+It will also give you a subtle hint in case permissions are lacking:
+
+- Accessibility: `##### WARNING! The application running this script is not a trusted process! Please visit https://github.com/nut-tree/nut.js#macos #####`
+- Screen Recording: `##### WARNING! The application running this script is not allowed to capture screen content! Please visit https://github.com/nut-tree/nut.js#macos #####`
+
 **Attention**:
 
-In case you're experiencing problems like your mouse not moving or your keyboard not typing,
-please make sure to give the process you're executing your tests with accessibility permissions.
-
-nut.js will give you a subtle hint in case permissions are lacking:
-
-`##### WARNING! The application running this script is not a trusted process! Please visit https://github.com/nut-tree/nut.js#macos #####`
-
-When an application wants to use accessibility features, a permission pop-up should be shown.
-If not, you could try to manually add the application you're running the script from.
+Prior to release `2.3.0` you'll have to grant these permissions manually.
 
 `Settings -> Security & Privacy -> Privacy tab -> Accessibility -> Add...`
 
@@ -190,6 +201,7 @@ In general, `nut.js` requires
 - libXtst
 
 Installation on `*buntu` distributions:
+
 ```bash
 sudo apt-get install libxtst-dev
 ```
@@ -198,7 +210,7 @@ Setups on other distributions might differ.
 
 ## Install `nut.js`
 
-Running 
+Running
 
 ```bash
 npm i @nut-tree/nut-js
@@ -216,7 +228,7 @@ will install `nut.js` and its required dependencies.
 
 `nut.js` also provides snapshot releases which allows to test upcoming features.
 
-Running 
+Running
 
 ```bash
 npm i @nut-tree/nut-js@next

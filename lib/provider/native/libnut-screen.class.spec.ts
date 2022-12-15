@@ -30,20 +30,18 @@ describe("libnut screen action", () => {
       // GIVEN
       const SUT = new ScreenAction();
       libnut.screen.capture = jest.fn(() => ({
-          bitsPerPixel: 0,
-          byteWidth: 0,
-          bytesPerPixel: 0,
-          colorAt: jest.fn(),
-          height: screenShotSize.height,
-          image: new ArrayBuffer(0),
-          width: screenShotSize.width,
-        })
-      );
+        bitsPerPixel: 0,
+        byteWidth: 0,
+        bytesPerPixel: 0,
+        colorAt: jest.fn(),
+        height: screenShotSize.height,
+        image: new ArrayBuffer(0),
+        width: screenShotSize.width,
+      }));
       libnut.getScreenSize = jest.fn(() => ({
-          height: screenSize.height,
-          width: screenSize.width,
-        })
-      );
+        height: screenSize.height,
+        width: screenSize.width,
+      }));
 
       // WHEN
       const image = await SUT.grabScreen();
@@ -61,15 +59,14 @@ describe("libnut screen action", () => {
       const screenRegion = new Region(0, 0, 10, 10);
       const SUT = new ScreenAction();
       libnut.screen.capture = jest.fn(() => ({
-          bitsPerPixel: 0,
-          byteWidth: 0,
-          bytesPerPixel: 0,
-          colorAt: jest.fn(),
-          height: screenShotSize.height,
-          image: new ArrayBuffer(0),
-          width: screenShotSize.width,
-        })
-      );
+        bitsPerPixel: 0,
+        byteWidth: 0,
+        bytesPerPixel: 0,
+        colorAt: jest.fn(),
+        height: screenShotSize.height,
+        image: new ArrayBuffer(0),
+        width: screenShotSize.width,
+      }));
 
       // WHEN
       const image = await SUT.grabScreenRegion(screenRegion);
@@ -91,10 +88,16 @@ describe("libnut screen action", () => {
       const screenRegion = new Region(0, 0, 10, 10);
 
       // THEN
-      await expect(call(screenRegion)).rejects.toEqual("Unable to fetch screen content.");
+      await expect(call(screenRegion)).rejects.toEqual(
+        "Unable to fetch screen content."
+      );
       expect(libnut.screen.capture).toBeCalledTimes(1);
-      expect(libnut.screen.capture)
-        .toBeCalledWith(screenRegion.left, screenRegion.top, screenRegion.width, screenRegion.height);
+      expect(libnut.screen.capture).toBeCalledWith(
+        screenRegion.left,
+        screenRegion.top,
+        screenRegion.width,
+        screenRegion.height
+      );
     });
   });
 
@@ -103,7 +106,10 @@ describe("libnut screen action", () => {
       it("should determine screen width via libnut", async () => {
         // GIVEN
         const SUT = new ScreenAction();
-        libnut.getScreenSize = jest.fn(() => ({width: screenSize.width, height: screenSize.height}));
+        libnut.getScreenSize = jest.fn(() => ({
+          width: screenSize.width,
+          height: screenSize.height,
+        }));
 
         // WHEN
         const width = await SUT.screenWidth();
@@ -131,7 +137,10 @@ describe("libnut screen action", () => {
       it("should determine screen height via libnut", async () => {
         // GIVEN
         const SUT = new ScreenAction();
-        libnut.getScreenSize = jest.fn(() => ({width: screenSize.width, height: screenSize.height}));
+        libnut.getScreenSize = jest.fn(() => ({
+          width: screenSize.width,
+          height: screenSize.height,
+        }));
 
         // WHEN
         const width = await SUT.screenHeight();
@@ -159,7 +168,10 @@ describe("libnut screen action", () => {
       it("should determine screen size via libnut", async () => {
         // GIVEN
         const SUT = new ScreenAction();
-        libnut.getScreenSize = jest.fn(() => ({width: screenSize.width, height: screenSize.height}));
+        libnut.getScreenSize = jest.fn(() => ({
+          width: screenSize.width,
+          height: screenSize.height,
+        }));
 
         // WHEN
         const size = await SUT.screenSize();
@@ -197,11 +209,22 @@ describe("libnut screen action", () => {
         const highlightOpacity = 1.0;
 
         // WHEN
-        await SUT.highlightScreenRegion(testRegion, highlightDuration, highlightOpacity);
+        await SUT.highlightScreenRegion(
+          testRegion,
+          highlightDuration,
+          highlightOpacity
+        );
 
         // THEN
         expect(libnut.screen.highlight).toBeCalledTimes(1);
-        expect(libnut.screen.highlight).toBeCalledWith(x, y, w, h, highlightDuration, highlightOpacity);
+        expect(libnut.screen.highlight).toBeCalledWith(
+          x,
+          y,
+          w,
+          h,
+          highlightDuration,
+          highlightOpacity
+        );
       });
 
       it("should reject on libnut errors", async () => {

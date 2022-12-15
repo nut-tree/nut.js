@@ -1,15 +1,14 @@
 /**
  * {@link ClipboardClass} class gives access to a systems clipboard
  */
-import {ProviderRegistry} from "./provider/provider-registry.class";
+import { ProviderRegistry } from "./provider/provider-registry.class";
 
 export class ClipboardClass {
   /**
    * {@link ClipboardClass} class constructor
    * @param providerRegistry
    */
-  constructor(private providerRegistry: ProviderRegistry) {
-  }
+  constructor(private providerRegistry: ProviderRegistry) {}
 
   /**
    * {@link copy} copies a given text to the system clipboard

@@ -5,6 +5,6 @@ export class MatchRequest {
     public readonly haystack: Image,
     public readonly needle: Image,
     public readonly confidence: number,
-    public readonly searchMultipleScales: boolean = true,
+    public readonly searchMultipleScales: boolean = true
   ) {}
 }
