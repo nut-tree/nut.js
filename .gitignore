@@ -140,3 +140,5 @@ fabric.properties
 /foo_asdf.jpg
 /.scratch/
 docs
+scratch.js
+debug.js
