@@ -12,6 +12,7 @@ import providerRegistry, {
   ProviderRegistry,
 } from "./provider/provider-registry.class";
 import { ImageProcessor } from "./provider/image-processor.interface";
+import { NoopLogProvider } from "./provider/log/noop-log-provider.class";
 
 const searchRegion = new Region(0, 0, 1000, 1000);
 const providerRegistryMock = mockPartial<ProviderRegistry>({
@@ -50,6 +51,7 @@ describe("colorAt", () => {
         grabScreen: grabScreenMock,
       })
     );
+    providerRegistryMock.getLogProvider = () => new NoopLogProvider();
     providerRegistryMock.getImageProcessor();
     const SUT = new ScreenClass(providerRegistryMock);
     const expectedWhite = new RGBA(255, 255, 255, 255);
@@ -77,6 +79,7 @@ describe("colorAt", () => {
         grabScreen: grabScreenMock,
       })
     );
+    providerRegistryMock.getLogProvider = () => new NoopLogProvider();
     providerRegistryMock.getImageProcessor();
     const SUT = new ScreenClass(providerRegistryMock);
     const expectedWhite = new RGBA(255, 255, 255, 255);

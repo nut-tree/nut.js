@@ -14,6 +14,7 @@ import {
   ScreenProviderInterface,
 } from "./provider";
 import { OptionalSearchParameters } from "./optionalsearchparameters.class";
+import { NoopLogProvider } from "./provider/log/noop-log-provider.class";
 
 jest.mock("jimp", () => {});
 
@@ -69,6 +70,7 @@ describe("Screen.", () => {
           findMatch: findMatchMock,
         })
       );
+      providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
       // WHEN
       const resultRegion = SUT.find(needlePromise);
@@ -93,6 +95,7 @@ describe("Screen.", () => {
           findMatch: findMatchMock,
         })
       );
+      providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
       const SUT = new ScreenClass(providerRegistryMock);
       const testCallback = jest.fn(() => Promise.resolve());
@@ -124,6 +127,7 @@ describe("Screen.", () => {
           findMatch: findMatchMock,
         })
       );
+      providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
       const SUT = new ScreenClass(providerRegistryMock);
       const testCallback = jest.fn(() => Promise.resolve());
@@ -161,6 +165,7 @@ describe("Screen.", () => {
           findMatch: findMatchMock,
         })
       );
+      providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
       const SUT = new ScreenClass(providerRegistryMock);
       const id = "needle_image";
@@ -184,6 +189,7 @@ describe("Screen.", () => {
           findMatch: findMatchMock,
         })
       );
+      providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
       const SUT = new ScreenClass(providerRegistryMock);
       const id = "needle_image";
@@ -209,6 +215,7 @@ describe("Screen.", () => {
           findMatch: findMatchMock,
         })
       );
+      providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
       const SUT = new ScreenClass(providerRegistryMock);
 
@@ -248,6 +255,7 @@ describe("Screen.", () => {
           findMatch: findMatchMock,
         })
       );
+      providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
       const SUT = new ScreenClass(providerRegistryMock);
 
@@ -284,6 +292,7 @@ describe("Screen.", () => {
           findMatch: findMatchMock,
         })
       );
+      providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
       const SUT = new ScreenClass(providerRegistryMock);
       const needle = new Image(
@@ -326,6 +335,7 @@ describe("Screen.", () => {
           findMatch: findMatchMock,
         })
       );
+      providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
       const SUT = new ScreenClass(providerRegistryMock);
       const needle = new Image(
@@ -374,6 +384,7 @@ describe("Screen.", () => {
           findMatch: findMatchMock,
         })
       );
+      providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
       const SUT = new ScreenClass(providerRegistryMock);
       // WHEN
@@ -425,6 +436,7 @@ describe("Screen.", () => {
           findMatch: findMatchMock,
         })
       );
+      providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
       const SUT = new ScreenClass(providerRegistryMock);
 
@@ -451,6 +463,7 @@ describe("Screen.", () => {
           findMatches: findMatchesMock,
         })
       );
+      providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
       const SUT = new ScreenClass(providerRegistryMock);
       const testCallback = jest.fn(() => Promise.resolve());
@@ -483,6 +496,7 @@ describe("Screen.", () => {
           findMatches: findMatchesMock,
         })
       );
+      providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
       const SUT = new ScreenClass(providerRegistryMock);
       const testCallback = jest.fn(() => Promise.resolve());
@@ -518,6 +532,7 @@ describe("Screen.", () => {
           findMatches: findMatchesMock,
         })
       );
+      providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
       const SUT = new ScreenClass(providerRegistryMock);
       const id = "needle_image";
@@ -543,6 +558,7 @@ describe("Screen.", () => {
           findMatches: findMatchesMock,
         })
       );
+      providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
       const SUT = new ScreenClass(providerRegistryMock);
 
@@ -582,6 +598,7 @@ describe("Screen.", () => {
           findMatches: findMatchesMock,
         })
       );
+      providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
       const SUT = new ScreenClass(providerRegistryMock);
 
@@ -618,6 +635,7 @@ describe("Screen.", () => {
           findMatches: findMatchesMock,
         })
       );
+      providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
       const SUT = new ScreenClass(providerRegistryMock);
       const needle = new Image(
@@ -660,6 +678,7 @@ describe("Screen.", () => {
           findMatches: findMatchesMock,
         })
       );
+      providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
       const SUT = new ScreenClass(providerRegistryMock);
       const needle = new Image(
@@ -708,6 +727,7 @@ describe("Screen.", () => {
           findMatches: findMatchesMock,
         })
       );
+      providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
       const SUT = new ScreenClass(providerRegistryMock);
       // WHEN
@@ -759,6 +779,7 @@ describe("Screen.", () => {
           findMatches: findMatchesMock,
         })
       );
+      providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
       const SUT = new ScreenClass(providerRegistryMock);
 
@@ -783,6 +804,7 @@ describe("Screen.", () => {
         highlightScreenRegion: highlightMock,
       })
     );
+    providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
     const SUT = new ScreenClass(providerRegistryMock);
     // WHEN
@@ -804,6 +826,7 @@ describe("Screen.", () => {
         highlightScreenRegion: highlightMock,
       })
     );
+    providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
     const SUT = new ScreenClass(providerRegistryMock);
 
@@ -838,6 +861,7 @@ describe("Screen.", () => {
           store: saveImageMock,
         })
       );
+      providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
       const SUT = new ScreenClass(providerRegistryMock);
       const imageName = "foobar.png";
@@ -865,6 +889,7 @@ describe("Screen.", () => {
           grabScreen: grabScreenMock,
         })
       );
+      providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
       const SUT = new ScreenClass(providerRegistryMock);
       const imageName = "foobar.png";
@@ -909,6 +934,7 @@ describe("Screen.", () => {
           store: saveImageMock,
         })
       );
+      providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
       const SUT = new ScreenClass(providerRegistryMock);
       const imageName = "foobar.png";
@@ -942,6 +968,7 @@ describe("Screen.", () => {
           grabScreenRegion: grabScreenMock,
         })
       );
+      providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
       const SUT = new ScreenClass(providerRegistryMock);
       const imageName = "foobar.png";
