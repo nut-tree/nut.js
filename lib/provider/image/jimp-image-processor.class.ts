@@ -17,11 +17,13 @@ export default class implements ImageProcessor {
         reject(
           `Query location out of bounds. Should be in range 0 <= x < image.width, is ${location.x}`
         );
+        return;
       }
       if (location.y < 0 || location.y >= img.height) {
         reject(
           `Query location out of bounds. Should be in range 0 <= y < image.height, is ${location.y}`
         );
+        return;
       }
       const jimpImage = imageToJimp(img);
       const rgba = Jimp.intToRGBA(

@@ -15,6 +15,7 @@ export class ClipboardClass {
    * @param text The text to copy
    */
   public copy(text: string): Promise<void> {
+    this.providerRegistry.getLogProvider().debug(`Saving to clipboard`);
     return this.providerRegistry.getClipboard().copy(text);
   }
 
@@ -22,6 +23,7 @@ export class ClipboardClass {
    * {@link paste} returns the current content of the system clipboard (limited to text)
    */
   public paste(): Promise<string> {
+    this.providerRegistry.getLogProvider().debug(`Fetching clipboard content`);
     return this.providerRegistry.getClipboard().paste();
   }
 }

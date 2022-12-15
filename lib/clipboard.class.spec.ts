@@ -2,6 +2,7 @@ import { ClipboardClass } from "./clipboard.class";
 import { ProviderRegistry } from "./provider/provider-registry.class";
 import { mockPartial } from "sneer";
 import { ClipboardProviderInterface } from "./provider";
+import { NoopLogProvider } from "./provider/log/noop-log-provider.class";
 
 jest.mock("jimp", () => {});
 
@@ -21,6 +22,7 @@ describe("Clipboard class", () => {
         copy: copyMock,
       })
     );
+    providerRegistryMock.getLogProvider = () => new NoopLogProvider();
     const textToCopy = "bar";
 
     // WHEN
@@ -40,6 +42,7 @@ describe("Clipboard class", () => {
         paste: pasteMock,
       })
     );
+    providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
     // WHEN
     SUT.paste();

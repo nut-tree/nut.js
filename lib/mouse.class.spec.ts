@@ -5,6 +5,7 @@ import { LineHelper } from "./util/linehelper.class";
 import { ProviderRegistry } from "./provider/provider-registry.class";
 import { mockPartial } from "sneer";
 import { MouseProviderInterface } from "./provider";
+import { NoopLogProvider } from "./provider/log/noop-log-provider.class";
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -43,6 +44,7 @@ describe("Mouse class", () => {
         scrollLeft: scrollMock,
       })
     );
+    providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
     // WHEN
     const result = await SUT.scrollLeft(scrollAmount);
@@ -64,6 +66,7 @@ describe("Mouse class", () => {
         scrollRight: scrollMock,
       })
     );
+    providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
     // WHEN
     const result = await SUT.scrollRight(scrollAmount);
@@ -85,6 +88,7 @@ describe("Mouse class", () => {
         scrollDown: scrollMock,
       })
     );
+    providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
     // WHEN
     const result = await SUT.scrollDown(scrollAmount);
@@ -106,6 +110,7 @@ describe("Mouse class", () => {
         scrollUp: scrollMock,
       })
     );
+    providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
     // WHEN
     const result = await SUT.scrollUp(scrollAmount);
@@ -127,6 +132,7 @@ describe("Mouse class", () => {
         setMousePosition: setPositionMock,
       })
     );
+    providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
     // WHEN
     const result = await SUT.move(path);
@@ -152,6 +158,7 @@ describe("Mouse class", () => {
         releaseButton: releaseButtonMock,
       })
     );
+    providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
     // WHEN
     const result = await SUT.drag(path);
@@ -182,6 +189,7 @@ describe("Mouse class", () => {
             releaseButton: releaseButtonMock,
           })
         );
+        providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
         // WHEN
         const pressed = await SUT.pressButton(input);
@@ -209,6 +217,7 @@ describe("Mouse class", () => {
             pressButton: mouseMock,
           })
         );
+        providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
         // WHEN
         const start = Date.now();
@@ -232,6 +241,7 @@ describe("Mouse class", () => {
             releaseButton: mouseMock,
           })
         );
+        providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
         // WHEN
         const start = Date.now();
@@ -262,6 +272,7 @@ describe("Mouse class", () => {
               click: clickMock,
             })
           );
+          providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
           // WHEN
           await SUT.click(input);
@@ -289,6 +300,7 @@ describe("Mouse class", () => {
               doubleClick: clickMock,
             })
           );
+          providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
           // WHEN
           await SUT.doubleClick(input);
@@ -312,6 +324,7 @@ describe("Mouse class", () => {
             click: clickMock,
           })
         );
+        providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
         // WHEN
         const result = await SUT.leftClick();
@@ -336,6 +349,7 @@ describe("Mouse class", () => {
             click: clickMock,
           })
         );
+        providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
         // WHEN
         const result = await SUT.rightClick();

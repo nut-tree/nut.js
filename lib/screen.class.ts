@@ -107,6 +107,7 @@ export class ScreenClass {
    * Screens with higher pixel density (e.g. retina displays in MacBooks) might have a higher width in in actual pixels
    */
   public width() {
+    this.providerRegistry.getLogProvider().debug(`Fetching screen width`);
     return this.providerRegistry.getScreen().screenWidth();
   }
 
@@ -116,6 +117,7 @@ export class ScreenClass {
    * Screens with higher pixel density (e.g. retina displays in MacBooks) might have a higher height in in actual pixels
    */
   public height() {
+    this.providerRegistry.getLogProvider().debug(`Fetching screen height`);
     return this.providerRegistry.getScreen().screenHeight();
   }
 
@@ -137,6 +139,15 @@ export class ScreenClass {
     } = await this.getFindParameters(params);
 
     const needle = await ScreenClass.getNeedle(searchInput);
+    this.providerRegistry
+      .getLogProvider()
+      .info(
+        `Searching for image ${
+          needle.id
+        } in region ${searchRegion.toString()} ${
+          searchMultipleScales ? "over multiple scales" : "without scaling"
+        }. Required confidence: ${minMatch}`
+      );
 
     const matchRequest = new MatchRequest(
       screenImage,
@@ -148,11 +159,16 @@ export class ScreenClass {
     return new Promise<Region>(async (resolve, reject) => {
       try {
         validateSearchRegion(searchRegion, screenSize);
+        this.providerRegistry.getLogProvider().debug(`Search region is valid`);
         const matchResult = await this.providerRegistry
           .getImageFinder()
           .findMatch(matchRequest);
         const possibleHooks = this.findHooks.get(needle) || [];
+        this.providerRegistry
+          .getLogProvider()
+          .debug(`${possibleHooks.length} hooks triggered for match`);
         for (const hook of possibleHooks) {
+          this.providerRegistry.getLogProvider().debug(`Executing hook`);
           await hook(matchResult);
         }
         const resultRegion = new Region(
@@ -161,7 +177,13 @@ export class ScreenClass {
           matchResult.location.width,
           matchResult.location.height
         );
+        this.providerRegistry
+          .getLogProvider()
+          .info(`Match is located at ${resultRegion.toString()}`);
         if (this.config.autoHighlight) {
+          this.providerRegistry
+            .getLogProvider()
+            .debug(`Autohighlight is enabled`);
           resolve(this.highlight(resultRegion));
         } else {
           resolve(resultRegion);
@@ -190,6 +212,15 @@ export class ScreenClass {
     } = await this.getFindParameters(params);
 
     const needle = await ScreenClass.getNeedle(template);
+    this.providerRegistry
+      .getLogProvider()
+      .info(
+        `Searching for image ${
+          needle.id
+        } in region ${searchRegion.toString()} ${
+          searchMultipleScales ? "over multiple scales" : "without scaling"
+        }. Required confidence: ${minMatch}`
+      );
 
     const matchRequest = new MatchRequest(
       screenImage,
@@ -201,24 +232,38 @@ export class ScreenClass {
     return new Promise<Region[]>(async (resolve, reject) => {
       try {
         validateSearchRegion(searchRegion, screenSize);
+        this.providerRegistry.getLogProvider().debug(`Search region is valid`);
         const matchResults = await this.providerRegistry
           .getImageFinder()
           .findMatches(matchRequest);
         const possibleHooks = this.findHooks.get(needle) || [];
+        this.providerRegistry
+          .getLogProvider()
+          .debug(
+            `${possibleHooks.length} hooks triggered for ${matchResults.length} matches`
+          );
         for (const hook of possibleHooks) {
           for (const matchResult of matchResults) {
+            this.providerRegistry.getLogProvider().debug(`Executing hook`);
             await hook(matchResult);
           }
         }
         const resultRegions = matchResults.map((matchResult) => {
-          return new Region(
+          const resultRegion = new Region(
             searchRegion.left + matchResult.location.left,
             searchRegion.top + matchResult.location.top,
             matchResult.location.width,
             matchResult.location.height
           );
+          this.providerRegistry
+            .getLogProvider()
+            .info(`Match is located at ${resultRegion.toString()}`);
+          return resultRegion;
         });
         if (this.config.autoHighlight) {
+          this.providerRegistry
+            .getLogProvider()
+            .debug(`Autohighlight is enabled`);
           resultRegions.forEach((region) => this.highlight(region));
           resolve(resultRegions);
         } else {
@@ -245,6 +290,13 @@ export class ScreenClass {
         )}`
       );
     }
+    this.providerRegistry
+      .getLogProvider()
+      .info(
+        `Highlighting ${highlightRegion.toString()} for ${
+          this.config.highlightDurationMs / 1000
+        } with ${this.config.highlightOpacity * 100}% opacity`
+      );
     await this.providerRegistry
       .getScreen()
       .highlightScreenRegion(
@@ -277,6 +329,13 @@ export class ScreenClass {
         )}`
       );
     }
+    this.providerRegistry
+      .getLogProvider()
+      .info(
+        `Waiting for image ${needle.id} to appear on screen. Timeout: ${
+          timeoutMs / 1000
+        } seconds, interval: ${updateInterval} ms`
+      );
     return timeout(updateInterval, timeoutMs, () => this.find(needle, params), {
       signal: params?.abort,
     });
@@ -295,6 +354,13 @@ export class ScreenClass {
     }
     const existingHooks = this.findHooks.get(templateImage) || [];
     this.findHooks.set(templateImage, [...existingHooks, callback]);
+    this.providerRegistry
+      .getLogProvider()
+      .info(
+        `Registered callback for image ${
+          templateImage.id
+        }. There are currently ${existingHooks.length + 1} hooks registered`
+      );
   }
 
   /**
@@ -320,6 +386,11 @@ export class ScreenClass {
         )}`
       );
     }
+    this.providerRegistry
+      .getLogProvider()
+      .debug(
+        `Capturing whole screen (0, 0, ${currentScreen.width}, ${currentScreen.height})`
+      );
     return this.saveImage(
       currentScreen,
       fileName,
@@ -362,6 +433,9 @@ export class ScreenClass {
         )}`
       );
     }
+    this.providerRegistry
+      .getLogProvider()
+      .debug(`Capturing screen region ${targetRegion.toString()}`);
     const regionImage = await this.providerRegistry
       .getScreen()
       .grabScreenRegion(targetRegion);
@@ -397,6 +471,9 @@ export class ScreenClass {
         )}`
       );
     }
+    this.providerRegistry
+      .getLogProvider()
+      .debug(`Grabbing screen region ${targetRegion.toString()}`);
     return this.providerRegistry.getScreen().grabScreenRegion(targetRegion);
   }
 
@@ -416,6 +493,13 @@ export class ScreenClass {
       inputPoint.x * screenContent.pixelDensity.scaleX,
       inputPoint.y * screenContent.pixelDensity.scaleY
     );
+    this.providerRegistry
+      .getLogProvider()
+      .debug(
+        `Point ${inputPoint.toString()} has been scaled by (${
+          screenContent.pixelDensity.scaleX
+        }, ${screenContent.pixelDensity.scaleY}) into ${scaledPoint.toString()}`
+      );
     return this.providerRegistry
       .getImageProcessor()
       .colorAt(screenContent, scaledPoint);
@@ -435,9 +519,13 @@ export class ScreenClass {
       prefix: fileNamePrefix,
       type: fileFormat,
     });
+    this.providerRegistry
+      .getLogProvider()
+      .info(`Writing image to ${outputPath}`);
     await this.providerRegistry
       .getImageWriter()
       .store({ image, path: outputPath });
+    this.providerRegistry.getLogProvider().debug(`File written`);
     return outputPath;
   }
 
@@ -450,13 +538,19 @@ export class ScreenClass {
       .grabScreenRegion(searchRegion);
     const searchMultipleScales = params?.searchMultipleScales ?? true;
 
-    return {
+    const findParameters = {
       minMatch,
       screenSize,
       searchRegion,
       screenImage,
       searchMultipleScales,
     };
+    this.providerRegistry
+      .getLogProvider()
+      .debug(
+        `Running image search with parameters ${JSON.stringify(findParameters)}`
+      );
+    return findParameters;
   }
 
   private static async getNeedle(
