@@ -52,7 +52,7 @@ export class MouseClass {
     }
     this.providerRegistry
       .getLogProvider()
-      .info("Setting mouse position", target);
+      .trace("Setting mouse position", target);
     return new Promise<MouseClass>(async (resolve, reject) => {
       try {
         await this.providerRegistry.getMouse().setMousePosition(target);

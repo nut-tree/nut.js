@@ -163,6 +163,9 @@ export class ScreenClass {
         const matchResult = await this.providerRegistry
           .getImageFinder()
           .findMatch(matchRequest);
+        this.providerRegistry
+          .getLogProvider()
+          .debug("Found match!", matchResult);
         const possibleHooks = this.findHooks.get(needle) || [];
         this.providerRegistry
           .getLogProvider()
@@ -547,9 +550,12 @@ export class ScreenClass {
     };
     this.providerRegistry
       .getLogProvider()
-      .debug(
-        `Running image search with parameters ${JSON.stringify(findParameters)}`
-      );
+      .debug(`Running image search with parameters`, {
+        minMatch,
+        screenSize,
+        searchRegion,
+        searchMultipleScales,
+      });
     return findParameters;
   }
 
