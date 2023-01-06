@@ -19,6 +19,8 @@ import ImageWriterImpl from "./io/jimp-image-writer.class";
 import ImageProcessorImpl from "./image/jimp-image-processor.class";
 import { LogProviderInterface, wrapLogger } from "./log-provider.interface";
 import { NoopLogProvider } from "./log/noop-log-provider.class";
+import { TextFinderInterface } from "./text-finder.interface";
+import { WindowFinderInterface } from "./window-finder.interface";
 
 export interface ProviderRegistry {
   getClipboard(): ClipboardProviderInterface;
@@ -60,6 +62,14 @@ export interface ProviderRegistry {
   getLogProvider(): LogProviderInterface;
 
   registerLogProvider(value: LogProviderInterface): void;
+
+  getTextFinder(): TextFinderInterface;
+
+  registerTextFinder(value: TextFinderInterface): void;
+
+  getWindowFinder(): WindowFinderInterface;
+
+  registerWindowFinder(value: WindowFinderInterface): void;
 }
 
 class DefaultProviderRegistry implements ProviderRegistry {
@@ -73,6 +83,8 @@ class DefaultProviderRegistry implements ProviderRegistry {
   private _imageWriter?: ImageWriter;
   private _imageProcessor?: ImageProcessor;
   private _logProvider?: LogProviderInterface;
+  private _textFinder?: TextFinderInterface;
+  private _windowFinder?: WindowFinderInterface;
 
   getClipboard(): ClipboardProviderInterface {
     if (this._clipboard) {
@@ -85,7 +97,7 @@ class DefaultProviderRegistry implements ProviderRegistry {
 
   registerClipboardProvider(value: ClipboardProviderInterface) {
     this._clipboard = value;
-    this.getLogProvider().info("Registered new clipboard provider", value);
+    this.getLogProvider().trace("Registered new clipboard provider", value);
   }
 
   getImageFinder(): ImageFinderInterface {
@@ -99,7 +111,7 @@ class DefaultProviderRegistry implements ProviderRegistry {
 
   registerImageFinder(value: ImageFinderInterface) {
     this._finder = value;
-    this.getLogProvider().info("Registered new image finder", value);
+    this.getLogProvider().trace("Registered new image finder", value);
   }
 
   getKeyboard(): KeyboardProviderInterface {
@@ -113,7 +125,7 @@ class DefaultProviderRegistry implements ProviderRegistry {
 
   registerKeyboardProvider(value: KeyboardProviderInterface) {
     this._keyboard = value;
-    this.getLogProvider().info("Registered new keyboard provider", value);
+    this.getLogProvider().trace("Registered new keyboard provider", value);
   }
 
   getMouse(): MouseProviderInterface {
@@ -127,7 +139,7 @@ class DefaultProviderRegistry implements ProviderRegistry {
 
   registerMouseProvider(value: MouseProviderInterface) {
     this._mouse = value;
-    this.getLogProvider().info("Registered new mouse provider", value);
+    this.getLogProvider().trace("Registered new mouse provider", value);
   }
 
   getScreen(): ScreenProviderInterface {
@@ -141,7 +153,7 @@ class DefaultProviderRegistry implements ProviderRegistry {
 
   registerScreenProvider(value: ScreenProviderInterface) {
     this._screen = value;
-    this.getLogProvider().info("Registered new screen provider", value);
+    this.getLogProvider().trace("Registered new screen provider", value);
   }
 
   getWindow(): WindowProviderInterface {
@@ -155,7 +167,35 @@ class DefaultProviderRegistry implements ProviderRegistry {
 
   registerWindowProvider(value: WindowProviderInterface) {
     this._window = value;
-    this.getLogProvider().info("Registered new window provider", value);
+    this.getLogProvider().trace("Registered new window provider", value);
+  }
+
+  getTextFinder(): TextFinderInterface {
+    if (this._textFinder) {
+      return this._textFinder;
+    }
+    const error = new Error(`No TextFinder registered`);
+    this.getLogProvider().error(error);
+    throw error;
+  }
+
+  registerTextFinder(value: TextFinderInterface) {
+    this._textFinder = value;
+    this.getLogProvider().trace("Registered new TextFinder provider", value);
+  }
+
+  getWindowFinder(): WindowFinderInterface {
+    if (this._windowFinder) {
+      return this._windowFinder;
+    }
+    const error = new Error(`No WindowFinder registered`);
+    this.getLogProvider().error(error);
+    throw error;
+  }
+
+  registerWindowFinder(value: WindowFinderInterface) {
+    this._windowFinder = value;
+    this.getLogProvider().trace("Registered new TextFinder provider", value);
   }
 
   getImageReader(): ImageReader {
@@ -169,7 +209,7 @@ class DefaultProviderRegistry implements ProviderRegistry {
 
   registerImageReader(value: ImageReader) {
     this._imageReader = value;
-    this.getLogProvider().info("Registered new image reader", value);
+    this.getLogProvider().trace("Registered new image reader", value);
   }
 
   getImageWriter(): ImageWriter {
@@ -183,7 +223,7 @@ class DefaultProviderRegistry implements ProviderRegistry {
 
   registerImageWriter(value: ImageWriter) {
     this._imageWriter = value;
-    this.getLogProvider().info("Registered new image writer", value);
+    this.getLogProvider().trace("Registered new image writer", value);
   }
 
   getImageProcessor(): ImageProcessor {
@@ -197,7 +237,7 @@ class DefaultProviderRegistry implements ProviderRegistry {
 
   registerImageProcessor(value: ImageProcessor): void {
     this._imageProcessor = value;
-    this.getLogProvider().info("Registered new image processor", value);
+    this.getLogProvider().trace("Registered new image processor", value);
   }
 
   getLogProvider(): LogProviderInterface {
@@ -211,7 +251,7 @@ class DefaultProviderRegistry implements ProviderRegistry {
 
   registerLogProvider(value: LogProviderInterface): void {
     this._logProvider = wrapLogger(value);
-    this.getLogProvider().info("Registered new log provider", value);
+    this.getLogProvider().trace("Registered new log provider", value);
   }
 }
 
