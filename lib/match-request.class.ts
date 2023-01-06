@@ -1,10 +1,10 @@
 import { Image } from "./image.class";
 
-export class MatchRequest {
-  constructor(
+export class MatchRequest<NEEDLE_TYPE, PROVIDER_DATA_TYPE> {
+  public constructor(
     public readonly haystack: Image,
-    public readonly needle: Image,
+    public readonly needle: NEEDLE_TYPE,
     public readonly confidence: number,
-    public readonly searchMultipleScales: boolean = true
+    public readonly providerData?: PROVIDER_DATA_TYPE
   ) {}
 }
