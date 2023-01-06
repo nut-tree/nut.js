@@ -1,5 +1,6 @@
 import { MatchRequest } from "../match-request.class";
 import { MatchResult } from "../match-result.class";
+import { Image } from "../image.class";
 
 /**
  * An ImageFinder should provide an abstraction layer to perform image matching
@@ -15,7 +16,9 @@ export interface ImageFinderInterface {
    * @returns {Promise<MatchResult>} A {@link MatchResult} holding the match probability and location
    * @memberof ImageFinderInterface
    */
-  findMatch(matchRequest: MatchRequest): Promise<MatchResult>;
+  findMatch<PROVIDER_DATA_TYPE>(
+    matchRequest: MatchRequest<Image, PROVIDER_DATA_TYPE>
+  ): Promise<MatchResult>;
 
   /**
    * findMatches should provide an abstraction to search for an image needle
@@ -25,5 +28,7 @@ export interface ImageFinderInterface {
    * @returns {Promise<MatchResult[]>} A list of {@link MatchResult}s holding the match probability and location
    * @memberof ImageFinderInterface
    */
-  findMatches(matchRequest: MatchRequest): Promise<MatchResult[]>;
+  findMatches<PROVIDER_DATA_TYPE>(
+    matchRequest: MatchRequest<Image, PROVIDER_DATA_TYPE>
+  ): Promise<MatchResult[]>;
 }
