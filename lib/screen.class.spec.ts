@@ -80,8 +80,7 @@ describe("Screen.", () => {
       const matchRequest = new MatchRequest(
         expect.any(Image),
         needle,
-        SUT.config.confidence,
-        true
+        SUT.config.confidence
       );
       expect(findMatchMock).toHaveBeenCalledWith(matchRequest);
     });
@@ -175,7 +174,7 @@ describe("Screen.", () => {
       const resultRegion = SUT.find(needle, { confidence: minConfidence });
 
       // THEN
-      await expect(resultRegion).rejects.toEqual(
+      await expect(resultRegion).rejects.toThrowError(
         `Searching for ${id} failed. Reason: '${expectedReason}'`
       );
     });
@@ -199,7 +198,7 @@ describe("Screen.", () => {
       const resultRegion = SUT.find(needle);
 
       // THEN
-      await expect(resultRegion).rejects.toEqual(
+      await expect(resultRegion).rejects.toThrowError(
         `Searching for ${id} failed. Reason: '${rejectionReason}'`
       );
     });
@@ -238,8 +237,7 @@ describe("Screen.", () => {
       const matchRequest = new MatchRequest(
         expect.any(Image),
         needle,
-        minMatch,
-        true
+        minMatch
       );
       expect(findMatchMock).toHaveBeenCalledWith(matchRequest);
     });
@@ -272,49 +270,7 @@ describe("Screen.", () => {
       const expectedMatchRequest = new MatchRequest(
         expect.any(Image),
         needle,
-        SUT.config.confidence,
-        true
-      );
-
-      // WHEN
-      await SUT.find(needle, parameters);
-
-      // THEN
-      expect(findMatchMock).toHaveBeenCalledWith(expectedMatchRequest);
-    });
-
-    it("should override searchMultipleScales with parameter.", async () => {
-      // GIVEN
-      const matchResult = new MatchResult(0.99, searchRegion);
-      const findMatchMock = jest.fn(() => Promise.resolve(matchResult));
-      providerRegistryMock.getImageFinder = jest.fn(() =>
-        mockPartial<ImageFinderInterface>({
-          findMatch: findMatchMock,
-        })
-      );
-      providerRegistryMock.getLogProvider = () => new NoopLogProvider();
-
-      const SUT = new ScreenClass(providerRegistryMock);
-      const needle = new Image(
-        100,
-        100,
-        Buffer.from([]),
-        3,
-        "needle_image",
-        4,
-        100 * 4
-      );
-
-      const parameters = new OptionalSearchParameters(
-        searchRegion,
-        undefined,
-        false
-      );
-      const expectedMatchRequest = new MatchRequest(
-        expect.any(Image),
-        needle,
-        SUT.config.confidence,
-        false
+        SUT.config.confidence
       );
 
       // WHEN
@@ -354,8 +310,7 @@ describe("Screen.", () => {
       const expectedMatchRequest = new MatchRequest(
         expect.any(Image),
         needle,
-        minMatch,
-        true
+        minMatch
       );
 
       // WHEN
@@ -446,7 +401,7 @@ describe("Screen.", () => {
       });
 
       // THEN
-      await expect(findPromise).rejects.toContain(
+      await expect(findPromise).rejects.toThrowError(
         `Searching for ${id} failed. Reason:`
       );
     });
@@ -542,7 +497,7 @@ describe("Screen.", () => {
       const resultRegion = SUT.findAll(needle);
 
       // THEN
-      await expect(resultRegion).rejects.toEqual(
+      await expect(resultRegion).rejects.toThrowError(
         `Searching for ${id} failed. Reason: '${rejectionReason}'`
       );
     });
@@ -581,8 +536,7 @@ describe("Screen.", () => {
       const matchRequest = new MatchRequest(
         expect.any(Image),
         needle,
-        minMatch,
-        true
+        minMatch
       );
       expect(findMatchesMock).toHaveBeenCalledWith(matchRequest);
     });
@@ -615,49 +569,7 @@ describe("Screen.", () => {
       const expectedMatchRequest = new MatchRequest(
         expect.any(Image),
         needle,
-        SUT.config.confidence,
-        true
-      );
-
-      // WHEN
-      await SUT.findAll(needle, parameters);
-
-      // THEN
-      expect(findMatchesMock).toHaveBeenCalledWith(expectedMatchRequest);
-    });
-
-    it("should override searchMultipleScales with parameter.", async () => {
-      // GIVEN
-      const matchResult = new MatchResult(0.99, searchRegion);
-      const findMatchesMock = jest.fn(() => Promise.resolve([matchResult]));
-      providerRegistryMock.getImageFinder = jest.fn(() =>
-        mockPartial<ImageFinderInterface>({
-          findMatches: findMatchesMock,
-        })
-      );
-      providerRegistryMock.getLogProvider = () => new NoopLogProvider();
-
-      const SUT = new ScreenClass(providerRegistryMock);
-      const needle = new Image(
-        100,
-        100,
-        Buffer.from([]),
-        3,
-        "needle_image",
-        4,
-        100 * 4
-      );
-
-      const parameters = new OptionalSearchParameters(
-        searchRegion,
-        undefined,
-        false
-      );
-      const expectedMatchRequest = new MatchRequest(
-        expect.any(Image),
-        needle,
-        SUT.config.confidence,
-        false
+        SUT.config.confidence
       );
 
       // WHEN
@@ -697,8 +609,7 @@ describe("Screen.", () => {
       const expectedMatchRequest = new MatchRequest(
         expect.any(Image),
         needle,
-        minMatch,
-        true
+        minMatch
       );
 
       // WHEN
@@ -789,7 +700,7 @@ describe("Screen.", () => {
       });
 
       // THEN
-      await expect(findPromise).rejects.toContain(
+      await expect(findPromise).rejects.toThrowError(
         `Searching for ${id} failed. Reason:`
       );
     });

@@ -8,6 +8,7 @@ import { LineHelper } from "./lib/util/linehelper.class";
 import { createWindowApi } from "./lib/window.function";
 import providerRegistry from "./lib/provider/provider-registry.class";
 import { loadImageResource } from "./lib/imageResources.function";
+import { LineQuery, WindowQuery, WordQuery } from "./lib/query.class";
 
 export {
   AssertClass,
@@ -70,6 +71,35 @@ const imageResource = (fileName: string) =>
     fileName
   );
 
+const singleWord = (word: string | RegExp): WordQuery => {
+  return {
+    type: "text",
+    id: `word-query-${word}`,
+    by: {
+      word,
+    },
+  };
+};
+const textLine = (line: string | RegExp): LineQuery => {
+  return {
+    type: "text",
+    id: `line-query-${line}`,
+    by: {
+      line,
+    },
+  };
+};
+
+const windowWithTitle = (title: string | RegExp): WindowQuery => {
+  return {
+    type: "window",
+    id: `window-by-title-query-${title}`,
+    by: {
+      title,
+    },
+  };
+};
+
 export { fetchFromUrl } from "./lib/imageResources.function";
 
 export {
@@ -88,4 +118,7 @@ export {
   loadImage,
   saveImage,
   imageResource,
+  singleWord,
+  textLine,
+  windowWithTitle,
 };
