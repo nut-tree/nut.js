@@ -1,12 +1,12 @@
 import { cwd } from "process";
 import { FileType } from "./file-type.enum";
 import { generateOutputPath } from "./generate-output-path.function";
+import { createMatchRequest } from "./match-request.class";
 import {
-  createImageMatchRequest,
-  createTextMatchRequest,
-  isImageMatchRequest,
-} from "./match-request.class";
-import { MatchResult } from "./match-result.class";
+  getMatchResult,
+  getMatchResults,
+  MatchResult,
+} from "./match-result.class";
 import { isRegion, Region } from "./region.class";
 import { timeout } from "./util/timeout.function";
 import { Image, isImage } from "./image.class";
@@ -24,7 +24,6 @@ import { Window } from "./window.class";
 
 export type WindowCallback = (target: Window) => void | Promise<void>;
 export type MatchResultCallback = (target: MatchResult) => void | Promise<void>;
-
 export type FindHookCallback = WindowCallback | MatchResultCallback;
 
 function validateSearchRegion(search: Region, screen: Region) {
@@ -180,29 +179,21 @@ export class ScreenClass {
         const { minMatch, screenSize, searchRegion, screenImage } =
           await this.getFindParameters(params);
 
-        const matchRequest = isImage(needle)
-          ? createImageMatchRequest(
-              this.providerRegistry,
-              needle,
-              searchRegion,
-              minMatch,
-              screenImage,
-              params
-            )
-          : createTextMatchRequest(
-              this.providerRegistry,
-              needle,
-              searchRegion,
-              minMatch,
-              screenImage,
-              params
-            );
+        const matchRequest = createMatchRequest(
+          this.providerRegistry,
+          needle,
+          searchRegion,
+          minMatch,
+          screenImage,
+          params
+        );
 
         validateSearchRegion(searchRegion, screenSize);
         this.providerRegistry.getLogProvider().debug(`Search region is valid`);
-        const matchResult = isImageMatchRequest(matchRequest)
-          ? await this.providerRegistry.getImageFinder().findMatch(matchRequest)
-          : await this.providerRegistry.getTextFinder().findMatch(matchRequest);
+        const matchResult = await getMatchResult(
+          this.providerRegistry,
+          matchRequest
+        );
         this.providerRegistry
           .getLogProvider()
           .debug("Found match!", matchResult);
@@ -282,33 +273,21 @@ export class ScreenClass {
         const { minMatch, screenSize, searchRegion, screenImage } =
           await this.getFindParameters(params);
 
-        const matchRequest = isImage(needle)
-          ? createImageMatchRequest(
-              this.providerRegistry,
-              needle,
-              searchRegion,
-              minMatch,
-              screenImage,
-              params
-            )
-          : createTextMatchRequest(
-              this.providerRegistry,
-              needle,
-              searchRegion,
-              minMatch,
-              screenImage,
-              params
-            );
+        const matchRequest = createMatchRequest(
+          this.providerRegistry,
+          needle,
+          searchRegion,
+          minMatch,
+          screenImage,
+          params
+        );
 
         validateSearchRegion(searchRegion, screenSize);
         this.providerRegistry.getLogProvider().debug(`Search region is valid`);
-        const matchResults = isImageMatchRequest(matchRequest)
-          ? await this.providerRegistry
-              .getImageFinder()
-              .findMatches(matchRequest)
-          : await this.providerRegistry
-              .getTextFinder()
-              .findMatches(matchRequest);
+        const matchResults = await getMatchResults(
+          this.providerRegistry,
+          matchRequest
+        );
         const possibleHooks = this.getHooksForInput(needle) || [];
         this.providerRegistry
           .getLogProvider()

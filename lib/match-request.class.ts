@@ -26,43 +26,7 @@ export function isTextMatchRequest<PROVIDER_DATA_TYPE>(
   return isTextQuery(matchRequest.needle);
 }
 
-export function createTextMatchRequest<PROVIDER_DATA_TYPE>(
-  providerRegistry: ProviderRegistry,
-  needle: TextQuery | Promise<TextQuery>,
-  searchRegion: Region,
-  minMatch: number,
-  screenImage: Image,
-  params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
-): MatchRequest<TextQuery, PROVIDER_DATA_TYPE> {
-  return createMatchRequest<PROVIDER_DATA_TYPE>(
-    providerRegistry,
-    needle,
-    searchRegion,
-    minMatch,
-    screenImage,
-    params
-  );
-}
-
-export function createImageMatchRequest<PROVIDER_DATA_TYPE>(
-  providerRegistry: ProviderRegistry,
-  needle: Image | Promise<Image>,
-  searchRegion: Region,
-  minMatch: number,
-  screenImage: Image,
-  params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
-): MatchRequest<Image, PROVIDER_DATA_TYPE> {
-  return createMatchRequest<PROVIDER_DATA_TYPE>(
-    providerRegistry,
-    needle,
-    searchRegion,
-    minMatch,
-    screenImage,
-    params
-  );
-}
-
-function createMatchRequest<PROVIDER_DATA_TYPE>(
+export function createMatchRequest<PROVIDER_DATA_TYPE>(
   providerRegistry: ProviderRegistry,
   needle: TextQuery | Promise<TextQuery>,
   searchRegion: Region,
@@ -70,7 +34,7 @@ function createMatchRequest<PROVIDER_DATA_TYPE>(
   screenImage: Image,
   params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
 ): MatchRequest<TextQuery, PROVIDER_DATA_TYPE>;
-function createMatchRequest<PROVIDER_DATA_TYPE>(
+export function createMatchRequest<PROVIDER_DATA_TYPE>(
   providerRegistry: ProviderRegistry,
   needle: Image | Promise<Image>,
   searchRegion: Region,
@@ -78,7 +42,17 @@ function createMatchRequest<PROVIDER_DATA_TYPE>(
   screenImage: Image,
   params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
 ): MatchRequest<Image, PROVIDER_DATA_TYPE>;
-function createMatchRequest<PROVIDER_DATA_TYPE>(
+export function createMatchRequest<PROVIDER_DATA_TYPE>(
+  providerRegistry: ProviderRegistry,
+  needle: RegionResultFindInput | Promise<RegionResultFindInput>,
+  searchRegion: Region,
+  minMatch: number,
+  screenImage: Image,
+  params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
+):
+  | MatchRequest<TextQuery, PROVIDER_DATA_TYPE>
+  | MatchRequest<Image, PROVIDER_DATA_TYPE>;
+export function createMatchRequest<PROVIDER_DATA_TYPE>(
   providerRegistry: ProviderRegistry,
   needle: RegionResultFindInput | Promise<RegionResultFindInput>,
   searchRegion: Region,
