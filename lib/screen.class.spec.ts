@@ -15,6 +15,9 @@ import {
 } from "./provider";
 import { OptionalSearchParameters } from "./optionalsearchparameters.class";
 import { NoopLogProvider } from "./provider/log/noop-log-provider.class";
+import { TextQuery, WindowQuery } from "./query.class";
+import { TextFinderInterface } from "./provider/text-finder.interface";
+import { WindowFinderInterface } from "./provider/window-finder.interface";
 
 jest.mock("jimp", () => {});
 
@@ -49,6 +52,104 @@ beforeEach(() => {
 
 describe("Screen.", () => {
   describe("find", () => {
+    describe("queries", () => {
+      it("should choose the correct finder implementation for images", async () => {
+        // GIVEN
+        const matchResult = new MatchResult(0.99, searchRegion);
+
+        const SUT = new ScreenClass(providerRegistryMock);
+        const needle = new Image(
+          100,
+          100,
+          Buffer.from([]),
+          3,
+          "needle_image",
+          4,
+          100 * 4
+        );
+        const needlePromise = Promise.resolve(needle);
+
+        const findMatchMock = jest.fn(() => Promise.resolve(matchResult));
+        providerRegistryMock.getImageFinder = jest.fn(() =>
+          mockPartial<ImageFinderInterface>({
+            findMatch: findMatchMock,
+          })
+        );
+        providerRegistryMock.getLogProvider = () => new NoopLogProvider();
+
+        // WHEN
+        await SUT.find(needlePromise);
+
+        // THEN
+        expect(findMatchMock).toHaveBeenCalledTimes(1);
+      });
+
+      it("should choose the correct finder implementation for window queries", async () => {
+        // GIVEN
+        const SUT = new ScreenClass(providerRegistryMock);
+        const needle: WindowQuery = {
+          id: "window-query",
+          type: "window",
+          by: {
+            title: "query",
+          },
+        };
+
+        const findMatchMock = jest.fn(() => Promise.resolve(1234));
+        providerRegistryMock.getWindowFinder = jest.fn(() =>
+          mockPartial<WindowFinderInterface>({
+            findMatch: findMatchMock,
+          })
+        );
+        providerRegistryMock.getLogProvider = () => new NoopLogProvider();
+
+        // WHEN
+        await SUT.find(needle);
+
+        // THEN
+        expect(findMatchMock).toHaveBeenCalledTimes(1);
+      });
+
+      it.each<TextQuery>([
+        {
+          id: "dummy",
+          type: "text",
+          by: {
+            word: "dummy-query",
+          },
+        },
+        {
+          id: "dummy",
+          type: "text",
+          by: {
+            line: "dummy-query",
+          },
+        },
+      ])(
+        "should choose the correct finder implementation for text queries",
+        async (needle: TextQuery) => {
+          // GIVEN
+          const matchResult = new MatchResult(0.99, searchRegion);
+
+          const SUT = new ScreenClass(providerRegistryMock);
+
+          const findMatchMock = jest.fn(() => Promise.resolve(matchResult));
+          providerRegistryMock.getTextFinder = jest.fn(() =>
+            mockPartial<TextFinderInterface>({
+              findMatch: findMatchMock,
+            })
+          );
+          providerRegistryMock.getLogProvider = () => new NoopLogProvider();
+
+          // WHEN
+          await SUT.find(needle);
+
+          // THEN
+          expect(findMatchMock).toHaveBeenCalledTimes(1);
+        }
+      );
+    });
+
     it("should resolve with sufficient confidence.", async () => {
       // GIVEN
       const matchResult = new MatchResult(0.99, searchRegion);
@@ -408,6 +509,103 @@ describe("Screen.", () => {
   });
 
   describe("findAll", () => {
+    describe("queries", () => {
+      it("should choose the correct finder implementation for images", async () => {
+        // GIVEN
+        const matchResult = new MatchResult(0.99, searchRegion);
+
+        const SUT = new ScreenClass(providerRegistryMock);
+        const needle = new Image(
+          100,
+          100,
+          Buffer.from([]),
+          3,
+          "needle_image",
+          4,
+          100 * 4
+        );
+        const needlePromise = Promise.resolve(needle);
+
+        const findMatchMock = jest.fn(() => Promise.resolve([matchResult]));
+        providerRegistryMock.getImageFinder = jest.fn(() =>
+          mockPartial<ImageFinderInterface>({
+            findMatches: findMatchMock,
+          })
+        );
+        providerRegistryMock.getLogProvider = () => new NoopLogProvider();
+
+        // WHEN
+        await SUT.findAll(needlePromise);
+
+        // THEN
+        expect(findMatchMock).toHaveBeenCalledTimes(1);
+      });
+
+      it("should choose the correct finder implementation for window queries", async () => {
+        // GIVEN
+        const SUT = new ScreenClass(providerRegistryMock);
+        const needle: WindowQuery = {
+          id: "window-query",
+          type: "window",
+          by: {
+            title: "query",
+          },
+        };
+
+        const findMatchMock = jest.fn(() => Promise.resolve([1234]));
+        providerRegistryMock.getWindowFinder = jest.fn(() =>
+          mockPartial<WindowFinderInterface>({
+            findMatches: findMatchMock,
+          })
+        );
+        providerRegistryMock.getLogProvider = () => new NoopLogProvider();
+
+        // WHEN
+        await SUT.findAll(needle);
+
+        // THEN
+        expect(findMatchMock).toHaveBeenCalledTimes(1);
+      });
+
+      it.each<TextQuery>([
+        {
+          id: "dummy",
+          type: "text",
+          by: {
+            word: "dummy-query",
+          },
+        },
+        {
+          id: "dummy",
+          type: "text",
+          by: {
+            line: "dummy-query",
+          },
+        },
+      ])(
+        "should choose the correct finder implementation for text queries",
+        async (needle: TextQuery) => {
+          // GIVEN
+          const matchResult = new MatchResult(0.99, searchRegion);
+
+          const SUT = new ScreenClass(providerRegistryMock);
+
+          const findMatchMock = jest.fn(() => Promise.resolve([matchResult]));
+          providerRegistryMock.getTextFinder = jest.fn(() =>
+            mockPartial<TextFinderInterface>({
+              findMatches: findMatchMock,
+            })
+          );
+          providerRegistryMock.getLogProvider = () => new NoopLogProvider();
+
+          // WHEN
+          await SUT.findAll(needle);
+
+          // THEN
+          expect(findMatchMock).toHaveBeenCalledTimes(1);
+        }
+      );
+    });
     it("should call registered hook before resolve", async () => {
       // GIVEN
       const matchResult = new MatchResult(0.99, searchRegion);
