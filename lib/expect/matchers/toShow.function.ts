@@ -1,9 +1,9 @@
-import { RegionResultFindInput, ScreenClass } from "../../screen.class";
+import { FindInput, ScreenClass } from "../../screen.class";
 import { OptionalSearchParameters } from "../../optionalsearchparameters.class";
 
 export const toShow = async (
   received: ScreenClass,
-  needle: RegionResultFindInput,
+  needle: FindInput,
   confidence?: number
 ) => {
   let locationParams;
