@@ -22,8 +22,6 @@ import { NoopLogProvider } from "./log/noop-log-provider.class";
 import { TextFinderInterface } from "./text-finder.interface";
 import { WindowFinderInterface } from "./window-finder.interface";
 
-// import WindowFinder from "./native/libnut-window-finder.class";
-
 export interface ProviderRegistry {
   getClipboard(): ClipboardProviderInterface;
 
@@ -268,6 +266,5 @@ providerRegistry.registerImageWriter(new ImageWriterImpl());
 providerRegistry.registerImageReader(new ImageReaderImpl());
 providerRegistry.registerImageProcessor(new ImageProcessorImpl());
 providerRegistry.registerLogProvider(new NoopLogProvider());
-// providerRegistry.registerWindowFinder(new WindowFinder());
 
 export default providerRegistry;
