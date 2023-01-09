@@ -160,6 +160,14 @@ export class ScreenClass {
   ): Promise<FindResult> {
     const needle = await searchInput;
 
+    if (!isImage(needle) && !isTextQuery(needle) && !isWindowQuery(needle)) {
+      throw Error(
+        `find requires an Image, a text query or a window query, but received ${JSON.stringify(
+          needle
+        )}`
+      );
+    }
+
     try {
       if (isWindowQuery(needle)) {
         const windowHandle = await this.providerRegistry
@@ -246,6 +254,14 @@ export class ScreenClass {
     params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
   ): Promise<FindResult[]> {
     const needle = await searchInput;
+
+    if (!isImage(needle) && !isTextQuery(needle) && !isWindowQuery(needle)) {
+      throw Error(
+        `findAll requires an Image, a text query or a window query, but received ${JSON.stringify(
+          needle
+        )}`
+      );
+    }
 
     try {
       if (isWindowQuery(needle)) {

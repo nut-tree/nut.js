@@ -150,6 +150,19 @@ describe("Screen.", () => {
       );
     });
 
+    it("should throw on invalid search input", async () => {
+      // GIVEN
+      const SUT = new ScreenClass(providerRegistryMock);
+
+      // WHEN
+      const result = SUT.find({ foo: "bar" } as unknown as Image);
+
+      // THEN
+      await expect(result).rejects.toThrowError(
+        /find requires an Image, a text query or a window query.*/
+      );
+    });
+
     it("should resolve with sufficient confidence.", async () => {
       // GIVEN
       const matchResult = new MatchResult(0.99, searchRegion);
@@ -510,6 +523,19 @@ describe("Screen.", () => {
 
   describe("findAll", () => {
     describe("queries", () => {
+      it("should throw on invalid search input", async () => {
+        // GIVEN
+        const SUT = new ScreenClass(providerRegistryMock);
+
+        // WHEN
+        const result = SUT.findAll({ foo: "bar" } as unknown as Image);
+
+        // THEN
+        await expect(result).rejects.toThrowError(
+          /findAll requires an Image, a text query or a window query.*/
+        );
+      });
+
       it("should choose the correct finder implementation for images", async () => {
         // GIVEN
         const matchResult = new MatchResult(0.99, searchRegion);
