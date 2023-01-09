@@ -1,17 +1,30 @@
 import { cwd } from "process";
 import { FileType } from "./file-type.enum";
 import { generateOutputPath } from "./generate-output-path.function";
-import { MatchRequest } from "./match-request.class";
-import { MatchResult } from "./match-result.class";
+import { createMatchRequest } from "./match-request.class";
+import {
+  getMatchResult,
+  getMatchResults,
+  MatchResult,
+} from "./match-result.class";
 import { isRegion, Region } from "./region.class";
 import { timeout } from "./util/timeout.function";
 import { Image, isImage } from "./image.class";
 import { ProviderRegistry } from "./provider/provider-registry.class";
-import { FirstArgumentType } from "./typings";
 import { isPoint, Point } from "./point.class";
 import { OptionalSearchParameters } from "./optionalsearchparameters.class";
+import {
+  isTextQuery,
+  isWindowQuery,
+  LineQuery,
+  WindowQuery,
+  WordQuery,
+} from "./query.class";
+import { Window } from "./window.class";
 
-export type FindHookCallback = (target: MatchResult) => Promise<void>;
+export type WindowCallback = (target: Window) => void | Promise<void>;
+export type MatchResultCallback = (target: MatchResult) => void | Promise<void>;
+export type FindHookCallback = WindowCallback | MatchResultCallback;
 
 function validateSearchRegion(search: Region, screen: Region) {
   if (
@@ -74,7 +87,10 @@ export interface ScreenConfig {
   resourceDirectory: string;
 }
 
-export type FindInput = Image;
+export type RegionResultFindInput = Image | WordQuery | LineQuery;
+export type WindowResultFindInput = WindowQuery;
+export type FindInput = RegionResultFindInput | WindowResultFindInput;
+export type FindResult = Region | Window;
 
 /**
  * {@link ScreenClass} class provides methods to access screen content of a systems main display
@@ -95,8 +111,8 @@ export class ScreenClass {
    */
   constructor(
     private providerRegistry: ProviderRegistry,
-    private findHooks: Map<Image, FindHookCallback[]> = new Map<
-      Image,
+    private findHooks: Map<FindInput, FindHookCallback[]> = new Map<
+      FindInput,
       FindHookCallback[]
     >()
   ) {}
@@ -122,51 +138,74 @@ export class ScreenClass {
   }
 
   /**
-   * {@link find} will search for a single occurrence of a template image on a systems main screen
-   * @param searchInput Template {@link Image} instance
-   * @param params {@link LocationParameters} which are used to fine tune search region and / or match confidence
+   * {@link find} will search for a single occurrence of a given search input on a systems main screen
+   * @param searchInput A {@link FindInput} instance
+   * @param params {@link OptionalSearchParameters} which are used to fine tune search region and / or match confidence
    */
-  public async find(
+  public async find<PROVIDER_DATA_TYPE>(
+    searchInput: RegionResultFindInput | Promise<RegionResultFindInput>,
+    params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
+  ): Promise<Region>;
+  public async find<PROVIDER_DATA_TYPE>(
+    searchInput: WindowResultFindInput | Promise<WindowResultFindInput>,
+    params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
+  ): Promise<Window>;
+  public async find<PROVIDER_DATA_TYPE>(
     searchInput: FindInput | Promise<FindInput>,
-    params?: OptionalSearchParameters
-  ): Promise<Region> {
-    const {
-      minMatch,
-      screenSize,
-      searchRegion,
-      screenImage,
-      searchMultipleScales,
-    } = await this.getFindParameters(params);
+    params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
+  ): Promise<FindResult>;
+  public async find<PROVIDER_DATA_TYPE>(
+    searchInput: FindInput | Promise<FindInput>,
+    params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
+  ): Promise<FindResult> {
+    const needle = await searchInput;
 
-    const needle = await ScreenClass.getNeedle(searchInput);
-    this.providerRegistry
-      .getLogProvider()
-      .info(
-        `Searching for image ${
-          needle.id
-        } in region ${searchRegion.toString()} ${
-          searchMultipleScales ? "over multiple scales" : "without scaling"
-        }. Required confidence: ${minMatch}`
+    if (!isImage(needle) && !isTextQuery(needle) && !isWindowQuery(needle)) {
+      throw Error(
+        `find requires an Image, a text query or a window query, but received ${JSON.stringify(
+          needle
+        )}`
       );
+    }
 
-    const matchRequest = new MatchRequest(
-      screenImage,
-      needle,
-      minMatch,
-      searchMultipleScales
-    );
+    try {
+      if (isWindowQuery(needle)) {
+        const windowHandle = await this.providerRegistry
+          .getWindowFinder()
+          .findMatch(needle);
+        const window = new Window(this.providerRegistry, windowHandle);
+        const possibleHooks = this.getHooksForInput(needle) || [];
+        this.providerRegistry
+          .getLogProvider()
+          .debug(`${possibleHooks.length} hooks triggered for match`);
+        for (const hook of possibleHooks) {
+          this.providerRegistry.getLogProvider().debug(`Executing hook`);
+          await hook(window);
+        }
+        return window;
+      } else {
+        const { minMatch, screenSize, searchRegion, screenImage } =
+          await this.getFindParameters(params);
 
-    return new Promise<Region>(async (resolve, reject) => {
-      try {
+        const matchRequest = createMatchRequest(
+          this.providerRegistry,
+          needle,
+          searchRegion,
+          minMatch,
+          screenImage,
+          params
+        );
+
         validateSearchRegion(searchRegion, screenSize);
         this.providerRegistry.getLogProvider().debug(`Search region is valid`);
-        const matchResult = await this.providerRegistry
-          .getImageFinder()
-          .findMatch(matchRequest);
+        const matchResult = await getMatchResult(
+          this.providerRegistry,
+          matchRequest
+        );
         this.providerRegistry
           .getLogProvider()
           .debug("Found match!", matchResult);
-        const possibleHooks = this.findHooks.get(needle) || [];
+        const possibleHooks = this.getHooksForInput(needle) || [];
         this.providerRegistry
           .getLogProvider()
           .debug(`${possibleHooks.length} hooks triggered for match`);
@@ -187,59 +226,85 @@ export class ScreenClass {
           this.providerRegistry
             .getLogProvider()
             .debug(`Autohighlight is enabled`);
-          resolve(this.highlight(resultRegion));
+          return this.highlight(resultRegion);
         } else {
-          resolve(resultRegion);
+          return resultRegion;
         }
-      } catch (e) {
-        reject(`Searching for ${needle.id} failed. Reason: '${e}'`);
       }
-    });
+    } catch (e) {
+      throw new Error(`Searching for ${needle.id} failed. Reason: '${e}'`);
+    }
   }
 
   /**
-   * {@link findAll} will search for every occurrences of a template image on a systems main screen
-   * @param template Template {@link Image} instance
-   * @param params {@link LocationParameters} which are used to fine tune search region and / or match confidence
+   * {@link findAll} will search for every occurrence of a given search input on a systems main screen
+   * @param searchInput A {@link FindInput} instance to search for
+   * @param params {@link OptionalSearchParameters} which are used to fine tune search region and / or match confidence
    */
-  public async findAll(
-    template: FirstArgumentType<typeof ScreenClass.prototype.find>,
-    params?: OptionalSearchParameters
-  ): Promise<Region[]> {
-    const {
-      minMatch,
-      screenSize,
-      searchRegion,
-      screenImage,
-      searchMultipleScales,
-    } = await this.getFindParameters(params);
+  public async findAll<PROVIDER_DATA_TYPE>(
+    searchInput: RegionResultFindInput | Promise<RegionResultFindInput>,
+    params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
+  ): Promise<Region[]>;
+  public async findAll<PROVIDER_DATA_TYPE>(
+    searchInput: WindowResultFindInput | Promise<WindowResultFindInput>,
+    params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
+  ): Promise<Window[]>;
+  public async findAll<PROVIDER_DATA_TYPE>(
+    searchInput: FindInput | Promise<FindInput>,
+    params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
+  ): Promise<FindResult[]> {
+    const needle = await searchInput;
 
-    const needle = await ScreenClass.getNeedle(template);
-    this.providerRegistry
-      .getLogProvider()
-      .info(
-        `Searching for image ${
-          needle.id
-        } in region ${searchRegion.toString()} ${
-          searchMultipleScales ? "over multiple scales" : "without scaling"
-        }. Required confidence: ${minMatch}`
+    if (!isImage(needle) && !isTextQuery(needle) && !isWindowQuery(needle)) {
+      throw Error(
+        `findAll requires an Image, a text query or a window query, but received ${JSON.stringify(
+          needle
+        )}`
       );
+    }
 
-    const matchRequest = new MatchRequest(
-      screenImage,
-      needle,
-      minMatch,
-      searchMultipleScales
-    );
+    try {
+      if (isWindowQuery(needle)) {
+        const matches = await this.providerRegistry
+          .getWindowFinder()
+          .findMatches(needle);
+        const windows = matches.map(
+          (windowHandle: number) =>
+            new Window(this.providerRegistry, windowHandle)
+        );
+        const possibleHooks = this.getHooksForInput(needle) || [];
+        this.providerRegistry
+          .getLogProvider()
+          .debug(
+            `${possibleHooks.length} hooks triggered for ${windows.length} matches`
+          );
+        for (const hook of possibleHooks) {
+          for (const wnd of windows) {
+            this.providerRegistry.getLogProvider().debug(`Executing hook`);
+            await hook(wnd);
+          }
+        }
+        return windows;
+      } else {
+        const { minMatch, screenSize, searchRegion, screenImage } =
+          await this.getFindParameters(params);
 
-    return new Promise<Region[]>(async (resolve, reject) => {
-      try {
+        const matchRequest = createMatchRequest(
+          this.providerRegistry,
+          needle,
+          searchRegion,
+          minMatch,
+          screenImage,
+          params
+        );
+
         validateSearchRegion(searchRegion, screenSize);
         this.providerRegistry.getLogProvider().debug(`Search region is valid`);
-        const matchResults = await this.providerRegistry
-          .getImageFinder()
-          .findMatches(matchRequest);
-        const possibleHooks = this.findHooks.get(needle) || [];
+        const matchResults = await getMatchResults(
+          this.providerRegistry,
+          matchRequest
+        );
+        const possibleHooks = this.getHooksForInput(needle) || [];
         this.providerRegistry
           .getLogProvider()
           .debug(
@@ -268,14 +333,14 @@ export class ScreenClass {
             .getLogProvider()
             .debug(`Autohighlight is enabled`);
           resultRegions.forEach((region) => this.highlight(region));
-          resolve(resultRegions);
+          return resultRegions;
         } else {
-          resolve(resultRegions);
+          return resultRegions;
         }
-      } catch (e) {
-        reject(`Searching for ${needle.id} failed. Reason: '${e}'`);
       }
-    });
+    } catch (e) {
+      throw new Error(`Searching for ${needle.id} failed. Reason: '${e}'`);
+    }
   }
 
   /**
@@ -312,57 +377,90 @@ export class ScreenClass {
 
   /**
    * {@link waitFor} searches for a template image for a specified duration
-   * @param templateImage Filename of the template image, relative to {@link ScreenClass.config.resourceDirectory}, or an {@link Image}
+   * @param searchInput Filename of the template image, relative to {@link ScreenClass.config.resourceDirectory}, or an {@link Image}
    * @param timeoutMs Timeout in milliseconds after which {@link waitFor} fails
    * @param updateInterval Update interval in milliseconds to retry search
    * @param params {@link LocationParameters} which are used to fine tune search region and / or match confidence
    */
-  public async waitFor(
-    templateImage: FirstArgumentType<typeof ScreenClass.prototype.find>,
-    timeoutMs: number = 5000,
-    updateInterval: number = 500,
-    params?: OptionalSearchParameters
-  ): Promise<Region> {
-    const needle = await templateImage;
+  public async waitFor<PROVIDER_DATA_TYPE>(
+    searchInput: RegionResultFindInput | Promise<RegionResultFindInput>,
+    timeoutMs?: number,
+    updateInterval?: number,
+    params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
+  ): Promise<Region>;
+  public async waitFor<PROVIDER_DATA_TYPE>(
+    searchInput: WindowResultFindInput | Promise<WindowResultFindInput>,
+    timeoutMs?: number,
+    updateInterval?: number,
+    params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
+  ): Promise<Window>;
+  public async waitFor<PROVIDER_DATA_TYPE>(
+    searchInput: FindInput | Promise<FindInput>,
+    timeoutMs?: number,
+    updateInterval?: number,
+    params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
+  ): Promise<FindResult> {
+    const needle = await searchInput;
 
-    if (!isImage(needle)) {
+    const timeoutValue = timeoutMs ?? 5000;
+    const updateIntervalValue = updateInterval ?? 500;
+
+    if (!isImage(needle) && !isTextQuery(needle) && !isWindowQuery(needle)) {
       throw Error(
-        `waitFor requires an Image, but received ${JSON.stringify(
-          templateImage
+        `waitFor requires an Image, a text query or a window query, but received ${JSON.stringify(
+          searchInput
         )}`
       );
     }
     this.providerRegistry
       .getLogProvider()
       .info(
-        `Waiting for image ${needle.id} to appear on screen. Timeout: ${
-          timeoutMs / 1000
-        } seconds, interval: ${updateInterval} ms`
+        `Waiting for ${needle.id} to appear on screen. Timeout: ${
+          timeoutValue / 1000
+        } seconds, interval: ${updateIntervalValue} ms`
       );
-    return timeout(updateInterval, timeoutMs, () => this.find(needle, params), {
-      signal: params?.abort,
-    });
+    return timeout(
+      updateIntervalValue,
+      timeoutValue,
+      () => {
+        return this.find(needle, params);
+      },
+      {
+        signal: params?.abort,
+      }
+    );
   }
 
   /**
-   * {@link on} registers a callback which is triggered once a certain template image is found
-   * @param templateImage Template image to trigger the callback on
+   * {@link on} registers a callback which is triggered once a certain searchInput image is found
+   * @param searchInput to trigger the callback on
    * @param callback The {@link FindHookCallback} function to trigger
    */
-  public on(templateImage: Image, callback: FindHookCallback) {
-    if (!isImage(templateImage)) {
+  public on(searchInput: WindowResultFindInput, callback: WindowCallback): void;
+  public on(
+    searchInput: RegionResultFindInput,
+    callback: MatchResultCallback
+  ): void;
+  public on(searchInput: FindInput, callback: FindHookCallback): void {
+    if (
+      !isImage(searchInput) &&
+      !isTextQuery(searchInput) &&
+      !isWindowQuery(searchInput)
+    ) {
       throw Error(
-        `on requires an Image, but received ${JSON.stringify(templateImage)}`
+        `on requires an Image, a text query or a window query, but received ${JSON.stringify(
+          searchInput
+        )}`
       );
     }
-    const existingHooks = this.findHooks.get(templateImage) || [];
-    this.findHooks.set(templateImage, [...existingHooks, callback]);
+    const existingHooks = this.findHooks.get(searchInput) || [];
+    this.findHooks.set(searchInput, [...existingHooks, callback]);
     this.providerRegistry
       .getLogProvider()
       .info(
-        `Registered callback for image ${
-          templateImage.id
-        }. There are currently ${existingHooks.length + 1} hooks registered`
+        `Registered callback for image ${searchInput.id}. There are currently ${
+          existingHooks.length + 1
+        } hooks registered`
       );
   }
 
@@ -532,43 +630,42 @@ export class ScreenClass {
     return outputPath;
   }
 
-  private async getFindParameters(params?: OptionalSearchParameters) {
+  private async getFindParameters<PROVIDER_DATA_TYPE>(
+    params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
+  ) {
     const minMatch = params?.confidence ?? this.config.confidence;
     const screenSize = await this.providerRegistry.getScreen().screenSize();
-    const searchRegion = params?.searchRegion ?? screenSize;
+    const searchRegion = (await params?.searchRegion) ?? screenSize;
     const screenImage = await this.providerRegistry
       .getScreen()
       .grabScreenRegion(searchRegion);
-    const searchMultipleScales = params?.searchMultipleScales ?? true;
 
     const findParameters = {
       minMatch,
       screenSize,
       searchRegion,
       screenImage,
-      searchMultipleScales,
     };
     this.providerRegistry
       .getLogProvider()
-      .debug(`Running image search with parameters`, {
+      .debug(`Running on-screen search with parameters`, {
         minMatch,
         screenSize,
         searchRegion,
-        searchMultipleScales,
       });
     return findParameters;
   }
 
-  private static async getNeedle(
-    template: FirstArgumentType<typeof ScreenClass.prototype.find>
-  ) {
-    const needle = await template;
-
-    if (!isImage(needle)) {
-      throw Error(
-        `find requires an Image, but received ${JSON.stringify(needle)}`
-      );
+  private getHooksForInput(input: WindowResultFindInput): WindowCallback[];
+  private getHooksForInput(input: RegionResultFindInput): MatchResultCallback[];
+  private getHooksForInput(
+    input: FindInput
+  ): MatchResultCallback[] | WindowCallback[] {
+    if (isImage(input) || isTextQuery(input)) {
+      return this.findHooks.get(input) as MatchResultCallback[];
+    } else if (isWindowQuery(input)) {
+      return this.findHooks.get(input) as WindowCallback[];
     }
-    return needle;
+    return [];
   }
 }

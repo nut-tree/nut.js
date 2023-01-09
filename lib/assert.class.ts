@@ -1,23 +1,23 @@
 import { Region } from "./region.class";
-import { ScreenClass } from "./screen.class";
-import { FirstArgumentType } from "./typings";
+import { FindInput, ScreenClass } from "./screen.class";
 import { OptionalSearchParameters } from "./optionalsearchparameters.class";
 
 export class AssertClass {
   constructor(private screen: ScreenClass) {}
 
   public async isVisible(
-    needle: FirstArgumentType<typeof ScreenClass.prototype.find>,
-    searchRegion?: Region,
+    searchInput: FindInput | Promise<FindInput>,
+    searchRegion?: Region | Promise<Region>,
     confidence?: number
-  ) {
-    const identifier = (await needle).id;
+  ): Promise<void> {
+    const needle = await searchInput;
+    const identifier = needle.id;
 
     try {
       await this.screen.find(needle, {
         searchRegion,
         confidence,
-      } as OptionalSearchParameters);
+      } as OptionalSearchParameters<never>);
     } catch (err) {
       if (searchRegion !== undefined) {
         throw new Error(
@@ -30,17 +30,18 @@ export class AssertClass {
   }
 
   public async notVisible(
-    needle: FirstArgumentType<typeof ScreenClass.prototype.find>,
-    searchRegion?: Region,
+    searchInput: FindInput | Promise<FindInput>,
+    searchRegion?: Region | Promise<Region>,
     confidence?: number
   ) {
-    const identifier = (await needle).id;
+    const needle = await searchInput;
+    const identifier = needle.id;
 
     try {
       await this.screen.find(needle, {
         searchRegion,
         confidence,
-      } as OptionalSearchParameters);
+      } as OptionalSearchParameters<never>);
     } catch (err) {
       return;
     }

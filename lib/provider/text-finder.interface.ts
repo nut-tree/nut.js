@@ -1,34 +1,34 @@
 import { MatchRequest } from "../match-request.class";
 import { MatchResult } from "../match-result.class";
-import { Image } from "../image.class";
+import { TextQuery } from "../query.class";
 
 /**
- * An ImageFinder should provide an abstraction layer to perform image matching
+ * A TextFinder should provide an abstraction layer to perform text searches
  *
- * @interface ImageFinderInterface
+ * @interface TextFinderInterface
  */
-export interface ImageFinderInterface {
+export interface TextFinderInterface {
   /**
    * findMatch should provide an abstraction to search for an image needle
    * in another image haystack
    *
    * @param {MatchRequest} matchRequest A {@link MatchRequest} containing needed matching data
    * @returns {Promise<MatchResult>} A {@link MatchResult} holding the match probability and location
-   * @memberof ImageFinderInterface
+   * @memberof TextFinderInterface
    */
   findMatch<PROVIDER_DATA_TYPE>(
-    matchRequest: MatchRequest<Image, PROVIDER_DATA_TYPE>
+    matchRequest: MatchRequest<TextQuery, PROVIDER_DATA_TYPE>
   ): Promise<MatchResult>;
 
   /**
    * findMatches should provide an abstraction to search for an image needle
    * in another image haystack
    *
-   * @param {MatchRequest} matchRequest A matchrequest containing needed matching data
+   * @param {MatchRequest} matchRequest A {@link MatchRequest} containing needed matching data
    * @returns {Promise<MatchResult[]>} A list of {@link MatchResult}s holding the match probability and location
-   * @memberof ImageFinderInterface
+   * @memberof TextFinderInterface
    */
   findMatches<PROVIDER_DATA_TYPE>(
-    matchRequest: MatchRequest<Image, PROVIDER_DATA_TYPE>
+    matchRequest: MatchRequest<TextQuery, PROVIDER_DATA_TYPE>
   ): Promise<MatchResult[]>;
 }

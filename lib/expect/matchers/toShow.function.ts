@@ -1,10 +1,9 @@
-import { ScreenClass } from "../../screen.class";
-import { FirstArgumentType } from "../../typings";
+import { FindInput, ScreenClass } from "../../screen.class";
 import { OptionalSearchParameters } from "../../optionalsearchparameters.class";
 
 export const toShow = async (
   received: ScreenClass,
-  needle: FirstArgumentType<typeof ScreenClass.prototype.find>,
+  needle: FindInput,
   confidence?: number
 ) => {
   let locationParams;

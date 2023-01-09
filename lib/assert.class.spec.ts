@@ -15,7 +15,7 @@ describe("Assert", () => {
     // GIVEN
     ScreenClass.prototype.find = jest.fn(() =>
       Promise.resolve(new Region(0, 0, 100, 100))
-    );
+    ) as any;
     const screenMock = new ScreenClass(providerRegistry);
     const SUT = new AssertClass(screenMock);
     const needle = mockPartial<Image>({
@@ -30,7 +30,7 @@ describe("Assert", () => {
 
   it("isVisible should throw if a match is found.", async () => {
     // GIVEN
-    ScreenClass.prototype.find = jest.fn(() => Promise.reject("foo"));
+    ScreenClass.prototype.find = jest.fn(() => Promise.reject("foo")) as any;
     const screenMock = new ScreenClass(providerRegistry);
     const SUT = new AssertClass(screenMock);
     const needle = mockPartial<Image>({
@@ -47,7 +47,7 @@ describe("Assert", () => {
 
   it("isVisible should throw if a match is found.", async () => {
     // GIVEN
-    ScreenClass.prototype.find = jest.fn(() => Promise.reject("foo"));
+    ScreenClass.prototype.find = jest.fn(() => Promise.reject("foo")) as any;
     const screenMock = new ScreenClass(providerRegistry);
     const SUT = new AssertClass(screenMock);
     const searchRegion = new Region(10, 10, 10, 10);
@@ -67,7 +67,7 @@ describe("Assert", () => {
     // GIVEN
     ScreenClass.prototype.find = jest.fn(() =>
       Promise.resolve(new Region(0, 0, 100, 100))
-    );
+    ) as any;
     const screenMock = new ScreenClass(providerRegistry);
     const SUT = new AssertClass(screenMock);
     const needle = mockPartial<Image>({
@@ -84,7 +84,7 @@ describe("Assert", () => {
 
   it("isVisible should throw if a match is found.", async () => {
     // GIVEN
-    ScreenClass.prototype.find = jest.fn(() => Promise.reject("foo"));
+    ScreenClass.prototype.find = jest.fn(() => Promise.reject("foo")) as any;
     const screenMock = new ScreenClass(providerRegistry);
     const SUT = new AssertClass(screenMock);
     const needle = mockPartial<Image>({
