@@ -26,7 +26,7 @@ describe("Clipboard class", () => {
     const textToCopy = "bar";
 
     // WHEN
-    SUT.copy(textToCopy);
+    SUT.setContent(textToCopy);
 
     // THEN
     expect(copyMock).toHaveBeenCalledTimes(1);
@@ -45,7 +45,7 @@ describe("Clipboard class", () => {
     providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
     // WHEN
-    SUT.paste();
+    SUT.getContent();
 
     // THEN
     expect(pasteMock).toHaveBeenCalledTimes(1);
