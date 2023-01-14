@@ -10,6 +10,7 @@
     "email": "kontakt@s1h.org",
     "url": "https://s1h.org"
   },
+  "homepage": "https://nutjs.dev",
   "repository": {
     "type": "git",
     "url": "https://github.com/nut-tree/nut.js.git"
@@ -61,7 +62,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@nut-tree/libnut": "2.3.0",
+    "@nut-tree/libnut": "2.4.0",
     "clipboardy": "2.3.0",
     "jimp": "0.16.2",
     "node-abort-controller": "2.0.0"
