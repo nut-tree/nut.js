@@ -45,6 +45,7 @@ export {
   useConsoleLogger,
   ConsoleLogLevel,
 } from "./lib/logging.function";
+export * from "./lib/query.class";
 
 const lineHelper = new LineHelper();
 
