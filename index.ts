@@ -40,7 +40,6 @@ export { Region } from "./lib/region.class";
 export { Window } from "./lib/window.class";
 export { FileType } from "./lib/file-type.enum";
 export { ColorMode } from "./lib/colormode.enum";
-export { LogProviderInterface } from "./lib/provider/log-provider.interface";
 export {
   useLogger,
   useConsoleLogger,
