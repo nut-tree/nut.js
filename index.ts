@@ -71,7 +71,7 @@ const imageResource = (fileName: string) =>
     fileName
   );
 
-const singleWord = (word: string | RegExp): WordQuery => {
+const singleWord = (word: string): WordQuery => {
   return {
     type: "text",
     id: `word-query-${word}`,
@@ -80,7 +80,7 @@ const singleWord = (word: string | RegExp): WordQuery => {
     },
   };
 };
-const textLine = (line: string | RegExp): LineQuery => {
+const textLine = (line: string): LineQuery => {
   return {
     type: "text",
     id: `line-query-${line}`,
