@@ -3,14 +3,14 @@ type Query =
       id: string;
       type: "text";
       by: {
-        line: string | RegExp;
+        line: string;
       };
     }
   | {
       id: string;
       type: "text";
       by: {
-        word: string | RegExp;
+        word: string;
       };
     }
   | {
