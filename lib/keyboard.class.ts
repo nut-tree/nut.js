@@ -56,12 +56,22 @@ export class KeyboardClass {
           for (const char of input.join(" ")) {
             await sleep(this.config.autoDelayMs);
             await this.providerRegistry.getKeyboard().type(char);
+            this.providerRegistry.getLogProvider().debug(`Tapped ${char}`);
           }
+          this.providerRegistry.getLogProvider().info(`Typed string ${input}`);
         } else {
           await this.providerRegistry.getKeyboard().click(...(input as Key[]));
+          const key = input[input.length - 1];
+          const modifiers = input.slice(0, -1);
+          const keyName = Key[key];
+          const modifierNames = modifiers.map((modifier) => Key[modifier]);
+          this.providerRegistry
+            .getLogProvider()
+            .info(`Tapped key ${keyName} with modifiers ${modifierNames}`);
         }
         resolve(this);
       } catch (e) {
+        this.providerRegistry.getLogProvider().error(e as Error);
         reject(e);
       }
     });
@@ -83,8 +93,11 @@ export class KeyboardClass {
       try {
         await sleep(this.config.autoDelayMs);
         await this.providerRegistry.getKeyboard().pressKey(...keys);
+        const keyNames = keys.map((key) => Key[key]);
+        this.providerRegistry.getLogProvider().info(`Pressed keys ${keyNames}`);
         resolve(this);
       } catch (e) {
+        this.providerRegistry.getLogProvider().error(e as Error);
         reject(e);
       }
     });
@@ -106,8 +119,13 @@ export class KeyboardClass {
       try {
         await sleep(this.config.autoDelayMs);
         await this.providerRegistry.getKeyboard().releaseKey(...keys);
+        const keyNames = keys.map((key) => Key[key]);
+        this.providerRegistry
+          .getLogProvider()
+          .info(`Released keys ${keyNames}`);
         resolve(this);
       } catch (e) {
+        this.providerRegistry.getLogProvider().error(e as Error);
         reject(e);
       }
     });

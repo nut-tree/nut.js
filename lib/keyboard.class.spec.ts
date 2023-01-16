@@ -2,7 +2,8 @@ import { Key } from "./key.enum";
 import { KeyboardClass } from "./keyboard.class";
 import { ProviderRegistry } from "./provider/provider-registry.class";
 import { mockPartial } from "sneer";
-import { KeyboardProviderInterface } from "./provider";
+import { KeyboardProviderInterface, LogProviderInterface } from "./provider";
+import { NoopLogProvider } from "./provider/log/noop-log-provider.class";
 
 jest.setTimeout(10000);
 
@@ -11,6 +12,9 @@ beforeEach(() => {
 });
 
 const providerRegistryMock = mockPartial<ProviderRegistry>({
+  getLogProvider(): LogProviderInterface {
+    return new NoopLogProvider();
+  },
   getKeyboard(): KeyboardProviderInterface {
     return mockPartial<KeyboardProviderInterface>({
       setKeyboardDelay: jest.fn(),

@@ -14,16 +14,17 @@ export class ClipboardClass {
    * {@link setContent} copies a given text to the system clipboard
    * @param text The text to copy
    */
-  public setContent(text: string): Promise<void> {
-    this.providerRegistry.getLogProvider().debug(`Saving to clipboard`);
-    return this.providerRegistry.getClipboard().copy(text);
+  public async setContent(text: string): Promise<void> {
+    await this.providerRegistry.getClipboard().copy(text);
+    this.providerRegistry.getLogProvider().debug(`Saved to clipboard`);
   }
 
   /**
    * {@link getContent} returns the current content of the system clipboard (limited to text)
    */
-  public getContent(): Promise<string> {
-    this.providerRegistry.getLogProvider().debug(`Fetching clipboard content`);
-    return this.providerRegistry.getClipboard().paste();
+  public async getContent(): Promise<string> {
+    const content = await this.providerRegistry.getClipboard().paste();
+    this.providerRegistry.getLogProvider().debug(`Fetched clipboard content`);
+    return content;
   }
 }

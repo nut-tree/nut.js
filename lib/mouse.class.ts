@@ -248,17 +248,10 @@ export class MouseClass {
       try {
         await sleep(this.config.autoDelayMs);
         await this.providerRegistry.getMouse().pressButton(btn);
+        const btnName = Button[btn];
         this.providerRegistry
           .getLogProvider()
-          .info(
-            `Pressed mouse button ${
-              btn === Button.LEFT
-                ? "left"
-                : btn === Button.MIDDLE
-                ? "middle"
-                : "right"
-            }`
-          );
+          .info(`Pressed ${btnName} mouse button`);
         resolve(this);
       } catch (e) {
         this.providerRegistry.getLogProvider().error(e as Error);
@@ -276,17 +269,10 @@ export class MouseClass {
       try {
         await sleep(this.config.autoDelayMs);
         await this.providerRegistry.getMouse().releaseButton(btn);
+        const btnName = Button[btn];
         this.providerRegistry
           .getLogProvider()
-          .info(
-            `Released mouse button ${
-              btn === Button.LEFT
-                ? "left"
-                : btn === Button.MIDDLE
-                ? "middle"
-                : "right"
-            }`
-          );
+          .info(`Pressed ${btnName} mouse button`);
         resolve(this);
       } catch (e) {
         this.providerRegistry.getLogProvider().error(e as Error);
@@ -304,17 +290,10 @@ export class MouseClass {
       try {
         await sleep(this.config.autoDelayMs);
         await this.providerRegistry.getMouse().click(btn);
+        const btnName = Button[btn];
         this.providerRegistry
           .getLogProvider()
-          .info(
-            `Clicked ${
-              btn === Button.LEFT
-                ? "left"
-                : btn === Button.MIDDLE
-                ? "middle"
-                : "right"
-            } button`
-          );
+          .info(`Pressed ${btnName} mouse button`);
         resolve(this);
       } catch (e) {
         this.providerRegistry.getLogProvider().error(e as Error);
@@ -332,17 +311,10 @@ export class MouseClass {
       try {
         await sleep(this.config.autoDelayMs);
         await this.providerRegistry.getMouse().doubleClick(btn);
+        const btnName = Button[btn];
         this.providerRegistry
           .getLogProvider()
-          .info(
-            `Double-clicked ${
-              btn === Button.LEFT
-                ? "left"
-                : btn === Button.MIDDLE
-                ? "middle"
-                : "right"
-            } button`
-          );
+          .info(`Pressed ${btnName} mouse button`);
         resolve(this);
       } catch (e) {
         this.providerRegistry.getLogProvider().error(e as Error);
