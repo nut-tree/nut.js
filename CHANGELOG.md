@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.0.0
+
+- BREAKING: Rename clipboard methods [(#463)](https://github.com/nut-tree/nut.js/issues/463)
+- Enhancement: Option to disable automatic request of permissions in macOS [(#462)](https://github.com/nut-tree/nut.js/issues/462)
+- BREAKING: Allow `screen.find` and other to work with non-image needles [(#455)](https://github.com/nut-tree/nut.js/issues/455)
+- BREAKING: Add bits per pixel and byteWidth info to image class [(#451)](https://github.com/nut-tree/nut.js/issues/451)
+- Bugfix: Installed Electron App crashes after upgrading to 2.3.0 [(#449)](https://github.com/nut-tree/nut.js/issues/449)
+- Maintenance: Add .nvmrc config [(#447)](https://github.com/nut-tree/nut.js/issues/447)
+- Enhancement: Define and export interfaces for keyboard/mouse/screen configs [(#443)](https://github.com/nut-tree/nut.js/issues/445)
+- Bugfix: 'RightShift' key is mapped to space [(#442)](https://github.com/nut-tree/nut.js/issues/442)
+- Maintenance: Introduce prettier [(#437)](https://github.com/nut-tree/nut.js/issues/437)
+- Bugfix: Win2012-R2: Error: The specified procedure could not be found [(#434)](https://github.com/nut-tree/nut.js/issues/434)
+- Feature: Logging provider [(#371)](https://github.com/nut-tree/nut.js/issues/371)
+
 ## 2.3.0
 
 - Bugfix: Segmentation Fault when retrieving window title [(#377)](https://github.com/nut-tree/nut.js/issues/377)
