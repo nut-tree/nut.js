@@ -26,14 +26,23 @@ export type WindowCallback = (target: Window) => void | Promise<void>;
 export type MatchResultCallback = (target: MatchResult) => void | Promise<void>;
 export type FindHookCallback = WindowCallback | MatchResultCallback;
 
-function validateSearchRegion(search: Region, screen: Region) {
+function validateSearchRegion(
+  search: Region,
+  screen: Region,
+  providerRegistry: ProviderRegistry
+) {
+  providerRegistry
+    .getLogProvider()
+    .debug(`Validating search region: ${search}`);
   if (
     search.left < 0 ||
     search.top < 0 ||
     search.width < 0 ||
     search.height < 0
   ) {
-    throw new Error(`Negative values in search region ${search}`);
+    const e = new Error(`Negative values in search region`);
+    providerRegistry.getLogProvider().error(e, { region: search });
+    throw e;
   }
   if (
     isNaN(search.left) ||
@@ -41,20 +50,26 @@ function validateSearchRegion(search: Region, screen: Region) {
     isNaN(search.width) ||
     isNaN(search.height)
   ) {
-    throw new Error(`NaN values in search region ${search}`);
+    const e = new Error(`NaN values in search region`);
+    providerRegistry.getLogProvider().error(e, { region: search });
+    throw e;
   }
   if (search.width < 2 || search.height < 2) {
-    throw new Error(
-      `Search region ${search} is not large enough. Must be at least two pixels in both width and height.`
+    const e = new Error(
+      `Search region is not large enough. Must be at least two pixels in both width and height.`
     );
+    providerRegistry.getLogProvider().error(e, { region: search });
+    throw e;
   }
   if (
     search.left + search.width > screen.width ||
     search.top + search.height > screen.height
   ) {
-    throw new Error(
-      `Search region ${search} extends beyond screen boundaries (${screen.width}x${screen.height})`
+    const e = new Error(
+      `Search region extends beyond screen boundaries (${screen.width}x${screen.height})`
     );
+    providerRegistry.getLogProvider().error(e, { region: search, screen });
+    throw e;
   }
 }
 
@@ -159,17 +174,21 @@ export class ScreenClass {
     params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
   ): Promise<FindResult> {
     const needle = await searchInput;
+    this.providerRegistry.getLogProvider().info(`Searching for ${needle}`);
 
     if (!isImage(needle) && !isTextQuery(needle) && !isWindowQuery(needle)) {
-      throw Error(
+      const e = Error(
         `find requires an Image, a text query or a window query, but received ${JSON.stringify(
           needle
         )}`
       );
+      this.providerRegistry.getLogProvider().error(e, { needle });
+      throw e;
     }
 
     try {
       if (isWindowQuery(needle)) {
+        this.providerRegistry.getLogProvider().debug(`Running a window search`);
         const windowHandle = await this.providerRegistry
           .getWindowFinder()
           .findMatch(needle);
@@ -184,6 +203,7 @@ export class ScreenClass {
         }
         return window;
       } else {
+        this.logNeedleType(needle);
         const { minMatch, screenSize, searchRegion, screenImage } =
           await this.getFindParameters(params);
 
@@ -196,7 +216,7 @@ export class ScreenClass {
           params
         );
 
-        validateSearchRegion(searchRegion, screenSize);
+        validateSearchRegion(searchRegion, screenSize, this.providerRegistry);
         this.providerRegistry.getLogProvider().debug(`Search region is valid`);
         const matchResult = await getMatchResult(
           this.providerRegistry,
@@ -232,7 +252,11 @@ export class ScreenClass {
         }
       }
     } catch (e) {
-      throw new Error(`Searching for ${needle.id} failed. Reason: '${e}'`);
+      const error = new Error(
+        `Searching for ${needle.id} failed. Reason: '${e}'`
+      );
+      this.providerRegistry.getLogProvider().error(error);
+      throw error;
     }
   }
 
@@ -254,17 +278,21 @@ export class ScreenClass {
     params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
   ): Promise<FindResult[]> {
     const needle = await searchInput;
+    this.providerRegistry.getLogProvider().info(`Searching for ${needle}`);
 
     if (!isImage(needle) && !isTextQuery(needle) && !isWindowQuery(needle)) {
-      throw Error(
+      const e = Error(
         `findAll requires an Image, a text query or a window query, but received ${JSON.stringify(
           needle
         )}`
       );
+      this.providerRegistry.getLogProvider().error(e, { needle });
+      throw e;
     }
 
     try {
       if (isWindowQuery(needle)) {
+        this.providerRegistry.getLogProvider().debug(`Running a window search`);
         const matches = await this.providerRegistry
           .getWindowFinder()
           .findMatches(needle);
@@ -286,6 +314,7 @@ export class ScreenClass {
         }
         return windows;
       } else {
+        this.logNeedleType(needle);
         const { minMatch, screenSize, searchRegion, screenImage } =
           await this.getFindParameters(params);
 
@@ -298,7 +327,7 @@ export class ScreenClass {
           params
         );
 
-        validateSearchRegion(searchRegion, screenSize);
+        validateSearchRegion(searchRegion, screenSize, this.providerRegistry);
         this.providerRegistry.getLogProvider().debug(`Search region is valid`);
         const matchResults = await getMatchResults(
           this.providerRegistry,
@@ -339,7 +368,11 @@ export class ScreenClass {
         }
       }
     } catch (e) {
-      throw new Error(`Searching for ${needle.id} failed. Reason: '${e}'`);
+      const error = new Error(
+        `Searching for ${needle.id} failed. Reason: '${e}'`
+      );
+      this.providerRegistry.getLogProvider().error(error);
+      throw error;
     }
   }
 
@@ -352,11 +385,13 @@ export class ScreenClass {
   ): Promise<Region> {
     const highlightRegion = await regionToHighlight;
     if (!isRegion(highlightRegion)) {
-      throw Error(
+      const e = Error(
         `highlight requires an Region, but received ${JSON.stringify(
           highlightRegion
         )}`
       );
+      this.providerRegistry.getLogProvider().error(e);
+      throw e;
     }
     this.providerRegistry
       .getLogProvider()
@@ -406,11 +441,13 @@ export class ScreenClass {
     const updateIntervalValue = updateInterval ?? 500;
 
     if (!isImage(needle) && !isTextQuery(needle) && !isWindowQuery(needle)) {
-      throw Error(
+      const e = Error(
         `waitFor requires an Image, a text query or a window query, but received ${JSON.stringify(
           searchInput
         )}`
       );
+      this.providerRegistry.getLogProvider().error(e);
+      throw e;
     }
     this.providerRegistry
       .getLogProvider()
@@ -447,11 +484,13 @@ export class ScreenClass {
       !isTextQuery(searchInput) &&
       !isWindowQuery(searchInput)
     ) {
-      throw Error(
+      const e = new Error(
         `on requires an Image, a text query or a window query, but received ${JSON.stringify(
           searchInput
         )}`
       );
+      this.providerRegistry.getLogProvider().error(e);
+      throw e;
     }
     const existingHooks = this.findHooks.get(searchInput) || [];
     this.findHooks.set(searchInput, [...existingHooks, callback]);
@@ -481,15 +520,17 @@ export class ScreenClass {
   ): Promise<string> {
     const currentScreen = await this.providerRegistry.getScreen().grabScreen();
     if (!isImage(currentScreen)) {
-      throw Error(
+      const e = new Error(
         `capture requires an Image, but received ${JSON.stringify(
           currentScreen
         )}`
       );
+      this.providerRegistry.getLogProvider().error(e);
+      throw e;
     }
     this.providerRegistry
       .getLogProvider()
-      .debug(
+      .info(
         `Capturing whole screen (0, 0, ${currentScreen.width}, ${currentScreen.height})`
       );
     return this.saveImage(
@@ -506,7 +547,13 @@ export class ScreenClass {
    * {@link grab} grabs screen content of a systems main display
    */
   public async grab(): Promise<Image> {
-    return this.providerRegistry.getScreen().grabScreen();
+    const currentScreen = await this.providerRegistry.getScreen().grabScreen();
+    this.providerRegistry
+      .getLogProvider()
+      .info(
+        `Grabbed whole screen (0, 0, ${currentScreen.width}, ${currentScreen.height})`
+      );
+    return currentScreen;
   }
 
   /**
@@ -528,24 +575,28 @@ export class ScreenClass {
   ): Promise<string> {
     const targetRegion = await regionToCapture;
     if (!isRegion(targetRegion)) {
-      throw Error(
+      const e = new Error(
         `captureRegion requires an Region, but received ${JSON.stringify(
           targetRegion
         )}`
       );
+      this.providerRegistry.getLogProvider().error(e);
+      throw e;
     }
     this.providerRegistry
       .getLogProvider()
-      .debug(`Capturing screen region ${targetRegion.toString()}`);
+      .info(`Capturing screen region ${targetRegion.toString()}`);
     const regionImage = await this.providerRegistry
       .getScreen()
       .grabScreenRegion(targetRegion);
     if (!isImage(regionImage)) {
-      throw Error(
+      const e = new Error(
         `captureRegion requires an Image, but received ${JSON.stringify(
           regionImage
         )}`
       );
+      this.providerRegistry.getLogProvider().error(e);
+      throw e;
     }
     return this.saveImage(
       regionImage,
@@ -566,16 +617,21 @@ export class ScreenClass {
   ): Promise<Image> {
     const targetRegion = await regionToGrab;
     if (!isRegion(targetRegion)) {
-      throw Error(
+      const e = new Error(
         `grabRegion requires an Region, but received ${JSON.stringify(
           targetRegion
         )}`
       );
+      this.providerRegistry.getLogProvider().error(e);
+      throw e;
     }
+    const screenContent = await this.providerRegistry
+      .getScreen()
+      .grabScreenRegion(targetRegion);
     this.providerRegistry
       .getLogProvider()
-      .debug(`Grabbing screen region ${targetRegion.toString()}`);
-    return this.providerRegistry.getScreen().grabScreenRegion(targetRegion);
+      .info(`Grabbed screen region ${targetRegion.toString()}`);
+    return screenContent;
   }
 
   /**
@@ -586,9 +642,11 @@ export class ScreenClass {
     const screenContent = await this.providerRegistry.getScreen().grabScreen();
     const inputPoint = await point;
     if (!isPoint(inputPoint)) {
-      throw Error(
+      const e = new Error(
         `colorAt requires a Point, but received ${JSON.stringify(inputPoint)}`
       );
+      this.providerRegistry.getLogProvider().error(e);
+      throw e;
     }
     const scaledPoint = new Point(
       inputPoint.x * screenContent.pixelDensity.scaleX,
@@ -601,9 +659,13 @@ export class ScreenClass {
           screenContent.pixelDensity.scaleX
         }, ${screenContent.pixelDensity.scaleY}) into ${scaledPoint.toString()}`
       );
-    return this.providerRegistry
+    const color = await this.providerRegistry
       .getImageProcessor()
       .colorAt(screenContent, scaledPoint);
+    this.providerRegistry
+      .getLogProvider()
+      .info(`Color at ${inputPoint.toString()} is ${color.toString()}`);
+    return color;
   }
 
   private async saveImage(
@@ -667,5 +729,13 @@ export class ScreenClass {
       return this.findHooks.get(input) as WindowCallback[];
     }
     return [];
+  }
+
+  private logNeedleType(needle: Image | WordQuery | LineQuery) {
+    if (isImage(needle)) {
+      this.providerRegistry.getLogProvider().debug(`Running an image search`);
+    } else if (isTextQuery(needle)) {
+      this.providerRegistry.getLogProvider().debug(`Running a text search`);
+    }
   }
 }
