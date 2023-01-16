@@ -46,9 +46,11 @@ export class MouseClass {
    */
   public async setPosition(target: Point): Promise<MouseClass> {
     if (!isPoint(target)) {
-      throw Error(
+      const e = new Error(
         `setPosition requires a Point, but received ${JSON.stringify(target)}`
       );
+      this.providerRegistry.getLogProvider().error(e);
+      throw e;
     }
     this.providerRegistry
       .getLogProvider()
@@ -67,8 +69,14 @@ export class MouseClass {
   /**
    * {@link getPosition} returns a {@link Point} representing the current mouse position
    */
-  public getPosition(): Promise<Point> {
-    return this.providerRegistry.getMouse().currentMousePosition();
+  public async getPosition(): Promise<Point> {
+    const currentPosition = await this.providerRegistry
+      .getMouse()
+      .currentMousePosition();
+    this.providerRegistry
+      .getLogProvider()
+      .debug("Retrieving current mouse position", { currentPosition });
+    return currentPosition;
   }
 
   /**
@@ -83,6 +91,11 @@ export class MouseClass {
     return new Promise<MouseClass>(async (resolve, reject) => {
       try {
         const pathSteps = await path;
+        this.providerRegistry
+          .getLogProvider()
+          .info(
+            `Moving mouse to target point ${pathSteps[pathSteps.length - 1]}`
+          );
         const timeSteps = calculateMovementTimesteps(
           pathSteps.length,
           this.config.mouseSpeed,
@@ -96,6 +109,7 @@ export class MouseClass {
         }
         resolve(this);
       } catch (e) {
+        this.providerRegistry.getLogProvider().error(e as Error);
         reject(e);
       }
     });
@@ -125,8 +139,12 @@ export class MouseClass {
       try {
         await sleep(this.config.autoDelayMs);
         await this.providerRegistry.getMouse().scrollDown(amount);
+        this.providerRegistry
+          .getLogProvider()
+          .info(`Scrolled down ${amount} steps`);
         resolve(this);
       } catch (e) {
+        this.providerRegistry.getLogProvider().error(e as Error);
         reject(e);
       }
     });
@@ -142,8 +160,12 @@ export class MouseClass {
       try {
         await sleep(this.config.autoDelayMs);
         await this.providerRegistry.getMouse().scrollUp(amount);
+        this.providerRegistry
+          .getLogProvider()
+          .info(`Scrolled up ${amount} steps`);
         resolve(this);
       } catch (e) {
+        this.providerRegistry.getLogProvider().error(e as Error);
         reject(e);
       }
     });
@@ -159,8 +181,12 @@ export class MouseClass {
       try {
         await sleep(this.config.autoDelayMs);
         await this.providerRegistry.getMouse().scrollLeft(amount);
+        this.providerRegistry
+          .getLogProvider()
+          .info(`Scrolled left ${amount} steps`);
         resolve(this);
       } catch (e) {
+        this.providerRegistry.getLogProvider().error(e as Error);
         reject(e);
       }
     });
@@ -176,8 +202,12 @@ export class MouseClass {
       try {
         await sleep(this.config.autoDelayMs);
         await this.providerRegistry.getMouse().scrollRight(amount);
+        this.providerRegistry
+          .getLogProvider()
+          .info(`Scrolled right ${amount} steps`);
         resolve(this);
       } catch (e) {
+        this.providerRegistry.getLogProvider().error(e as Error);
         reject(e);
       }
     });
@@ -193,10 +223,17 @@ export class MouseClass {
       try {
         await sleep(this.config.autoDelayMs);
         await this.providerRegistry.getMouse().pressButton(Button.LEFT);
+        this.providerRegistry
+          .getLogProvider()
+          .info("Pressed left mouse button");
         await this.move(path);
         await this.providerRegistry.getMouse().releaseButton(Button.LEFT);
+        this.providerRegistry
+          .getLogProvider()
+          .info("Released left mouse button");
         resolve(this);
       } catch (e) {
+        this.providerRegistry.getLogProvider().error(e as Error);
         reject(e);
       }
     });
@@ -211,8 +248,20 @@ export class MouseClass {
       try {
         await sleep(this.config.autoDelayMs);
         await this.providerRegistry.getMouse().pressButton(btn);
+        this.providerRegistry
+          .getLogProvider()
+          .info(
+            `Pressed mouse button ${
+              btn === Button.LEFT
+                ? "left"
+                : btn === Button.MIDDLE
+                ? "middle"
+                : "right"
+            }`
+          );
         resolve(this);
       } catch (e) {
+        this.providerRegistry.getLogProvider().error(e as Error);
         reject(e);
       }
     });
@@ -227,8 +276,20 @@ export class MouseClass {
       try {
         await sleep(this.config.autoDelayMs);
         await this.providerRegistry.getMouse().releaseButton(btn);
+        this.providerRegistry
+          .getLogProvider()
+          .info(
+            `Released mouse button ${
+              btn === Button.LEFT
+                ? "left"
+                : btn === Button.MIDDLE
+                ? "middle"
+                : "right"
+            }`
+          );
         resolve(this);
       } catch (e) {
+        this.providerRegistry.getLogProvider().error(e as Error);
         reject(e);
       }
     });
@@ -243,8 +304,20 @@ export class MouseClass {
       try {
         await sleep(this.config.autoDelayMs);
         await this.providerRegistry.getMouse().click(btn);
+        this.providerRegistry
+          .getLogProvider()
+          .info(
+            `Clicked ${
+              btn === Button.LEFT
+                ? "left"
+                : btn === Button.MIDDLE
+                ? "middle"
+                : "right"
+            } button`
+          );
         resolve(this);
       } catch (e) {
+        this.providerRegistry.getLogProvider().error(e as Error);
         reject(e);
       }
     });
@@ -259,8 +332,20 @@ export class MouseClass {
       try {
         await sleep(this.config.autoDelayMs);
         await this.providerRegistry.getMouse().doubleClick(btn);
+        this.providerRegistry
+          .getLogProvider()
+          .info(
+            `Double-clicked ${
+              btn === Button.LEFT
+                ? "left"
+                : btn === Button.MIDDLE
+                ? "middle"
+                : "right"
+            } button`
+          );
         resolve(this);
       } catch (e) {
+        this.providerRegistry.getLogProvider().error(e as Error);
         reject(e);
       }
     });
