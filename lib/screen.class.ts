@@ -415,7 +415,7 @@ export class ScreenClass {
    * @param searchInput Filename of the template image, relative to {@link ScreenClass.config.resourceDirectory}, or an {@link Image}
    * @param timeoutMs Timeout in milliseconds after which {@link waitFor} fails
    * @param updateInterval Update interval in milliseconds to retry search
-   * @param params {@link LocationParameters} which are used to fine tune search region and / or match confidence
+   * @param params {@link OptionalSearchParameters} which are used to fine tune search region and / or match confidence
    */
   public async waitFor<PROVIDER_DATA_TYPE>(
     searchInput: RegionResultFindInput | Promise<RegionResultFindInput>,
