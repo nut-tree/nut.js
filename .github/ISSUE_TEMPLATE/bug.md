@@ -8,6 +8,7 @@ about: Create a bug report to help us enhance our images
 **Short overview**
 
 **Issue occurs on**
+
 - [ ] Virtual machine
 - [ ] Docker container
 - [ ] Dev/Host system
@@ -17,4 +18,5 @@ about: Create a bug report to help us enhance our images
 **Steps to reproduce error**
 
 **Additional content**
+
 > Please provide any (mandatory) additional data to reproduce the error (Dockerfiles etc.)

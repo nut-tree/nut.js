@@ -2,15 +2,33 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.0.0
+
+- Enhancement: Improve types of Jest matchers [(#466)](https://github.com/nut-tree/nut.js/issues/466)
+- BREAKING: Rename clipboard methods [(#463)](https://github.com/nut-tree/nut.js/issues/463)
+- Enhancement: Option to disable automatic request of permissions in macOS [(#462)](https://github.com/nut-tree/nut.js/issues/462)
+- BREAKING: Allow `screen.find` and other to work with non-image needles [(#455)](https://github.com/nut-tree/nut.js/issues/455)
+- BREAKING: Add bits per pixel and byteWidth info to image class [(#451)](https://github.com/nut-tree/nut.js/issues/451)
+- Bugfix: Installed Electron App crashes after upgrading to 2.3.0 [(#449)](https://github.com/nut-tree/nut.js/issues/449)
+- Maintenance: Add .nvmrc config [(#447)](https://github.com/nut-tree/nut.js/issues/447)
+- Enhancement: Define and export interfaces for keyboard/mouse/screen configs [(#443)](https://github.com/nut-tree/nut.js/issues/445)
+- Bugfix: 'RightShift' key is mapped to space [(#442)](https://github.com/nut-tree/nut.js/issues/442)
+- Maintenance: Introduce prettier [(#437)](https://github.com/nut-tree/nut.js/issues/437)
+- Bugfix: Win2012-R2: Error: The specified procedure could not be found [(#434)](https://github.com/nut-tree/nut.js/issues/434)
+- Feature: Logging provider [(#371)](https://github.com/nut-tree/nut.js/issues/371)
+
 ## 2.3.0
+
 - Bugfix: Segmentation Fault when retrieving window title [(#377)](https://github.com/nut-tree/nut.js/issues/377)
 - Enhancement: Automatically check and request required permissions on macOS [(#377)](https://github.com/nut-tree/nut.js/issues/377)
 
 ## 2.2.1
+
 - Enhancement: Scale easing function result by base speed before applying [(#425)](https://github.com/nut-tree/nut.js/issues/425)
 - Maintenance: Resolve security vulnerabilities [(#422)](https://github.com/nut-tree/nut.js/issues/422)
 
 ## 2.2.0
+
 - Maintenance: Limit CI runs to PRs, not every push
 - Maintenance: Upgrade node version to 16 for all CI runs
 - Bugfix: Fix grave accent [(PR #414)](https://github.com/nut-tree/nut.js/pull/414)
@@ -18,10 +36,12 @@ All notable changes to this project will be documented in this file.
 - Enhancement: Ship Windows runtime dependencies [(#365)](https://github.com/nut-tree/nut.js/issues/365)
 
 ## 2.1.1
+
 - Bugfix: Modifier keys are not properly released on macOS [(#264)](https://github.com/nut-tree/nut.js/issues/264)
 - Bugfix: Fix mouse clicks with modifiers on macOS [(#273)](https://github.com/nut-tree/nut.js/issues/273)
 
 ## 2.1.0
+
 - Bugfix: Keyboard methods `pressKey` and `releaseKey` ignore updated autoDelayMs [(#188)](https://github.com/nut-tree/nut.js/issues/188)
 - Enhancement: Add mappings for missing numpad keys [(#367)](https://github.com/nut-tree/nut.js/issues/367)
 - Enhancement: macOS double click [(#373)](https://github.com/nut-tree/nut.js/issues/373)
@@ -30,10 +50,12 @@ All notable changes to this project will be documented in this file.
 - Bugfix: Mouse methods `pressButton` and `releaseButton` should respect auto delay [(#403)](https://github.com/nut-tree/nut.js/issues/403)
 
 ## 2.0.1
+
 - Bugfix: Issue with `keyboard.type` in to Spotlight on MacOS [(#152)](https://github.com/nut-tree/nut.js/issues/152)
 - Enhancement: Numpad buttons don't work on Linux [(#360)](https://github.com/nut-tree/nut.js/issues/360)
 
 ## 2.0.0
+
 - Feature: Apple Silicon [(libnut#49)](https://github.com/nut-tree/libnut/issues/49)
 - Enhancement: Enable warning message for missing accessibility permissions on macOS [(#354)](https://github.com/nut-tree/nut.js/issues/354)
 - Enhancement: Add runtime typechecks for `screen.find` etc. [(#351)](https://github.com/nut-tree/nut.js/issues/351)
@@ -62,14 +84,16 @@ All notable changes to this project will be documented in this file.
 - Feature: Add methods to grab the current screen content as Buffer [(#278)](https://github.com/nut-tree/nut.js/issues/278)
 
 ## 1.7.0
+
 - Enhancement: Trigger snapshot releases [(#234)](https://github.com/nut-tree/nut.js/issues/234)
 - Feature: Cancel screen.waitFor if needed [(#241)](https://github.com/nut-tree/nut.js/issues/241)
 - Enhancement: Move docs into separate repo [(#244)](https://github.com/nut-tree/nut.js/issues/244)
 - Feature: Support for node 16 and Electron 13 [(#246)](https://github.com/nut-tree/nut.js/issues/246)
 
 ## 1.6.0
+
 - Feature: Create screenshot from region [(#154)](https://github.com/nut-tree/nut.js/issues/154)
-- Bugfix: Endless loop in timeout function for long-running actions returning undefined [(#205)](https://github.com/nut-tree/nut.js/issues/205) 
+- Bugfix: Endless loop in timeout function for long-running actions returning undefined [(#205)](https://github.com/nut-tree/nut.js/issues/205)
 - Maintenance: Use default exports for all provider classes [(#163)](https://github.com/nut-tree/nut.js/issues/163)
 - Enhancement: imprecise error message if image is too large [(#169)](https://github.com/nut-tree/nut.js/issues/169)
 - Bugfix: `waitFor` does not properly cancel [(#174)](https://github.com/nut-tree/nut.js/issues/174)

@@ -30,7 +30,11 @@ export interface ScreenProviderInterface {
    * @param duration The highlight duration
    * @param opacity Overlay opacity
    */
-  highlightScreenRegion(region: Region, duration: number, opacity: number): Promise<void>;
+  highlightScreenRegion(
+    region: Region,
+    duration: number,
+    opacity: number
+  ): Promise<void>;
 
   /**
    * screenWidth returns a systems main screen width

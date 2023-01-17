@@ -3,5 +3,5 @@
  */
 export enum FileType {
   PNG = ".png",
-  JPG = ".jpg"
+  JPG = ".jpg",
 }

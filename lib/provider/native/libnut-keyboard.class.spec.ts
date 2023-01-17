@@ -84,7 +84,11 @@ describe("libnut keyboard action", () => {
 
       // THEN
       expect(libnut.keyToggle).toBeCalledTimes(1);
-      expect(libnut.keyToggle).toBeCalledWith(KeyboardAction.keyLookup(Key.A), "down", []);
+      expect(libnut.keyToggle).toBeCalledWith(
+        KeyboardAction.keyLookup(Key.A),
+        "down",
+        []
+      );
     });
 
     it("should treat a list of keys as modifiers + the actual key to press", async () => {
@@ -96,8 +100,11 @@ describe("libnut keyboard action", () => {
 
       // THEN
       expect(libnut.keyToggle).toBeCalledTimes(1);
-      expect(libnut.keyToggle)
-        .toBeCalledWith(KeyboardAction.keyLookup(Key.A), "down", [KeyboardAction.keyLookup(Key.LeftControl)]);
+      expect(libnut.keyToggle).toBeCalledWith(
+        KeyboardAction.keyLookup(Key.A),
+        "down",
+        [KeyboardAction.keyLookup(Key.LeftControl)]
+      );
     });
 
     it("should not forward the pressKey call to libnut for an unknown key", async () => {
@@ -135,7 +142,11 @@ describe("libnut keyboard action", () => {
 
       // THEN
       expect(libnut.keyToggle).toBeCalledTimes(1);
-      expect(libnut.keyToggle).toBeCalledWith(KeyboardAction.keyLookup(Key.A), "up", []);
+      expect(libnut.keyToggle).toBeCalledWith(
+        KeyboardAction.keyLookup(Key.A),
+        "up",
+        []
+      );
     });
 
     it("should treat a list of keys as modifiers + the actual key to release", async () => {
@@ -147,8 +158,11 @@ describe("libnut keyboard action", () => {
 
       // THEN
       expect(libnut.keyToggle).toBeCalledTimes(1);
-      expect(libnut.keyToggle)
-        .toBeCalledWith(KeyboardAction.keyLookup(Key.A), "up", [KeyboardAction.keyLookup(Key.LeftControl)]);
+      expect(libnut.keyToggle).toBeCalledWith(
+        KeyboardAction.keyLookup(Key.A),
+        "up",
+        [KeyboardAction.keyLookup(Key.LeftControl)]
+      );
     });
 
     it("should not forward the releaseKey call to libnut for an unknown key", async () => {

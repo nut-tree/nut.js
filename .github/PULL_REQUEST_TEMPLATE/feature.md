@@ -1,6 +1,6 @@
 ---
 name: Feature
-about: Request to merge a new feature 
+about: Request to merge a new feature
 ---
 
 **Short summary**

@@ -2,7 +2,7 @@ import { mouse } from "../../../index";
 import { Point } from "../../point.class";
 import { toBeAt } from "./toBeAt.function";
 
-jest.mock('jimp', () => {});
+jest.mock("jimp", () => {});
 
 const targetPoint = new Point(100, 100);
 

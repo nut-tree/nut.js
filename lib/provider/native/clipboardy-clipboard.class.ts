@@ -2,8 +2,7 @@ import clippy from "clipboardy";
 import { ClipboardProviderInterface } from "../clipboard-provider.interface";
 
 export default class implements ClipboardProviderInterface {
-  constructor() {
-  }
+  constructor() {}
 
   public async hasText(): Promise<boolean> {
     return new Promise<boolean>((resolve, reject) => {

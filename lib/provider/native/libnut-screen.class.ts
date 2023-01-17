@@ -1,14 +1,13 @@
 import libnut = require("@nut-tree/libnut");
-import {Image} from "../../image.class";
-import {Region} from "../../region.class";
-import {ScreenProviderInterface} from "../screen-provider.interface";
-import {ColorMode} from "../../colormode.enum";
+import { Image } from "../../image.class";
+import { Region } from "../../region.class";
+import { ScreenProviderInterface } from "../screen-provider.interface";
+import { ColorMode } from "../../colormode.enum";
 
 export default class ScreenAction implements ScreenProviderInterface {
-
   private static determinePixelDensity(
     screen: Region,
-    screenShot: libnut.Bitmap,
+    screenShot: libnut.Bitmap
   ): { scaleX: number; scaleY: number } {
     return {
       scaleX: screenShot.width / screen.width,
@@ -16,8 +15,7 @@ export default class ScreenAction implements ScreenProviderInterface {
     };
   }
 
-  constructor() {
-  }
+  constructor() {}
 
   public grabScreen(): Promise<Image> {
     return new Promise((resolve, reject) => {
@@ -26,7 +24,7 @@ export default class ScreenAction implements ScreenProviderInterface {
         const screenSize = libnut.getScreenSize();
         const pixelScaling = ScreenAction.determinePixelDensity(
           new Region(0, 0, screenSize.width, screenSize.height),
-          screenShot,
+          screenShot
         );
         resolve(
           new Image(
@@ -34,10 +32,12 @@ export default class ScreenAction implements ScreenProviderInterface {
             screenShot.height,
             screenShot.image,
             4,
-              "grabScreenResult",
+            "grabScreenResult",
+            screenShot.bitsPerPixel,
+            screenShot.byteWidth,
             ColorMode.BGR,
-            pixelScaling,
-          ),
+            pixelScaling
+          )
         );
       } else {
         reject("Unable to fetch screen content.");
@@ -51,10 +51,13 @@ export default class ScreenAction implements ScreenProviderInterface {
         region.left,
         region.top,
         region.width,
-        region.height,
+        region.height
       );
       if (screenShot) {
-        const pixelScaling = ScreenAction.determinePixelDensity(region, screenShot);
+        const pixelScaling = ScreenAction.determinePixelDensity(
+          region,
+          screenShot
+        );
         resolve(
           new Image(
             screenShot.width,
@@ -62,9 +65,11 @@ export default class ScreenAction implements ScreenProviderInterface {
             screenShot.image,
             4,
             "grabScreenRegionResult",
+            4,
+            screenShot.width * 4,
             ColorMode.BGR,
-            pixelScaling,
-          ),
+            pixelScaling
+          )
         );
       } else {
         reject("Unable to fetch screen content.");
@@ -72,13 +77,23 @@ export default class ScreenAction implements ScreenProviderInterface {
     });
   }
 
-  public highlightScreenRegion(region: Region, duration: number, opacity: number): Promise<void> {
+  public highlightScreenRegion(
+    region: Region,
+    duration: number,
+    opacity: number
+  ): Promise<void> {
     return new Promise<void>((resolve) => {
-      libnut.screen.highlight(region.left, region.top, region.width, region.height, duration, opacity);
+      libnut.screen.highlight(
+        region.left,
+        region.top,
+        region.width,
+        region.height,
+        duration,
+        opacity
+      );
       resolve();
     });
   }
-
 
   public screenWidth(): Promise<number> {
     return new Promise<number>((resolve, reject) => {

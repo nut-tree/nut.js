@@ -2,9 +2,7 @@
   "compilerOptions": {
     "target": "ES2018",
     "module": "commonjs",
-    "lib": [
-      "es6"
-    ],
+    "lib": ["es6"],
     "outDir": "./dist",
     "declaration": true,
     "declarationMap": true,
@@ -15,13 +13,8 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
 
-    "esModuleInterop": true,
+    "esModuleInterop": true
   },
-  "include": [
-    "lib/**/*.ts",
-    "index.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["lib/**/*.ts", "index.ts"],
+  "exclude": ["node_modules"]
 }

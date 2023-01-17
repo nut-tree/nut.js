@@ -269,7 +269,7 @@ describe("libnut mouse action", () => {
   describe("currentMousePosition", () => {
     it("should return the current mouse position via libnut", async () => {
       // GIVEN
-      libnut.getMousePos = jest.fn(() => ({x: 10, y: 100}));
+      libnut.getMousePos = jest.fn(() => ({ x: 10, y: 100 }));
       const SUT = new MouseAction();
 
       // WHEN
@@ -319,7 +319,9 @@ describe("libnut mouse action", () => {
       // WHEN
 
       // THEN
-      expect(SUT.setMousePosition(new Point(100, 100))).rejects.toThrowError(error);
+      expect(SUT.setMousePosition(new Point(100, 100))).rejects.toThrowError(
+        error
+      );
     });
   });
 });

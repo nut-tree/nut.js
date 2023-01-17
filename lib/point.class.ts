@@ -10,7 +10,7 @@ const testPoint = new Point(100, 100);
 const pointKeys = Object.keys(testPoint);
 
 export function isPoint(possiblePoint: any): possiblePoint is Point {
-  if (typeof possiblePoint !== 'object') {
+  if (typeof possiblePoint !== "object") {
     return false;
   }
   for (const key of pointKeys) {
@@ -19,8 +19,8 @@ export function isPoint(possiblePoint: any): possiblePoint is Point {
     }
     const possiblePointKeyType = typeof possiblePoint[key];
     const pointKeyType = typeof testPoint[key as keyof typeof testPoint];
-    if (possiblePointKeyType!== pointKeyType) {
-      return false
+    if (possiblePointKeyType !== pointKeyType) {
+      return false;
     }
   }
   return true;

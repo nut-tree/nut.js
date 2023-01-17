@@ -1,6 +1,6 @@
 {
   "name": "@nut-tree/nut-js",
-  "version": "2.3.0",
+  "version": "3.0.0",
   "license": "Apache-2.0",
   "main": "dist/index",
   "typings": "dist/index",
@@ -10,6 +10,7 @@
     "email": "kontakt@s1h.org",
     "url": "https://s1h.org"
   },
+  "homepage": "https://nutjs.dev",
   "repository": {
     "type": "git",
     "url": "https://github.com/nut-tree/nut.js.git"
@@ -57,10 +58,11 @@
     "publish-next": "npm publish --tag next",
     "prepublishOnly": "npm run compile",
     "versionBump": "bump --tag --push --all",
-    "typedoc": "typedoc --options ./typedoc.js --entryPointStrategy expand ./lib"
+    "typedoc": "typedoc --options ./typedoc.js --entryPointStrategy expand ./lib",
+    "prepare": "husky install"
   },
   "dependencies": {
-    "@nut-tree/libnut": "2.3.0",
+    "@nut-tree/libnut": "2.4.0",
     "clipboardy": "2.3.0",
     "jimp": "0.16.2",
     "node-abort-controller": "2.0.0"
@@ -68,9 +70,12 @@
   "devDependencies": {
     "@types/jest": "27.0.1",
     "@types/node": "16.7.10",
+    "husky": "8.0.1",
     "istanbul-merge": "1.1.1",
     "jest": "27.1.0",
+    "lint-staged": "13.0.3",
     "nyc": "15.1.0",
+    "prettier": "2.7.1",
     "rimraf": "3.0.2",
     "sneer": "1.0.1",
     "ts-jest": "27.0.5",
@@ -78,5 +83,8 @@
     "typedoc": "0.23.14",
     "typescript": "4.8.3",
     "version-bump-prompt": "6.1.0"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
   }
 }
