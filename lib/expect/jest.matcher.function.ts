@@ -8,9 +8,12 @@ import { FindInput } from "../screen.class";
 declare global {
   namespace jest {
     interface Matchers<R> {
-      toBeAt: (position: Point) => {};
-      toBeIn: (region: Region) => {};
-      toShow: (needle: FindInput, confidence?: number) => {};
+      toBeAt: (position: Point) => ReturnType<typeof toBeAt>;
+      toBeIn: (region: Region) => ReturnType<typeof toBeIn>;
+      toShow: (
+        needle: FindInput,
+        confidence?: number
+      ) => ReturnType<typeof toShow>;
     }
   }
 }
