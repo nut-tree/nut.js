@@ -40,15 +40,6 @@ but additionally gives you the possibility to navigate the screen based on image
 
 A huge **"Thank you!"** goes out to all sponsors who make open source a bit more sustainable!
 
-[<img src="https://avatars.githubusercontent.com/u/17616211?v=4" width="75" alt="Reiss Cashmore" />](https://github.com/Reiss-Cashmore)
-[<img src="https://avatars.githubusercontent.com/u/1794527?v=4" width="75" alt="Chet Corcos" />](https://github.com/ccorcos)
-[<img src="https://avatars.githubusercontent.com/u/4453806?v=4" width="75" alt="Patrick Flor" />](https://github.com/senorflor)
-[<img src="https://avatars.githubusercontent.com/u/7562803?v=4" width="75" alt="Ian" />](https://github.com/iwiedenm)
-
-<hr/>
-
-[<img src="https://github.com/nut-tree/nut.js/raw/develop/.gfx/sponsors/mighty.svg" height="75" alt="Mighty browser logo"/>](https://www.mightyapp.com)
-
 # Demo
 
 Check out this demo video to get a first impression of what nut.js is capable of.
@@ -102,46 +93,72 @@ It's work in progress and will undergo constant modification.
 
 ## Screen
 
-- [x] Find an image on screen (requires an additional provider package like e.g. [nut-tree/template-matcher](https://www.npmjs.com/package/@nut-tree/template-matcher))
-- [x] Find all image occurrences on screen
-- [x] Wait for an image to appear on screen (requires an additional provider package like e.g. [nut-tree/template-matcher](https://www.npmjs.com/package/@nut-tree/template-matcher))
 - [x] Retrieve RGBA color information on screen
-- [x] Hooks to trigger actions based on images (requires an additional provider package like e.g. [nut-tree/template-matcher](https://www.npmjs.com/package/@nut-tree/template-matcher))
 - [x] Highlighting screen regions
+- [x] Find a single or multiple occurrences of an image on screen (requires an additional provider package like e.g. [nut-tree/template-matcher](https://www.npmjs.com/package/@nut-tree/template-matcher))
+- [x] Wait for an image to appear on screen (requires an additional provider package like e.g. [nut-tree/template-matcher](https://www.npmjs.com/package/@nut-tree/template-matcher))
+- [x] Find a single or multiple occurrences of text on screen (\*)
+- [x] Wait for a piece of text to appear on screen (\*)
+- [x] Find a single or multiple windows on screen (\*)
+- [x] Wait for a window to appear on screen (\*)
+- [x] Hooks to trigger actions based on detected text, images or windows (\*)
+
+(\*) Requires an additional provider package, visit [nutjs.dev](https://nutjs.dev) for more info
 
 ## Integration
 
 - [x] Jest
 - [x] Electron
+- [x] Custom log integration
 
 # Sample
 
-The following snippet shows a valid `nut.js` example:
+The following snippet shows a valid `nut.js` example (using multiple addons):
 
 ```js
 "use strict";
 
 const {
   mouse,
-  left,
-  right,
-  up,
-  down,
+  screen,
+  singleWord,
+  sleep,
+  useConsoleLogger,
+  ConsoleLogLevel,
   straightTo,
   centerOf,
-  Region,
+  Button,
+  getActiveWindow,
 } = require("@nut-tree/nut-js");
+const {
+  preloadLanguages,
+  Language,
+  LanguageModelType,
+  configure,
+} = require("@nut-tree/plugin-ocr");
 
-const square = async () => {
-  await mouse.move(right(500));
-  await mouse.move(down(500));
-  await mouse.move(left(500));
-  await mouse.move(up(500));
-};
+configure({ languageModelType: LanguageModelType.BEST });
+
+useConsoleLogger({ logLevel: ConsoleLogLevel.DEBUG });
+
+screen.config.autoHighlight = true;
+screen.config.ocrConfidence = 0.8;
+
+function activeWindowRegion() {
+  return getActiveWindow().then((activeWindow) => activeWindow.region);
+}
 
 (async () => {
-  await square();
-  await mouse.move(straightTo(centerOf(new Region(100, 100, 200, 300))));
+  await preloadLanguages([Language.English], [LanguageModelType.BEST]);
+  await sleep(5000);
+  const result = await screen.find(singleWord("@nut-tree/nut-js"));
+  await mouse.move(straightTo(centerOf(result)));
+  await mouse.click(Button.LEFT);
+  await screen.waitFor(singleWord("Native"), 15000, 1000, {
+    providerData: { partialMatch: true },
+  });
+  const content = await screen.read({ searchRegion: activeWindowRegion() });
+  console.log(content);
 })();
 ```
 
