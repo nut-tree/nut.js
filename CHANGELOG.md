@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## 3.0.0
 
+- Enhancement: Improve types of Jest matchers [(#466)](https://github.com/nut-tree/nut.js/issues/466)
 - BREAKING: Rename clipboard methods [(#463)](https://github.com/nut-tree/nut.js/issues/463)
 - Enhancement: Option to disable automatic request of permissions in macOS [(#462)](https://github.com/nut-tree/nut.js/issues/462)
 - BREAKING: Allow `screen.find` and other to work with non-image needles [(#455)](https://github.com/nut-tree/nut.js/issues/455)
