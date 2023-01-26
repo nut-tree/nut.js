@@ -52,7 +52,7 @@ Please consult the project website at [nutjs.dev](https://nutjs.dev/docs/tutoria
 
 # Examples
 
-[nut-tree/trailmix](https://github.com/nut-tree/trailmix) contains a set of ready to use examples which demo the usage ot nut.js.
+[nut-tree/trailmix](https://github.com/nut-tree/trailmix) contains a set of ready to use examples which demo the usage of nut.js.
 
 # API Docs
 
