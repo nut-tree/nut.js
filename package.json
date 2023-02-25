@@ -64,7 +64,7 @@
   "dependencies": {
     "@nut-tree/libnut": "2.4.0",
     "clipboardy": "2.3.0",
-    "jimp": "0.16.2",
+    "jimp": "0.17.10",
     "node-abort-controller": "2.0.0"
   },
   "devDependencies": {
