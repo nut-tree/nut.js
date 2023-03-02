@@ -141,4 +141,13 @@ export enum Key {
   AudioForward,
   AudioRepeat,
   AudioRandom,
+
+  LeftWin,
+  RightWin,
+  LeftCmd,
+  RightCmd,
+
+  Menu,
+
+  Fn,
 }
