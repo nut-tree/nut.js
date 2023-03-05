@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.1.0
+
+- Enhancement: Typo fix [(PR #477)](https://github.com/nut-tree/nut.js/pull/472)
+- Enhancement: Additional keys [(#457)](https://github.com/nut-tree/nut.js/issues/457)
+
 ## 3.0.0
 
 - Enhancement: Improve types of Jest matchers [(#466)](https://github.com/nut-tree/nut.js/issues/466)
