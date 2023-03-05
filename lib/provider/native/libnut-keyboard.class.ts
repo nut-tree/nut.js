@@ -83,8 +83,15 @@ export default class KeyboardAction implements KeyboardProviderInterface {
     [Key.Tab, "tab"],
     [Key.LeftAlt, "alt"],
     [Key.LeftControl, "control"],
-    [Key.RightAlt, "alt"],
-    [Key.RightControl, "control"],
+    [Key.RightAlt, "right_alt"],
+    [Key.RightControl, "right_control"],
+    [Key.LeftWin, "win"],
+    [Key.RightWin, "right_win"],
+    [Key.LeftCmd, "cmd"],
+    [Key.RightCmd, "right_cmd"],
+
+    [Key.Menu, "menu"],
+    [Key.Fn, "fn"],
 
     [Key.LeftShift, "shift"],
     [Key.LeftSuper, "command"],
