@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.1.1
+
+- Bugfix: Fix mouse drift on Windows [(nut-tree/libnut-core#126)](https://github.com/nut-tree/libnut-core/issues/126)
+
 ## 3.1.0
 
 - Enhancement: Typo fix [(PR #477)](https://github.com/nut-tree/nut.js/pull/472)
