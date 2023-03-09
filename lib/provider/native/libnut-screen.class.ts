@@ -30,7 +30,7 @@ export default class ScreenAction implements ScreenProviderInterface {
           new Image(
             screenShot.width,
             screenShot.height,
-            screenShot.image,
+            screenShot.image.slice(0, screenShot.width * screenShot.height * 4),
             4,
             "grabScreenResult",
             screenShot.bitsPerPixel,
@@ -62,11 +62,11 @@ export default class ScreenAction implements ScreenProviderInterface {
           new Image(
             screenShot.width,
             screenShot.height,
-            screenShot.image,
+            screenShot.image.slice(0, screenShot.width * screenShot.height * 4),
             4,
             "grabScreenRegionResult",
-            4,
-            screenShot.width * 4,
+            screenShot.bitsPerPixel,
+            screenShot.byteWidth,
             ColorMode.BGR,
             pixelScaling
           )

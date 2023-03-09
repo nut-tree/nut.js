@@ -35,7 +35,11 @@ describe("libnut screen action", () => {
         bytesPerPixel: 0,
         colorAt: jest.fn(),
         height: screenShotSize.height,
-        image: new ArrayBuffer(0),
+        image: Buffer.from(
+          new Array(screenShotSize.width * screenShotSize.height * 4 + 10).fill(
+            0
+          )
+        ),
         width: screenShotSize.width,
       }));
       libnut.getScreenSize = jest.fn(() => ({
@@ -51,6 +55,9 @@ describe("libnut screen action", () => {
       expect(image.height).toEqual(screenShotSize.height);
       expect(image.pixelDensity.scaleX).toEqual(2);
       expect(image.pixelDensity.scaleY).toEqual(2);
+      expect(image.data.length).toEqual(
+        screenShotSize.width * screenShotSize.height * 4
+      );
       expect(libnut.screen.capture).toBeCalledTimes(1);
     });
 
@@ -64,7 +71,11 @@ describe("libnut screen action", () => {
         bytesPerPixel: 0,
         colorAt: jest.fn(),
         height: screenShotSize.height,
-        image: new ArrayBuffer(0),
+        image: Buffer.from(
+          new Array(screenShotSize.width * screenShotSize.height * 4 + 10).fill(
+            0
+          )
+        ),
         width: screenShotSize.width,
       }));
 
@@ -76,6 +87,9 @@ describe("libnut screen action", () => {
       expect(image.height).toEqual(screenShotSize.height);
       expect(image.pixelDensity.scaleX).toEqual(20);
       expect(image.pixelDensity.scaleY).toEqual(20);
+      expect(image.data.length).toEqual(
+        screenShotSize.width * screenShotSize.height * 4
+      );
       expect(libnut.screen.capture).toBeCalledTimes(1);
     });
 
