@@ -225,6 +225,14 @@ sudo apt-get install libxtst-dev
 
 Setups on other distributions might differ.
 
+**Attention**:
+
+At the moment nut.js only supports X11.
+
+Wayland is **NOT** supported!
+
+On e.g. Ubuntu you can switch to XWayland on your login screen as a workaround.
+
 ## Install `nut.js`
 
 Running
