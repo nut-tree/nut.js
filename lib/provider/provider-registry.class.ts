@@ -21,6 +21,8 @@ import { LogProviderInterface, wrapLogger } from "./log-provider.interface";
 import { NoopLogProvider } from "./log/noop-log-provider.class";
 import { TextFinderInterface } from "./text-finder.interface";
 import { WindowFinderInterface } from "./window-finder.interface";
+import { ColorFinderInterface } from "./color-finder.interface";
+import ColorFinderImpl from "./color/color-finder.class";
 
 export interface ProviderRegistry {
   getClipboard(): ClipboardProviderInterface;
@@ -70,6 +72,10 @@ export interface ProviderRegistry {
   getWindowFinder(): WindowFinderInterface;
 
   registerWindowFinder(value: WindowFinderInterface): void;
+
+  getColorFinder(): ColorFinderInterface;
+
+  registerColorFinder(value: ColorFinderInterface): void;
 }
 
 class DefaultProviderRegistry implements ProviderRegistry {
@@ -85,6 +91,7 @@ class DefaultProviderRegistry implements ProviderRegistry {
   private _logProvider?: LogProviderInterface;
   private _textFinder?: TextFinderInterface;
   private _windowFinder?: WindowFinderInterface;
+  private _colorFinder?: ColorFinderInterface;
 
   getClipboard = (): ClipboardProviderInterface => {
     if (this._clipboard) {
@@ -195,7 +202,7 @@ class DefaultProviderRegistry implements ProviderRegistry {
 
   registerWindowFinder = (value: WindowFinderInterface) => {
     this._windowFinder = value;
-    this.getLogProvider().trace("Registered new TextFinder provider", value);
+    this.getLogProvider().trace("Registered new WindowFinder provider", value);
   };
 
   getImageReader = (): ImageReader => {
@@ -253,6 +260,20 @@ class DefaultProviderRegistry implements ProviderRegistry {
     this._logProvider = wrapLogger(value);
     this.getLogProvider().trace("Registered new log provider", value);
   };
+
+  getColorFinder = (): ColorFinderInterface => {
+    if (this._colorFinder) {
+      return this._colorFinder;
+    }
+    const error = new Error(`No ColorFinder registered`);
+    this.getLogProvider().error(error);
+    throw error;
+  };
+
+  registerColorFinder = (value: ColorFinderInterface): void => {
+    this._colorFinder = value;
+    this.getLogProvider().trace("Registered new ColorFinder provider", value);
+  };
 }
 
 const providerRegistry = new DefaultProviderRegistry();
@@ -266,5 +287,6 @@ providerRegistry.registerImageWriter(new ImageWriterImpl());
 providerRegistry.registerImageReader(new ImageReaderImpl());
 providerRegistry.registerImageProcessor(new ImageProcessorImpl());
 providerRegistry.registerLogProvider(new NoopLogProvider());
+providerRegistry.registerColorFinder(new ColorFinderImpl());
 
 export default providerRegistry;
