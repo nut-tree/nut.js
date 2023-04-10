@@ -16,8 +16,8 @@ import {
 import { OptionalSearchParameters } from "./optionalsearchparameters.class";
 import { NoopLogProvider } from "./provider/log/noop-log-provider.class";
 import { TextQuery, WindowQuery } from "./query.class";
-import { TextFinderInterface } from "./provider/text-finder.interface";
-import { WindowFinderInterface } from "./provider/window-finder.interface";
+import { TextFinderInterface } from "./provider";
+import { WindowFinderInterface } from "./provider";
 
 jest.mock("jimp", () => {});
 
@@ -159,7 +159,7 @@ describe("Screen.", () => {
 
       // THEN
       await expect(result).rejects.toThrowError(
-        /find requires an Image, a text query or a window query.*/
+        /find requires an Image, a text query, a color query or a window query.*/
       );
     });
 
@@ -532,7 +532,7 @@ describe("Screen.", () => {
 
         // THEN
         await expect(result).rejects.toThrowError(
-          /findAll requires an Image, a text query or a window query.*/
+          /findAll requires an Image, a text query, a color query or a window query.*/
         );
       });
 
