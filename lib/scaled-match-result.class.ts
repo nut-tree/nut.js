@@ -1,11 +1,12 @@
 import { MatchResult } from "./match-result.class";
-import { Region } from "./region.class";
 
-export class ScaledMatchResult extends MatchResult {
+export class ScaledMatchResult<
+  LOCATION_TYPE
+> extends MatchResult<LOCATION_TYPE> {
   constructor(
     public readonly confidence: number,
     public readonly scale: number,
-    public readonly location: Region,
+    public readonly location: LOCATION_TYPE,
     public readonly error?: Error
   ) {
     super(confidence, location, error);

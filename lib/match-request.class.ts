@@ -1,9 +1,15 @@
 import { Image, isImage } from "./image.class";
 import { Region } from "./region.class";
 import { OptionalSearchParameters } from "./optionalsearchparameters.class";
-import { isLineQuery, isTextQuery, TextQuery } from "./query.class";
-import { RegionResultFindInput } from "./screen.class";
+import {
+  ColorQuery,
+  isColorQuery,
+  isLineQuery,
+  isTextQuery,
+  TextQuery,
+} from "./query.class";
 import { ProviderRegistry } from "./provider/provider-registry.class";
+import { PointResultFindInput, RegionResultFindInput } from "./screen.class";
 
 export class MatchRequest<NEEDLE_TYPE, PROVIDER_DATA_TYPE> {
   public constructor(
@@ -26,42 +32,48 @@ export function isTextMatchRequest<PROVIDER_DATA_TYPE>(
   return isTextQuery(matchRequest.needle);
 }
 
+export function isColorMatchRequest<PROVIDER_DATA_TYPE>(
+  matchRequest: any
+): matchRequest is MatchRequest<ColorQuery, PROVIDER_DATA_TYPE> {
+  return isColorQuery(matchRequest.needle);
+}
+
 export function createMatchRequest<PROVIDER_DATA_TYPE>(
   providerRegistry: ProviderRegistry,
-  needle: TextQuery | Promise<TextQuery>,
+  needle: PointResultFindInput,
   searchRegion: Region,
   minMatch: number,
   screenImage: Image,
   params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
-): MatchRequest<TextQuery, PROVIDER_DATA_TYPE>;
+): MatchRequest<PointResultFindInput, PROVIDER_DATA_TYPE>;
 export function createMatchRequest<PROVIDER_DATA_TYPE>(
   providerRegistry: ProviderRegistry,
-  needle: Image | Promise<Image>,
+  needle: RegionResultFindInput,
   searchRegion: Region,
   minMatch: number,
   screenImage: Image,
   params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
-): MatchRequest<Image, PROVIDER_DATA_TYPE>;
+): MatchRequest<RegionResultFindInput, PROVIDER_DATA_TYPE>;
 export function createMatchRequest<PROVIDER_DATA_TYPE>(
   providerRegistry: ProviderRegistry,
-  needle: RegionResultFindInput | Promise<RegionResultFindInput>,
+  needle: RegionResultFindInput | PointResultFindInput,
   searchRegion: Region,
   minMatch: number,
   screenImage: Image,
   params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
 ):
-  | MatchRequest<TextQuery, PROVIDER_DATA_TYPE>
-  | MatchRequest<Image, PROVIDER_DATA_TYPE>;
+  | MatchRequest<RegionResultFindInput, PROVIDER_DATA_TYPE>
+  | MatchRequest<PointResultFindInput, PROVIDER_DATA_TYPE>;
 export function createMatchRequest<PROVIDER_DATA_TYPE>(
   providerRegistry: ProviderRegistry,
-  needle: RegionResultFindInput | Promise<RegionResultFindInput>,
+  needle: RegionResultFindInput | PointResultFindInput,
   searchRegion: Region,
   minMatch: number,
   screenImage: Image,
   params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
 ):
-  | MatchRequest<Image, PROVIDER_DATA_TYPE>
-  | MatchRequest<TextQuery, PROVIDER_DATA_TYPE> {
+  | MatchRequest<RegionResultFindInput, PROVIDER_DATA_TYPE>
+  | MatchRequest<PointResultFindInput, PROVIDER_DATA_TYPE> {
   if (isImage(needle)) {
     providerRegistry
       .getLogProvider()
@@ -90,6 +102,17 @@ export function createMatchRequest<PROVIDER_DATA_TYPE>(
       minMatch,
       params?.providerData
     );
+  } else if (isColorQuery(needle)) {
+    const color = needle.by.color;
+    providerRegistry
+      .getLogProvider()
+      .info(
+        `Searching for color RGBA(${color.R},${color.G},${color.B},${
+          color.A
+        }) in region ${searchRegion.toString()}.`
+      );
+
+    return new MatchRequest(screenImage, needle, 1, params?.providerData);
   }
   throw new Error(`Unknown input type: ${JSON.stringify(needle)}`);
 }
