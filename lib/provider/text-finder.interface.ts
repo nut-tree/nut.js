@@ -1,6 +1,7 @@
 import { MatchRequest } from "../match-request.class";
 import { MatchResult } from "../match-result.class";
 import { TextQuery } from "../query.class";
+import { Region } from "../region.class";
 
 /**
  * A TextFinder should provide an abstraction layer to perform text searches
@@ -18,7 +19,7 @@ export interface TextFinderInterface {
    */
   findMatch<PROVIDER_DATA_TYPE>(
     matchRequest: MatchRequest<TextQuery, PROVIDER_DATA_TYPE>
-  ): Promise<MatchResult>;
+  ): Promise<MatchResult<Region>>;
 
   /**
    * findMatches should provide an abstraction to search for an image needle
@@ -30,5 +31,5 @@ export interface TextFinderInterface {
    */
   findMatches<PROVIDER_DATA_TYPE>(
     matchRequest: MatchRequest<TextQuery, PROVIDER_DATA_TYPE>
-  ): Promise<MatchResult[]>;
+  ): Promise<MatchResult<Region>[]>;
 }
