@@ -142,6 +142,29 @@ describe("Mouse class", () => {
     expect(result).toBe(SUT);
   });
 
+  it("should convert single point inputs to an array", async () => {
+    // GIVEN
+    const SUT = new MouseClass(providerRegistryMock);
+    const testPoint = new Point(0, 0);
+
+    const setPositionMock = jest.fn();
+    providerRegistryMock.getMouse = jest.fn(() =>
+      mockPartial<MouseProviderInterface>({
+        setMouseDelay: jest.fn(),
+        setMousePosition: setPositionMock,
+      })
+    );
+    providerRegistryMock.getLogProvider = () => new NoopLogProvider();
+
+    // WHEN
+    const result = await SUT.move(testPoint as unknown as Array<Point>);
+
+    // THEN
+    expect(setPositionMock).toBeCalledTimes(1);
+    expect(setPositionMock).toBeCalledWith(testPoint);
+    expect(result).toBe(SUT);
+  });
+
   it("should press and hold left mouse button, move and release left mouse button on drag", async () => {
     // GIVEN
     const SUT = new MouseClass(providerRegistryMock);
