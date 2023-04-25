@@ -90,7 +90,10 @@ export class MouseClass {
   ): Promise<MouseClass> {
     return new Promise<MouseClass>(async (resolve, reject) => {
       try {
-        const pathSteps = await path;
+        let pathSteps = await path;
+        if (!Array.isArray(pathSteps)) {
+          pathSteps = [pathSteps];
+        }
         this.providerRegistry
           .getLogProvider()
           .info(
