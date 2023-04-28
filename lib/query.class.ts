@@ -1,3 +1,5 @@
+import { RGBA } from "./rgba.class";
+
 type Query =
   | {
       id: string;
@@ -18,6 +20,13 @@ type Query =
       type: "window";
       by: {
         title: string | RegExp;
+      };
+    }
+  | {
+      id: string;
+      type: "color";
+      by: {
+        color: RGBA;
       };
     };
 
@@ -40,6 +49,22 @@ export type LineQuery = Extract<TextQuery, { by: { line: string } }>;
  * It will be processed by an {@link WindowFinderInterface} instance.
  */
 export type WindowQuery = Extract<Query, { type: "window" }>;
+
+/**
+ * A color query is a query that searches for a certain RGBA color on screen.
+ * It will be processed by an {@link ColorFinderInterface} instance.
+ */
+export type ColorQuery = Extract<Query, { type: "color" }>;
+
+/**
+ * Type guard for {@link ColorQuery}
+ * @param possibleQuery A possible color query
+ */
+export const isColorQuery = (
+  possibleQuery: any
+): possibleQuery is ColorQuery => {
+  return possibleQuery?.type === "color" && possibleQuery?.by?.color != null;
+};
 
 /**
  * Type guard for {@link WordQuery}
