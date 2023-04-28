@@ -639,10 +639,10 @@ describe("Screen.", () => {
           },
         };
 
-        const findMatchMock = jest.fn(() => Promise.resolve([matchResult]));
+        const findMatchMock = jest.fn(() => Promise.resolve(matchResult));
         providerRegistryMock.getColorFinder = jest.fn(() =>
           mockPartial<ColorFinderInterface>({
-            findMatches: findMatchMock,
+            findMatch: findMatchMock,
           })
         );
         providerRegistryMock.getLogProvider = () => new NoopLogProvider();
