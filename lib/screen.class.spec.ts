@@ -15,9 +15,12 @@ import {
 } from "./provider";
 import { OptionalSearchParameters } from "./optionalsearchparameters.class";
 import { NoopLogProvider } from "./provider/log/noop-log-provider.class";
-import { TextQuery, WindowQuery } from "./query.class";
+import { ColorQuery, TextQuery, WindowQuery } from "./query.class";
 import { TextFinderInterface } from "./provider";
 import { WindowFinderInterface } from "./provider";
+import { RGBA } from "./rgba.class";
+import { ColorFinderInterface } from "./provider/color-finder.interface";
+import { Point } from "./point.class";
 
 jest.mock("jimp", () => {});
 
@@ -98,6 +101,35 @@ describe("Screen.", () => {
         const findMatchMock = jest.fn(() => Promise.resolve(1234));
         providerRegistryMock.getWindowFinder = jest.fn(() =>
           mockPartial<WindowFinderInterface>({
+            findMatch: findMatchMock,
+          })
+        );
+        providerRegistryMock.getLogProvider = () => new NoopLogProvider();
+
+        // WHEN
+        await SUT.find(needle);
+
+        // THEN
+        expect(findMatchMock).toHaveBeenCalledTimes(1);
+      });
+
+      it("should choose the correct finder implementation for color queries", async () => {
+        // GIVEN
+        const matchPoint = new Point(0, 0);
+        const matchResult = new MatchResult(0.99, matchPoint);
+
+        const SUT = new ScreenClass(providerRegistryMock);
+        const needle: ColorQuery = {
+          id: "color-query",
+          type: "color",
+          by: {
+            color: new RGBA(255, 0, 255, 1),
+          },
+        };
+
+        const findMatchMock = jest.fn(() => Promise.resolve(matchResult));
+        providerRegistryMock.getColorFinder = jest.fn(() =>
+          mockPartial<ColorFinderInterface>({
             findMatch: findMatchMock,
           })
         );
@@ -588,6 +620,35 @@ describe("Screen.", () => {
 
         // WHEN
         await SUT.findAll(needle);
+
+        // THEN
+        expect(findMatchMock).toHaveBeenCalledTimes(1);
+      });
+
+      it("should choose the correct finder implementation for color queries", async () => {
+        // GIVEN
+        const matchPoint = new Point(0, 0);
+        const matchResult = new MatchResult(0.99, matchPoint);
+
+        const SUT = new ScreenClass(providerRegistryMock);
+        const needle: ColorQuery = {
+          id: "color-query",
+          type: "color",
+          by: {
+            color: new RGBA(255, 0, 255, 1),
+          },
+        };
+
+        const findMatchMock = jest.fn(() => Promise.resolve(matchResult));
+        providerRegistryMock.getColorFinder = jest.fn(() =>
+          mockPartial<ColorFinderInterface>({
+            findMatch: findMatchMock,
+          })
+        );
+        providerRegistryMock.getLogProvider = () => new NoopLogProvider();
+
+        // WHEN
+        await SUT.find(needle);
 
         // THEN
         expect(findMatchMock).toHaveBeenCalledTimes(1);
