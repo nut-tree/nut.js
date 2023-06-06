@@ -25,7 +25,7 @@ describe("JimpImageProcessor", () => {
       const result = SUT.colorAt(inputImage, outOfBoundsPoint);
 
       // THEN
-      await expect(result).rejects.toBe(
+      await expect(result).rejects.toThrowError(
         `Query location out of bounds. Should be in range 0 <= x < image.width, is ${outOfBoundsPoint.x}`
       );
     }
@@ -52,7 +52,7 @@ describe("JimpImageProcessor", () => {
       const result = SUT.colorAt(inputImage, outOfBoundsPoint);
 
       // THEN
-      await expect(result).rejects.toBe(
+      await expect(result).rejects.toThrowError(
         `Query location out of bounds. Should be in range 0 <= y < image.height, is ${outOfBoundsPoint.y}`
       );
     }

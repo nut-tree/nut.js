@@ -22,7 +22,7 @@ jest.mock("jimp", () => {
 afterEach(() => jest.resetAllMocks());
 
 describe("Jimp image writer", () => {
-  it("should reject on writing failures", async () => {
+  it("should resolve on writing", async () => {
     // GIVEN
     const outputFileName = "/does/not/compute.png";
     const outputFile = new Image(
@@ -47,5 +47,29 @@ describe("Jimp image writer", () => {
     expect(scanMock).toHaveBeenCalledTimes(1);
     expect(writeMock).toHaveBeenCalledTimes(1);
     expect(writeMock).toHaveBeenCalledWith(outputFileName);
+  });
+
+  it("should reject on writing failures", () => {
+    // GIVEN
+    const outputFileName = "/does/not/compute.png";
+    const outputFile = new Image(
+      100,
+      200,
+      Buffer.from([]),
+      3,
+      outputFileName,
+      4,
+      100 * 4
+    );
+    const writeMock = jest.fn(() => Promise.reject("write error"));
+    Jimp.prototype.scan = jest.fn();
+    Jimp.prototype.writeAsync = writeMock;
+    const SUT = new ImageWriter();
+
+    // WHEN
+    const result = SUT.store({ image: outputFile, path: outputFileName });
+
+    // THEN
+    expect(result).rejects.toBe("write error");
   });
 });
