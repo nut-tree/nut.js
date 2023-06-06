@@ -15,9 +15,12 @@ import {
 } from "./provider";
 import { OptionalSearchParameters } from "./optionalsearchparameters.class";
 import { NoopLogProvider } from "./provider/log/noop-log-provider.class";
-import { TextQuery, WindowQuery } from "./query.class";
-import { TextFinderInterface } from "./provider/text-finder.interface";
-import { WindowFinderInterface } from "./provider/window-finder.interface";
+import { ColorQuery, TextQuery, WindowQuery } from "./query.class";
+import { TextFinderInterface } from "./provider";
+import { WindowFinderInterface } from "./provider";
+import { RGBA } from "./rgba.class";
+import { ColorFinderInterface } from "./provider/color-finder.interface";
+import { Point } from "./point.class";
 
 jest.mock("jimp", () => {});
 
@@ -110,6 +113,35 @@ describe("Screen.", () => {
         expect(findMatchMock).toHaveBeenCalledTimes(1);
       });
 
+      it("should choose the correct finder implementation for color queries", async () => {
+        // GIVEN
+        const matchPoint = new Point(0, 0);
+        const matchResult = new MatchResult(0.99, matchPoint);
+
+        const SUT = new ScreenClass(providerRegistryMock);
+        const needle: ColorQuery = {
+          id: "color-query",
+          type: "color",
+          by: {
+            color: new RGBA(255, 0, 255, 1),
+          },
+        };
+
+        const findMatchMock = jest.fn(() => Promise.resolve(matchResult));
+        providerRegistryMock.getColorFinder = jest.fn(() =>
+          mockPartial<ColorFinderInterface>({
+            findMatch: findMatchMock,
+          })
+        );
+        providerRegistryMock.getLogProvider = () => new NoopLogProvider();
+
+        // WHEN
+        await SUT.find(needle);
+
+        // THEN
+        expect(findMatchMock).toHaveBeenCalledTimes(1);
+      });
+
       it.each<TextQuery>([
         {
           id: "dummy",
@@ -159,7 +191,7 @@ describe("Screen.", () => {
 
       // THEN
       await expect(result).rejects.toThrowError(
-        /find requires an Image, a text query or a window query.*/
+        /find requires an Image, a text query, a color query or a window query.*/
       );
     });
 
@@ -532,7 +564,7 @@ describe("Screen.", () => {
 
         // THEN
         await expect(result).rejects.toThrowError(
-          /findAll requires an Image, a text query or a window query.*/
+          /findAll requires an Image, a text query, a color query or a window query.*/
         );
       });
 
@@ -588,6 +620,35 @@ describe("Screen.", () => {
 
         // WHEN
         await SUT.findAll(needle);
+
+        // THEN
+        expect(findMatchMock).toHaveBeenCalledTimes(1);
+      });
+
+      it("should choose the correct finder implementation for color queries", async () => {
+        // GIVEN
+        const matchPoint = new Point(0, 0);
+        const matchResult = new MatchResult(0.99, matchPoint);
+
+        const SUT = new ScreenClass(providerRegistryMock);
+        const needle: ColorQuery = {
+          id: "color-query",
+          type: "color",
+          by: {
+            color: new RGBA(255, 0, 255, 1),
+          },
+        };
+
+        const findMatchMock = jest.fn(() => Promise.resolve(matchResult));
+        providerRegistryMock.getColorFinder = jest.fn(() =>
+          mockPartial<ColorFinderInterface>({
+            findMatch: findMatchMock,
+          })
+        );
+        providerRegistryMock.getLogProvider = () => new NoopLogProvider();
+
+        // WHEN
+        await SUT.find(needle);
 
         // THEN
         expect(findMatchMock).toHaveBeenCalledTimes(1);

@@ -8,7 +8,13 @@ import { LineHelper } from "./lib/util/linehelper.class";
 import { createWindowApi } from "./lib/window.function";
 import providerRegistry from "./lib/provider/provider-registry.class";
 import { loadImageResource } from "./lib/imageResources.function";
-import { LineQuery, WindowQuery, WordQuery } from "./lib/query.class";
+import {
+  ColorQuery,
+  LineQuery,
+  WindowQuery,
+  WordQuery,
+} from "./lib/query.class";
+import { RGBA } from "./lib/rgba.class";
 
 export {
   AssertClass,
@@ -100,6 +106,16 @@ const windowWithTitle = (title: string | RegExp): WindowQuery => {
   };
 };
 
+const pixelWithColor = (color: RGBA): ColorQuery => {
+  return {
+    type: "color",
+    id: `pixel-by-color-query-RGBA(${color.R},${color.G},${color.B},${color.A})`,
+    by: {
+      color,
+    },
+  };
+};
+
 export { fetchFromUrl } from "./lib/imageResources.function";
 
 export {
@@ -121,4 +137,5 @@ export {
   singleWord,
   textLine,
   windowWithTitle,
+  pixelWithColor,
 };

@@ -1,7 +1,7 @@
 import { cwd } from "process";
 import { FileType } from "./file-type.enum";
 import { generateOutputPath } from "./generate-output-path.function";
-import { createMatchRequest } from "./match-request.class";
+import { createMatchRequest, MatchRequest } from "./match-request.class";
 import {
   getMatchResult,
   getMatchResults,
@@ -14,6 +14,8 @@ import { ProviderRegistry } from "./provider/provider-registry.class";
 import { isPoint, Point } from "./point.class";
 import { OptionalSearchParameters } from "./optionalsearchparameters.class";
 import {
+  ColorQuery,
+  isColorQuery,
   isTextQuery,
   isWindowQuery,
   LineQuery,
@@ -23,8 +25,13 @@ import {
 import { Window } from "./window.class";
 
 export type WindowCallback = (target: Window) => void | Promise<void>;
-export type MatchResultCallback = (target: MatchResult) => void | Promise<void>;
-export type FindHookCallback = WindowCallback | MatchResultCallback;
+export type MatchResultCallback<TARGET_TYPE> = (
+  target: MatchResult<TARGET_TYPE>
+) => void | Promise<void>;
+export type FindHookCallback =
+  | WindowCallback
+  | MatchResultCallback<Point>
+  | MatchResultCallback<Region>;
 
 function validateSearchRegion(
   search: Region,
@@ -103,9 +110,25 @@ export interface ScreenConfig {
 }
 
 export type RegionResultFindInput = Image | WordQuery | LineQuery;
+export type PointResultFindInput = ColorQuery;
 export type WindowResultFindInput = WindowQuery;
-export type FindInput = RegionResultFindInput | WindowResultFindInput;
-export type FindResult = Region | Window;
+export type FindInput =
+  | RegionResultFindInput
+  | WindowResultFindInput
+  | PointResultFindInput;
+export type FindResult = Region | Point | Window;
+
+function isRegionResultFindInput(
+  input: RegionResultFindInput | PointResultFindInput
+): input is RegionResultFindInput {
+  return isImage(input) || isTextQuery(input);
+}
+
+function isPointResultFindInput(
+  input: RegionResultFindInput | PointResultFindInput
+): input is PointResultFindInput {
+  return isColorQuery(input);
+}
 
 /**
  * {@link ScreenClass} class provides methods to access screen content of a systems main display
@@ -162,6 +185,10 @@ export class ScreenClass {
     params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
   ): Promise<Region>;
   public async find<PROVIDER_DATA_TYPE>(
+    searchInput: PointResultFindInput | Promise<PointResultFindInput>,
+    params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
+  ): Promise<Point>;
+  public async find<PROVIDER_DATA_TYPE>(
     searchInput: WindowResultFindInput | Promise<WindowResultFindInput>,
     params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
   ): Promise<Window>;
@@ -175,16 +202,7 @@ export class ScreenClass {
   ): Promise<FindResult> {
     const needle = await searchInput;
     this.providerRegistry.getLogProvider().info(`Searching for ${needle}`);
-
-    if (!isImage(needle) && !isTextQuery(needle) && !isWindowQuery(needle)) {
-      const e = Error(
-        `find requires an Image, a text query or a window query, but received ${JSON.stringify(
-          needle
-        )}`
-      );
-      this.providerRegistry.getLogProvider().error(e, { needle });
-      throw e;
-    }
+    this.validateSearchInput("find", needle);
 
     try {
       if (isWindowQuery(needle)) {
@@ -202,11 +220,16 @@ export class ScreenClass {
           await hook(window);
         }
         return window;
-      } else {
+      } else if (
+        isRegionResultFindInput(needle) ||
+        isPointResultFindInput(needle)
+      ) {
         this.logNeedleType(needle);
         const { minMatch, screenSize, searchRegion, screenImage } =
           await this.getFindParameters(params);
 
+        validateSearchRegion(searchRegion, screenSize, this.providerRegistry);
+        this.providerRegistry.getLogProvider().debug(`Search region is valid`);
         const matchRequest = createMatchRequest(
           this.providerRegistry,
           needle,
@@ -216,41 +239,84 @@ export class ScreenClass {
           params
         );
 
-        validateSearchRegion(searchRegion, screenSize, this.providerRegistry);
-        this.providerRegistry.getLogProvider().debug(`Search region is valid`);
-        const matchResult = await getMatchResult(
-          this.providerRegistry,
-          matchRequest
-        );
-        this.providerRegistry
-          .getLogProvider()
-          .debug("Found match!", matchResult);
-        const possibleHooks = this.getHooksForInput(needle) || [];
-        this.providerRegistry
-          .getLogProvider()
-          .debug(`${possibleHooks.length} hooks triggered for match`);
-        for (const hook of possibleHooks) {
-          this.providerRegistry.getLogProvider().debug(`Executing hook`);
-          await hook(matchResult);
-        }
-        const resultRegion = new Region(
-          searchRegion.left + matchResult.location.left,
-          searchRegion.top + matchResult.location.top,
-          matchResult.location.width,
-          matchResult.location.height
-        );
-        this.providerRegistry
-          .getLogProvider()
-          .info(`Match is located at ${resultRegion.toString()}`);
-        if (this.config.autoHighlight) {
+        if (isRegionResultFindInput(needle)) {
+          const matchResult = await getMatchResult(
+            this.providerRegistry,
+            matchRequest as MatchRequest<
+              RegionResultFindInput,
+              PROVIDER_DATA_TYPE
+            >
+          );
+
           this.providerRegistry
             .getLogProvider()
-            .debug(`Autohighlight is enabled`);
-          return this.highlight(resultRegion);
-        } else {
-          return resultRegion;
+            .debug("Found match!", matchResult);
+
+          const possibleHooks = this.getHooksForInput(needle) || [];
+          this.providerRegistry
+            .getLogProvider()
+            .debug(`${possibleHooks.length} hooks triggered for match`);
+          for (const hook of possibleHooks) {
+            this.providerRegistry.getLogProvider().debug(`Executing hook`);
+            await hook(matchResult);
+          }
+
+          const resultRegion = new Region(
+            searchRegion.left + matchResult.location.left,
+            searchRegion.top + matchResult.location.top,
+            matchResult.location.width,
+            matchResult.location.height
+          );
+
+          this.providerRegistry
+            .getLogProvider()
+            .info(`Match is located at ${resultRegion.toString()}`);
+
+          if (this.config.autoHighlight) {
+            this.providerRegistry
+              .getLogProvider()
+              .debug(`Autohighlight is enabled`);
+            return this.highlight(resultRegion);
+          } else {
+            return resultRegion;
+          }
+        } else if (isPointResultFindInput(needle)) {
+          const matchResult = await getMatchResult(
+            this.providerRegistry,
+            matchRequest as MatchRequest<
+              PointResultFindInput,
+              PROVIDER_DATA_TYPE
+            >
+          );
+
+          this.providerRegistry
+            .getLogProvider()
+            .debug("Found match!", matchResult);
+
+          const possibleHooks = this.getHooksForInput(needle) || [];
+          this.providerRegistry
+            .getLogProvider()
+            .debug(`${possibleHooks.length} hooks triggered for match`);
+          for (const hook of possibleHooks) {
+            this.providerRegistry.getLogProvider().debug(`Executing hook`);
+            await hook(matchResult);
+          }
+
+          const resultPoint = new Point(
+            searchRegion.left + matchResult.location.x,
+            searchRegion.top + matchResult.location.y
+          );
+
+          this.providerRegistry
+            .getLogProvider()
+            .info(`Match is located at ${resultPoint.toString()}`);
+
+          return resultPoint;
         }
       }
+      throw new Error(
+        `Search input is not supported. Please use a valid search input type.`
+      );
     } catch (e) {
       const error = new Error(
         `Searching for ${needle.id} failed. Reason: '${e}'`
@@ -270,6 +336,10 @@ export class ScreenClass {
     params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
   ): Promise<Region[]>;
   public async findAll<PROVIDER_DATA_TYPE>(
+    searchInput: PointResultFindInput | Promise<PointResultFindInput>,
+    params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
+  ): Promise<Point[]>;
+  public async findAll<PROVIDER_DATA_TYPE>(
     searchInput: WindowResultFindInput | Promise<WindowResultFindInput>,
     params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
   ): Promise<Window[]>;
@@ -279,16 +349,7 @@ export class ScreenClass {
   ): Promise<FindResult[]> {
     const needle = await searchInput;
     this.providerRegistry.getLogProvider().info(`Searching for ${needle}`);
-
-    if (!isImage(needle) && !isTextQuery(needle) && !isWindowQuery(needle)) {
-      const e = Error(
-        `findAll requires an Image, a text query or a window query, but received ${JSON.stringify(
-          needle
-        )}`
-      );
-      this.providerRegistry.getLogProvider().error(e, { needle });
-      throw e;
-    }
+    this.validateSearchInput("findAll", needle);
 
     try {
       if (isWindowQuery(needle)) {
@@ -313,7 +374,7 @@ export class ScreenClass {
           }
         }
         return windows;
-      } else {
+      } else if (isRegionResultFindInput(needle)) {
         this.logNeedleType(needle);
         const { minMatch, screenSize, searchRegion, screenImage } =
           await this.getFindParameters(params);
@@ -329,6 +390,7 @@ export class ScreenClass {
 
         validateSearchRegion(searchRegion, screenSize, this.providerRegistry);
         this.providerRegistry.getLogProvider().debug(`Search region is valid`);
+
         const matchResults = await getMatchResults(
           this.providerRegistry,
           matchRequest
@@ -361,12 +423,62 @@ export class ScreenClass {
           this.providerRegistry
             .getLogProvider()
             .debug(`Autohighlight is enabled`);
-          resultRegions.forEach((region) => this.highlight(region));
+          resultRegions.forEach((region) => {
+            if (isRegion(region)) {
+              this.highlight(region);
+            }
+          });
           return resultRegions;
         } else {
           return resultRegions;
         }
+      } else if (isPointResultFindInput(needle)) {
+        this.logNeedleType(needle);
+        const { screenSize, searchRegion, screenImage } =
+          await this.getFindParameters(params);
+
+        const matchRequest = createMatchRequest(
+          this.providerRegistry,
+          needle,
+          searchRegion,
+          0,
+          screenImage,
+          params
+        );
+
+        validateSearchRegion(searchRegion, screenSize, this.providerRegistry);
+        this.providerRegistry.getLogProvider().debug(`Search region is valid`);
+
+        const matchResults = await getMatchResults(
+          this.providerRegistry,
+          matchRequest
+        );
+        const possibleHooks = this.getHooksForInput(needle) || [];
+        this.providerRegistry
+          .getLogProvider()
+          .debug(
+            `${possibleHooks.length} hooks triggered for ${matchResults.length} matches`
+          );
+        for (const hook of possibleHooks) {
+          for (const matchResult of matchResults) {
+            this.providerRegistry.getLogProvider().debug(`Executing hook`);
+            await hook(matchResult);
+          }
+        }
+        return matchResults.map((matchResult) => {
+          const resultPoint = new Point(
+            searchRegion.left + matchResult.location.x,
+            searchRegion.top + matchResult.location.y
+          );
+          this.providerRegistry
+            .getLogProvider()
+            .info(`Match is located at ${resultPoint.toString()}`);
+          return resultPoint;
+        });
       }
+      throw new Error(
+        `Search input is not supported. Please use a valid search input type.`
+      );
     } catch (e) {
       const error = new Error(
         `Searching for ${needle.id} failed. Reason: '${e}'`
@@ -424,6 +536,12 @@ export class ScreenClass {
     params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
   ): Promise<Region>;
   public async waitFor<PROVIDER_DATA_TYPE>(
+    searchInput: PointResultFindInput | Promise<PointResultFindInput>,
+    timeoutMs?: number,
+    updateInterval?: number,
+    params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
+  ): Promise<Point>;
+  public async waitFor<PROVIDER_DATA_TYPE>(
     searchInput: WindowResultFindInput | Promise<WindowResultFindInput>,
     timeoutMs?: number,
     updateInterval?: number,
@@ -440,15 +558,8 @@ export class ScreenClass {
     const timeoutValue = timeoutMs ?? 5000;
     const updateIntervalValue = updateInterval ?? 500;
 
-    if (!isImage(needle) && !isTextQuery(needle) && !isWindowQuery(needle)) {
-      const e = Error(
-        `waitFor requires an Image, a text query or a window query, but received ${JSON.stringify(
-          searchInput
-        )}`
-      );
-      this.providerRegistry.getLogProvider().error(e);
-      throw e;
-    }
+    this.validateSearchInput("waitFor", needle);
+
     this.providerRegistry
       .getLogProvider()
       .info(
@@ -475,23 +586,16 @@ export class ScreenClass {
    */
   public on(searchInput: WindowResultFindInput, callback: WindowCallback): void;
   public on(
+    searchInput: PointResultFindInput,
+    callback: MatchResultCallback<Point>
+  ): void;
+  public on(
     searchInput: RegionResultFindInput,
-    callback: MatchResultCallback
+    callback: MatchResultCallback<Region>
   ): void;
   public on(searchInput: FindInput, callback: FindHookCallback): void {
-    if (
-      !isImage(searchInput) &&
-      !isTextQuery(searchInput) &&
-      !isWindowQuery(searchInput)
-    ) {
-      const e = new Error(
-        `on requires an Image, a text query or a window query, but received ${JSON.stringify(
-          searchInput
-        )}`
-      );
-      this.providerRegistry.getLogProvider().error(e);
-      throw e;
-    }
+    this.validateSearchInput("on", searchInput);
+
     const existingHooks = this.findHooks.get(searchInput) || [];
     this.findHooks.set(searchInput, [...existingHooks, callback]);
     this.providerRegistry
@@ -719,23 +823,59 @@ export class ScreenClass {
   }
 
   private getHooksForInput(input: WindowResultFindInput): WindowCallback[];
-  private getHooksForInput(input: RegionResultFindInput): MatchResultCallback[];
+  private getHooksForInput(
+    input: RegionResultFindInput
+  ): MatchResultCallback<Region>[];
+  private getHooksForInput(
+    input: PointResultFindInput
+  ): MatchResultCallback<Point>[];
   private getHooksForInput(
     input: FindInput
-  ): MatchResultCallback[] | WindowCallback[] {
+  ):
+    | MatchResultCallback<Point>[]
+    | MatchResultCallback<Region>[]
+    | WindowCallback[] {
     if (isImage(input) || isTextQuery(input)) {
-      return this.findHooks.get(input) as MatchResultCallback[];
+      return this.findHooks.get(input) as MatchResultCallback<Region>[];
+    } else if (isColorQuery(input)) {
+      return this.findHooks.get(input) as MatchResultCallback<Point>[];
     } else if (isWindowQuery(input)) {
       return this.findHooks.get(input) as WindowCallback[];
     }
     return [];
   }
 
-  private logNeedleType(needle: Image | WordQuery | LineQuery) {
+  private logNeedleType(needle: Image | WordQuery | LineQuery | ColorQuery) {
     if (isImage(needle)) {
       this.providerRegistry.getLogProvider().debug(`Running an image search`);
     } else if (isTextQuery(needle)) {
       this.providerRegistry.getLogProvider().debug(`Running a text search`);
+    }
+  }
+
+  private validateSearchInput(
+    functionName: string,
+    needle:
+      | Image
+      | WordQuery
+      | LineQuery
+      | WindowResultFindInput
+      | PointResultFindInput
+      | Promise<FindInput>
+  ) {
+    if (
+      !isImage(needle) &&
+      !isTextQuery(needle) &&
+      !isWindowQuery(needle) &&
+      !isColorQuery(needle)
+    ) {
+      const e = Error(
+        `${functionName} requires an Image, a text query, a color query or a window query, but received ${JSON.stringify(
+          needle
+        )}`
+      );
+      this.providerRegistry.getLogProvider().error(e, { needle });
+      throw e;
     }
   }
 }
