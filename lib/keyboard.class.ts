@@ -49,32 +49,30 @@ export class KeyboardClass {
    *
    * @param input Sequence of {@link String} or {@link Key} to type
    */
-  public type(...input: StringOrKey): Promise<KeyboardClass> {
-    return new Promise<KeyboardClass>(async (resolve, reject) => {
-      try {
-        if (inputIsString(input)) {
-          for (const char of input.join(" ")) {
-            await sleep(this.config.autoDelayMs);
-            await this.providerRegistry.getKeyboard().type(char);
-            this.providerRegistry.getLogProvider().debug(`Tapped ${char}`);
-          }
-          this.providerRegistry.getLogProvider().info(`Typed string ${input}`);
-        } else {
-          await this.providerRegistry.getKeyboard().click(...(input as Key[]));
-          const key = input[input.length - 1];
-          const modifiers = input.slice(0, -1);
-          const keyName = Key[key];
-          const modifierNames = modifiers.map((modifier) => Key[modifier]);
-          this.providerRegistry
-            .getLogProvider()
-            .info(`Tapped key ${keyName} with modifiers ${modifierNames}`);
+  public async type(...input: StringOrKey): Promise<KeyboardClass> {
+    try {
+      if (inputIsString(input)) {
+        for (const char of input.join(" ")) {
+          await sleep(this.config.autoDelayMs);
+          await this.providerRegistry.getKeyboard().type(char);
+          this.providerRegistry.getLogProvider().debug(`Tapped ${char}`);
         }
-        resolve(this);
-      } catch (e) {
-        this.providerRegistry.getLogProvider().error(e as Error);
-        reject(e);
+        this.providerRegistry.getLogProvider().info(`Typed string ${input}`);
+      } else {
+        await this.providerRegistry.getKeyboard().click(...(input as Key[]));
+        const key = input[input.length - 1];
+        const modifiers = input.slice(0, -1);
+        const keyName = Key[key];
+        const modifierNames = modifiers.map((modifier) => Key[modifier]);
+        this.providerRegistry
+          .getLogProvider()
+          .info(`Tapped key ${keyName} with modifiers ${modifierNames}`);
       }
-    });
+      return this;
+    } catch (e) {
+      this.providerRegistry.getLogProvider().error(e as Error);
+      throw e;
+    }
   }
 
   /**
@@ -88,19 +86,17 @@ export class KeyboardClass {
    *
    * @param keys Array of {@link Key}s to press and hold
    */
-  public pressKey(...keys: Key[]): Promise<KeyboardClass> {
-    return new Promise<KeyboardClass>(async (resolve, reject) => {
-      try {
-        await sleep(this.config.autoDelayMs);
-        await this.providerRegistry.getKeyboard().pressKey(...keys);
-        const keyNames = keys.map((key) => Key[key]);
-        this.providerRegistry.getLogProvider().info(`Pressed keys ${keyNames}`);
-        resolve(this);
-      } catch (e) {
-        this.providerRegistry.getLogProvider().error(e as Error);
-        reject(e);
-      }
-    });
+  public async pressKey(...keys: Key[]): Promise<KeyboardClass> {
+    try {
+      await sleep(this.config.autoDelayMs);
+      await this.providerRegistry.getKeyboard().pressKey(...keys);
+      const keyNames = keys.map((key) => Key[key]);
+      this.providerRegistry.getLogProvider().info(`Pressed keys ${keyNames}`);
+      return this;
+    } catch (e) {
+      this.providerRegistry.getLogProvider().error(e as Error);
+      throw e;
+    }
   }
 
   /**
@@ -114,20 +110,16 @@ export class KeyboardClass {
    *
    * @param keys Array of {@link Key}s to release
    */
-  public releaseKey(...keys: Key[]): Promise<KeyboardClass> {
-    return new Promise<KeyboardClass>(async (resolve, reject) => {
-      try {
-        await sleep(this.config.autoDelayMs);
-        await this.providerRegistry.getKeyboard().releaseKey(...keys);
-        const keyNames = keys.map((key) => Key[key]);
-        this.providerRegistry
-          .getLogProvider()
-          .info(`Released keys ${keyNames}`);
-        resolve(this);
-      } catch (e) {
-        this.providerRegistry.getLogProvider().error(e as Error);
-        reject(e);
-      }
-    });
+  public async releaseKey(...keys: Key[]): Promise<KeyboardClass> {
+    try {
+      await sleep(this.config.autoDelayMs);
+      await this.providerRegistry.getKeyboard().releaseKey(...keys);
+      const keyNames = keys.map((key) => Key[key]);
+      this.providerRegistry.getLogProvider().info(`Released keys ${keyNames}`);
+      return this;
+    } catch (e) {
+      this.providerRegistry.getLogProvider().error(e as Error);
+      throw e;
+    }
   }
 }

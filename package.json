@@ -1,6 +1,6 @@
 {
   "name": "@nut-tree/nut-js",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "license": "Apache-2.0",
   "main": "dist/index",
   "typings": "dist/index",
@@ -62,9 +62,9 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@nut-tree/libnut": "2.5.1",
+    "@nut-tree/libnut": "2.5.2",
     "clipboardy": "2.3.0",
-    "jimp": "0.16.2",
+    "jimp": "0.16.13",
     "node-abort-controller": "2.0.0"
   },
   "devDependencies": {

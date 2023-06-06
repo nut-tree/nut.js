@@ -55,15 +55,13 @@ export class MouseClass {
     this.providerRegistry
       .getLogProvider()
       .trace("Setting mouse position", target);
-    return new Promise<MouseClass>(async (resolve, reject) => {
-      try {
-        await this.providerRegistry.getMouse().setMousePosition(target);
-        resolve(this);
-      } catch (e) {
-        this.providerRegistry.getLogProvider().error(e as Error);
-        reject(e);
-      }
-    });
+    try {
+      await this.providerRegistry.getMouse().setMousePosition(target);
+      return this;
+    } catch (e) {
+      this.providerRegistry.getLogProvider().error(e as Error);
+      throw e;
+    }
   }
 
   /**
@@ -88,34 +86,32 @@ export class MouseClass {
     path: Point[] | Promise<Point[]>,
     movementType: EasingFunction = linear
   ): Promise<MouseClass> {
-    return new Promise<MouseClass>(async (resolve, reject) => {
-      try {
-        let pathSteps = await path;
-        if (!Array.isArray(pathSteps)) {
-          pathSteps = [pathSteps];
-        }
-        this.providerRegistry
-          .getLogProvider()
-          .info(
-            `Moving mouse to target point ${pathSteps[pathSteps.length - 1]}`
-          );
-        const timeSteps = calculateMovementTimesteps(
-          pathSteps.length,
-          this.config.mouseSpeed,
-          movementType
-        );
-        for (let idx = 0; idx < pathSteps.length; ++idx) {
-          const node = pathSteps[idx];
-          const minTime = timeSteps[idx];
-          await busyWaitForNanoSeconds(minTime);
-          await this.setPosition(node);
-        }
-        resolve(this);
-      } catch (e) {
-        this.providerRegistry.getLogProvider().error(e as Error);
-        reject(e);
+    try {
+      let pathSteps = await path;
+      if (!Array.isArray(pathSteps)) {
+        pathSteps = [pathSteps];
       }
-    });
+      this.providerRegistry
+        .getLogProvider()
+        .info(
+          `Moving mouse to target point ${pathSteps[pathSteps.length - 1]}`
+        );
+      const timeSteps = calculateMovementTimesteps(
+        pathSteps.length,
+        this.config.mouseSpeed,
+        movementType
+      );
+      for (let idx = 0; idx < pathSteps.length; ++idx) {
+        const node = pathSteps[idx];
+        const minTime = timeSteps[idx];
+        await busyWaitForNanoSeconds(minTime);
+        await this.setPosition(node);
+      }
+      return this;
+    } catch (e) {
+      this.providerRegistry.getLogProvider().error(e as Error);
+      throw e;
+    }
   }
 
   /**
@@ -138,19 +134,17 @@ export class MouseClass {
    * @param amount The amount of "steps" to scroll
    */
   public async scrollDown(amount: number): Promise<MouseClass> {
-    return new Promise<MouseClass>(async (resolve, reject) => {
-      try {
-        await sleep(this.config.autoDelayMs);
-        await this.providerRegistry.getMouse().scrollDown(amount);
-        this.providerRegistry
-          .getLogProvider()
-          .info(`Scrolled down ${amount} steps`);
-        resolve(this);
-      } catch (e) {
-        this.providerRegistry.getLogProvider().error(e as Error);
-        reject(e);
-      }
-    });
+    try {
+      await sleep(this.config.autoDelayMs);
+      await this.providerRegistry.getMouse().scrollDown(amount);
+      this.providerRegistry
+        .getLogProvider()
+        .info(`Scrolled down ${amount} steps`);
+      return this;
+    } catch (e) {
+      this.providerRegistry.getLogProvider().error(e as Error);
+      throw e;
+    }
   }
 
   /**
@@ -159,19 +153,17 @@ export class MouseClass {
    * @param amount The amount of "steps" to scroll
    */
   public async scrollUp(amount: number): Promise<MouseClass> {
-    return new Promise<MouseClass>(async (resolve, reject) => {
-      try {
-        await sleep(this.config.autoDelayMs);
-        await this.providerRegistry.getMouse().scrollUp(amount);
-        this.providerRegistry
-          .getLogProvider()
-          .info(`Scrolled up ${amount} steps`);
-        resolve(this);
-      } catch (e) {
-        this.providerRegistry.getLogProvider().error(e as Error);
-        reject(e);
-      }
-    });
+    try {
+      await sleep(this.config.autoDelayMs);
+      await this.providerRegistry.getMouse().scrollUp(amount);
+      this.providerRegistry
+        .getLogProvider()
+        .info(`Scrolled up ${amount} steps`);
+      return this;
+    } catch (e) {
+      this.providerRegistry.getLogProvider().error(e as Error);
+      throw e;
+    }
   }
 
   /**
@@ -180,19 +172,17 @@ export class MouseClass {
    * @param amount The amount of "steps" to scroll
    */
   public async scrollLeft(amount: number): Promise<MouseClass> {
-    return new Promise<MouseClass>(async (resolve, reject) => {
-      try {
-        await sleep(this.config.autoDelayMs);
-        await this.providerRegistry.getMouse().scrollLeft(amount);
-        this.providerRegistry
-          .getLogProvider()
-          .info(`Scrolled left ${amount} steps`);
-        resolve(this);
-      } catch (e) {
-        this.providerRegistry.getLogProvider().error(e as Error);
-        reject(e);
-      }
-    });
+    try {
+      await sleep(this.config.autoDelayMs);
+      await this.providerRegistry.getMouse().scrollLeft(amount);
+      this.providerRegistry
+        .getLogProvider()
+        .info(`Scrolled left ${amount} steps`);
+      return this;
+    } catch (e) {
+      this.providerRegistry.getLogProvider().error(e as Error);
+      throw e;
+    }
   }
 
   /**
@@ -201,19 +191,17 @@ export class MouseClass {
    * @param amount The amount of "steps" to scroll
    */
   public async scrollRight(amount: number): Promise<MouseClass> {
-    return new Promise<MouseClass>(async (resolve, reject) => {
-      try {
-        await sleep(this.config.autoDelayMs);
-        await this.providerRegistry.getMouse().scrollRight(amount);
-        this.providerRegistry
-          .getLogProvider()
-          .info(`Scrolled right ${amount} steps`);
-        resolve(this);
-      } catch (e) {
-        this.providerRegistry.getLogProvider().error(e as Error);
-        reject(e);
-      }
-    });
+    try {
+      await sleep(this.config.autoDelayMs);
+      await this.providerRegistry.getMouse().scrollRight(amount);
+      this.providerRegistry
+        .getLogProvider()
+        .info(`Scrolled right ${amount} steps`);
+      return this;
+    } catch (e) {
+      this.providerRegistry.getLogProvider().error(e as Error);
+      throw e;
+    }
   }
 
   /**
@@ -222,24 +210,18 @@ export class MouseClass {
    * @param path The path of {@link Point}s to drag along
    */
   public async drag(path: Point[] | Promise<Point[]>): Promise<MouseClass> {
-    return new Promise<MouseClass>(async (resolve, reject) => {
-      try {
-        await sleep(this.config.autoDelayMs);
-        await this.providerRegistry.getMouse().pressButton(Button.LEFT);
-        this.providerRegistry
-          .getLogProvider()
-          .info("Pressed left mouse button");
-        await this.move(path);
-        await this.providerRegistry.getMouse().releaseButton(Button.LEFT);
-        this.providerRegistry
-          .getLogProvider()
-          .info("Released left mouse button");
-        resolve(this);
-      } catch (e) {
-        this.providerRegistry.getLogProvider().error(e as Error);
-        reject(e);
-      }
-    });
+    try {
+      await sleep(this.config.autoDelayMs);
+      await this.providerRegistry.getMouse().pressButton(Button.LEFT);
+      this.providerRegistry.getLogProvider().info("Pressed left mouse button");
+      await this.move(path);
+      await this.providerRegistry.getMouse().releaseButton(Button.LEFT);
+      this.providerRegistry.getLogProvider().info("Released left mouse button");
+      return this;
+    } catch (e) {
+      this.providerRegistry.getLogProvider().error(e as Error);
+      throw e;
+    }
   }
 
   /**
@@ -247,20 +229,18 @@ export class MouseClass {
    * @param btn The {@link Button} to press and hold
    */
   public async pressButton(btn: Button): Promise<MouseClass> {
-    return new Promise<MouseClass>(async (resolve, reject) => {
-      try {
-        await sleep(this.config.autoDelayMs);
-        await this.providerRegistry.getMouse().pressButton(btn);
-        const btnName = Button[btn];
-        this.providerRegistry
-          .getLogProvider()
-          .info(`Pressed ${btnName} mouse button`);
-        resolve(this);
-      } catch (e) {
-        this.providerRegistry.getLogProvider().error(e as Error);
-        reject(e);
-      }
-    });
+    try {
+      await sleep(this.config.autoDelayMs);
+      await this.providerRegistry.getMouse().pressButton(btn);
+      const btnName = Button[btn];
+      this.providerRegistry
+        .getLogProvider()
+        .info(`Pressed ${btnName} mouse button`);
+      return this;
+    } catch (e) {
+      this.providerRegistry.getLogProvider().error(e as Error);
+      throw e;
+    }
   }
 
   /**
@@ -268,20 +248,18 @@ export class MouseClass {
    * @param btn The {@link Button} to release
    */
   public async releaseButton(btn: Button): Promise<MouseClass> {
-    return new Promise<MouseClass>(async (resolve, reject) => {
-      try {
-        await sleep(this.config.autoDelayMs);
-        await this.providerRegistry.getMouse().releaseButton(btn);
-        const btnName = Button[btn];
-        this.providerRegistry
-          .getLogProvider()
-          .info(`Pressed ${btnName} mouse button`);
-        resolve(this);
-      } catch (e) {
-        this.providerRegistry.getLogProvider().error(e as Error);
-        reject(e);
-      }
-    });
+    try {
+      await sleep(this.config.autoDelayMs);
+      await this.providerRegistry.getMouse().releaseButton(btn);
+      const btnName = Button[btn];
+      this.providerRegistry
+        .getLogProvider()
+        .info(`Pressed ${btnName} mouse button`);
+      return this;
+    } catch (e) {
+      this.providerRegistry.getLogProvider().error(e as Error);
+      throw e;
+    }
   }
 
   /**
@@ -289,20 +267,18 @@ export class MouseClass {
    * @param btn The {@link Button} to click
    */
   public async click(btn: Button): Promise<MouseClass> {
-    return new Promise<MouseClass>(async (resolve, reject) => {
-      try {
-        await sleep(this.config.autoDelayMs);
-        await this.providerRegistry.getMouse().click(btn);
-        const btnName = Button[btn];
-        this.providerRegistry
-          .getLogProvider()
-          .info(`Pressed ${btnName} mouse button`);
-        resolve(this);
-      } catch (e) {
-        this.providerRegistry.getLogProvider().error(e as Error);
-        reject(e);
-      }
-    });
+    try {
+      await sleep(this.config.autoDelayMs);
+      await this.providerRegistry.getMouse().click(btn);
+      const btnName = Button[btn];
+      this.providerRegistry
+        .getLogProvider()
+        .info(`Pressed ${btnName} mouse button`);
+      return this;
+    } catch (e) {
+      this.providerRegistry.getLogProvider().error(e as Error);
+      throw e;
+    }
   }
 
   /**
@@ -310,19 +286,17 @@ export class MouseClass {
    * @param btn The {@link Button} to click
    */
   public async doubleClick(btn: Button): Promise<MouseClass> {
-    return new Promise<MouseClass>(async (resolve, reject) => {
-      try {
-        await sleep(this.config.autoDelayMs);
-        await this.providerRegistry.getMouse().doubleClick(btn);
-        const btnName = Button[btn];
-        this.providerRegistry
-          .getLogProvider()
-          .info(`Pressed ${btnName} mouse button`);
-        resolve(this);
-      } catch (e) {
-        this.providerRegistry.getLogProvider().error(e as Error);
-        reject(e);
-      }
-    });
+    try {
+      await sleep(this.config.autoDelayMs);
+      await this.providerRegistry.getMouse().doubleClick(btn);
+      const btnName = Button[btn];
+      this.providerRegistry
+        .getLogProvider()
+        .info(`Pressed ${btnName} mouse button`);
+      return this;
+    } catch (e) {
+      this.providerRegistry.getLogProvider().error(e as Error);
+      throw e;
+    }
   }
 }

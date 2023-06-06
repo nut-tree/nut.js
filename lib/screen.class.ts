@@ -425,7 +425,9 @@ export class ScreenClass {
             .debug(`Autohighlight is enabled`);
           resultRegions.forEach((region) => {
             if (isRegion(region)) {
-              this.highlight(region);
+              this.highlight(region).catch((e) => {
+                this.providerRegistry.getLogProvider().error(e);
+              });
             }
           });
           return resultRegions;
