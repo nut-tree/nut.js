@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.1.2
+
+- Bugfix: Screen capture broken on macOS 13 [(#469)](https://github.com/nut-tree/nut.js/issues/469)
+- Enhancement: Enable newly introduced keys to be used as modifiers [(#490)](https://github.com/nut-tree/nut.js/issues/490)
+- Enhancement: Extend move API to handle single point case [(#499)](https://github.com/nut-tree/nut.js/issues/499)
+- Feature: Add color queries to search for pixels of a certain color [(#500)](https://github.com/nut-tree/nut.js/issues/500)
+- Bugfix: screen.highlight closes Electron window [(#505)](https://github.com/nut-tree/nut.js/issues/505)
+
 ## 3.1.1
 
 - Bugfix: Fix mouse drift on Windows [(nut-tree/libnut-core#126)](https://github.com/nut-tree/libnut-core/issues/126)
