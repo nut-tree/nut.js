@@ -11,6 +11,7 @@ import {
   ImageFinderInterface,
   ImageWriter,
   ImageWriterParameters,
+  LogProviderInterface,
   ScreenProviderInterface,
 } from "./provider";
 import { OptionalSearchParameters } from "./optionalsearchparameters.class";
@@ -25,8 +26,17 @@ import { Point } from "./point.class";
 jest.mock("jimp", () => {});
 
 const searchRegion = new Region(0, 0, 1000, 1000);
+const loggingMock = mockPartial<LogProviderInterface>({
+  debug: jest.fn(),
+  info: jest.fn(),
+  warn: jest.fn(),
+  error: jest.fn(),
+});
 
 const providerRegistryMock = mockPartial<ProviderRegistry>({
+  getLogProvider(): LogProviderInterface {
+    return loggingMock;
+  },
   getScreen(): ScreenProviderInterface {
     return mockPartial<ScreenProviderInterface>({
       grabScreenRegion(): Promise<Image> {
@@ -45,6 +55,12 @@ const providerRegistryMock = mockPartial<ProviderRegistry>({
       screenSize(): Promise<Region> {
         return Promise.resolve(searchRegion);
       },
+      screenWidth(): Promise<number> {
+        return Promise.resolve(searchRegion.width);
+      },
+      screenHeight(): Promise<number> {
+        return Promise.resolve(searchRegion.height);
+      },
     });
   },
 });
@@ -54,6 +70,32 @@ beforeEach(() => {
 });
 
 describe("Screen.", () => {
+  describe("dimensions", () => {
+    it("should return the screen width", async () => {
+      // GIVEN
+      const SUT = new ScreenClass(providerRegistryMock);
+
+      // WHEN
+      const width = await SUT.width();
+
+      // THEN
+      expect(width).toEqual(searchRegion.width);
+      expect(loggingMock.debug).toHaveBeenCalledTimes(1);
+    });
+
+    it("should return the screen height", async () => {
+      // GIVEN
+      const SUT = new ScreenClass(providerRegistryMock);
+
+      // WHEN
+      const height = await SUT.height();
+
+      // THEN
+      expect(height).toEqual(searchRegion.height);
+      expect(loggingMock.debug).toHaveBeenCalledTimes(1);
+    });
+  });
+
   describe("find", () => {
     describe("queries", () => {
       it("should choose the correct finder implementation for images", async () => {
@@ -639,16 +681,16 @@ describe("Screen.", () => {
           },
         };
 
-        const findMatchMock = jest.fn(() => Promise.resolve(matchResult));
+        const findMatchMock = jest.fn(() => Promise.resolve([matchResult]));
         providerRegistryMock.getColorFinder = jest.fn(() =>
           mockPartial<ColorFinderInterface>({
-            findMatch: findMatchMock,
+            findMatches: findMatchMock,
           })
         );
         providerRegistryMock.getLogProvider = () => new NoopLogProvider();
 
         // WHEN
-        await SUT.find(needle);
+        await SUT.findAll(needle);
 
         // THEN
         expect(findMatchMock).toHaveBeenCalledTimes(1);
