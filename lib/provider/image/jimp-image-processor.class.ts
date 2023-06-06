@@ -6,30 +6,26 @@ import { imageToJimp } from "../io/imageToJimp.function";
 import { RGBA } from "../../rgba.class";
 
 export default class implements ImageProcessor {
-  colorAt(
+  async colorAt(
     image: Image | Promise<Image>,
     point: Point | Promise<Point>
   ): Promise<RGBA> {
-    return new Promise<RGBA>(async (resolve, reject) => {
-      const location = await point;
-      const img = await image;
-      if (location.x < 0 || location.x >= img.width) {
-        reject(
-          `Query location out of bounds. Should be in range 0 <= x < image.width, is ${location.x}`
-        );
-        return;
-      }
-      if (location.y < 0 || location.y >= img.height) {
-        reject(
-          `Query location out of bounds. Should be in range 0 <= y < image.height, is ${location.y}`
-        );
-        return;
-      }
-      const jimpImage = imageToJimp(img);
-      const rgba = Jimp.intToRGBA(
-        jimpImage.getPixelColor(location.x, location.y)
+    const location = await point;
+    const img = await image;
+    if (location.x < 0 || location.x >= img.width) {
+      throw Error(
+        `Query location out of bounds. Should be in range 0 <= x < image.width, is ${location.x}`
       );
-      resolve(new RGBA(rgba.r, rgba.g, rgba.b, rgba.a));
-    });
+    }
+    if (location.y < 0 || location.y >= img.height) {
+      throw Error(
+        `Query location out of bounds. Should be in range 0 <= y < image.height, is ${location.y}`
+      );
+    }
+    const jimpImage = imageToJimp(img);
+    const rgba = Jimp.intToRGBA(
+      jimpImage.getPixelColor(location.x, location.y)
+    );
+    return new RGBA(rgba.r, rgba.g, rgba.b, rgba.a);
   }
 }
