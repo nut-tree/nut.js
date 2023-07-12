@@ -113,6 +113,7 @@ export enum Key {
   Divide,
   Decimal,
   Enter,
+  Clear,
 
   NumPad0,
   NumPad1,
