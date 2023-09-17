@@ -62,6 +62,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@nut-tree/default-clipboard-provider": "1.0.0",
     "@nut-tree/libnut": "2.5.2",
     "clipboardy": "2.3.0",
     "jimp": "0.16.13",
