@@ -46,7 +46,7 @@ jobs:
           npm run coverage:merge
           npm run coverage:merge-report
       - name: Send results to SonarCloud
-        uses: SonarSource/sonarcloud-github-action@v1.6
+        uses: SonarSource/sonarcloud-github-action@v2.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
