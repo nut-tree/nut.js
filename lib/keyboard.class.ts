@@ -34,9 +34,11 @@ export class KeyboardClass {
    * @param providerRegistry
    */
   constructor(private providerRegistry: ProviderRegistry) {
-    this.providerRegistry
-      .getKeyboard()
-      .setKeyboardDelay(this.config.autoDelayMs);
+    if (this.providerRegistry.hasKeyboard()) {
+      this.providerRegistry
+        .getKeyboard()
+        .setKeyboardDelay(this.config.autoDelayMs);
+    }
   }
 
   /**

@@ -37,7 +37,9 @@ export class MouseClass {
    * @param providerRegistry
    */
   constructor(private providerRegistry: ProviderRegistry) {
-    this.providerRegistry.getMouse().setMouseDelay(0);
+    if (this.providerRegistry.hasMouse()) {
+      this.providerRegistry.getMouse().setMouseDelay(0);
+    }
   }
 
   /**

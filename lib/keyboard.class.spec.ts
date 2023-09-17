@@ -20,6 +20,9 @@ const providerRegistryMock = mockPartial<ProviderRegistry>({
       setKeyboardDelay: jest.fn(),
     });
   },
+  hasKeyboard(): boolean {
+    return true;
+  },
 });
 
 describe("Keyboard", () => {

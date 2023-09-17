@@ -19,6 +19,9 @@ const providerRegistryMock = mockPartial<ProviderRegistry>({
       setMouseDelay: jest.fn(),
     });
   },
+  hasMouse(): boolean {
+    return true;
+  },
 });
 
 describe("Mouse class", () => {

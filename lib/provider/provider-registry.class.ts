@@ -359,6 +359,12 @@ class DefaultProviderRegistry implements ProviderRegistry {
 
 const providerRegistry = new DefaultProviderRegistry();
 
+providerRegistry.registerImageWriter(new ImageWriterImpl());
+providerRegistry.registerImageReader(new ImageReaderImpl());
+providerRegistry.registerImageProcessor(new ImageProcessorImpl());
+providerRegistry.registerColorFinder(new ColorFinderImpl());
+providerRegistry.registerLogProvider(new NoopLogProvider());
+
 if (!process.env[DISABLE_DEFAULT_PROVIDERS_ENV_VAR]) {
   if (!process.env[DISABLE_DEFAULT_CLIPBOARD_PROVIDER_ENV_VAR]) {
     const Clipboard = require("@nut-tree/default-clipboard-provider").default;
@@ -368,11 +374,6 @@ if (!process.env[DISABLE_DEFAULT_PROVIDERS_ENV_VAR]) {
   providerRegistry.registerMouseProvider(new Mouse());
   providerRegistry.registerScreenProvider(new Screen());
   providerRegistry.registerWindowProvider(new Window());
-  providerRegistry.registerColorFinder(new ColorFinderImpl());
-  providerRegistry.registerImageWriter(new ImageWriterImpl());
-  providerRegistry.registerImageReader(new ImageReaderImpl());
-  providerRegistry.registerImageProcessor(new ImageProcessorImpl());
-  providerRegistry.registerLogProvider(new NoopLogProvider());
 }
 
 export default providerRegistry;
