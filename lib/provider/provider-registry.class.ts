@@ -24,7 +24,11 @@ import { ColorFinderInterface } from "./color-finder.interface";
 import ColorFinderImpl from "./color/color-finder.class";
 import {
   DISABLE_DEFAULT_CLIPBOARD_PROVIDER_ENV_VAR,
+  DISABLE_DEFAULT_KEYBOARD_PROVIDER_ENV_VAR,
+  DISABLE_DEFAULT_MOUSE_PROVIDER_ENV_VAR,
   DISABLE_DEFAULT_PROVIDERS_ENV_VAR,
+  DISABLE_DEFAULT_SCREEN_PROVIDER_ENV_VAR,
+  DISABLE_DEFAULT_WINDOW_PROVIDER_ENV_VAR,
 } from "../constants";
 
 export interface ProviderRegistry {
@@ -370,10 +374,18 @@ if (!process.env[DISABLE_DEFAULT_PROVIDERS_ENV_VAR]) {
     const Clipboard = require("@nut-tree/default-clipboard-provider").default;
     providerRegistry.registerClipboardProvider(new Clipboard());
   }
-  providerRegistry.registerKeyboardProvider(new Keyboard());
-  providerRegistry.registerMouseProvider(new Mouse());
-  providerRegistry.registerScreenProvider(new Screen());
-  providerRegistry.registerWindowProvider(new Window());
+  if (!process.env[DISABLE_DEFAULT_KEYBOARD_PROVIDER_ENV_VAR]) {
+    providerRegistry.registerKeyboardProvider(new Keyboard());
+  }
+  if (!process.env[DISABLE_DEFAULT_MOUSE_PROVIDER_ENV_VAR]) {
+    providerRegistry.registerMouseProvider(new Mouse());
+  }
+  if (!process.env[DISABLE_DEFAULT_SCREEN_PROVIDER_ENV_VAR]) {
+    providerRegistry.registerScreenProvider(new Screen());
+  }
+  if (!process.env[DISABLE_DEFAULT_WINDOW_PROVIDER_ENV_VAR]) {
+    providerRegistry.registerWindowProvider(new Window());
+  }
 }
 
 export default providerRegistry;
