@@ -10,6 +10,7 @@ declare global {
     interface Matchers<R> {
       toBeAt: (position: Point) => ReturnType<typeof toBeAt>;
       toBeIn: (region: Region) => ReturnType<typeof toBeIn>;
+      // @ts-ignore
       toShow: (
         needle: FindInput,
         confidence?: number

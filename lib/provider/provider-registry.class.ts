@@ -5,7 +5,6 @@ import { MouseProviderInterface } from "./mouse-provider.interface";
 import { ScreenProviderInterface } from "./screen-provider.interface";
 import { WindowProviderInterface } from "./window-provider.interface";
 
-import Clipboard from "./native/clipboardy-clipboard.class";
 import Mouse from "./native/libnut-mouse.class";
 import Keyboard from "./native/libnut-keyboard.class";
 import Screen from "./native/libnut-screen.class";
@@ -23,55 +22,89 @@ import { TextFinderInterface } from "./text-finder.interface";
 import { WindowFinderInterface } from "./window-finder.interface";
 import { ColorFinderInterface } from "./color-finder.interface";
 import ColorFinderImpl from "./color/color-finder.class";
+import {
+  DISABLE_DEFAULT_CLIPBOARD_PROVIDER_ENV_VAR,
+  DISABLE_DEFAULT_KEYBOARD_PROVIDER_ENV_VAR,
+  DISABLE_DEFAULT_MOUSE_PROVIDER_ENV_VAR,
+  DISABLE_DEFAULT_PROVIDERS_ENV_VAR,
+  DISABLE_DEFAULT_SCREEN_PROVIDER_ENV_VAR,
+  DISABLE_DEFAULT_WINDOW_PROVIDER_ENV_VAR,
+} from "../constants";
 
 export interface ProviderRegistry {
+  hasClipboard(): boolean;
+
   getClipboard(): ClipboardProviderInterface;
 
   registerClipboardProvider(value: ClipboardProviderInterface): void;
+
+  hasKeyboard(): boolean;
 
   getKeyboard(): KeyboardProviderInterface;
 
   registerKeyboardProvider(value: KeyboardProviderInterface): void;
 
+  hasMouse(): boolean;
+
   getMouse(): MouseProviderInterface;
 
   registerMouseProvider(value: MouseProviderInterface): void;
+
+  hasScreen(): boolean;
 
   getScreen(): ScreenProviderInterface;
 
   registerScreenProvider(value: ScreenProviderInterface): void;
 
+  hasWindow(): boolean;
+
   getWindow(): WindowProviderInterface;
 
   registerWindowProvider(value: WindowProviderInterface): void;
+
+  hasImageFinder(): boolean;
 
   getImageFinder(): ImageFinderInterface;
 
   registerImageFinder(value: ImageFinderInterface): void;
 
+  hasImageReader(): boolean;
+
   getImageReader(): ImageReader;
 
   registerImageReader(value: ImageReader): void;
+
+  hasImageWriter(): boolean;
 
   getImageWriter(): ImageWriter;
 
   registerImageWriter(value: ImageWriter): void;
 
+  hasImageProcessor(): boolean;
+
   getImageProcessor(): ImageProcessor;
 
   registerImageProcessor(value: ImageProcessor): void;
+
+  hasLogProvider(): boolean;
 
   getLogProvider(): LogProviderInterface;
 
   registerLogProvider(value: LogProviderInterface): void;
 
+  hasTextFinder(): boolean;
+
   getTextFinder(): TextFinderInterface;
 
   registerTextFinder(value: TextFinderInterface): void;
 
+  hasWindowFinder(): boolean;
+
   getWindowFinder(): WindowFinderInterface;
 
   registerWindowFinder(value: WindowFinderInterface): void;
+
+  hasColorFinder(): boolean;
 
   getColorFinder(): ColorFinderInterface;
 
@@ -93,6 +126,10 @@ class DefaultProviderRegistry implements ProviderRegistry {
   private _windowFinder?: WindowFinderInterface;
   private _colorFinder?: ColorFinderInterface;
 
+  hasClipboard(): boolean {
+    return this._clipboard != null;
+  }
+
   getClipboard = (): ClipboardProviderInterface => {
     if (this._clipboard) {
       return this._clipboard;
@@ -106,6 +143,10 @@ class DefaultProviderRegistry implements ProviderRegistry {
     this._clipboard = value;
     this.getLogProvider().trace("Registered new clipboard provider", value);
   };
+
+  hasImageFinder(): boolean {
+    return this._imageFinder != null;
+  }
 
   getImageFinder = (): ImageFinderInterface => {
     if (this._imageFinder) {
@@ -121,6 +162,10 @@ class DefaultProviderRegistry implements ProviderRegistry {
     this.getLogProvider().trace("Registered new image finder", value);
   };
 
+  hasKeyboard(): boolean {
+    return this._keyboard != null;
+  }
+
   getKeyboard = (): KeyboardProviderInterface => {
     if (this._keyboard) {
       return this._keyboard;
@@ -134,6 +179,10 @@ class DefaultProviderRegistry implements ProviderRegistry {
     this._keyboard = value;
     this.getLogProvider().trace("Registered new keyboard provider", value);
   };
+
+  hasMouse(): boolean {
+    return this._mouse != null;
+  }
 
   getMouse = (): MouseProviderInterface => {
     if (this._mouse) {
@@ -149,6 +198,10 @@ class DefaultProviderRegistry implements ProviderRegistry {
     this.getLogProvider().trace("Registered new mouse provider", value);
   };
 
+  hasScreen(): boolean {
+    return this._screen != null;
+  }
+
   getScreen = (): ScreenProviderInterface => {
     if (this._screen) {
       return this._screen;
@@ -162,6 +215,10 @@ class DefaultProviderRegistry implements ProviderRegistry {
     this._screen = value;
     this.getLogProvider().trace("Registered new screen provider", value);
   };
+
+  hasWindow(): boolean {
+    return this._window != null;
+  }
 
   getWindow = (): WindowProviderInterface => {
     if (this._window) {
@@ -177,6 +234,10 @@ class DefaultProviderRegistry implements ProviderRegistry {
     this.getLogProvider().trace("Registered new window provider", value);
   };
 
+  hasTextFinder(): boolean {
+    return this._textFinder != null;
+  }
+
   getTextFinder = (): TextFinderInterface => {
     if (this._textFinder) {
       return this._textFinder;
@@ -190,6 +251,10 @@ class DefaultProviderRegistry implements ProviderRegistry {
     this._textFinder = value;
     this.getLogProvider().trace("Registered new TextFinder provider", value);
   };
+
+  hasWindowFinder(): boolean {
+    return this._windowFinder != null;
+  }
 
   getWindowFinder = (): WindowFinderInterface => {
     if (this._windowFinder) {
@@ -205,6 +270,10 @@ class DefaultProviderRegistry implements ProviderRegistry {
     this.getLogProvider().trace("Registered new WindowFinder provider", value);
   };
 
+  hasImageReader(): boolean {
+    return this._imageReader != null;
+  }
+
   getImageReader = (): ImageReader => {
     if (this._imageReader) {
       return this._imageReader;
@@ -218,6 +287,10 @@ class DefaultProviderRegistry implements ProviderRegistry {
     this._imageReader = value;
     this.getLogProvider().trace("Registered new image reader", value);
   };
+
+  hasImageWriter(): boolean {
+    return this._imageWriter != null;
+  }
 
   getImageWriter = (): ImageWriter => {
     if (this._imageWriter) {
@@ -233,6 +306,10 @@ class DefaultProviderRegistry implements ProviderRegistry {
     this.getLogProvider().trace("Registered new image writer", value);
   };
 
+  hasImageProcessor(): boolean {
+    return this._imageProcessor != null;
+  }
+
   getImageProcessor = (): ImageProcessor => {
     if (this._imageProcessor) {
       return this._imageProcessor;
@@ -247,6 +324,10 @@ class DefaultProviderRegistry implements ProviderRegistry {
     this.getLogProvider().trace("Registered new image processor", value);
   };
 
+  hasLogProvider(): boolean {
+    return this._logProvider != null;
+  }
+
   getLogProvider = (): LogProviderInterface => {
     if (this._logProvider) {
       return this._logProvider;
@@ -260,6 +341,10 @@ class DefaultProviderRegistry implements ProviderRegistry {
     this._logProvider = wrapLogger(value);
     this.getLogProvider().trace("Registered new log provider", value);
   };
+
+  hasColorFinder(): boolean {
+    return this._colorFinder != null;
+  }
 
   getColorFinder = (): ColorFinderInterface => {
     if (this._colorFinder) {
@@ -278,15 +363,29 @@ class DefaultProviderRegistry implements ProviderRegistry {
 
 const providerRegistry = new DefaultProviderRegistry();
 
-providerRegistry.registerClipboardProvider(new Clipboard());
-providerRegistry.registerKeyboardProvider(new Keyboard());
-providerRegistry.registerMouseProvider(new Mouse());
-providerRegistry.registerScreenProvider(new Screen());
-providerRegistry.registerWindowProvider(new Window());
 providerRegistry.registerImageWriter(new ImageWriterImpl());
 providerRegistry.registerImageReader(new ImageReaderImpl());
 providerRegistry.registerImageProcessor(new ImageProcessorImpl());
-providerRegistry.registerLogProvider(new NoopLogProvider());
 providerRegistry.registerColorFinder(new ColorFinderImpl());
+providerRegistry.registerLogProvider(new NoopLogProvider());
+
+if (!process.env[DISABLE_DEFAULT_PROVIDERS_ENV_VAR]) {
+  if (!process.env[DISABLE_DEFAULT_CLIPBOARD_PROVIDER_ENV_VAR]) {
+    const Clipboard = require("@nut-tree/default-clipboard-provider").default;
+    providerRegistry.registerClipboardProvider(new Clipboard());
+  }
+  if (!process.env[DISABLE_DEFAULT_KEYBOARD_PROVIDER_ENV_VAR]) {
+    providerRegistry.registerKeyboardProvider(new Keyboard());
+  }
+  if (!process.env[DISABLE_DEFAULT_MOUSE_PROVIDER_ENV_VAR]) {
+    providerRegistry.registerMouseProvider(new Mouse());
+  }
+  if (!process.env[DISABLE_DEFAULT_SCREEN_PROVIDER_ENV_VAR]) {
+    providerRegistry.registerScreenProvider(new Screen());
+  }
+  if (!process.env[DISABLE_DEFAULT_WINDOW_PROVIDER_ENV_VAR]) {
+    providerRegistry.registerWindowProvider(new Window());
+  }
+}
 
 export default providerRegistry;
