@@ -13,9 +13,13 @@ about: Create a bug report to help us enhance our images
 - [ ] Docker container
 - [ ] Dev/Host system
 
+**node version**:
+
+**OS type and version**:
+
 **Detailed error description**
 
-**Steps to reproduce error**
+**Full code sample to reproduce**
 
 **Additional content**
 
