@@ -1,4 +1,6 @@
 import { Region } from "../region.class";
+import { Point } from "../point.class";
+import { Size } from "../size.class";
 
 /**
  * A WindowActionProvider should provide access to a system's window system
@@ -34,4 +36,19 @@ export interface WindowProviderInterface {
    * @returns The {@link Region} occupied by the window addressed via its window handle
    */
   getWindowRegion(windowHandle: number): Promise<Region>;
+
+  /**
+   * {@link focusWindow} Focuses the window addressed via its window handle
+   */
+  focusWindow(windowHandle: number): Promise<boolean>;
+
+  /**
+   * {@link moveWindow} Moves the window addressed via its window handle to a new origin given as {@link Point}
+   */
+  moveWindow(windowHandle: number, newOrigin: Point): Promise<boolean>;
+
+  /**
+   * {@link resizeWindow} Resizes the window addressed via its window handle to a new {@link Size}
+   */
+  resizeWindow(windowHandle: number, newSize: Size): Promise<boolean>;
 }

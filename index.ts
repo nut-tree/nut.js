@@ -42,6 +42,7 @@ export { centerOf, randomPointIn } from "./lib/location.function";
 export { OptionalSearchParameters } from "./lib/optionalsearchparameters.class";
 export { EasingFunction, linear } from "./lib/mouse-movement.function";
 export { Point } from "./lib/point.class";
+export { Size } from "./lib/size.class";
 export { Region } from "./lib/region.class";
 export { Window } from "./lib/window.class";
 export { FileType } from "./lib/file-type.enum";
@@ -63,7 +64,7 @@ const assert = new AssertClass(screen);
 
 const { straightTo, up, down, left, right } = createMovementApi(
   providerRegistry,
-  lineHelper
+  lineHelper,
 );
 const { getWindows, getActiveWindow } = createWindowApi(providerRegistry);
 
@@ -74,7 +75,7 @@ const imageResource = (fileName: string) =>
   loadImageResource(
     providerRegistry,
     screen.config.resourceDirectory,
-    fileName
+    fileName,
   );
 
 const singleWord = (word: string): WordQuery => {
