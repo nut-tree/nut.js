@@ -1,6 +1,8 @@
 import libnut = require("@nut-tree/libnut");
 import { Region } from "../../region.class";
 import { WindowProviderInterface } from "../window-provider.interface";
+import { Size } from "../../size.class";
+import { Point } from "../../point.class";
 
 export default class WindowAction implements WindowProviderInterface {
   public getWindows(): Promise<number[]> {
@@ -32,8 +34,8 @@ export default class WindowAction implements WindowProviderInterface {
             windowRect.x,
             windowRect.y,
             windowRect.width,
-            windowRect.height
-          )
+            windowRect.height,
+          ),
         );
       } catch (e) {
         reject(e);
@@ -45,6 +47,43 @@ export default class WindowAction implements WindowProviderInterface {
     return new Promise<string>((resolve, reject) => {
       try {
         resolve(libnut.getWindowTitle(windowHandle));
+      } catch (e) {
+        reject(e);
+      }
+    });
+  }
+
+  focusWindow(windowHandle: number): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      try {
+        resolve(libnut.focusWindow(windowHandle));
+      } catch (e) {
+        reject(e);
+      }
+    });
+  }
+
+  moveWindow(windowHandle: number, newOrigin: Point): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      try {
+        resolve(
+          libnut.moveWindow(windowHandle, { x: newOrigin.x, y: newOrigin.y }),
+        );
+      } catch (e) {
+        reject(e);
+      }
+    });
+  }
+
+  resizeWindow(windowHandle: number, newSize: Size): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      try {
+        resolve(
+          libnut.resizeWindow(windowHandle, {
+            width: newSize.width,
+            height: newSize.height,
+          }),
+        );
       } catch (e) {
         reject(e);
       }

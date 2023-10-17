@@ -6,9 +6,9 @@
   "typings": "dist/index",
   "description": "Native system automation for node.js",
   "author": {
-    "name": "Simon Hofmann",
-    "email": "kontakt@s1h.org",
-    "url": "https://s1h.org"
+    "name": "dry Software UG (haftungsbeschränkt)",
+    "email": "info@dry.software",
+    "url": "https://dry.software"
   },
   "homepage": "https://nutjs.dev",
   "repository": {
@@ -63,21 +63,20 @@
   },
   "dependencies": {
     "@nut-tree/default-clipboard-provider": "1.0.0",
-    "@nut-tree/libnut": "2.5.2",
-    "clipboardy": "2.3.0",
-    "jimp": "0.16.13",
+    "@nut-tree/libnut": "2.6.0",
+    "jimp": "0.22.10",
     "node-abort-controller": "2.0.0"
   },
   "devDependencies": {
     "@types/jest": "27.0.1",
-    "@types/node": "16.7.10",
-    "husky": "8.0.1",
-    "istanbul-merge": "1.1.1",
+    "@types/node": "18.18.4",
+    "husky": "8.0.3",
+    "istanbul-merge": "2.0.0",
     "jest": "27.1.0",
-    "lint-staged": "13.0.3",
+    "lint-staged": "13.0.4",
     "nyc": "15.1.0",
-    "prettier": "2.7.1",
-    "rimraf": "3.0.2",
+    "prettier": "3.0.3",
+    "rimraf": "5.0.5",
     "sneer": "1.0.1",
     "ts-jest": "27.0.5",
     "ts-node": "10.9.1",
