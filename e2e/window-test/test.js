@@ -9,7 +9,7 @@ let windowHandle;
 const APP_TIMEOUT = 10000;
 
 beforeEach(async () => {
-  app = await electron.launch({ args: ["main.js"] });
+  app = await electron.launch({ args: ["main.js"], cwd: __dirname });
   page = await app.firstWindow({ timeout: APP_TIMEOUT });
   windowHandle = await app.browserWindow(page);
   await page.waitForLoadState("domcontentloaded");
