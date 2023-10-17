@@ -8,19 +8,20 @@ on:
   repository_dispatch:
     types:
       - snapshot-release
+  workflow_dispatch:
 
 jobs:
   test:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        node: [16]
+        node: [18]
     runs-on: ${{matrix.os}}
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Set up node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{matrix.node}}
       - name: Setup Docker
@@ -54,11 +55,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Set up node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           registry-url: "https://registry.npmjs.org"
       - name: Install
         run: npm ci
@@ -70,7 +71,7 @@ jobs:
         run: npm run publish-next
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           registry-url: "https://npm.pkg.github.com"
       - name: Publish snapshot release to GPR
