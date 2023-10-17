@@ -1,19 +1,16 @@
 const { _electron: electron } = require("playwright");
-const { getActiveWindow, getWindows } = require("@nut-tree/nut-js");
+const { sleep, getActiveWindow, getWindows } = require("@nut-tree/nut-js");
 const { POS_X, POS_Y, WIDTH, HEIGTH, TITLE } = require("./constants");
-
-const sleep = async (ms) => {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-};
 
 let app;
 let page;
 let windowHandle;
 
 const APP_TIMEOUT = 10000;
+jest.setTimeout(APP_TIMEOUT);
 
 beforeEach(async () => {
-  app = await electron.launch({ args: ["main.js"] });
+  app = await electron.launch({ args: ["main.js"], cwd: __dirname });
   page = await app.firstWindow({ timeout: APP_TIMEOUT });
   windowHandle = await app.browserWindow(page);
   await page.waitForLoadState("domcontentloaded");
