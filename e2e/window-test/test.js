@@ -1,10 +1,6 @@
 const { _electron: electron } = require("playwright");
-const { getActiveWindow, getWindows } = require("@nut-tree/nut-js");
+const { sleep, getActiveWindow, getWindows } = require("@nut-tree/nut-js");
 const { POS_X, POS_Y, WIDTH, HEIGTH, TITLE } = require("./constants");
-
-const sleep = async (ms) => {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-};
 
 let app;
 let page;
