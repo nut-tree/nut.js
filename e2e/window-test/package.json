@@ -1,21 +1,23 @@
 {
   "name": "window-integration-tests",
-  "version": "1.7.0",
+  "version": "3.1.2",
   "description": "Integration tests to verify window handling",
   "main": "main.js",
   "author": {
-    "name": "Simon Hofmann",
-    "email": "dev@simon-hofmann.org",
-    "url": "https://s1h.org"
+    "name": "dry Software UG (haftungsbeschränkt)",
+    "email": "info@dry.software",
+    "url": "https://dry.software"
   },
   "scripts": {
+    "pretest": "npx playwright install --with-deps",
     "test": "jest"
   },
   "license": "MIT",
   "devDependencies": {
-    "electron": "9.4.0",
-    "jest": "27.0.6",
-    "spectron": "11.1.0",
-    "@nut-tree/nut-js": "file:../../"
+    "@nut-tree/nut-js": "file:../../",
+    "@playwright/test": "1.39.0",
+    "electron": "27.0.0",
+    "jest": "29.7.0",
+    "jest-playwright-preset": "3.0.1"
   }
 }
