@@ -7,6 +7,7 @@ let page;
 let windowHandle;
 
 const APP_TIMEOUT = 10000;
+jest.setTimeout(APP_TIMEOUT);
 
 beforeEach(async () => {
   app = await electron.launch({ args: ["main.js"], cwd: __dirname });
