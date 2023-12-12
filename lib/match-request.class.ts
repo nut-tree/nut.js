@@ -80,7 +80,9 @@ export function createMatchRequest<PROVIDER_DATA_TYPE>(
       .info(
         `Searching for image ${
           needle.id
-        } in region ${searchRegion.toString()}. Required confidence: ${minMatch}`,
+        } in region ${searchRegion.toString()}.${
+          minMatch != null ? ` Required confidence: ${minMatch}` : ""
+        }`,
       );
 
     return new MatchRequest(
@@ -93,7 +95,11 @@ export function createMatchRequest<PROVIDER_DATA_TYPE>(
     providerRegistry.getLogProvider().info(
       `Searching for ${isLineQuery(needle) ? "line" : "word"} {
                         ${isLineQuery(needle) ? needle.by.line : needle.by.word}
-                    } in region ${searchRegion.toString()}. Required confidence: ${minMatch}`,
+                    } in region ${searchRegion.toString()}.${
+                      minMatch != null
+                        ? ` Required confidence: ${minMatch}`
+                        : ""
+                    }`,
     );
 
     return new MatchRequest(
