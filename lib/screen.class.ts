@@ -598,7 +598,7 @@ export class ScreenClass {
   public on(searchInput: FindInput, callback: FindHookCallback): void {
     this.validateSearchInput("on", searchInput);
 
-    const existingHooks = this.findHooks.get(searchInput) || [];
+    const existingHooks = this.findHooks.get(searchInput) ?? [];
     this.findHooks.set(searchInput, [...existingHooks, callback]);
     this.providerRegistry
       .getLogProvider()
