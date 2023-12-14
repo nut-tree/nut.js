@@ -20,10 +20,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-      - name: Setup Docker
-        run: |
-          docker pull s1hofmann/nut-ci:latest
-          docker run -it -d --name nut-ci --shm-size 8gb --user $(id -u):$(id -g) -v ${PWD}:${PWD}:rw s1hofmann/nut-ci:latest bash
       - name: Install
         run: npm ci
       - name: Compile
@@ -34,10 +30,10 @@ jobs:
         run: npm run coverage:clean
       - name: Generate coverage report
         uses: GabrielBB/xvfb-action@v1
+        env:
+          NODE_OPTIONS: "--max-old-space-size=8192"
         with:
           run: npm run coverage -- --coverageDirectory=coverage/unit
-      - name: Run Docker E2E tests
-        run: docker exec nut-ci bash -c "bash $PWD/.build/build.sh ${PWD} 14"
       - name: Run Electron e2e test subpackage
         uses: GabrielBB/xvfb-action@v1
         with:
@@ -78,7 +74,7 @@ jobs:
         with:
           run: |
             npx playwright install --with-deps
-            npm run coverage -- --coverageDirectory=coverage/unit
+            npm test
       - name: Run Electron e2e test subpackage
         uses: GabrielBB/xvfb-action@v1
         with:

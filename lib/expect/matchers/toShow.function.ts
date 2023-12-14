@@ -1,27 +1,44 @@
 import { FindInput, ScreenClass } from "../../screen.class";
 import { OptionalSearchParameters } from "../../optionalsearchparameters.class";
+import { isRegion, Region } from "../../region.class";
+import { screen } from "../../../index";
 
-export const toShow = async (
-  received: ScreenClass,
+export const toShow = async <PROVIDER_DATA>(
+  received: ScreenClass | Region,
   needle: FindInput,
-  confidence?: number
+  parameters?: OptionalSearchParameters<PROVIDER_DATA>,
 ) => {
-  let locationParams;
-  if (confidence) {
-    locationParams = new OptionalSearchParameters();
-    locationParams.confidence = confidence;
-  }
   const identifier = (await needle).id;
-  try {
-    await received.find(needle, locationParams);
-    return {
-      message: () => `Expected screen to not show ${identifier}`,
-      pass: true,
-    };
-  } catch (err) {
-    return {
-      message: () => `Screen is not showing ${identifier}: ${err}`,
-      pass: false,
-    };
+  if (isRegion(received)) {
+    if (parameters != null) {
+      parameters.searchRegion = received;
+    } else {
+      parameters = { searchRegion: received };
+    }
+    try {
+      await screen.find(needle, parameters);
+      return {
+        message: () => `Expected screen to not show ${identifier}`,
+        pass: true,
+      };
+    } catch (err) {
+      return {
+        message: () => `Screen is not showing ${identifier}: ${err}`,
+        pass: false,
+      };
+    }
+  } else {
+    try {
+      await received.find(needle, parameters);
+      return {
+        message: () => `Expected screen to not show ${identifier}`,
+        pass: true,
+      };
+    } catch (err) {
+      return {
+        message: () => `Screen is not showing ${identifier}: ${err}`,
+        pass: false,
+      };
+    }
   }
 };
