@@ -74,7 +74,7 @@ jobs:
         with:
           run: |
             npx playwright install --with-deps
-            npm run coverage -- --coverageDirectory=coverage/unit
+            npm test
       - name: Run Electron e2e test subpackage
         uses: GabrielBB/xvfb-action@v1
         with:
