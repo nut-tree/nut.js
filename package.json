@@ -50,7 +50,7 @@
     "compile:dev": "npm run clean && tsc -p . --watch",
     "test": "jest --runInBand",
     "test:e2e": "npm --prefix e2e/tests cit",
-    "coverage": "jest --coverage --runInBand",
+    "coverage": "jest --coverage --runInBand --logHeapUsage",
     "coverage:clean": "rimraf coverage",
     "coverage:merge": "istanbul-merge --out coverage/merged/coverage-final.json ./coverage/unit/coverage-final.json  ./coverage/e2e/coverage-final.json",
     "coverage:merge-report": "nyc report --reporter=lcov --reporter=text --temp-dir=./coverage/merged --report-dir=./coverage/merged",

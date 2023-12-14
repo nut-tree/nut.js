@@ -34,6 +34,8 @@ jobs:
         run: npm run coverage:clean
       - name: Generate coverage report
         uses: GabrielBB/xvfb-action@v1
+        env:
+          NODE_OPTIONS: "--max-old-space-size=8192"
         with:
           run: npm run coverage -- --coverageDirectory=coverage/unit
       - name: Run Docker E2E tests
