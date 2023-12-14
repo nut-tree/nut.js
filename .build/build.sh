@@ -23,4 +23,4 @@ echo "Installing node version $nodeVersion"
 nvm install $nodeVersion
 
 npm ci
-E2E_TEST=1 npm run coverage -- --coverageDirectory=coverage/e2e
+NODE_OPTIONS="--max-old-space-size=8192" E2E_TEST=1 npm run coverage -- --coverageDirectory=coverage/e2e
