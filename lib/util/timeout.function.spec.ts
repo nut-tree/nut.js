@@ -16,7 +16,9 @@ describe("timeout", () => {
     try {
       await timeout(updateInterval, maxDuration, action);
     } catch (e) {
-      expect(e).toBe(`Action timed out after ${maxDuration} ms`);
+      expect(e).toBe(
+        `Action timed out after ${maxDuration} ms. Last rejection reason was: false.`,
+      );
     }
     const end = Date.now();
 
@@ -37,7 +39,9 @@ describe("timeout", () => {
     try {
       await timeout(updateInterval, maxDuration, action);
     } catch (e) {
-      expect(e).toEqual(`Action timed out after ${maxDuration} ms`);
+      expect(e).toEqual(
+        `Action timed out after ${maxDuration} ms. Didn't receive a result within timeout.`,
+      );
     }
     const end = Date.now();
 
@@ -90,7 +94,7 @@ describe("timeout", () => {
     const action = jest.fn(() => {
       const interval = Date.now() - start;
       return new Promise<boolean>((resolve, reject) =>
-        interval > delay ? resolve(true) : reject()
+        interval > delay ? resolve(true) : reject(),
       );
     });
 
@@ -114,7 +118,9 @@ describe("timeout", () => {
     try {
       await timeout(updateInterval, maxDuration, action);
     } catch (e) {
-      expect(e).toEqual(`Action timed out after ${maxDuration} ms`);
+      expect(e).toEqual(
+        `Action timed out after ${maxDuration} ms. Didn't receive a result within timeout.`,
+      );
     }
     const end = Date.now();
 
@@ -137,7 +143,9 @@ describe("timeout", () => {
     const SUT = () => timeout(updateInterval, maxDuration, action);
 
     // THEN
-    await expect(SUT).rejects.toBe(`Action timed out after ${maxDuration} ms`);
+    await expect(SUT).rejects.toBe(
+      `Action timed out after ${maxDuration} ms. Didn't receive a result within timeout.`,
+    );
     expect(action).toBeCalledTimes(1);
   });
 
@@ -157,7 +165,9 @@ describe("timeout", () => {
     const SUT = () => timeout(updateInterval, maxDuration, action);
 
     // THEN
-    await expect(SUT).rejects.toBe(`Action timed out after ${maxDuration} ms`);
+    await expect(SUT).rejects.toBe(
+      `Action timed out after ${maxDuration} ms. Didn't receive a result within timeout.`,
+    );
     expect(action).toBeCalledTimes(1);
     await sleep(500);
     expect(action).toBeCalledTimes(1);
