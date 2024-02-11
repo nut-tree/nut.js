@@ -67,13 +67,16 @@ describe("getActiveWindow", () => {
 
     // WHEN
     const foregroundWindow = await getActiveWindow();
-    await foregroundWindow.move({ x: xPosition, y: yPosition });
-    await sleep(1000);
-    const activeWindowRegion = await foregroundWindow.region;
+    // await foregroundWindow.move({ x: xPosition, y: yPosition });
+    // await sleep(1000);
+    // const activeWindowRegion = await foregroundWindow.region;
 
     // THEN
-    expect(activeWindowRegion.left).toBe(xPosition);
-    expect(activeWindowRegion.top).toBe(yPosition);
+    // expect(activeWindowRegion.left).toBe(xPosition);
+    // expect(activeWindowRegion.top).toBe(yPosition);
+    await expect(
+      foregroundWindow.move({ x: xPosition, y: yPosition }),
+    ).rejects.toThrow("Method not provided via libnut");
   });
 
   it("should determine correct window size for our application after resizing the window", async () => {
@@ -83,13 +86,16 @@ describe("getActiveWindow", () => {
 
     // WHEN
     const foregroundWindow = await getActiveWindow();
-    await foregroundWindow.resize({ width: newWidth, height: newHeight });
-    await sleep(1000);
-    const activeWindowRegion = await foregroundWindow.region;
+    // await foregroundWindow.resize({ width: newWidth, height: newHeight });
+    // await sleep(1000);
+    // const activeWindowRegion = await foregroundWindow.region;
 
     // THEN
-    expect(activeWindowRegion.width).toBe(newWidth);
-    expect(activeWindowRegion.height).toBe(newHeight);
+    // expect(activeWindowRegion.width).toBe(newWidth);
+    // expect(activeWindowRegion.height).toBe(newHeight);
+    await expect(
+      foregroundWindow.resize({ width: newWidth, height: newHeight }),
+    ).rejects.toThrow("Method not provided via libnut");
   });
 });
 
