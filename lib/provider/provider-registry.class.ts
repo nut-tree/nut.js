@@ -5,10 +5,6 @@ import { MouseProviderInterface } from "./mouse-provider.interface";
 import { ScreenProviderInterface } from "./screen-provider.interface";
 import { WindowProviderInterface } from "./window-provider.interface";
 
-import Mouse from "./native/libnut-mouse.class";
-import Keyboard from "./native/libnut-keyboard.class";
-import Screen from "./native/libnut-screen.class";
-import Window from "./native/libnut-window.class";
 import { ImageReader } from "./image-reader.type";
 import { ImageWriter } from "./image-writer.type";
 import { ImageProcessor } from "./image-processor.interface";
@@ -375,16 +371,20 @@ if (!process.env[DISABLE_DEFAULT_PROVIDERS_ENV_VAR]) {
     providerRegistry.registerClipboardProvider(new Clipboard());
   }
   if (!process.env[DISABLE_DEFAULT_KEYBOARD_PROVIDER_ENV_VAR]) {
-    providerRegistry.registerKeyboardProvider(new Keyboard());
+    const { DefaultKeyboardAction } = require("@nut-tree/libnut");
+    providerRegistry.registerKeyboardProvider(new DefaultKeyboardAction());
   }
   if (!process.env[DISABLE_DEFAULT_MOUSE_PROVIDER_ENV_VAR]) {
-    providerRegistry.registerMouseProvider(new Mouse());
+    const { DefaultMouseAction } = require("@nut-tree/libnut");
+    providerRegistry.registerMouseProvider(new DefaultMouseAction());
   }
   if (!process.env[DISABLE_DEFAULT_SCREEN_PROVIDER_ENV_VAR]) {
-    providerRegistry.registerScreenProvider(new Screen());
+    const { DefaultScreenAction } = require("@nut-tree/libnut");
+    providerRegistry.registerScreenProvider(new DefaultScreenAction());
   }
   if (!process.env[DISABLE_DEFAULT_WINDOW_PROVIDER_ENV_VAR]) {
-    providerRegistry.registerWindowProvider(new Window());
+    const { DefaultWindowAction } = require("@nut-tree/libnut");
+    providerRegistry.registerWindowProvider(new DefaultWindowAction());
   }
 }
 

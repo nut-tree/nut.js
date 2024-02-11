@@ -63,7 +63,7 @@
   },
   "dependencies": {
     "@nut-tree/default-clipboard-provider": "1.0.0",
-    "@nut-tree/libnut": "2.6.0",
+    "@nut-tree/libnut": "^2.6.1-next.20240211200808",
     "jimp": "0.22.10",
     "node-abort-controller": "2.0.0"
   },
