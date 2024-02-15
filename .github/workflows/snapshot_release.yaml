@@ -78,6 +78,6 @@ jobs:
         with:
           registry-url: "https://npm.pkg.github.com"
       - name: Publish snapshot release to GPR
-        run: npm run publish-next
+        run: npm run publish:next
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
