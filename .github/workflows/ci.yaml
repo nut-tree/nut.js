@@ -77,4 +77,4 @@ jobs:
         uses: GabrielBB/xvfb-action@v1
         with:
           run: |
-            pnpm test
+            pnpm run coverage
