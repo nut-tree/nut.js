@@ -26,12 +26,7 @@ import {
   DISABLE_DEFAULT_MOUSE_PROVIDER_ENV_VAR,
   DISABLE_DEFAULT_PROVIDERS_ENV_VAR,
   DISABLE_DEFAULT_SCREEN_PROVIDER_ENV_VAR,
-  DISABLE_DEFAULT_WINDOW_PROVIDER_ENV_VAR,
-  NPM_CONFIG_DISABLE_DEFAULT_CLIPBOARD_PROVIDER_ENV_VAR,
-  NPM_CONFIG_DISABLE_DEFAULT_KEYBOARD_PROVIDER_ENV_VAR,
-  NPM_CONFIG_DISABLE_DEFAULT_MOUSE_PROVIDER_ENV_VAR,
-  NPM_CONFIG_DISABLE_DEFAULT_SCREEN_PROVIDER_ENV_VAR,
-  NPM_CONFIG_DISABLE_DEFAULT_WINDOW_PROVIDER_ENV_VAR
+  DISABLE_DEFAULT_WINDOW_PROVIDER_ENV_VAR
 } from "../constants";
 import { wrapLogger } from "./log/wrap-logger.function";
 
@@ -295,23 +290,23 @@ providerRegistry.registerColorFinder(new ColorFinderImpl());
 providerRegistry.registerLogProvider(new NoopLogProvider());
 
 if (!process.env[DISABLE_DEFAULT_PROVIDERS_ENV_VAR]) {
-  if (!process.env[DISABLE_DEFAULT_CLIPBOARD_PROVIDER_ENV_VAR] && !process.env[NPM_CONFIG_DISABLE_DEFAULT_CLIPBOARD_PROVIDER_ENV_VAR]) {
+  if (!process.env[DISABLE_DEFAULT_CLIPBOARD_PROVIDER_ENV_VAR]) {
     const Clipboard = require("@nut-tree/default-clipboard-provider").default;
     providerRegistry.registerClipboardProvider(new Clipboard());
   }
-  if (!process.env[DISABLE_DEFAULT_KEYBOARD_PROVIDER_ENV_VAR] && !process.env[NPM_CONFIG_DISABLE_DEFAULT_KEYBOARD_PROVIDER_ENV_VAR]) {
+  if (!process.env[DISABLE_DEFAULT_KEYBOARD_PROVIDER_ENV_VAR]) {
     const { DefaultKeyboardAction } = require("@nut-tree/libnut");
     providerRegistry.registerKeyboardProvider(new DefaultKeyboardAction());
   }
-  if (!process.env[DISABLE_DEFAULT_MOUSE_PROVIDER_ENV_VAR] && !process.env[NPM_CONFIG_DISABLE_DEFAULT_MOUSE_PROVIDER_ENV_VAR]) {
+  if (!process.env[DISABLE_DEFAULT_MOUSE_PROVIDER_ENV_VAR]) {
     const { DefaultMouseAction } = require("@nut-tree/libnut");
     providerRegistry.registerMouseProvider(new DefaultMouseAction());
   }
-  if (!process.env[DISABLE_DEFAULT_SCREEN_PROVIDER_ENV_VAR] && !process.env[NPM_CONFIG_DISABLE_DEFAULT_SCREEN_PROVIDER_ENV_VAR]) {
+  if (!process.env[DISABLE_DEFAULT_SCREEN_PROVIDER_ENV_VAR]) {
     const { DefaultScreenAction } = require("@nut-tree/libnut");
     providerRegistry.registerScreenProvider(new DefaultScreenAction());
   }
-  if (!process.env[DISABLE_DEFAULT_WINDOW_PROVIDER_ENV_VAR] && !process.env[NPM_CONFIG_DISABLE_DEFAULT_WINDOW_PROVIDER_ENV_VAR]) {
+  if (!process.env[DISABLE_DEFAULT_WINDOW_PROVIDER_ENV_VAR]) {
     const { DefaultWindowAction } = require("@nut-tree/libnut");
     providerRegistry.registerWindowProvider(new DefaultWindowAction());
   }
