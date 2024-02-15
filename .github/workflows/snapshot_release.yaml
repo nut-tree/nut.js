@@ -24,6 +24,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{matrix.node}}
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3.0.0
       - name: Install
         run: npm ci
       - name: Install @nut-tree/libnut@next
@@ -55,6 +57,8 @@ jobs:
         with:
           node-version: 18
           registry-url: "https://registry.npmjs.org"
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3.0.0
       - name: Install
         run: npm ci
       - name: Install @nut-tree/libnut@next
