@@ -1,5 +1,5 @@
 {
-  "name": "window-tests",
+  "name": "sample-window",
   "version": "2.0.0",
   "description": "Integration tests to verify window handling",
   "main": "main.js",

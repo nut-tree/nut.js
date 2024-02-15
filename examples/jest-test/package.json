@@ -1,5 +1,5 @@
 {
-  "name": "jest-test",
+  "name": "sample-jest",
   "version": "2.0.0",
   "private": true,
   "description": "A simple nut.js test example which demos Jest integration",
