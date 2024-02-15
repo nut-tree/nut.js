@@ -9,7 +9,7 @@
     "url": "https://dry.software"
   },
   "scripts": {
-    "pretest": "npx playwright install --with-deps",
+    "pretest": "pnpx playwright install --with-deps",
     "test": "jest"
   },
   "devDependencies": {
