@@ -53,7 +53,6 @@
     "coverage:clean": "rimraf coverage",
     "publish:next": "pnpm publish --tag next --no-git-checks",
     "prepublishOnly": "pnpm run compile",
-    "versionBump": "bump --tag --push --all",
     "typedoc": "typedoc --options ./typedoc.js --entryPointStrategy expand ./lib"
   },
   "dependencies": {
@@ -65,12 +64,6 @@
     "node-abort-controller": "3.1.1"
   },
   "devDependencies": {
-    "@nut-tree/configs": "workspace:*",
-    "istanbul-merge": "2.0.0",
-    "nyc": "15.1.0",
-    "version-bump-prompt": "6.1.0"
-  },
-  "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
+    "@nut-tree/configs": "workspace:*"
   }
 }
