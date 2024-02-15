@@ -1,0 +1,76 @@
+{
+  "name": "@nut-tree/nut-js",
+  "version": "4.0.0",
+  "license": "Apache-2.0",
+  "main": "dist/index",
+  "typings": "dist/index",
+  "description": "Native system automation for node.js",
+  "author": {
+    "name": "dry Software UG (haftungsbeschränkt)",
+    "email": "info@dry.software",
+    "url": "https://dry.software"
+  },
+  "homepage": "https://nutjs.dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nut-tree/nut.js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nut-tree/nut.js/issues"
+  },
+  "os": [
+    "linux",
+    "darwin",
+    "win32"
+  ],
+  "cpu": [
+    "x64",
+    "arm64"
+  ],
+  "keywords": [
+    "native",
+    "system",
+    "automation",
+    "testing",
+    "keyboard",
+    "mouse",
+    "process",
+    "memory",
+    "window",
+    "screen",
+    "monitor",
+    "display",
+    "timer",
+    "clock",
+    "clipboard"
+  ],
+  "scripts": {
+    "clean": "rimraf dist",
+    "compile": "pnpm run clean && tsc -p .",
+    "compile:dev": "pnpm run clean && tsc -p . --watch",
+    "test": "jest --runInBand",
+    "coverage": "jest --coverage --runInBand --logHeapUsage",
+    "coverage:clean": "rimraf coverage",
+    "publish:next": "pnpm publish --tag next",
+    "prepublishOnly": "pnpm run compile",
+    "versionBump": "bump --tag --push --all",
+    "typedoc": "typedoc --options ./typedoc.js --entryPointStrategy expand ./lib"
+  },
+  "dependencies": {
+    "@nut-tree/default-clipboard-provider": "workspace:*",
+    "@nut-tree/libnut": "workspace:*",
+    "@nut-tree/shared": "workspace:*",
+    "@nut-tree/provider-interfaces": "workspace:*",
+    "jimp": "0.22.10",
+    "node-abort-controller": "3.1.1"
+  },
+  "devDependencies": {
+    "@nut-tree/configs": "workspace:*",
+    "istanbul-merge": "2.0.0",
+    "nyc": "15.1.0",
+    "version-bump-prompt": "6.1.0"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  }
+}

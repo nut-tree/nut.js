@@ -1,0 +1,7 @@
+.idea
+.vscode
+.travis.yml
+CMakeLists.txt
+lib
+!dist/lib
+**/*.ts

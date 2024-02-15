@@ -1,0 +1,24 @@
+export const DISABLE_DEFAULT_PROVIDERS_ENV_VAR =
+  "NUT_JS_DISABLE_DEFAULT_PROVIDERS";
+export const DISABLE_DEFAULT_CLIPBOARD_PROVIDER_ENV_VAR =
+  "NUT_JS_DISABLE_DEFAULT_CLIPBOARD_PROVIDER";
+export const DISABLE_DEFAULT_KEYBOARD_PROVIDER_ENV_VAR =
+  "NUT_JS_DISABLE_DEFAULT_KEYBOARD_PROVIDER";
+export const DISABLE_DEFAULT_MOUSE_PROVIDER_ENV_VAR =
+  "NUT_JS_DISABLE_DEFAULT_MOUSE_PROVIDER";
+export const DISABLE_DEFAULT_SCREEN_PROVIDER_ENV_VAR =
+  "NUT_JS_DISABLE_DEFAULT_SCREEN_PROVIDER";
+export const DISABLE_DEFAULT_WINDOW_PROVIDER_ENV_VAR =
+  "NUT_JS_DISABLE_DEFAULT_WINDOW_PROVIDER";
+export const NPM_CONFIG_DISABLE_DEFAULT_PROVIDERS_ENV_VAR =
+  "npm_package_config_nut.js_disableDefaultProviders";
+export const NPM_CONFIG_DISABLE_DEFAULT_CLIPBOARD_PROVIDER_ENV_VAR =
+  "npm_package_config_nut.js_disableClipboardProvider";
+export const NPM_CONFIG_DISABLE_DEFAULT_KEYBOARD_PROVIDER_ENV_VAR =
+  "npm_package_config_nut.js_disableKeyboardProvider";
+export const NPM_CONFIG_DISABLE_DEFAULT_MOUSE_PROVIDER_ENV_VAR =
+  "npm_package_config_nut.js_disableMouseProvider";
+export const NPM_CONFIG_DISABLE_DEFAULT_SCREEN_PROVIDER_ENV_VAR =
+  "npm_package_config_nut.js_disableScreenProvider";
+export const NPM_CONFIG_DISABLE_DEFAULT_WINDOW_PROVIDER_ENV_VAR =
+  "npm_package_config_nut.js_disableWindowProvider";

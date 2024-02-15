@@ -1,90 +1,35 @@
 {
-  "name": "@nut-tree/nut-js",
-  "version": "3.1.2",
-  "license": "Apache-2.0",
-  "main": "dist/index",
-  "typings": "dist/index",
-  "description": "Native system automation for node.js",
-  "author": {
-    "name": "dry Software UG (haftungsbeschränkt)",
-    "email": "info@dry.software",
-    "url": "https://dry.software"
-  },
-  "homepage": "https://nutjs.dev",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/nut-tree/nut.js.git"
-  },
-  "bugs": {
-    "url": "https://github.com/nut-tree/nut.js/issues"
-  },
-  "os": [
-    "linux",
-    "darwin",
-    "win32"
-  ],
-  "cpu": [
-    "x64",
-    "arm64"
-  ],
-  "keywords": [
-    "native",
-    "system",
-    "automation",
-    "testing",
-    "keyboard",
-    "mouse",
-    "process",
-    "memory",
-    "window",
-    "screen",
-    "monitor",
-    "display",
-    "timer",
-    "clock",
-    "clipboard"
-  ],
+  "name": "@nut-tree/monorepo",
+  "version": "4.0.0",
+  "private": true,
   "scripts": {
-    "clean": "rimraf dist",
-    "compile": "npm run clean && tsc -p .",
-    "compile:dev": "npm run clean && tsc -p . --watch",
-    "test": "jest --runInBand",
-    "test:e2e": "npm --prefix e2e/tests cit",
-    "coverage": "jest --coverage --runInBand --logHeapUsage",
-    "coverage:clean": "rimraf coverage",
-    "coverage:merge": "istanbul-merge --out coverage/merged/coverage-final.json ./coverage/unit/coverage-final.json",
-    "coverage:merge-report": "nyc report --reporter=lcov --reporter=text --temp-dir=./coverage/merged --report-dir=./coverage/merged",
-    "watch": "tsc -w -p .",
-    "publish-next": "npm publish --tag next",
-    "prepublishOnly": "npm run compile",
-    "versionBump": "bump --tag --push --all",
-    "typedoc": "typedoc --options ./typedoc.js --entryPointStrategy expand ./lib",
-    "prepare": "husky install"
+    "test": "pnpm -r test",
+    "compile": "pnpm -r run compile",
+    "coverage": "pnpm -r run coverage",
+    "coverage:clean": "pnpm -r run coverage:clean",
+    "prepare": "husky install",
+    "publish:next": "pnpm -r run publish:next",
+    "publish": "pnpm -r run publish"
   },
-  "dependencies": {
-    "@nut-tree/default-clipboard-provider": "1.0.0",
-    "@nut-tree/libnut": "^2.6.1-next.20240211200808",
-    "jimp": "0.22.10",
-    "node-abort-controller": "2.0.0"
-  },
+  "packageManager": "pnpm@8.15.2",
+  "workspaces": [
+    "core/*",
+    "providers/*",
+    "examples/*"
+  ],
+  "dependencies": {},
   "devDependencies": {
-    "@types/jest": "27.0.1",
-    "@types/node": "18.18.4",
-    "husky": "8.0.3",
-    "istanbul-merge": "2.0.0",
-    "jest": "27.1.0",
-    "lint-staged": "13.0.4",
-    "nyc": "15.1.0",
-    "prettier": "3.0.3",
+    "@types/jest": "29.5.12",
+    "@types/node": "20.11.17",
+    "husky": "9.0.10",
+    "jest": "29.7.0",
+    "lint-staged": "15.2.2",
+    "prettier": "3.2.5",
     "rimraf": "5.0.5",
     "sneer": "1.0.1",
-    "ts-jest": "27.0.5",
-    "ts-node": "10.9.1",
-    "typedoc": "0.23.14",
-    "typescript": "4.8.3",
-    "version-bump-prompt": "6.1.0"
-  },
-  "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
+    "ts-jest": "29.1.2",
+    "ts-node": "10.9.2",
+    "typedoc": "0.25.8",
+    "typescript": "5.3.3"
   }
 }
