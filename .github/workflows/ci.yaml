@@ -25,7 +25,9 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v3.0.0
       - name: Install
-        run: pnpm i
+        run: |
+          pnpm whoami
+          pnpm i
       - name: Compile
         run: pnpm -r run compile
       - name: Clean coverage report
