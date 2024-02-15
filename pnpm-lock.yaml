@@ -134,7 +134,7 @@ importers:
         specifier: workspace:*
         version: link:../../core/nut.js
 
-  examples/typescript-sample:
+  examples/typescript-test:
     dependencies:
       '@nut-tree/nut-js':
         specifier: workspace:*
