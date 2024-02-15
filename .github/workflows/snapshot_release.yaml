@@ -17,6 +17,8 @@ jobs:
         os: [ubuntu-latest, windows-latest, macos-latest]
         node: [18]
     runs-on: ${{matrix.os}}
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v3
@@ -29,7 +31,9 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v3.0.0
       - name: Install
-        run: pnpm i
+        run: |
+          pnpm whoami
+          pnpm i
       - name: Install @nut-tree/libnut@next
         run: |
           pnpm --filter @nut-tree/libnut i @nut-tree/libnut-darwin@next @nut-tree/libnut-linux@next @nut-tree/libnut-win32@next
@@ -44,6 +48,8 @@ jobs:
     needs:
       - test
     runs-on: ubuntu-latest
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v3
@@ -56,7 +62,9 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v3.0.0
       - name: Install
-        run: pnpm i
+        run: |
+          pnpm whoami
+          pnpm i
       - name: Install @nut-tree/libnut@next
         run: |
           pnpm --filter @nut-tree/libnut i @nut-tree/libnut-darwin@next @nut-tree/libnut-linux@next @nut-tree/libnut-win32@next
