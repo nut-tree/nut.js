@@ -1,0 +1,21 @@
+{
+  "name": "sample-keyboard",
+  "version": "2.0.0",
+  "private": true,
+  "description": "A simple nut.js test example which tests keyboard control",
+  "main": "index.js",
+  "author": {
+    "name": "dry Software UG (haftungsbeschränkt)",
+    "email": "info@dry.software",
+    "url": "https://dry.software"
+  },
+  "scripts": {
+    "test": "run-script-os",
+    "test:darwin": "jest --runInBand",
+    "test:default": "echo 'No keyboard tests for current platform'"
+  },
+  "dependencies": {
+    "@nut-tree/nut-js": "workspace:*",
+    "run-script-os": "^1.1.6"
+  }
+}

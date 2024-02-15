@@ -1,0 +1,23 @@
+{
+  "name": "window-tests",
+  "version": "2.0.0",
+  "description": "Integration tests to verify window handling",
+  "main": "main.js",
+  "author": {
+    "name": "dry Software UG (haftungsbeschränkt)",
+    "email": "info@dry.software",
+    "url": "https://dry.software"
+  },
+  "scripts": {
+    "pretest": "npx playwright install --with-deps",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@nut-tree/nut-js": "workspace:*",
+    "@playwright/test": "1.41.2",
+    "electron": "28.2.3",
+    "jest": "29.7.0",
+    "jest-playwright-preset": "4.0.0",
+    "playwright": "1.41.2"
+  }
+}

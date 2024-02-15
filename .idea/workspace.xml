@@ -1,0 +1,998 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="866f21d0-f133-45ef-8d2b-ebb5becfb16d" name="Changes" comment="Monorepo build">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/configs/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/configs/tsconfig/base.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/.npmignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/CHANGELOG.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/lib/clipboard-provider.interface.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/lib/color-finder.interface.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/lib/data-sink.interface.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/lib/data-source.interface.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/lib/image-finder.interface.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/lib/image-processor.interface.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/lib/image-reader.type.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/lib/image-writer.type.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/lib/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/lib/keyboard-provider.interface.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/lib/log-provider.interface.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/lib/mouse-provider.interface.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/lib/provider-registry.interface.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/lib/screen-provider.interface.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/lib/text-finder.interface.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/lib/window-finder.interface.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/lib/window-provider.interface.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/tsconfig.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/assets/calculator.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/assets/mouse.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/jest-test/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/jest-test/index.spec.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/jest-test/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/keyboard-test/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/keyboard-test/index.spec.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/keyboard-test/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/mouse-test/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/mouse-test/index.spec.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/mouse-test/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/screen-test/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/screen-test/index.spec.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/screen-test/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/typescript-sample/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/typescript-sample/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/typescript-sample/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/typescript-sample/tsconfig.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/window-test/constants.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/window-test/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/window-test/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/window-test/main.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/window-test/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/window-test/preload.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/window-test/renderer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/window-test/test.spec.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pnpm-workspace.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/ci.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/ci.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.husky/pre-commit" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.npmignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.nvmrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.prettierignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.prettierrc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CODE_OF_CONDUCT.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/assets/calculator.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/assets/checkers.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/assets/close.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/assets/desktop.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/assets/dot.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/assets/dots.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/assets/equals.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/assets/menu.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/assets/mouse.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/assets/moved_trash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/assets/one.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/assets/plus.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/assets/result.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/assets/terminal.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/assets/trash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/assets/xfce-menu.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/assets/zero.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/electron-test/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/electron-test/assets/quit.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/electron-test/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/electron-test/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/electron-test/main.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/electron-test/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/electron-test/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/electron-test/preload.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/electron-test/renderer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/window-test/constants.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/window-test/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/window-test/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/window-test/jest.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/window-test/main.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/window-test/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/window-test/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/window-test/preload.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/window-test/renderer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/e2e/window-test/test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jest.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/assert.class.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/assert.class.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/button.enum.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/clipboard.class.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/clipboard.class.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/colormode.enum.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/constants.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/expect/jest.matcher.function.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/expect/matchers/toBeAt.function.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/expect/matchers/toBeAt.function.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/expect/matchers/toBeIn.function.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/expect/matchers/toBeIn.function.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/expect/matchers/toHaveColor.function.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/expect/matchers/toHaveColor.function.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/expect/matchers/toShow.function.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/file-type.enum.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/generate-output-path.function.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/generate-output-path.function.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/image.class.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/image.class.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/imageResources.function.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/imageResources.function.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/key.enum.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/keyboard.class.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/keyboard.class.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/location.function.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/location.function.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/logging.function.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/match-request.class.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/match-request.class.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/match-result.class.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/match-result.class.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/mouse-movement.function.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/mouse-movement.function.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/mouse.class.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/mouse.class.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/movement-api.interface.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/movement.function.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/movement.function.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/optionalsearchparameters.class.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/point.class.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/point.class.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/clipboard-provider.interface.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/color-finder.interface.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/color/color-finder.class.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/color/color-finder.class.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/data-sink.interface.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/data-source.interface.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/image-finder.interface.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/image-processor.interface.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/image-reader.type.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/image-writer.type.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/image/jimp-image-processor.class.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/image/jimp-image-processor.class.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/io/__mocks__/calculator.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/io/imageToJimp.function.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/io/imageToJimp.function.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/io/jimp-image-reader.class.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/io/jimp-image-reader.class.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/io/jimp-image-writer.class.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/io/jimp-image-writer.class.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/keyboard-provider.interface.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/log-provider.interface.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/log/console-log-provider.class.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/log/console-log-provider.class.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/log/noop-log-provider.class.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/mouse-provider.interface.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/provider-registry.class.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/provider-registry.class.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/screen-provider.interface.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/text-finder.interface.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/window-finder.interface.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/provider/window-provider.interface.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/query.class.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/query.class.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/region.class.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/region.class.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/rgba.class.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/scaled-match-result.class.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screen.class.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screen.class.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screen.colorAt.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/size.class.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/size.class.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sleep.function.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sleep.function.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/util/bresenham.class.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/util/bresenham.class.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/util/linehelper.class.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/util/linehelper.class.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/util/timeout.function.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/util/timeout.function.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/window-api.interface.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/window.class.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/window.class.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/window.function.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/window.function.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scratch.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sonar-project.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tslint.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/typedoc.js" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+    <option name="myAllFileTypesSelected" value="false" />
+    <option name="mySelectedFileTypes">
+      <set>
+        <option value="Prisma" />
+      </set>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="develop" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="develop" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+  </component>
+  <component name="GithubProjectSettings">
+    <option name="branchProtectionPatterns">
+      <list>
+        <option value="develop" />
+        <option value="master" />
+      </list>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2NLARFt6JwjqAt4veDV74UhcYCj" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Jest..toBeAt.executor": "Run",
+    "Jest..toBeIn.executor": "Run",
+    "Jest..toHaveColor.executor": "Run",
+    "Jest..toHaveColor.should fail when the screen pixel has the incorrect RGBA value.executor": "Run",
+    "Jest..toHaveColor.should succeed when screen pixel has the correct RGBA value.executor": "Debug",
+    "Jest..toHaveColor.should succeed when the screen pixel has the correct RGBA value.executor": "Run",
+    "Jest..toHaveColor.should succeed when the screen pixel has the incorrect RGBA value.executor": "Run",
+    "Jest.Assert.executor": "Run",
+    "Jest.Assert.isVisible should not throw if a match is found..executor": "Run",
+    "Jest.Assert.isVisible should throw if a match is found..executor": "Run",
+    "Jest.Assert.isVisible should throw if no match is found..executor": "Run",
+    "Jest.Basic test with custom Jest matchers.executor": "Run",
+    "Jest.DefaultProviderRegistry.executor": "Debug",
+    "Jest.Keyboard test.executor": "Run",
+    "Jest.Mouse test.executor": "Run",
+    "Jest.Mouse test.movment.should demo straight movement to a Region's center point.executor": "Run",
+    "Jest.Screen test.executor": "Run",
+    "Jest.Screen..executor": "Coverage",
+    "Jest.clipboardy action.executor": "Run",
+    "Jest.color finder.executor": "Run",
+    "Jest.color finder.findAll.executor": "Run",
+    "Jest.color finder.findAll.should resolve.executor": "Debug",
+    "Jest.colorAt.executor": "Run",
+    "Jest.colorAt.should account for pixel density when retrieving pixel color.executor": "Run",
+    "Jest.colorAt.should return the correct RGBA value for a given pixel.executor": "Run",
+    "Jest.getActiveWindow.executor": "Run",
+    "Jest.getWindows.executor": "Run",
+    "Jest.libnut WindowAction.getWindowRegion.should resolve to a window region via libnut#getWindowRegion.executor": "Run",
+    "Jest.libnut keyboard action.executor": "Run",
+    "Jest.screen helpers.executor": "Run",
+    "Jest.timeout.executor": "Run",
+    "Jest.timeout.should resolve after updateInterval if action resolves != true.executor": "Run",
+    "Playwright.getActiveWindow.should return our started application window (1).executor": "Run",
+    "Playwright.getActiveWindow.should return our started application window.executor": "Run",
+    "Playwright.getWindows (1).executor": "Run",
+    "Playwright.getWindows.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "monorepo",
+    "last_opened_file_path": "/Users/s1hofmann/Documents/git/nut-tree/monorepo/e2e/window",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs.jest.jest_package": "/Users/s1hofmann/Documents/git/nut-tree/monorepo/examples/window-test/node_modules/jest",
+    "nodejs_package_manager_path": "npm",
+    "npm.clipboardy > compile.executor": "Run",
+    "npm.clipboardy > test.executor": "Run",
+    "npm.electron-sample > test.executor": "Run",
+    "npm.monorepo > compile.executor": "Run",
+    "npm.monorepo > coverage.executor": "Run",
+    "npm.monorepo > prepare.executor": "Run",
+    "npm.mouse-test > test.executor": "Run",
+    "npm.nut.js > coverage.executor": "Run",
+    "npm.nut.js > test.executor": "Run",
+    "npm.shared > test.executor": "Run",
+    "npm.test (1).executor": "Run",
+    "npm.typescript-sample > test.executor": "Run",
+    "npm.window > pretest.executor": "Run",
+    "npm.window > test.executor": "Run",
+    "npm.window-test > pretest.executor": "Run",
+    "npm.window-test > test.executor": "Run",
+    "prettierjs.PrettierConfiguration.Package": "/Users/s1hofmann/Documents/git/nut-tree/nut.js/node_modules/prettier",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "ts.external.directory.path": "/Users/s1hofmann/Documents/git/nut-tree/monorepo/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/e2e/window" />
+      <recent name="$PROJECT_DIR$/core/e2e" />
+      <recent name="$PROJECT_DIR$/providers/clipboardy" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/core" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/examples" />
+      <recent name="$PROJECT_DIR$/core/e2e" />
+      <recent name="$PROJECT_DIR$/core/e2e/tests" />
+      <recent name="$PROJECT_DIR$/core" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="es6.move.members.recent.items">
+      <recent name="$PROJECT_DIR$/core/nut.js/lib/provider/log/wrap-logger.function.ts" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.monorepo &gt; prepare">
+    <configuration name="getActiveWindow" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/examples/window-test/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/examples/window-test" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/examples/window-test/test.spec.js" />
+      <test-names>
+        <test-name value="getActiveWindow" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="getWindows" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/examples/window-test/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$/examples/window-test" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/examples/window-test/test.spec.js" />
+      <test-names>
+        <test-name value="getWindows" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="scratch.js" type="NodeJSConfigurationType" nameIsGenerated="true" path-to-js-file="scratch.js" working-dir="$PROJECT_DIR$">
+      <method v="2" />
+    </configuration>
+    <configuration name="monorepo &gt; coverage" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="coverage" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="monorepo &gt; prepare" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="prepare" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="nut.js &gt; coverage" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/core/nut.js/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="coverage" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Jest.getActiveWindow" />
+      <item itemvalue="Jest.getWindows" />
+      <item itemvalue="Node.js.scratch.js" />
+      <item itemvalue="npm.monorepo &gt; coverage" />
+      <item itemvalue="npm.monorepo &gt; prepare" />
+      <item itemvalue="npm.nut.js &gt; coverage" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.monorepo &gt; prepare" />
+        <item itemvalue="npm.monorepo &gt; coverage" />
+        <item itemvalue="npm.nut.js &gt; coverage" />
+        <item itemvalue="Jest.getActiveWindow" />
+        <item itemvalue="Jest.getWindows" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-985749b364ce-JavaScript-WS-233.14015.89" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="866f21d0-f133-45ef-8d2b-ebb5becfb16d" name="Changes" comment="" />
+      <created>1679432978985</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1679432978985</updated>
+      <workItem from="1679432981309" duration="35000" />
+      <workItem from="1679433022231" duration="263000" />
+      <workItem from="1679433293067" duration="1351000" />
+      <workItem from="1679436442639" duration="3520000" />
+      <workItem from="1679935659870" duration="599000" />
+      <workItem from="1679939329513" duration="599000" />
+      <workItem from="1680022634525" duration="593000" />
+      <workItem from="1680027842501" duration="593000" />
+      <workItem from="1680114055931" duration="598000" />
+      <workItem from="1680296184753" duration="598000" />
+      <workItem from="1680299791520" duration="42000" />
+      <workItem from="1680299900953" duration="2774000" />
+      <workItem from="1680639262831" duration="31998000" />
+      <workItem from="1681308731224" duration="7099000" />
+      <workItem from="1681571208618" duration="598000" />
+      <workItem from="1681972831555" duration="1852000" />
+      <workItem from="1682447962245" duration="25000" />
+      <workItem from="1682447991539" duration="2069000" />
+      <workItem from="1682695973748" duration="7988000" />
+      <workItem from="1683213262424" duration="39000" />
+      <workItem from="1683213435108" duration="2458000" />
+      <workItem from="1683661069831" duration="4592000" />
+      <workItem from="1684325835719" duration="1766000" />
+      <workItem from="1685470476626" duration="103000" />
+      <workItem from="1685473330049" duration="18159000" />
+      <workItem from="1686329021984" duration="4594000" />
+      <workItem from="1687469743930" duration="6538000" />
+      <workItem from="1688150384876" duration="598000" />
+      <workItem from="1688745861822" duration="3421000" />
+      <workItem from="1689191910426" duration="2061000" />
+      <workItem from="1689366495896" duration="6589000" />
+      <workItem from="1690460365871" duration="1531000" />
+      <workItem from="1690492205088" duration="204000" />
+      <workItem from="1690492424554" duration="3594000" />
+      <workItem from="1690827536084" duration="598000" />
+      <workItem from="1692024945047" duration="2018000" />
+      <workItem from="1692948309499" duration="49000" />
+      <workItem from="1692948376267" duration="598000" />
+      <workItem from="1693918897010" duration="599000" />
+      <workItem from="1694001382923" duration="4740000" />
+      <workItem from="1694632617849" duration="2675000" />
+      <workItem from="1694965548828" duration="15946000" />
+      <workItem from="1695808994375" duration="5639000" />
+      <workItem from="1695997477252" duration="597000" />
+      <workItem from="1696414385363" duration="597000" />
+      <workItem from="1696844865131" duration="5569000" />
+      <workItem from="1696923560698" duration="508000" />
+      <workItem from="1697106584731" duration="598000" />
+      <workItem from="1697117890667" duration="11852000" />
+      <workItem from="1697720576864" duration="10000" />
+      <workItem from="1698874111519" duration="1703000" />
+      <workItem from="1700060930480" duration="596000" />
+      <workItem from="1700236162883" duration="2290000" />
+      <workItem from="1700651368040" duration="147000" />
+      <workItem from="1700651531830" duration="34000" />
+      <workItem from="1700688832094" duration="10000" />
+      <workItem from="1700737818189" duration="598000" />
+      <workItem from="1700738571424" duration="8581000" />
+      <workItem from="1701808325135" duration="634000" />
+      <workItem from="1701894983511" duration="2000" />
+      <workItem from="1701899076758" duration="14372000" />
+      <workItem from="1702542162792" duration="15236000" />
+      <workItem from="1702973824444" duration="599000" />
+      <workItem from="1703063606972" duration="1521000" />
+      <workItem from="1703365922705" duration="599000" />
+      <workItem from="1704490769886" duration="3690000" />
+      <workItem from="1705985293432" duration="2414000" />
+      <workItem from="1706275860160" duration="2421000" />
+      <workItem from="1706517193456" duration="6059000" />
+      <workItem from="1706998321711" duration="4789000" />
+      <workItem from="1707479355966" duration="13385000" />
+    </task>
+    <task id="LOCAL-00001" summary="(#500) Define color finder interface">
+      <created>1681085812842</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1681085812842</updated>
+    </task>
+    <task id="LOCAL-00002" summary="(#500) Implement color finder interface + tests">
+      <created>1681085838825</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1681085838825</updated>
+    </task>
+    <task id="LOCAL-00003" summary="(#500) Add new query kind ColorQuery + test">
+      <created>1681085883244</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1681085883244</updated>
+    </task>
+    <task id="LOCAL-00004" summary="(#500) Introduce color finder in provider registry">
+      <created>1681085937559</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1681085937559</updated>
+    </task>
+    <task id="LOCAL-00005" summary="(#500) Introduce and export new query function `pixelWithColor`">
+      <created>1681086026738</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1681086026738</updated>
+    </task>
+    <task id="LOCAL-00006" summary="(#500) Make both match-request.class.ts and match-result.class.ts generic such that they can work with different types">
+      <created>1681090210068</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1681090210068</updated>
+    </task>
+    <task id="LOCAL-00007" summary="(#500) Provide types to now generic MatchResult">
+      <created>1681090256142</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1681090256142</updated>
+    </task>
+    <task id="LOCAL-00008" summary="(#500) Add support for new color finder and match results which return results other than Region">
+      <created>1681090353142</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1681090353142</updated>
+    </task>
+    <task id="LOCAL-00009" summary="(#499) Test for single point inputs">
+      <created>1682448330845</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1682448330845</updated>
+    </task>
+    <task id="LOCAL-00010" summary="(#499) Extend mouse.move to handle single point inputs">
+      <created>1682448357530</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1682448357530</updated>
+    </task>
+    <task id="LOCAL-00011" summary="(#500) Add test for the new color-finder queries in screen.class.spec.ts">
+      <created>1682700252678</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1682700252678</updated>
+    </task>
+    <task id="LOCAL-00012" summary="(#500) Add test for the new color-finder queries in screen.class.spec.ts">
+      <created>1682700285459</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1682700285459</updated>
+    </task>
+    <task id="LOCAL-00013" summary="(#500) Add test for the new color-finder queries in screen.class.spec.ts">
+      <created>1682700579264</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1682700579264</updated>
+    </task>
+    <task id="LOCAL-00014" summary="(#513) Bump jimp version to 0.22.8">
+      <created>1685776461348</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1685776461348</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Updated changelog">
+      <created>1686053044670</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1686053044670</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Update dependencies">
+      <created>1686053105443</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1686053105443</updated>
+    </task>
+    <task id="LOCAL-00017" summary="npm audit fix">
+      <created>1686053121157</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1686053121157</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Version bump to v3.1.2">
+      <created>1686053147636</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1686053147636</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Address sonar issues">
+      <created>1686054464569</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1686054464569</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Increase test coverage">
+      <created>1686055296474</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1686055296474</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Properly adapt color query test to findAll">
+      <created>1686056640838</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1686056640838</updated>
+    </task>
+    <task id="LOCAL-00024" summary="(#533) Add safety checks when accessing providers to avoid errors before being able to load alternatives">
+      <option name="closed" value="true" />
+      <created>1694980408427</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1694980408427</updated>
+    </task>
+    <task id="LOCAL-00025" summary="(#533) Extend constants and provider registry to disable loading of other native providers as well.&#10;Preparing for further refactorings">
+      <option name="closed" value="true" />
+      <created>1694985110818</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1694985110818</updated>
+    </task>
+    <task id="LOCAL-00026" summary="(#533) Update sonar action">
+      <option name="closed" value="true" />
+      <created>1694985528849</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1694985528849</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Bumped dependency versions, extended window provider with new capabilities for focus/resize/move window">
+      <option name="closed" value="true" />
+      <created>1696887258247</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1696887258247</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Switched to using playwright in e2e tests">
+      <option name="closed" value="true" />
+      <created>1697574920589</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1697574920589</updated>
+    </task>
+    <task id="LOCAL-00029" summary="(nut-tree/plugin-ocr#25) Made the confidence value of a match request optional">
+      <option name="closed" value="true" />
+      <created>1697575023324</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1697575023324</updated>
+    </task>
+    <task id="LOCAL-00030" summary="(nut-tree/plugin-ocr#25) Stop setting a default confidence value to not override other confidence value (e.g. the OCR one) with the explicit value of the match request">
+      <option name="closed" value="true" />
+      <created>1697575123842</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1697575123846</updated>
+    </task>
+    <task id="LOCAL-00031" summary="(nut-tree/plugin-ocr#25) Removed redefinition of sleep and used import">
+      <option name="closed" value="true" />
+      <created>1697575827423</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1697575827423</updated>
+    </task>
+    <task id="LOCAL-00032" summary="(nut-tree/plugin-ocr#25) Updated workflow definitions">
+      <option name="closed" value="true" />
+      <created>1697575865417</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1697575865417</updated>
+    </task>
+    <task id="LOCAL-00033" summary="(nut-tree/plugin-ocr#25) Run npx playwright install before running tests">
+      <option name="closed" value="true" />
+      <created>1697576433051</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1697576433051</updated>
+    </task>
+    <task id="LOCAL-00034" summary="(nut-tree/plugin-ocr#25) Specify working directory where to load the Electron main from in window tests">
+      <option name="closed" value="true" />
+      <created>1697576975177</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1697576975177</updated>
+    </task>
+    <task id="LOCAL-00035" summary="(nut-tree/plugin-ocr#25) Increased Jest timeout for window tests to accommodate startup times, removed superfluous Docker stuf from CI runs on macOS and Windows, since tests would be running in Linux again which is just confusing in this place">
+      <option name="closed" value="true" />
+      <created>1697577533527</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1697577533527</updated>
+    </task>
+    <task id="LOCAL-00036" summary="(nut-tree/plugin-ocr#25) Formatting">
+      <option name="closed" value="true" />
+      <created>1700430590655</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1700430590655</updated>
+    </task>
+    <task id="LOCAL-00037" summary="(#547) New matcher toHaveColor that verifies pixel colors on screen">
+      <option name="closed" value="true" />
+      <created>1702583085530</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1702583085530</updated>
+    </task>
+    <task id="LOCAL-00038" summary="(#547) Updated toShow to support full search parameters, added the possibility to pass a region to directly specify a search region instead of the whole screen">
+      <option name="closed" value="true" />
+      <created>1702583140948</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1702583140948</updated>
+    </task>
+    <task id="LOCAL-00039" summary="(#547) Expose new matchers">
+      <option name="closed" value="true" />
+      <created>1702583170379</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1702583170379</updated>
+    </task>
+    <task id="LOCAL-00040" summary="(#547) npm audit fix">
+      <option name="closed" value="true" />
+      <created>1702583182025</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1702583182025</updated>
+    </task>
+    <task id="LOCAL-00041" summary="(#547) Fix coverage generation, WIP">
+      <option name="closed" value="true" />
+      <created>1702592156227</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1702592156227</updated>
+    </task>
+    <task id="LOCAL-00042" summary="(#547) npm audit fix">
+      <option name="closed" value="true" />
+      <created>1702592658870</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1702592658870</updated>
+    </task>
+    <task id="LOCAL-00043" summary="(#547) Try to increase node heap space">
+      <option name="closed" value="true" />
+      <created>1702593835874</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1702593835874</updated>
+    </task>
+    <task id="LOCAL-00044" summary="(#547) Try to increase node heap space">
+      <option name="closed" value="true" />
+      <created>1702594194453</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1702594194453</updated>
+    </task>
+    <task id="LOCAL-00045" summary="(#547) Get rid of Docker tests">
+      <option name="closed" value="true" />
+      <created>1702595992678</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1702595992678</updated>
+    </task>
+    <task id="LOCAL-00046" summary="(#547) Addressed some sonar issues">
+      <option name="closed" value="true" />
+      <created>1702596614866</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1702596614866</updated>
+    </task>
+    <task id="LOCAL-00047" summary="(#547) Don't run coverage report again after the first stage">
+      <option name="closed" value="true" />
+      <created>1702596954515</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1702596954515</updated>
+    </task>
+    <task id="LOCAL-00048" summary="(NT-67) Remove libnut provider code to move it into separate package">
+      <option name="closed" value="true" />
+      <created>1707680936387</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1707680936387</updated>
+    </task>
+    <task id="LOCAL-00049" summary="(NT-67) Sorted key enum to make it easier to follow">
+      <option name="closed" value="true" />
+      <created>1707680969347</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1707680969347</updated>
+    </task>
+    <task id="LOCAL-00050" summary="(NT-67) Switch to latest snapshot libnut provider package and use new interface">
+      <option name="closed" value="true" />
+      <created>1707682435947</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1707682435948</updated>
+    </task>
+    <task id="LOCAL-00051" summary="(NT-67) Update E2E tests">
+      <option name="closed" value="true" />
+      <created>1707682895005</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1707682895005</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="release/v3.1.2" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/core/nut.js" />
+      <path value="$PROJECT_DIR$/core/shared" />
+      <path value="$PROJECT_DIR$/core/shared/node_modules/@nut-tree/nut-js" />
+      <path value="$PROJECT_DIR$/core/shared/node_modules/@nut-tree/nut-js/node_modules/@nut-tree/libnut" />
+      <path value="$PROJECT_DIR$/providers/clipboardy" />
+      <path value="$PROJECT_DIR$/providers/libnut" />
+    </ignored-roots>
+    <MESSAGE value="(#533) Update sonar action" />
+    <MESSAGE value="Bumped dependency versions, extended window provider with new capabilities for focus/resize/move window" />
+    <MESSAGE value="Switched to using playwright in e2e tests" />
+    <MESSAGE value="(nut-tree/plugin-ocr#25) Made the confidence value of a match request optional" />
+    <MESSAGE value="(nut-tree/plugin-ocr#25) Stop setting a default confidence value to not override other confidence value (e.g. the OCR one) with the explicit value of the match request" />
+    <MESSAGE value="(nut-tree/plugin-ocr#25) Removed redefinition of sleep and used import" />
+    <MESSAGE value="(nut-tree/plugin-ocr#25) Updated workflow definitions" />
+    <MESSAGE value="(nut-tree/plugin-ocr#25) Run npx playwright install before running tests" />
+    <MESSAGE value="(nut-tree/plugin-ocr#25) Specify working directory where to load the Electron main from in window tests" />
+    <MESSAGE value="(nut-tree/plugin-ocr#25) Increased Jest timeout for window tests to accommodate startup times, removed superfluous Docker stuf from CI runs on macOS and Windows, since tests would be running in Linux again which is just confusing in this place" />
+    <MESSAGE value="(nut-tree/plugin-ocr#25) Formatting" />
+    <MESSAGE value="(#547) New matcher toHaveColor that verifies pixel colors on screen" />
+    <MESSAGE value="(#547) Updated toShow to support full search parameters, added the possibility to pass a region to directly specify a search region instead of the whole screen" />
+    <MESSAGE value="(#547) Expose new matchers" />
+    <MESSAGE value="(#547) Fix coverage generation, WIP" />
+    <MESSAGE value="(#547) npm audit fix" />
+    <MESSAGE value="(#547) Try to increase node heap space" />
+    <MESSAGE value="(#547) Get rid of Docker tests" />
+    <MESSAGE value="(#547) Addressed some sonar issues" />
+    <MESSAGE value="(#547) Don't run coverage report again after the first stage" />
+    <MESSAGE value="(NT-67) Remove libnut provider code to move it into separate package" />
+    <MESSAGE value="(NT-67) Sorted key enum to make it easier to follow" />
+    <MESSAGE value="(NT-67) Switch to latest snapshot libnut provider package and use new interface" />
+    <MESSAGE value="(NT-67) Update E2E tests" />
+    <MESSAGE value="Monorepo build" />
+    <option name="LAST_COMMIT_MESSAGE" value="Monorepo build" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/packages/libnut-provider/index.ts</url>
+          <line>2</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/packages/libnut-provider/lib/index.ts</url>
+          <line>5</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/nut_js$_toHaveColor.info" NAME=".toHaveColor Coverage Results" MODIFIED="1702590175429" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="JestJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/nut_js$Screen_.info" NAME="Screen. Coverage Results" MODIFIED="1702586354280" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="JestJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/nut_js$colorAt.info" NAME="colorAt Coverage Results" MODIFIED="1702586311845" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="JestJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+</project>

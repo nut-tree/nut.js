@@ -1,0 +1,29 @@
+{
+  "name": "@nut-tree/provider-interfaces",
+  "version": "1.0.0",
+  "description": "Public provider interfaces for @nut-tree/nut-js",
+  "main": "dist/index",
+  "typings": "dist/index",
+  "scripts": {
+    "clean": "rimraf dist",
+    "compile": "pnpm run clean && tsc -p .",
+    "publish-next": "pnpm publish --tag next",
+    "prepublishOnly": "pnpm run compile"
+  },
+  "keywords": [
+    "nut-js",
+    "provider"
+  ],
+  "author": {
+    "name": "dry Software UG (haftungsbeschränkt)",
+    "email": "info@dry.software",
+    "url": "https://dry.software"
+  },
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@nut-tree/shared": "workspace:*"
+  },
+    "devDependencies": {
+      "@nut-tree/configs": "workspace:*"
+    }
+}

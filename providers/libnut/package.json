@@ -1,0 +1,55 @@
+{
+  "name": "@nut-tree/libnut",
+  "version": "3.0.0",
+  "description": "libnut is an N-API module for desktop automation with node",
+  "main": "dist/index",
+  "typings": "dist/index",
+  "homepage": "https://nutjs.dev",
+  "author": {
+    "name": "dry Software UG (haftungsbeschränkt)",
+    "email": "info@dry.software",
+    "url": "https://dry.software"
+  },
+  "bugs": {
+    "url": "https://github.com/nut-tree/nut.js/issues"
+  },
+  "keywords": [
+    "GUI",
+    "Automation",
+    "mouse",
+    "keyboard",
+    "screenshot",
+    "image",
+    "desktop",
+    "screen",
+    "recognition",
+    "autohotkey"
+  ],
+  "license": "Apache-2.0",
+  "scripts": {
+    "clean": "rimraf dist",
+    "compile": "pnpm run clean && tsc -p .",
+    "compile:dev": "pnpm run clean && tsc -p . --watch",
+    "test": "jest --runInBand",
+    "coverage": "jest --coverage --runInBand",
+    "coverage:clean": "rimraf coverage",
+    "publish:next": "pnpm publish --tag next",
+    "prepublishOnly": "pnpm run compile"
+  },
+  "engines": {
+    "node": ">=10.15.3"
+  },
+  "dependencies": {
+    "@nut-tree/libnut-darwin": "2.6.0",
+    "@nut-tree/libnut-linux": "2.6.0",
+    "@nut-tree/libnut-win32": "2.6.0"
+  },
+  "devDependencies": {
+    "@nut-tree/configs": "workspace:*",
+    "@nut-tree/shared": "workspace:*",
+    "@nut-tree/provider-interfaces": "workspace:*"
+  },
+  "peerDependencies": {
+    "@nut-tree/nut-js": "^3"
+  }
+}

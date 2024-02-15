@@ -1,0 +1,16 @@
+/lib
+/tsconfig.json
+/tslint.json
+/.travis.yml
+/appveyor.yml
+/.vscode
+/.idea
+/.github
+/.scratch/
+/docs/
+/e2e/
+/sonar-project.properties
+/typedoc.js
+/index.e2e.spec.ts
+/index.ts
+/jest.config.js

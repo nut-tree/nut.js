@@ -21,29 +21,21 @@ jobs:
         with:
           node-version: 18
       - name: Install
-        run: npm ci
+        run: pnpm i
       - name: Compile
-        run: npm run compile
-      - name: Init window e2e test subpackage
-        run: npm --prefix e2e/window-test ci
+        run: pnpm -r run compile
       - name: Clean coverage report
-        run: npm run coverage:clean
+        run: pnpm run coverage:clean
       - name: Generate coverage report
         uses: GabrielBB/xvfb-action@v1
         env:
           NODE_OPTIONS: "--max-old-space-size=8192"
         with:
-          run: npm run coverage -- --coverageDirectory=coverage/unit
-      - name: Run Electron e2e test subpackage
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          run: npm --prefix e2e/electron-test cit
-      - name: Merge coverage reports
-        run: |
-          npm run coverage:merge
-          npm run coverage:merge-report
+          run: pnpm run coverage
       - name: Send results to SonarCloud
-        uses: SonarSource/sonarcloud-github-action@v2.0.2
+        uses: SonarSource/sonarcloud-github-action@v2.1.1
+        with:
+          projectBaseDir: core/nut.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -53,8 +45,8 @@ jobs:
       - sonar
     strategy:
       matrix:
-        os: [windows-latest, macos-latest]
-        node: [18]
+        os: [ windows-latest, macos-latest ]
+        node: [ 18 ]
     runs-on: ${{matrix.os}}
     steps:
       - name: Set up Git repository
@@ -64,18 +56,11 @@ jobs:
         with:
           node-version: ${{matrix.node}}
       - name: Install
-        run: npm ci
+        run: pnpm i
       - name: Compile
-        run: npm run compile
-      - name: Init window e2e test subpackage
-        run: npm --prefix e2e/window-test ci
+        run: pnpm run compile
       - name: Generate coverage report
         uses: GabrielBB/xvfb-action@v1
         with:
           run: |
-            npx playwright install --with-deps
-            npm test
-      - name: Run Electron e2e test subpackage
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          run: npm --prefix e2e/electron-test cit
+            pnpm test

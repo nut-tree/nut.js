@@ -1,0 +1,4 @@
+packages:
+  - 'core/*'
+  - 'providers/*'
+  - 'examples/*'

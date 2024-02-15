@@ -1,0 +1,18 @@
+{
+  "name": "typescript-sample",
+  "version": "2.0.0",
+  "private": true,
+  "description": "A simple nut.js test example which demos usage with TypeScript",
+  "main": "index.ts",
+  "author": {
+    "name": "dry Software UG (haftungsbeschränkt)",
+    "email": "info@dry.software",
+    "url": "https://dry.software"
+  },
+  "scripts": {
+    "test": "ts-node index.ts"
+  },
+  "dependencies": {
+    "@nut-tree/nut-js": "workspace:*"
+  }
+}
