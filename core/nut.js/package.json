@@ -51,7 +51,7 @@
     "test": "jest --runInBand",
     "coverage": "jest --coverage --runInBand --logHeapUsage",
     "coverage:clean": "rimraf coverage",
-    "publish-next": "pnpm publish --tag next",
+    "publish:next": "pnpm publish --tag next",
     "prepublishOnly": "pnpm run compile",
     "versionBump": "bump --tag --push --all",
     "typedoc": "typedoc --options ./typedoc.js --entryPointStrategy expand ./lib"

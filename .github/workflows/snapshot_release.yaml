@@ -29,23 +29,16 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v3.0.0
       - name: Install
-        run: npm ci
+        run: pnpm i
       - name: Install @nut-tree/libnut@next
-        run: npm i @nut-tree/libnut@next
+        run: |
+          pnpm --filter @nut-tree/libnut i @nut-tree/libnut-darwin@next @nut-tree/libnut-linux@next @nut-tree/libnut-win32@next
       - name: Compile
-        run: npm run compile
-      - name: Init window e2e test subpackage
-        run: npm --prefix e2e/window-test ci
+        run: pnpm run compile
       - name: Run tests
         uses: GabrielBB/xvfb-action@v1
         with:
-          run: |
-            npx playwright install --with-deps
-            npm test
-      - name: Run Electron e2e test subpackage
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          run: npm --prefix e2e/electron-test cit
+          run: pnpm run coverage
 
   deploy:
     needs:
@@ -63,13 +56,14 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v3.0.0
       - name: Install
-        run: npm ci
+        run: pnpm i
       - name: Install @nut-tree/libnut@next
-        run: npm i @nut-tree/libnut@next
+        run: |
+          pnpm --filter @nut-tree/libnut i @nut-tree/libnut-darwin@next @nut-tree/libnut-linux@next @nut-tree/libnut-win32@next
       - name: Create snapshot release
         run: bash ./.build/pre-release.sh
       - name: Publish snapshot release to npm
-        run: npm run publish-next
+        run: pnpm run publish:next
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - uses: actions/setup-node@v3

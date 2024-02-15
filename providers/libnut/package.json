@@ -1,6 +1,6 @@
 {
   "name": "@nut-tree/libnut",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "libnut is an N-API module for desktop automation with node",
   "main": "dist/index",
   "typings": "dist/index",
@@ -34,7 +34,8 @@
     "coverage": "jest --coverage --runInBand",
     "coverage:clean": "rimraf coverage",
     "publish:next": "pnpm publish --tag next",
-    "prepublishOnly": "pnpm run compile"
+    "prepublishOnly": "pnpm run compile",
+    "version": "npm version --no-git-tag -f"
   },
   "engines": {
     "node": ">=10.15.3"

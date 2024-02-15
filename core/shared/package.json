@@ -1,6 +1,6 @@
 {
   "name": "@nut-tree/shared",
-  "version": "1.0.0",
+  "version": "4.0.0",
   "description": "Shared objects, data types and functions for @nut-tree/nut-js",
   "main": "dist/index",
   "typings": "dist/index",
@@ -10,7 +10,7 @@
     "coverage:clean": "rimraf coverage",
     "clean": "rimraf dist",
     "compile": "pnpm run clean && tsc -p .",
-    "publish-next": "pnpm publish --tag next",
+    "publish:next": "pnpm publish --tag next",
     "prepublishOnly": "pnpm run compile"
   },
   "dependencies": {
