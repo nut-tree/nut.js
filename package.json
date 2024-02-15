@@ -8,6 +8,7 @@
     "coverage": "pnpm -r run coverage",
     "prepare": "husky install"
   },
+  "packageManager": "pnpm@8.15.2",
   "workspaces": [
     "core/*",
     "providers/*",
