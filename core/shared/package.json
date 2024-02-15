@@ -6,6 +6,8 @@
   "typings": "dist/index",
   "scripts": {
     "test": "jest --runInBand",
+    "coverage": "jest --coverage --runInBand --logHeapUsage",
+    "coverage:clean": "rimraf coverage",
     "clean": "rimraf dist",
     "compile": "pnpm run clean && tsc -p .",
     "publish-next": "pnpm publish --tag next",
