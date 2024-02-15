@@ -5,215 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="866f21d0-f133-45ef-8d2b-ebb5becfb16d" name="Changes" comment="Monorepo build">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/configs/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/configs/tsconfig/base.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/.npmignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/CHANGELOG.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/lib/clipboard-provider.interface.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/lib/color-finder.interface.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/lib/data-sink.interface.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/lib/data-source.interface.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/lib/image-finder.interface.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/lib/image-processor.interface.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/lib/image-reader.type.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/lib/image-writer.type.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/lib/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/lib/keyboard-provider.interface.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/lib/log-provider.interface.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/lib/mouse-provider.interface.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/lib/provider-registry.interface.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/lib/screen-provider.interface.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/lib/text-finder.interface.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/lib/window-finder.interface.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/lib/window-provider.interface.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/provider-interfaces/tsconfig.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/assets/calculator.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/assets/mouse.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/jest-test/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/jest-test/index.spec.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/jest-test/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/keyboard-test/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/keyboard-test/index.spec.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/keyboard-test/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/mouse-test/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/mouse-test/index.spec.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/mouse-test/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/screen-test/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/screen-test/index.spec.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/screen-test/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/typescript-sample/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/typescript-sample/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/typescript-sample/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/typescript-sample/tsconfig.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/window-test/constants.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/window-test/index.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/window-test/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/window-test/main.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/window-test/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/window-test/preload.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/window-test/renderer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/examples/window-test/test.spec.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pnpm-lock.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pnpm-workspace.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/workflows/ci.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/ci.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.husky/pre-commit" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.npmignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.nvmrc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.prettierignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.prettierrc.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CODE_OF_CONDUCT.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/assets/calculator.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/assets/checkers.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/assets/close.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/assets/desktop.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/assets/dot.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/assets/dots.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/assets/equals.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/assets/menu.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/assets/mouse.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/assets/moved_trash.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/assets/one.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/assets/plus.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/assets/result.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/assets/terminal.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/assets/trash.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/assets/xfce-menu.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/assets/zero.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/electron-test/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/electron-test/assets/quit.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/electron-test/index.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/electron-test/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/electron-test/main.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/electron-test/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/electron-test/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/electron-test/preload.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/electron-test/renderer.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/window-test/constants.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/window-test/index.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/window-test/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/window-test/jest.config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/window-test/main.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/window-test/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/window-test/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/window-test/preload.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/window-test/renderer.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e2e/window-test/test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/jest.config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assert.class.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/assert.class.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/button.enum.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/clipboard.class.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/clipboard.class.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/colormode.enum.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/constants.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/expect/jest.matcher.function.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/expect/matchers/toBeAt.function.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/expect/matchers/toBeAt.function.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/expect/matchers/toBeIn.function.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/expect/matchers/toBeIn.function.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/expect/matchers/toHaveColor.function.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/expect/matchers/toHaveColor.function.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/expect/matchers/toShow.function.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/file-type.enum.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/generate-output-path.function.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/generate-output-path.function.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/image.class.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/image.class.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/imageResources.function.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/imageResources.function.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/key.enum.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/keyboard.class.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/keyboard.class.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/location.function.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/location.function.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/logging.function.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/match-request.class.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/match-request.class.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/match-result.class.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/match-result.class.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/mouse-movement.function.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/mouse-movement.function.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/mouse.class.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/mouse.class.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/movement-api.interface.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/movement.function.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/movement.function.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/optionalsearchparameters.class.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/point.class.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/point.class.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/clipboard-provider.interface.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/color-finder.interface.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/color/color-finder.class.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/color/color-finder.class.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/data-sink.interface.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/data-source.interface.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/image-finder.interface.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/image-processor.interface.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/image-reader.type.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/image-writer.type.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/image/jimp-image-processor.class.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/image/jimp-image-processor.class.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/index.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/io/__mocks__/calculator.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/io/imageToJimp.function.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/io/imageToJimp.function.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/io/jimp-image-reader.class.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/io/jimp-image-reader.class.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/io/jimp-image-writer.class.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/io/jimp-image-writer.class.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/keyboard-provider.interface.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/log-provider.interface.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/log/console-log-provider.class.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/log/console-log-provider.class.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/log/noop-log-provider.class.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/mouse-provider.interface.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/provider-registry.class.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/provider-registry.class.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/screen-provider.interface.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/text-finder.interface.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/window-finder.interface.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/provider/window-provider.interface.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/query.class.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/query.class.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/region.class.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/region.class.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/rgba.class.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/scaled-match-result.class.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screen.class.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screen.class.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screen.colorAt.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/size.class.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/size.class.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/sleep.function.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/sleep.function.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/util/bresenham.class.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/util/bresenham.class.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/util/linehelper.class.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/util/linehelper.class.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/util/timeout.function.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/util/timeout.function.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/window-api.interface.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/window.class.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/window.class.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/window.function.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/window.function.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scratch.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sonar-project.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tslint.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/typedoc.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -314,7 +106,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "monorepo",
-    "last_opened_file_path": "/Users/s1hofmann/Documents/git/nut-tree/monorepo/e2e/window",
+    "last_opened_file_path": "/Users/s1hofmann/Documents/git/nut-tree/monorepo",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -345,11 +137,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/examples" />
       <recent name="$PROJECT_DIR$/e2e/window" />
       <recent name="$PROJECT_DIR$/core/e2e" />
       <recent name="$PROJECT_DIR$/providers/clipboardy" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/core" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/examples" />
@@ -672,14 +464,6 @@
       <option name="project" value="LOCAL" />
       <updated>1686056640838</updated>
     </task>
-    <task id="LOCAL-00024" summary="(#533) Add safety checks when accessing providers to avoid errors before being able to load alternatives">
-      <option name="closed" value="true" />
-      <created>1694980408427</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1694980408427</updated>
-    </task>
     <task id="LOCAL-00025" summary="(#533) Extend constants and provider registry to disable loading of other native providers as well.&#10;Preparing for further refactorings">
       <option name="closed" value="true" />
       <created>1694985110818</created>
@@ -896,7 +680,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707682895005</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="Monorepo build">
+      <option name="closed" value="true" />
+      <created>1708006396341</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1708006396341</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
