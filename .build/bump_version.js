@@ -4,6 +4,7 @@ const { join } = require("path");
 
 const args = process.argv.slice(2);
 const version = args[0];
+const allPackages = args.includes("--all");
 
 if (version == null || version === "") {
   throw new Error("Version is required");
@@ -11,7 +12,9 @@ if (version == null || version === "") {
 
 exec("pnpm m ls --json --depth=-1", (_, stdout) => {
   const modules = JSON.parse(stdout).filter(
-    (module) => module.private !== true,
+    (module) => {
+      return allPackages ? true : module.private !== true;
+    }
   );
 
   for (const module of modules) {
