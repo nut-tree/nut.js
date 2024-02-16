@@ -21,7 +21,33 @@ export class Window implements WindowInterface {
   }
 
   async getRegion(): Promise<Region> {
-    return this.providerRegistry.getWindow().getWindowRegion(this.windowHandle);
+    const region = await this.providerRegistry.getWindow().getWindowRegion(this.windowHandle);
+    const mainWindowRegion = await this.providerRegistry.getScreen().screenSize();
+    if (region.left < 0) {
+      region.width = region.width + region.left;
+      region.left = 0;
+    }
+    if (region.top < 0) {
+      region.height = region.height + region.top;
+      region.top = 0;
+    }
+    const rightWindowBound = region.left + region.width;
+    if (rightWindowBound > mainWindowRegion.width) {
+      const excessWidth = rightWindowBound - mainWindowRegion.width;
+      region.width = region.width - excessWidth;
+    }
+    const bottomWindowBound = region.top + region.height;
+    if (bottomWindowBound > mainWindowRegion.height) {
+      const excessHeight = bottomWindowBound - mainWindowRegion.height;
+      region.height = region.height - excessHeight;
+    }
+    if (region.width < 0) {
+      region.width = 0;
+    }
+    if (region.height < 0) {
+      region.height = 0;
+    }
+    return region;
   }
 
   async move(newOrigin: Point) {

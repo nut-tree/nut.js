@@ -1,15 +1,25 @@
 import { Window } from "./window.class";
-import { ProviderRegistry, WindowProviderInterface } from "@nut-tree/provider-interfaces";
+import { ProviderRegistry, ScreenProviderInterface, WindowProviderInterface } from "@nut-tree/provider-interfaces";
 import { mockPartial } from "sneer";
+import { Region } from "@nut-tree/shared";
 
 describe("Window class", () => {
   it("should retrieve the window region via provider", async () => {
     // GIVEN
-    const windowMock = jest.fn();
+    const windowMock = jest.fn(() => {
+      return Promise.resolve(new Region(10, 10, 100, 100));
+    });
     const providerRegistryMock = mockPartial<ProviderRegistry>({
       getWindow(): WindowProviderInterface {
         return mockPartial<WindowProviderInterface>({
           getWindowRegion: windowMock
+        });
+      },
+      getScreen(): ScreenProviderInterface {
+        return mockPartial<ScreenProviderInterface>({
+          screenSize(): Promise<Region> {
+            return Promise.resolve(new Region(0, 0, 1920, 1080));
+          }
         });
       }
     });
