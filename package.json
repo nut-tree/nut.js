@@ -15,7 +15,8 @@
   "workspaces": [
     "core/*",
     "providers/*",
-    "examples/*"
+    "examples/*",
+    "e2e/*"
   ],
   "dependencies": {},
   "devDependencies": {

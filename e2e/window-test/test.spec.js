@@ -1,6 +1,6 @@
 const { _electron: electron } = require("playwright");
-const { sleep, getActiveWindow, getWindows } = require("@nut-tree/nut-js");
-const { POS_X, POS_Y, WIDTH, HEIGTH, TITLE } = require("./constants");
+const { sleep, getActiveWindow, screen, getWindows } = require("@nut-tree/nut-js");
+const { POS_X, POS_Y, WIDTH, HEIGHT, TITLE } = require("./constants");
 
 let app;
 let page;
@@ -57,7 +57,7 @@ describe("getActiveWindow", () => {
     expect(activeWindowRegion.left).toBe(POS_X);
     expect(activeWindowRegion.top).toBe(POS_Y);
     expect(activeWindowRegion.width).toBe(WIDTH);
-    expect(activeWindowRegion.height).toBe(HEIGTH);
+    expect(activeWindowRegion.height).toBe(HEIGHT);
   });
 
   it("should determine correct coordinates for our application after moving the window", async () => {
@@ -90,6 +90,40 @@ describe("getActiveWindow", () => {
     // THEN
     expect(activeWindowRegion.width).toBe(newWidth);
     expect(activeWindowRegion.height).toBe(newHeight);
+  });
+});
+
+describe("window regions", () => {
+  it("should crop window coordinates on main screen boundaries to the left", async () => {
+    // GIVEN
+    const newLeft = -40;
+
+    // WHEN
+    const foregroundWindow = await getActiveWindow();
+    await foregroundWindow.move({ x: newLeft, y: POS_Y });
+    await sleep(1000);
+    const activeWindowRegion = await foregroundWindow.region;
+
+    // THEN
+    expect(activeWindowRegion.left).toBe(0);
+    expect(activeWindowRegion.width).toBe(WIDTH + newLeft);
+  });
+
+  it("should crop window coordinates on main screen boundaries to the right", async () => {
+    // GIVEN
+    const screenWidth = await screen.width();
+    const delta = 40;
+    const newLeft = screenWidth - delta;
+
+    // WHEN
+    const foregroundWindow = await getActiveWindow();
+    await foregroundWindow.move({ x: newLeft, y: POS_Y });
+    await sleep(1000);
+    const activeWindowRegion = await foregroundWindow.region;
+
+    // THEN
+    expect(activeWindowRegion.left).toBe(newLeft);
+    expect(activeWindowRegion.width).toBe(delta);
   });
 });
 
