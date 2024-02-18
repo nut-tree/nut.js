@@ -41,9 +41,9 @@
     "node": ">=10.15.3"
   },
   "dependencies": {
-    "@nut-tree/libnut-darwin": "2.6.0",
-    "@nut-tree/libnut-linux": "2.6.0",
-    "@nut-tree/libnut-win32": "2.6.0"
+    "@nut-tree/libnut-darwin": "2.7.0",
+    "@nut-tree/libnut-linux": "2.7.0",
+    "@nut-tree/libnut-win32": "2.7.0"
   },
   "devDependencies": {
     "@nut-tree/configs": "workspace:*",
