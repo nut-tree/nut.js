@@ -34,6 +34,7 @@
     "coverage": "jest --coverage --runInBand",
     "coverage:clean": "rimraf coverage",
     "publish:next": "pnpm publish --tag next --no-git-checks",
+    "publish:release": "pnpm publish",
     "prepublishOnly": "pnpm run compile",
     "version": "npm version --no-git-tag -f"
   },
