@@ -65,5 +65,8 @@
   },
   "devDependencies": {
     "@nut-tree/configs": "workspace:*"
+  },
+  "engines": {
+    "node": ">=16"
   }
 }
