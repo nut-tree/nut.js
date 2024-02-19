@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## 4.0.0
+
+- Feature: Add ability to move/focus/resize windows [(#172)](https://github.com/nut-tree/nut.js/issues/172)
+- Enhancement: Add support for 'Clear' key on macOS [(PR #520)](https://github.com/nut-tree/nut.js/pull/520)
+- Feature: Optional default providers [(#533)](https://github.com/nut-tree/nut.js/issues/533)
+- BREAKING: OCR confidence override not working [(nut-tree/plugin-ocr#25)](https://github.com/nut-tree/plugin-ocr/issues/25)
+- Enhancement: New 'toHaveColor' Jest matcher [(#547)](https://github.com/nut-tree/nut.js/issues/547)
+- Enhancement: Improved error messages for timeouts [(#556)](https://github.com/nut-tree/nut.js/issues/556)
+- Maintenance: Migrate nut.js core and its default providers to a monorepo [(PR #560)](https://github.com/nut-tree/nut.js/pull/560)
+- Maintenance: Use PlayWright for E2E tests
+- Bugfix: `getActiveWindow` returns out-of-bounds coordinates for maximized windows [(#559)](https://github.com/nut-tree/nut.js/issues/559)
+- BREAKING: Require minimum node version of 16
+
 ## 3.1.2
 
 - Bugfix: Screen capture broken on macOS 13 [(#469)](https://github.com/nut-tree/nut.js/issues/469)
