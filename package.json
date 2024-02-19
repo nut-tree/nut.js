@@ -9,7 +9,7 @@
     "coverage:clean": "pnpm -r run coverage:clean",
     "prepare": "husky install",
     "publish:next": "pnpm -r run publish:next",
-    "publish": "pnpm -r run publish"
+    "publish:release": "pnpm -r run publish:release"
   },
   "packageManager": "pnpm@8.15.2",
   "workspaces": [

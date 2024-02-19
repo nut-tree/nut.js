@@ -171,14 +171,14 @@ importers:
   providers/libnut:
     dependencies:
       '@nut-tree/libnut-darwin':
-        specifier: 2.7.0
-        version: 2.7.0
+        specifier: 2.7.1
+        version: 2.7.1
       '@nut-tree/libnut-linux':
-        specifier: 2.7.0
-        version: 2.7.0
+        specifier: 2.7.1
+        version: 2.7.1
       '@nut-tree/libnut-win32':
-        specifier: 2.7.0
-        version: 2.7.0
+        specifier: 2.7.1
+        version: 2.7.1
       '@nut-tree/nut-js':
         specifier: ^3
         version: 3.1.2
@@ -1584,8 +1584,8 @@ packages:
       '@nut-tree/node-mac-permissions': 2.2.1
     dev: false
 
-  /@nut-tree/libnut-darwin@2.7.0:
-    resolution: {integrity: sha512-kWIo6ANWY/NCemwHQaRyqbFT5Hn48dYd8Q7LuOchA9xz9gJoymE75UzlKNnxB35q7jEns/OXWIG7ZbIOXAMAKA==}
+  /@nut-tree/libnut-darwin@2.7.1:
+    resolution: {integrity: sha512-yJKwAeWuORi+EN4tWkJj/9L5f/MO6FT7ida0CSeN8AT4KppCAsXdkLcQjirFTuWrCVvbkizVTSE3d/J7rVi0kw==}
     engines: {node: '>=10.15.3'}
     cpu: [x64, arm64]
     os: [darwin, linux, win32]
@@ -1606,8 +1606,8 @@ packages:
       '@nut-tree/node-mac-permissions': 2.2.1
     dev: false
 
-  /@nut-tree/libnut-linux@2.7.0:
-    resolution: {integrity: sha512-dga/lIAmEnoBy0UfyaxNTEg0v3aIMyrNSEPADgtNHYbRWpuBNgUnRDw753jQ8A2x3S3l8HpNsd3m2wGti2m/tg==}
+  /@nut-tree/libnut-linux@2.7.1:
+    resolution: {integrity: sha512-ZAGoKL1ugy/2fibseOGhyZkthCdBRuTqf2fgHZgum0DQQAZCCNis+mySiTj4p+Xqeowe5t0L0Pn279embjz4bw==}
     engines: {node: '>=10.15.3'}
     cpu: [x64, arm64]
     os: [darwin, linux, win32]
@@ -1628,8 +1628,8 @@ packages:
       '@nut-tree/node-mac-permissions': 2.2.1
     dev: false
 
-  /@nut-tree/libnut-win32@2.7.0:
-    resolution: {integrity: sha512-8k6yiH2l18sQbZtJAP6Je0slgvVCJakYu/htQEKi5aVrTJK0KFYRX/BT6t2XH9yGSlnQQQ8jY+vlkb2xaQTzRA==}
+  /@nut-tree/libnut-win32@2.7.1:
+    resolution: {integrity: sha512-QmaQt1U7jXNjhqb10x6Ziijbhvqn2o50WgADZMM7mADVc5iDf3Xhd9yA1TmiGbgfqxkRPq9HpuInoYBz0U234g==}
     engines: {node: '>=10.15.3'}
     cpu: [x64, arm64]
     os: [darwin, linux, win32]

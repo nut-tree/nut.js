@@ -34,6 +34,7 @@
     "coverage": "jest --coverage --runInBand",
     "coverage:clean": "rimraf coverage",
     "publish:next": "pnpm publish --tag next --no-git-checks",
+    "publish:release": "pnpm publish --no-git-checks",
     "prepublishOnly": "pnpm run compile",
     "version": "npm version --no-git-tag -f"
   },
@@ -41,9 +42,9 @@
     "node": ">=10.15.3"
   },
   "dependencies": {
-    "@nut-tree/libnut-darwin": "2.7.0",
-    "@nut-tree/libnut-linux": "2.7.0",
-    "@nut-tree/libnut-win32": "2.7.0"
+    "@nut-tree/libnut-darwin": "2.7.1",
+    "@nut-tree/libnut-linux": "2.7.1",
+    "@nut-tree/libnut-win32": "2.7.1"
   },
   "devDependencies": {
     "@nut-tree/configs": "workspace:*",
