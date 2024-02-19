@@ -1,0 +1,38 @@
+{
+  "name": "@nut-tree/default-clipboard-provider",
+  "version": "4.0.0",
+  "description": "The @nut-tree/nut-js default clipboard provider based on clipboardy",
+  "main": "dist/index",
+  "typings": "dist/index",
+  "scripts": {
+    "coverage": "jest --coverage --runInBand --logHeapUsage",
+    "coverage:clean": "rimraf coverage",
+    "test": "jest --runInBand",
+    "clean": "rimraf dist",
+    "compile": "pnpm run clean && tsc -p .",
+    "publish:next": "pnpm publish --tag next --no-git-checks",
+    "prepublishOnly": "pnpm run compile"
+  },
+  "keywords": [
+    "nut-js",
+    "provider",
+    "clipboard",
+    "clipboardy"
+  ],
+  "author": {
+    "name": "dry Software UG (haftungsbeschränkt)",
+    "email": "info@dry.software",
+    "url": "https://dry.software"
+  },
+  "license": "Apache-2.0",
+  "dependencies": {
+    "clipboardy": "2.3.0"
+  },
+  "devDependencies": {
+    "@nut-tree/provider-interfaces": "workspace:*",
+    "@nut-tree/configs": "workspace:*"
+  },
+  "peerDependencies": {
+    "@nut-tree/nut-js": "^3"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "@nut-tree/configs",
+  "private": true,
+  "version": "4.0.0",
+  "description": "Shared configs for nut.js",
+  "author": {
+    "name": "dry Software UG (haftungsbeschränkt)",
+    "email": "info@dry.software",
+    "url": "https://dry.software"
+  }
+}

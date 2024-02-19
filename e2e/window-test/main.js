@@ -1,11 +1,11 @@
 const { app, ipcMain, BrowserWindow } = require("electron");
 const path = require("path");
-const { POS_X, POS_Y, WIDTH, HEIGTH } = require("./constants");
+const { POS_X, POS_Y, WIDTH, HEIGHT } = require("./constants");
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
     width: WIDTH,
-    height: HEIGTH,
+    height: HEIGHT,
     alwaysOnTop: true,
     webPreferences: {
       nodeIntegration: true,

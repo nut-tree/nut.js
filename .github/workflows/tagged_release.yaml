@@ -8,38 +8,30 @@ jobs:
   test:
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-        node: [16]
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
+        node: [ 18 ]
     runs-on: ${{matrix.os}}
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Set up node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{matrix.node}}
-      - name: Setup Docker
-        if: ${{matrix.os == 'ubuntu-latest'}}
-        run: |
-          docker pull s1hofmann/nut-ci:latest
-          docker run -it -d --name nut-ci --shm-size 8gb --user $(id -u):$(id -g) -v ${PWD}:${PWD}:rw s1hofmann/nut-ci:latest bash
+          registry-url: https://registry.npmjs.org/
+          token: ${{ secrets.NPM_TOKEN }}
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3.0.0
       - name: Install
-        run: npm ci
+        run: |
+          pnpm whoami
+          pnpm i
       - name: Compile
         run: npm run compile
-      - name: Init window e2e test subpackage
-        run: npm --prefix e2e/window-test ci
-      - name: Generate coverage report
+      - name: Run tests
         uses: GabrielBB/xvfb-action@v1
         with:
-          run: npm test
-      - name: Run Docker E2E tests
-        if: ${{matrix.os == 'ubuntu-latest'}}
-        run: docker exec nut-ci bash -c "bash $PWD/.build/build.sh ${PWD} ${{matrix.node}}"
-      - name: Run Electron e2e test subpackage
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          run: npm --prefix e2e/electron-test cit
+          run: pnpm run coverage
 
   deploy:
     needs:
@@ -47,27 +39,32 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Set up node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: 16
-          registry-url: "https://registry.npmjs.org"
+          node-version: 18
+          registry-url: https://registry.npmjs.org/
+          token: ${{ secrets.NPM_TOKEN }}
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3.0.0
       - name: Install
-        run: npm ci
+        run: |
+          pnpm whoami
+          pnpm i
       - name: Run typedoc
-        run: npm run typedoc
+        run: pnpm --filter @nut-tree/nut-js run typedoc
       - name: Publish typedocs to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3.7.3
         with:
           deploy_key: ${{ secrets.API_DOC_DEPLOY_KEY }}
           external_repository: nut-tree/apidoc
-          publish_dir: ./docs
+          publish_dir: ./core/nut.js/docs
       - name: Publish tagged release to npm
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           registry-url: "https://npm.pkg.github.com"
       - name: Publish tagged release to GPR

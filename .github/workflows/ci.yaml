@@ -7,46 +7,43 @@ on:
   #    paths-ignore:
   #      - '**/*.md'
   pull_request:
+  workflow_dispatch:
 
 jobs:
   sonar:
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, 'skip ci')"
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Set up node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: 16
-      - name: Setup Docker
-        run: |
-          docker pull s1hofmann/nut-ci:latest
-          docker run -it -d --name nut-ci --shm-size 8gb --user $(id -u):$(id -g) -v ${PWD}:${PWD}:rw s1hofmann/nut-ci:latest bash
+          node-version: 18
+          registry-url: https://registry.npmjs.org/
+          token: ${{ secrets.NPM_TOKEN }}
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3.0.0
       - name: Install
-        run: npm ci
+        run: |
+          pnpm whoami
+          pnpm i
       - name: Compile
-        run: npm run compile
-      - name: Init window e2e test subpackage
-        run: npm --prefix e2e/window-test ci
+        run: pnpm -r run compile
       - name: Clean coverage report
-        run: npm run coverage:clean
+        run: pnpm run coverage:clean
       - name: Generate coverage report
         uses: GabrielBB/xvfb-action@v1
+        env:
+          NODE_OPTIONS: "--max-old-space-size=8192"
         with:
-          run: npm run coverage -- --coverageDirectory=coverage/unit
-      - name: Run Docker E2E tests
-        run: docker exec nut-ci bash -c "bash $PWD/.build/build.sh ${PWD} 14"
-      - name: Run Electron e2e test subpackage
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          run: npm --prefix e2e/electron-test cit
-      - name: Merge coverage reports
-        run: |
-          npm run coverage:merge
-          npm run coverage:merge-report
+          run: pnpm run coverage
       - name: Send results to SonarCloud
-        uses: SonarSource/sonarcloud-github-action@v1.6
+        uses: SonarSource/sonarcloud-github-action@v2.1.1
+        with:
+          projectBaseDir: core/nut.js
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -54,37 +51,30 @@ jobs:
   test:
     needs:
       - sonar
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     strategy:
       matrix:
-        os: [windows-latest, macos-latest]
-        node: [16]
+        os: [ windows-latest, macos-latest ]
+        node: [ 18 ]
     runs-on: ${{matrix.os}}
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Set up node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{matrix.node}}
-      - name: Setup Docker
-        if: ${{matrix.os == 'ubuntu-latest'}}
-        run: |
-          docker pull s1hofmann/nut-ci:latest
-          docker run -it -d --name nut-ci --shm-size 8gb --user $(id -u):$(id -g) -v ${PWD}:${PWD}:rw s1hofmann/nut-ci:latest bash
+          registry-url: https://registry.npmjs.org/
+          token: ${{ secrets.NPM_TOKEN }}
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3.0.0
       - name: Install
-        run: npm ci
+        run: pnpm i
       - name: Compile
-        run: npm run compile
-      - name: Init window e2e test subpackage
-        run: npm --prefix e2e/window-test ci
+        run: pnpm run compile
       - name: Generate coverage report
         uses: GabrielBB/xvfb-action@v1
         with:
-          run: npm run coverage -- --coverageDirectory=coverage/unit
-      - name: Run Docker E2E tests
-        if: ${{matrix.os == 'ubuntu-latest'}}
-        run: docker exec nut-ci bash -c "bash $PWD/.build/build.sh ${PWD} ${{matrix.node}}"
-      - name: Run Electron e2e test subpackage
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          run: npm --prefix e2e/electron-test cit
+          run: |
+            pnpm run coverage

@@ -11,4 +11,10 @@ about: File a request to resolve open questions
 - [ ] Docker container
 - [ ] Dev/Host system
 
+**node version**:
+
+**OS type and version**:
+
+**Full code sample related to question**
+
 **Detailed question**
