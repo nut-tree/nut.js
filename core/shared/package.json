@@ -11,7 +11,7 @@
     "clean": "rimraf dist",
     "compile": "pnpm run clean && tsc -p .",
     "publish:next": "pnpm publish --tag next --no-git-checks",
-    "publish:release": "pnpm publish",
+    "publish:release": "pnpm publish --no-git-checks",
     "prepublishOnly": "pnpm run compile"
   },
   "dependencies": {
