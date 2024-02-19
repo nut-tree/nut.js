@@ -11,6 +11,8 @@ jobs:
         os: [ ubuntu-latest, windows-latest, macos-latest ]
         node: [ 18 ]
     runs-on: ${{matrix.os}}
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v3
@@ -37,6 +39,8 @@ jobs:
     needs:
       - test
     runs-on: ubuntu-latest
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v3
