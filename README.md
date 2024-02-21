@@ -86,6 +86,9 @@ It's work in progress and will undergo constant modification.
 - [x] Retrieve active window
 - [x] Retrieve window title
 - [x] Retrieve window size and position
+- [x] Focus window
+- [x] Resize window
+- [x] Reposition window
 
 ## Screen
 
