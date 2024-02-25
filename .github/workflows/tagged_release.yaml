@@ -57,13 +57,13 @@ jobs:
           pnpm whoami
           pnpm i
       - name: Run typedoc
-        run: pnpm --filter @nut-tree/nut-js run typedoc
+        run: pnpm run typedoc
       - name: Publish typedocs to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3.7.3
         with:
           deploy_key: ${{ secrets.API_DOC_DEPLOY_KEY }}
           external_repository: nut-tree/apidoc
-          publish_dir: ./core/nut.js/docs
+          publish_dir: ./docs
       - name: Publish tagged release to npm
         run: pnpm run publish:release
         env:
