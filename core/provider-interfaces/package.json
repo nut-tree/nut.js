@@ -9,7 +9,8 @@
     "compile": "pnpm run clean && tsc -p .",
     "publish:next": "pnpm publish --tag next --no-git-checks",
     "publish:release": "pnpm publish --no-git-checks",
-    "prepublishOnly": "pnpm run compile"
+    "prepublishOnly": "pnpm run compile",
+    "typedoc": "typedoc --out docs"
   },
   "keywords": [
     "nut-js",

@@ -9,7 +9,9 @@
     "coverage:clean": "pnpm -r run coverage:clean",
     "prepare": "husky install",
     "publish:next": "pnpm -r run publish:next",
-    "publish:release": "pnpm -r run publish:release"
+    "publish:release": "pnpm -r run publish:release",
+    "typedoc-all": "pnpm -r run typedoc",
+    "typedoc": "pnpm run typedoc-all && typedoc"
   },
   "packageManager": "pnpm@8.15.2",
   "workspaces": [
@@ -18,7 +20,6 @@
     "examples/*",
     "e2e/*"
   ],
-  "dependencies": {},
   "devDependencies": {
     "@types/jest": "29.5.12",
     "@types/node": "20.11.17",

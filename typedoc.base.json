@@ -1,0 +1,16 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "exclude": [
+    "**/dist/**",
+    "**/node_modules/**",
+    "**/*.spec.ts",
+    "**/__mocks__/**"
+  ],
+  "excludePrivate": true,
+  "excludeExternals": true,
+  "excludeProtected": true,
+  "hideGenerator": true,
+  "entryPointStrategy": "expand",
+  "includeVersion": true,
+  "theme": "default"
+}

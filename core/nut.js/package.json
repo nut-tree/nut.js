@@ -54,7 +54,7 @@
     "publish:next": "pnpm publish --tag next --no-git-checks",
     "publish:release": "pnpm publish --no-git-checks",
     "prepublishOnly": "pnpm run compile",
-    "typedoc": "typedoc --options ./typedoc.js --entryPointStrategy expand ./lib"
+    "typedoc": "typedoc --out docs"
   },
   "dependencies": {
     "@nut-tree/default-clipboard-provider": "workspace:*",
