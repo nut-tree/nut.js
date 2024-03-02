@@ -131,6 +131,7 @@ export default class KeyboardAction implements KeyboardProviderInterface {
     [Key.Multiply, "multiply"],
     [Key.Divide, "divide"],
     [Key.Enter, "enter"],
+    [Key.Clear, "clear"],
 
     [Key.CapsLock, "caps_lock"],
     [Key.ScrollLock, "scroll_lock"],

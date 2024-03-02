@@ -177,6 +177,7 @@ export enum Key {
   NumpadDecimal = "numpad_decimal",
 
   Enter = "enter",
+  Clear = "clear",
   Add = "add",
   Subtract = "subtract",
   Multiply = "multiply",
