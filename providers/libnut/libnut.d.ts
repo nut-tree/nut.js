@@ -175,6 +175,7 @@ export enum Key {
   Numpad8 = "numpad_8",
   Numpad9 = "numpad_9",
   NumpadDecimal = "numpad_decimal",
+  NumPadEquals = "numpad_equals",
 
   Enter = "enter",
   Add = "add",

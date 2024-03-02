@@ -53,6 +53,7 @@ export enum Key {
   Home,
   PageUp,
   NumLock,
+  NumPadEquals,
   Divide,
   Multiply,
   Subtract,
