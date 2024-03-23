@@ -1,13 +1,13 @@
 name: Create snapshot release
 on:
   push:
-    branches:
-      - develop
-    paths-ignore:
-      - "**/*.md"
-  repository_dispatch:
-    types:
-      - snapshot-release
+#    branches:
+#      - develop
+#    paths-ignore:
+#      - "**/*.md"
+#  repository_dispatch:
+#    types:
+#      - snapshot-release
   workflow_dispatch:
 
 jobs:
@@ -74,10 +74,3 @@ jobs:
         run: pnpm run publish:next
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - uses: actions/setup-node@v3
-        with:
-          registry-url: "https://npm.pkg.github.com"
-      - name: Publish snapshot release to GPR
-        run: npm run publish:next
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
