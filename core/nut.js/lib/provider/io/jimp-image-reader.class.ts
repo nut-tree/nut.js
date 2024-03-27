@@ -24,7 +24,7 @@ export default class implements ImageReader {
               jimpImage.bitmap.width,
               jimpImage.bitmap.height,
               jimpImage.bitmap.data,
-              jimpImage.hasAlpha() ? 4 : 3,
+              4,
               parameters,
               jimpImage.bitmap.data.length /
               (jimpImage.bitmap.width * jimpImage.bitmap.height),
