@@ -1,13 +1,13 @@
 name: Create snapshot release
 on:
   push:
-#    branches:
-#      - develop
-#    paths-ignore:
-#      - "**/*.md"
-#  repository_dispatch:
-#    types:
-#      - snapshot-release
+    branches:
+      - develop
+    paths-ignore:
+      - "**/*.md"
+  repository_dispatch:
+    types:
+      - snapshot-release
   workflow_dispatch:
 
 jobs:
