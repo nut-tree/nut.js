@@ -68,10 +68,3 @@ jobs:
         run: pnpm run publish:release
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - uses: actions/setup-node@v3
-        with:
-          registry-url: "https://npm.pkg.github.com"
-      - name: Publish tagged release to GPR
-        run: pnpm run publish:release
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -4,10 +4,11 @@ export class RGBA {
     public readonly G: number,
     public readonly B: number,
     public readonly A: number
-  ) {}
+  ) {
+  }
 
   public toString(): string {
-    return `rgb(${this.R},${this.G},${this.B})`;
+    return `rgba(${this.R},${this.G},${this.B},${this.A})`;
   }
 
   public toHex(): string {
