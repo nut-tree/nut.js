@@ -36,7 +36,7 @@ describe("libnut screen action", () => {
         colorAt: jest.fn(),
         height: screenShotSize.height,
         image: Buffer.from(
-          new Array(screenShotSize.width * screenShotSize.height * 4 + 10).fill(
+          new Array(screenShotSize.width * screenShotSize.height * 4).fill(
             0
           )
         ),
@@ -72,7 +72,7 @@ describe("libnut screen action", () => {
         colorAt: jest.fn(),
         height: screenShotSize.height,
         image: Buffer.from(
-          new Array(screenShotSize.width * screenShotSize.height * 4 + 10).fill(
+          new Array(screenShotSize.width * screenShotSize.height * 4).fill(
             0
           )
         ),
