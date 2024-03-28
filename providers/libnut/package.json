@@ -1,6 +1,6 @@
 {
   "name": "@nut-tree/libnut",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "libnut is an N-API module for desktop automation with node",
   "main": "dist/index",
   "typings": "dist/index",

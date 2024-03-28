@@ -1,6 +1,6 @@
 {
   "name": "@nut-tree/default-clipboard-provider",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "The @nut-tree/nut-js default clipboard provider based on clipboardy",
   "main": "dist/index",
   "typings": "dist/index",

@@ -1,6 +1,6 @@
 {
   "name": "@nut-tree/shared",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Shared objects, data types and functions for @nut-tree/nut-js",
   "main": "dist/index",
   "typings": "dist/index",

@@ -1,6 +1,6 @@
 {
   "name": "sample-window",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "private": true,
   "description": "Integration tests to verify window handling",
   "main": "main.js",
