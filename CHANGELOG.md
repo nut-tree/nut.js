@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 4.0.1
+
+- Enhancement: Fix channel info for image loader to 4 to avoid processing errors
+
 ## 4.0.0
 
 - Feature: Add ability to move/focus/resize windows [(#172)](https://github.com/nut-tree/nut.js/issues/172)
