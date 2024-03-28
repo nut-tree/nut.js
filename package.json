@@ -1,6 +1,6 @@
 {
   "name": "@nut-tree/monorepo",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "private": true,
   "scripts": {
     "test": "pnpm -r test",

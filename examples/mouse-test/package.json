@@ -1,6 +1,6 @@
 {
   "name": "sample-mouse",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "private": true,
   "description": "A simple nut.js test example which tests mouse control",
   "author": {
