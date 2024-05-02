@@ -77,6 +77,7 @@ export default class KeyboardAction implements KeyboardProviderInterface {
     [Key.NumPad8, "numpad_8"],
     [Key.NumPad9, "numpad_9"],
     [Key.Decimal, "numpad_decimal"],
+    [Key.NumPadEqual, "numpad_equal"],
 
     [Key.Space, "space"],
     [Key.Escape, "escape"],
