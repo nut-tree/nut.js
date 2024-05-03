@@ -3,7 +3,7 @@ import { ImageReader } from "@nut-tree/provider-interfaces";
 import { ColorMode, Image } from "@nut-tree/shared";
 
 export default class implements ImageReader {
-  load(parameters: string): Promise<Image> {
+  load = (parameters: string): Promise<Image> => {
     return new Promise<Image>((resolve, reject) => {
       Jimp.read(parameters)
         .then((jimpImage) => {

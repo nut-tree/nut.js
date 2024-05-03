@@ -32,7 +32,7 @@ export class Window implements WindowInterface {
     return this.getTitle();
   }
 
-  async getTitle(): Promise<string> {
+  getTitle = async (): Promise<string> => {
     return this.providerRegistry.getWindow().getWindowTitle(this.windowHandle);
   }
 
@@ -40,7 +40,7 @@ export class Window implements WindowInterface {
     return this.getRegion();
   }
 
-  async getRegion(): Promise<Region> {
+  getRegion = async (): Promise<Region> => {
     const region = await this.providerRegistry.getWindow().getWindowRegion(this.windowHandle);
     const mainWindowRegion = await this.providerRegistry.getScreen().screenSize();
     if (region.left < 0) {
@@ -70,31 +70,31 @@ export class Window implements WindowInterface {
     return region;
   }
 
-  async move(newOrigin: Point) {
+  move = async (newOrigin: Point) => {
     return this.providerRegistry
       .getWindow()
       .moveWindow(this.windowHandle, newOrigin);
   }
 
-  async resize(newSize: Size) {
+  resize = async (newSize: Size) => {
     return this.providerRegistry
       .getWindow()
       .resizeWindow(this.windowHandle, newSize);
   }
 
-  async focus() {
+  focus = async () => {
     return this.providerRegistry.getWindow().focusWindow(this.windowHandle);
   }
 
-  async minimize() {
+  minimize = async () => {
     return this.providerRegistry.getWindow().minimizeWindow(this.windowHandle);
   }
 
-  async restore() {
+  restore = async () => {
     return this.providerRegistry.getWindow().restoreWindow(this.windowHandle);
   }
 
-  async getElements(maxElements?: number): Promise<WindowElement> {
+  getElements = async (maxElements?: number): Promise<WindowElement> => {
     return this.providerRegistry.getWindowElementInspector().getElements(this.windowHandle, maxElements);
   }
 
@@ -102,9 +102,9 @@ export class Window implements WindowInterface {
    * {@link find} will search for a single occurrence of a given search input in the current window.
    * @param searchInput A {@link WindowedFindInput} instance
    */
-  public async find(
+  public find = async (
     searchInput: WindowElementResultFindInput | Promise<WindowElementResultFindInput>
-  ): Promise<WindowElement> {
+  ): Promise<WindowElement> => {
     const needle = await searchInput;
     this.providerRegistry.getLogProvider().info(`Searching for ${needle} in window ${this.windowHandle}`);
 
@@ -140,9 +140,9 @@ export class Window implements WindowInterface {
    * {@link findAll} will search for multiple occurrence of a given search input in the current window.
    * @param searchInput A {@link WindowedFindInput} instance
    */
-  public async findAll(
+  public findAll = async (
     searchInput: WindowElementResultFindInput | Promise<WindowElementResultFindInput>
-  ): Promise<WindowElement[]> {
+  ): Promise<WindowElement[]> => {
     const needle = await searchInput;
     this.providerRegistry.getLogProvider().info(`Searching for ${needle} in window ${this.windowHandle}`);
 
@@ -183,12 +183,12 @@ export class Window implements WindowInterface {
    * @param updateInterval Update interval in milliseconds to retry search
    * @param params {@link OptionalSearchParameters} which are used to fine tune search
    */
-  public async waitFor<PROVIDER_DATA_TYPE>(
+  public waitFor = async <PROVIDER_DATA_TYPE>(
     searchInput: WindowElementQuery | Promise<WindowElementQuery>,
     timeoutMs?: number,
     updateInterval?: number,
     params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
-  ): Promise<WindowElement> {
+  ): Promise<WindowElement> => {
     const needle = await searchInput;
 
     const timeoutValue = timeoutMs ?? 5000;
@@ -218,7 +218,7 @@ export class Window implements WindowInterface {
    * @param searchInput to trigger the callback on
    * @param callback The {@link FindHookCallback} function to trigger
    */
-  public on(searchInput: WindowElementQuery, callback: WindowElementCallback): void {
+  public on = (searchInput: WindowElementQuery, callback: WindowElementCallback): void => {
     const existingHooks = this.getHooksForInput(searchInput);
     this.findHooks.set(searchInput, [...existingHooks, callback]);
     this.providerRegistry
@@ -230,9 +230,9 @@ export class Window implements WindowInterface {
       );
   }
 
-  private getHooksForInput(
+  private getHooksForInput = (
     input: WindowElementQuery
-  ): WindowElementCallback[] {
+  ): WindowElementCallback[] => {
     return this.findHooks.get(input) ?? [];
   }
 }

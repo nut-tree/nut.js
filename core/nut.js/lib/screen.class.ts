@@ -143,7 +143,7 @@ export class ScreenClass {
    * This refers to the hardware resolution.
    * Screens with higher pixel density (e.g. retina displays in MacBooks) might have a higher width in in actual pixels
    */
-  public width() {
+  public width = () => {
     this.providerRegistry.getLogProvider().debug(`Fetching screen width`);
     return this.providerRegistry.getScreen().screenWidth();
   }
@@ -153,7 +153,7 @@ export class ScreenClass {
    * This refers to the hardware resolution.
    * Screens with higher pixel density (e.g. retina displays in MacBooks) might have a higher height in in actual pixels
    */
-  public height() {
+  public height = () => {
     this.providerRegistry.getLogProvider().debug(`Fetching screen height`);
     return this.providerRegistry.getScreen().screenHeight();
   }
@@ -163,23 +163,25 @@ export class ScreenClass {
    * @param searchInput A {@link FindInput} instance
    * @param params {@link OptionalSearchParameters} which are used to fine tune search region and / or match confidence
    */
-  public async find<PROVIDER_DATA_TYPE>(
+  public find = this._find.bind(this);
+
+  private _find<PROVIDER_DATA_TYPE>(
     searchInput: RegionResultFindInput | Promise<RegionResultFindInput>,
     params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
   ): Promise<Region>;
-  public async find<PROVIDER_DATA_TYPE>(
+  private async _find<PROVIDER_DATA_TYPE>(
     searchInput: PointResultFindInput | Promise<PointResultFindInput>,
     params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
   ): Promise<Point>;
-  public async find<PROVIDER_DATA_TYPE>(
+  private async _find<PROVIDER_DATA_TYPE>(
     searchInput: WindowResultFindInput | Promise<WindowResultFindInput>,
     params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
   ): Promise<Window>;
-  public async find<PROVIDER_DATA_TYPE>(
+  private async _find<PROVIDER_DATA_TYPE>(
     searchInput: FindInput | Promise<FindInput>,
     params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
   ): Promise<FindResult>;
-  public async find<PROVIDER_DATA_TYPE>(
+  private async _find <PROVIDER_DATA_TYPE>(
     searchInput: FindInput | Promise<FindInput>,
     params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
   ): Promise<FindResult> {
@@ -314,23 +316,25 @@ export class ScreenClass {
    * @param searchInput A {@link FindInput} instance to search for
    * @param params {@link OptionalSearchParameters} which are used to fine tune search region and / or match confidence
    */
-  public async findAll<PROVIDER_DATA_TYPE>(
+  public findAll = this._findAll.bind(this);
+
+  private async _findAll<PROVIDER_DATA_TYPE>(
     searchInput: RegionResultFindInput | Promise<RegionResultFindInput>,
     params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
   ): Promise<Region[]>;
-  public async findAll<PROVIDER_DATA_TYPE>(
+  private async _findAll<PROVIDER_DATA_TYPE>(
     searchInput: PointResultFindInput | Promise<PointResultFindInput>,
     params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
   ): Promise<Point[]>;
-  public async findAll<PROVIDER_DATA_TYPE>(
+  private async _findAll<PROVIDER_DATA_TYPE>(
     searchInput: WindowResultFindInput | Promise<WindowResultFindInput>,
     params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
   ): Promise<Window[]>;
-  public async findAll<PROVIDER_DATA_TYPE>(
+  private async _findAll<PROVIDER_DATA_TYPE>(
     searchInput: FindInput | Promise<FindInput>,
     params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
   ): Promise<FindResult[]>;
-  public async findAll<PROVIDER_DATA_TYPE>(
+  private async _findAll <PROVIDER_DATA_TYPE>(
     searchInput: FindInput | Promise<FindInput>,
     params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
   ): Promise<FindResult[]> {
@@ -481,9 +485,9 @@ export class ScreenClass {
    * {@link highlight} highlights a screen {@link Region} for a certain duration by overlaying it with an opaque highlight window
    * @param regionToHighlight The {@link Region} to highlight
    */
-  public async highlight(
+  public highlight = async (
     regionToHighlight: Region | Promise<Region>
-  ): Promise<Region> {
+  ): Promise<Region> => {
     const highlightRegion = await regionToHighlight;
     if (!isRegion(highlightRegion)) {
       const e = Error(
@@ -518,25 +522,27 @@ export class ScreenClass {
    * @param updateInterval Update interval in milliseconds to retry search
    * @param params {@link OptionalSearchParameters} which are used to fine tune search region and / or match confidence
    */
-  public async waitFor<PROVIDER_DATA_TYPE>(
+  public waitFor = this._waitFor.bind(this);
+
+  private async _waitFor<PROVIDER_DATA_TYPE>(
     searchInput: RegionResultFindInput | Promise<RegionResultFindInput>,
     timeoutMs?: number,
     updateInterval?: number,
     params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
   ): Promise<Region>;
-  public async waitFor<PROVIDER_DATA_TYPE>(
+  private async _waitFor<PROVIDER_DATA_TYPE>(
     searchInput: PointResultFindInput | Promise<PointResultFindInput>,
     timeoutMs?: number,
     updateInterval?: number,
     params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
   ): Promise<Point>;
-  public async waitFor<PROVIDER_DATA_TYPE>(
+  private async _waitFor<PROVIDER_DATA_TYPE>(
     searchInput: WindowResultFindInput | Promise<WindowResultFindInput>,
     timeoutMs?: number,
     updateInterval?: number,
     params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
   ): Promise<Window>;
-  public async waitFor<PROVIDER_DATA_TYPE>(
+  private async _waitFor <PROVIDER_DATA_TYPE>(
     searchInput: FindInput | Promise<FindInput>,
     timeoutMs?: number,
     updateInterval?: number,
@@ -573,16 +579,18 @@ export class ScreenClass {
    * @param searchInput to trigger the callback on
    * @param callback The {@link FindHookCallback} function to trigger
    */
-  public on(searchInput: WindowResultFindInput, callback: WindowCallback): void;
-  public on(
+  public on = this._on.bind(this);
+
+  private _on(searchInput: WindowResultFindInput, callback: WindowCallback): void;
+  private _on(
     searchInput: PointResultFindInput,
     callback: MatchResultCallback<Point>
   ): void;
-  public on(
+  private _on(
     searchInput: RegionResultFindInput,
     callback: MatchResultCallback<Region>
   ): void;
-  public on(searchInput: FindInput, callback: FindHookCallback): void {
+  private _on(searchInput: FindInput, callback: FindHookCallback): void {
     this.validateSearchInput("on", searchInput);
 
     const existingHooks = this.findHooks.get(searchInput) ?? [];
@@ -604,13 +612,13 @@ export class ScreenClass {
    * @param fileNamePrefix Filename prefix for the generated screenshot (Default: empty)
    * @param fileNamePostfix Filename postfix for the generated screenshot (Default: empty)
    */
-  public async capture(
+  public capture = async (
     fileName: string,
     fileFormat: FileType = FileType.PNG,
     filePath: string = cwd(),
     fileNamePrefix: string = "",
     fileNamePostfix: string = ""
-  ): Promise<string> {
+  ): Promise<string> => {
     const currentScreen = await this.providerRegistry.getScreen().grabScreen();
     if (!isImage(currentScreen)) {
       const e = new Error(
@@ -639,7 +647,7 @@ export class ScreenClass {
   /**
    * {@link grab} grabs screen content of a systems main display
    */
-  public async grab(): Promise<Image> {
+  public grab = async (): Promise<Image> => {
     const currentScreen = await this.providerRegistry.getScreen().grabScreen();
     this.providerRegistry
       .getLogProvider()
@@ -658,14 +666,14 @@ export class ScreenClass {
    * @param fileNamePrefix Filename prefix for the generated screenshot (Default: empty)
    * @param fileNamePostfix Filename postfix for the generated screenshot (Default: empty)
    */
-  public async captureRegion(
+  public captureRegion = async (
     fileName: string,
     regionToCapture: Region | Promise<Region>,
     fileFormat: FileType = FileType.PNG,
     filePath: string = cwd(),
     fileNamePrefix: string = "",
     fileNamePostfix: string = ""
-  ): Promise<string> {
+  ): Promise<string> => {
     const targetRegion = await regionToCapture;
     if (!isRegion(targetRegion)) {
       const e = new Error(
@@ -705,9 +713,9 @@ export class ScreenClass {
    * {@link grabRegion} grabs screen content of a region on the systems main display
    * @param regionToGrab The screen region to grab
    */
-  public async grabRegion(
+  public grabRegion = async (
     regionToGrab: Region | Promise<Region>
-  ): Promise<Image> {
+  ): Promise<Image> => {
     const targetRegion = await regionToGrab;
     if (!isRegion(targetRegion)) {
       const e = new Error(
@@ -731,7 +739,7 @@ export class ScreenClass {
    * {@link colorAt} returns RGBA color values for a certain pixel at {@link Point} p
    * @param point Location to query color information from
    */
-  public async colorAt(point: Point | Promise<Point>) {
+  public colorAt = async (point: Point | Promise<Point>) => {
     const screenContent = await this.providerRegistry.getScreen().grabScreen();
     const inputPoint = await point;
     if (!isPoint(inputPoint)) {
@@ -763,14 +771,14 @@ export class ScreenClass {
     return color;
   }
 
-  private async saveImage(
+  private saveImage = async (
     image: Image,
     fileName: string,
     fileFormat: FileType,
     filePath: string,
     fileNamePrefix: string,
     fileNamePostfix: string
-  ) {
+  ) => {
     const outputPath = generateOutputPath(fileName, {
       path: filePath,
       postfix: fileNamePostfix,
@@ -787,9 +795,9 @@ export class ScreenClass {
     return outputPath;
   }
 
-  private async getFindParameters<PROVIDER_DATA_TYPE>(
+  private getFindParameters = async <PROVIDER_DATA_TYPE>(
     params?: OptionalSearchParameters<PROVIDER_DATA_TYPE>
-  ) {
+  ) => {
     const minMatch = params?.confidence;
     const screenSize = await this.providerRegistry.getScreen().screenSize();
     const searchRegion = (await params?.searchRegion) ?? screenSize;
@@ -813,14 +821,16 @@ export class ScreenClass {
     return findParameters;
   }
 
-  private getHooksForInput(input: WindowResultFindInput): WindowCallback[];
-  private getHooksForInput(
+  private getHooksForInput = this._getHooksForInput.bind(this);
+
+  private _getHooksForInput(input: WindowResultFindInput): WindowCallback[];
+  private _getHooksForInput(
     input: RegionResultFindInput
   ): MatchResultCallback<Region>[];
-  private getHooksForInput(
+  private _getHooksForInput(
     input: PointResultFindInput
   ): MatchResultCallback<Point>[];
-  private getHooksForInput(
+  private _getHooksForInput(
     input: FindInput
   ):
     | MatchResultCallback<Point>[]
@@ -836,7 +846,7 @@ export class ScreenClass {
     return [];
   }
 
-  private logNeedleType(needle: Image | WordQuery | LineQuery | ColorQuery) {
+  private logNeedleType = (needle: Image | WordQuery | LineQuery | ColorQuery) => {
     if (isImage(needle)) {
       this.providerRegistry.getLogProvider().debug(`Running an image search`);
     } else if (isTextQuery(needle)) {
@@ -844,7 +854,7 @@ export class ScreenClass {
     }
   }
 
-  private validateSearchInput(
+  private validateSearchInput = (
     functionName: string,
     needle:
       | Image
@@ -853,7 +863,7 @@ export class ScreenClass {
       | WindowResultFindInput
       | PointResultFindInput
       | Promise<FindInput>
-  ) {
+  ) => {
     if (
       !isImage(needle) &&
       !isTextQuery(needle) &&

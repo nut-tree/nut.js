@@ -5,11 +5,11 @@ export class AssertClass {
   constructor(private screen: ScreenClass) {
   }
 
-  public async isVisible(
+  public isVisible = async (
     searchInput: FindInput | Promise<FindInput>,
     searchRegion?: Region | Promise<Region>,
     confidence?: number
-  ): Promise<void> {
+  ): Promise<void> => {
     const needle = await searchInput;
     const identifier = needle.id;
 
@@ -29,11 +29,11 @@ export class AssertClass {
     }
   }
 
-  public async notVisible(
+  public notVisible = async (
     searchInput: FindInput | Promise<FindInput>,
     searchRegion?: Region | Promise<Region>,
     confidence?: number
-  ) {
+  ) => {
     const needle = await searchInput;
     const identifier = needle.id;
 

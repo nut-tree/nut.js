@@ -32,7 +32,7 @@ export class ConsoleLogProvider implements LogProviderInterface {
     this.withTimeStamp = config.withTimeStamp ?? true;
   }
 
-  private log(logLevel: ConsoleLogLevel, message: string | Error, data?: {}) {
+  private log = (logLevel: ConsoleLogLevel, message: string | Error, data?: {}) => {
     if (logLevel >= this.logLevel) {
       const timeStampPrefix = `${new Date().toISOString()} - `;
       const extendedMessage = `${
@@ -81,23 +81,23 @@ export class ConsoleLogProvider implements LogProviderInterface {
     }
   }
 
-  public trace(message: string, data?: {}) {
+  public trace = (message: string, data?: {}) => {
     this.log(ConsoleLogLevel.TRACE, message, data);
   }
 
-  public debug(message: string, data?: {}) {
+  public debug = (message: string, data?: {}) => {
     this.log(ConsoleLogLevel.DEBUG, message, data);
   }
 
-  public info(message: string, data?: {}) {
+  public info = (message: string, data?: {}) => {
     this.log(ConsoleLogLevel.INFO, message, data);
   }
 
-  public warn(message: string, data?: {}) {
+  public warn = (message: string, data?: {}) => {
     this.log(ConsoleLogLevel.WARN, message, data);
   }
 
-  public error(message: Error, data?: {}) {
+  public error = (message: Error, data?: {}) => {
     this.log(ConsoleLogLevel.ERROR, message, data);
   }
 }

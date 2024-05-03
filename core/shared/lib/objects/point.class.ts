@@ -1,7 +1,7 @@
 export class Point {
   constructor(public x: number, public y: number) {}
 
-  public toString() {
+  public toString = () => {
     return `(${this.x}, ${this.y})`;
   }
 }

@@ -7,11 +7,11 @@ export class RGBA {
   ) {
   }
 
-  public toString(): string {
+  public toString = (): string => {
     return `rgba(${this.R},${this.G},${this.B},${this.A})`;
   }
 
-  public toHex(): string {
+  public toHex = (): string => {
     return `#${this.R.toString(16).padStart(2, "0")}${this.G.toString(
       16
     ).padStart(2, "0")}${this.B.toString(16).padStart(2, "0")}${this.A.toString(

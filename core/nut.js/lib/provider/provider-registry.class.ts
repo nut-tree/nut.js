@@ -48,7 +48,7 @@ class DefaultProviderRegistry implements ProviderRegistry {
   private _colorFinder?: ColorFinderInterface;
   private _windowElementInspector?: ElementInspectionProviderInterface;
 
-  hasClipboard(): boolean {
+  hasClipboard = (): boolean => {
     return this._clipboard != null;
   }
 
@@ -66,7 +66,7 @@ class DefaultProviderRegistry implements ProviderRegistry {
     this.getLogProvider().trace("Registered new clipboard provider", value);
   };
 
-  hasImageFinder(): boolean {
+  hasImageFinder = (): boolean => {
     return this._imageFinder != null;
   }
 
@@ -84,7 +84,7 @@ class DefaultProviderRegistry implements ProviderRegistry {
     this.getLogProvider().trace("Registered new image finder", value);
   };
 
-  hasKeyboard(): boolean {
+  hasKeyboard = (): boolean => {
     return this._keyboard != null;
   }
 
@@ -102,7 +102,7 @@ class DefaultProviderRegistry implements ProviderRegistry {
     this.getLogProvider().trace("Registered new keyboard provider", value);
   };
 
-  hasMouse(): boolean {
+  hasMouse = (): boolean => {
     return this._mouse != null;
   }
 
@@ -120,7 +120,7 @@ class DefaultProviderRegistry implements ProviderRegistry {
     this.getLogProvider().trace("Registered new mouse provider", value);
   };
 
-  hasScreen(): boolean {
+  hasScreen = (): boolean => {
     return this._screen != null;
   }
 
@@ -138,7 +138,7 @@ class DefaultProviderRegistry implements ProviderRegistry {
     this.getLogProvider().trace("Registered new screen provider", value);
   };
 
-  hasWindow(): boolean {
+  hasWindow = (): boolean => {
     return this._window != null;
   }
 
@@ -156,7 +156,7 @@ class DefaultProviderRegistry implements ProviderRegistry {
     this.getLogProvider().trace("Registered new window provider", value);
   };
 
-  hasTextFinder(): boolean {
+  hasTextFinder = (): boolean => {
     return this._textFinder != null;
   }
 
@@ -174,7 +174,7 @@ class DefaultProviderRegistry implements ProviderRegistry {
     this.getLogProvider().trace("Registered new TextFinder provider", value);
   };
 
-  hasWindowFinder(): boolean {
+  hasWindowFinder = (): boolean => {
     return this._windowFinder != null;
   }
 
@@ -206,7 +206,7 @@ class DefaultProviderRegistry implements ProviderRegistry {
     this.getLogProvider().trace("Registered new WindowElementInspector provider", value);
   };
 
-  hasImageReader(): boolean {
+  hasImageReader = (): boolean => {
     return this._imageReader != null;
   }
 
@@ -224,7 +224,7 @@ class DefaultProviderRegistry implements ProviderRegistry {
     this.getLogProvider().trace("Registered new image reader", value);
   };
 
-  hasImageWriter(): boolean {
+  hasImageWriter = (): boolean => {
     return this._imageWriter != null;
   }
 
@@ -242,7 +242,7 @@ class DefaultProviderRegistry implements ProviderRegistry {
     this.getLogProvider().trace("Registered new image writer", value);
   };
 
-  hasImageProcessor(): boolean {
+  hasImageProcessor = (): boolean => {
     return this._imageProcessor != null;
   }
 
@@ -260,7 +260,7 @@ class DefaultProviderRegistry implements ProviderRegistry {
     this.getLogProvider().trace("Registered new image processor", value);
   };
 
-  hasLogProvider(): boolean {
+  hasLogProvider = (): boolean => {
     return this._logProvider != null;
   }
 
@@ -278,7 +278,7 @@ class DefaultProviderRegistry implements ProviderRegistry {
     this.getLogProvider().trace("Registered new log provider", value);
   };
 
-  hasColorFinder(): boolean {
+  hasColorFinder = (): boolean => {
     return this._colorFinder != null;
   }
 

@@ -150,21 +150,21 @@ export default class KeyboardAction implements KeyboardProviderInterface {
     [Key.AudioRandom, "audio_random"]
   ]);
 
-  public static keyLookup(key: Key): any {
+  public static keyLookup = (key: Key): any => {
     return this.KeyLookupMap.get(key);
   }
 
-  private static mapModifierKeys(...keys: Key[]): string[] {
+  private static mapModifierKeys = (...keys: Key[]): string[] => {
     return keys
       .map((modifier) => KeyboardAction.keyLookup(modifier))
       .filter((modifierKey) => modifierKey != null && modifierKey.length > 1);
   }
 
-  private static key(
+  private static key = (
     key: Key,
     event: "up" | "down",
     ...modifiers: Key[]
-  ): Promise<void> {
+  ): Promise<void>  => {
     return new Promise<void>((resolve, reject) => {
       try {
         const nativeKey = KeyboardAction.keyLookup(key);
@@ -182,7 +182,7 @@ export default class KeyboardAction implements KeyboardProviderInterface {
   constructor() {
   }
 
-  public type(input: string): Promise<void> {
+  public type = (input: string): Promise<void> => {
     return new Promise<void>((resolve, reject) => {
       try {
         libnut.typeString(input);
@@ -193,7 +193,7 @@ export default class KeyboardAction implements KeyboardProviderInterface {
     });
   }
 
-  public click(...keys: Key[]): Promise<void> {
+  public click = (...keys: Key[]): Promise<void> => {
     return new Promise<void>((resolve, reject) => {
       try {
         keys.reverse();
@@ -210,7 +210,7 @@ export default class KeyboardAction implements KeyboardProviderInterface {
     });
   }
 
-  public pressKey(...keys: Key[]): Promise<void> {
+  public pressKey = (...keys: Key[]): Promise<void> => {
     return new Promise<void>(async (resolve, reject) => {
       try {
         keys.reverse();
@@ -223,7 +223,7 @@ export default class KeyboardAction implements KeyboardProviderInterface {
     });
   }
 
-  public releaseKey(...keys: Key[]): Promise<void> {
+  public releaseKey = (...keys: Key[]): Promise<void> => {
     return new Promise<void>(async (resolve, reject) => {
       try {
         keys.reverse();
@@ -236,7 +236,7 @@ export default class KeyboardAction implements KeyboardProviderInterface {
     });
   }
 
-  public setKeyboardDelay(delay: number): void {
+  public setKeyboardDelay = (delay: number): void => {
     libnut.setKeyboardDelay(delay);
   }
 }

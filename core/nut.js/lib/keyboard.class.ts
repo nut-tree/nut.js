@@ -51,7 +51,7 @@ export class KeyboardClass {
    *
    * @param input Sequence of {@link String} or {@link Key} to type
    */
-  public async type(...input: StringOrKey): Promise<KeyboardClass> {
+  public type = async (...input: StringOrKey): Promise<KeyboardClass> => {
     try {
       if (inputIsString(input)) {
         for (const char of input.join(" ")) {
@@ -88,7 +88,7 @@ export class KeyboardClass {
    *
    * @param keys Array of {@link Key}s to press and hold
    */
-  public async pressKey(...keys: Key[]): Promise<KeyboardClass> {
+  public pressKey = async (...keys: Key[]): Promise<KeyboardClass> => {
     try {
       await sleep(this.config.autoDelayMs);
       await this.providerRegistry.getKeyboard().pressKey(...keys);
@@ -112,7 +112,7 @@ export class KeyboardClass {
    *
    * @param keys Array of {@link Key}s to release
    */
-  public async releaseKey(...keys: Key[]): Promise<KeyboardClass> {
+  public releaseKey = async (...keys: Key[]): Promise<KeyboardClass> => {
     try {
       await sleep(this.config.autoDelayMs);
       await this.providerRegistry.getKeyboard().releaseKey(...keys);

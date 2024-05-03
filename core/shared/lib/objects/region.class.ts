@@ -6,11 +6,11 @@ export class Region {
     public height: number
   ) {}
 
-  public area() {
+  public area = () => {
     return this.width * this.height;
   }
 
-  public toString() {
+  public toString = () => {
     return `(${this.left}, ${this.top}, ${this.width}, ${this.height})`;
   }
 }

@@ -3,7 +3,7 @@ import { Button, Point } from "@nut-tree/shared";
 import { MouseProviderInterface } from "@nut-tree/provider-interfaces";
 
 export default class MouseAction implements MouseProviderInterface {
-  public static buttonLookup(btn: Button): any {
+  public static buttonLookup = (btn: Button): any => {
     return this.ButtonLookupMap.get(btn);
   }
 
@@ -18,11 +18,11 @@ export default class MouseAction implements MouseProviderInterface {
   constructor() {
   }
 
-  public setMouseDelay(delay: number): void {
+  public setMouseDelay = (delay: number): void => {
     libnut.setMouseDelay(delay);
   }
 
-  public setMousePosition(p: Point): Promise<void> {
+  public setMousePosition = (p: Point): Promise<void> => {
     return new Promise<void>((resolve, reject) => {
       try {
         libnut.moveMouse(p.x, p.y);
@@ -33,7 +33,7 @@ export default class MouseAction implements MouseProviderInterface {
     });
   }
 
-  public currentMousePosition(): Promise<Point> {
+  public currentMousePosition = (): Promise<Point> => {
     return new Promise<Point>((resolve, reject) => {
       try {
         const position = libnut.getMousePos();
@@ -44,7 +44,7 @@ export default class MouseAction implements MouseProviderInterface {
     });
   }
 
-  public click(btn: Button): Promise<void> {
+  public click = (btn: Button): Promise<void> => {
     return new Promise<void>((resolve, reject) => {
       try {
         libnut.mouseClick(MouseAction.buttonLookup(btn));
@@ -55,7 +55,7 @@ export default class MouseAction implements MouseProviderInterface {
     });
   }
 
-  public doubleClick(btn: Button): Promise<void> {
+  public doubleClick = (btn: Button): Promise<void> => {
     return new Promise<void>((resolve, reject) => {
       try {
         libnut.mouseClick(MouseAction.buttonLookup(btn), true);
@@ -66,19 +66,19 @@ export default class MouseAction implements MouseProviderInterface {
     });
   }
 
-  public leftClick(): Promise<void> {
+  public leftClick = (): Promise<void> => {
     return this.click(Button.LEFT);
   }
 
-  public rightClick(): Promise<void> {
+  public rightClick = (): Promise<void> => {
     return this.click(Button.RIGHT);
   }
 
-  public middleClick(): Promise<void> {
+  public middleClick = (): Promise<void> => {
     return this.click(Button.MIDDLE);
   }
 
-  public pressButton(btn: Button): Promise<void> {
+  public pressButton = (btn: Button): Promise<void> => {
     return new Promise<void>((resolve, reject) => {
       try {
         libnut.mouseToggle("down", MouseAction.buttonLookup(btn));
@@ -89,7 +89,7 @@ export default class MouseAction implements MouseProviderInterface {
     });
   }
 
-  public releaseButton(btn: Button): Promise<void> {
+  public releaseButton = (btn: Button): Promise<void> => {
     return new Promise<void>((resolve, reject) => {
       try {
         libnut.mouseToggle("up", MouseAction.buttonLookup(btn));
@@ -100,7 +100,7 @@ export default class MouseAction implements MouseProviderInterface {
     });
   }
 
-  public scrollUp(amount: number): Promise<void> {
+  public scrollUp = (amount: number): Promise<void> => {
     return new Promise<void>((resolve, reject) => {
       try {
         libnut.scrollMouse(0, amount);
@@ -111,7 +111,7 @@ export default class MouseAction implements MouseProviderInterface {
     });
   }
 
-  public scrollDown(amount: number): Promise<void> {
+  public scrollDown = (amount: number): Promise<void> => {
     return new Promise<void>((resolve, reject) => {
       try {
         libnut.scrollMouse(0, -amount);
@@ -122,7 +122,7 @@ export default class MouseAction implements MouseProviderInterface {
     });
   }
 
-  public scrollLeft(amount: number): Promise<void> {
+  public scrollLeft = (amount: number): Promise<void> => {
     return new Promise<void>((resolve, reject) => {
       try {
         libnut.scrollMouse(-amount, 0);
@@ -133,7 +133,7 @@ export default class MouseAction implements MouseProviderInterface {
     });
   }
 
-  public scrollRight(amount: number): Promise<void> {
+  public scrollRight = (amount: number): Promise<void> => {
     return new Promise<void>((resolve, reject) => {
       try {
         libnut.scrollMouse(amount, 0);

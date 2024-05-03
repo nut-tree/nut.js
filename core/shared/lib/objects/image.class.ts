@@ -46,7 +46,7 @@ export class Image {
   /**
    * {@link toRGB} converts an {@link Image} from BGR color mode (default within nut.js) to RGB
    */
-  public async toRGB(): Promise<Image> {
+  public toRGB = async (): Promise<Image> => {
     if (this.colorMode === ColorMode.RGB) {
       return this;
     }
@@ -67,7 +67,7 @@ export class Image {
   /**
    * {@link toBGR} converts an {@link Image} from RGB color mode to RGB
    */
-  public async toBGR(): Promise<Image> {
+  public toBGR = async (): Promise<Image> => {
     if (this.colorMode === ColorMode.BGR) {
       return this;
     }

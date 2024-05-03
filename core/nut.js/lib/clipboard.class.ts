@@ -15,7 +15,7 @@ export class ClipboardClass {
    * {@link setContent} copies a given text to the system clipboard
    * @param text The text to copy
    */
-  public async setContent(text: string): Promise<void> {
+  public setContent = async (text: string): Promise<void> => {
     await this.providerRegistry.getClipboard().copy(text);
     this.providerRegistry.getLogProvider().debug(`Saved to clipboard`);
   }
@@ -23,7 +23,7 @@ export class ClipboardClass {
   /**
    * {@link getContent} returns the current content of the system clipboard (limited to text)
    */
-  public async getContent(): Promise<string> {
+  public getContent = async (): Promise<string> => {
     const content = await this.providerRegistry.getClipboard().paste();
     this.providerRegistry.getLogProvider().debug(`Fetched clipboard content`);
     return content;

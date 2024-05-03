@@ -41,7 +41,7 @@ export class MouseClass {
    * {@link setPosition} instantly moves the mouse cursor to a given {@link Point}
    * @param target {@link Point} to move the cursor to
    */
-  public async setPosition(target: Point): Promise<MouseClass> {
+  public setPosition = async (target: Point): Promise<MouseClass> => {
     if (!isPoint(target)) {
       const e = new Error(
         `setPosition requires a Point, but received ${JSON.stringify(target)}`
@@ -64,7 +64,7 @@ export class MouseClass {
   /**
    * {@link getPosition} returns a {@link Point} representing the current mouse position
    */
-  public async getPosition(): Promise<Point> {
+  public getPosition = async (): Promise<Point> => {
     const currentPosition = await this.providerRegistry
       .getMouse()
       .currentMousePosition();
@@ -79,10 +79,10 @@ export class MouseClass {
    * @param path Array of {@link Point}s to follow
    * @param movementType Defines the type of mouse movement. Would allow to configured acceleration etc. (Default: {@link linear}, no acceleration)
    */
-  public async move(
+  public move = async (
     path: Point[] | Promise<Point[]>,
     movementType: EasingFunction = linear
-  ): Promise<MouseClass> {
+  ): Promise<MouseClass> => {
     try {
       let pathSteps = await path;
       if (!Array.isArray(pathSteps)) {
@@ -114,14 +114,14 @@ export class MouseClass {
   /**
    * {@link leftClick} performs a click with the left mouse button
    */
-  public async leftClick(): Promise<MouseClass> {
+  public leftClick = async (): Promise<MouseClass> => {
     return this.click(Button.LEFT);
   }
 
   /**
    * {@link rightClick} performs a click with the right mouse button
    */
-  public async rightClick(): Promise<MouseClass> {
+  public rightClick = async (): Promise<MouseClass> => {
     return this.click(Button.RIGHT);
   }
 
@@ -130,7 +130,7 @@ export class MouseClass {
    * Please note that the actual scroll distance of a single "step" is OS dependent
    * @param amount The amount of "steps" to scroll
    */
-  public async scrollDown(amount: number): Promise<MouseClass> {
+  public scrollDown = async (amount: number): Promise<MouseClass> => {
     try {
       await sleep(this.config.autoDelayMs);
       await this.providerRegistry.getMouse().scrollDown(amount);
@@ -149,7 +149,7 @@ export class MouseClass {
    * Please note that the actual scroll distance of a single "step" is OS dependent
    * @param amount The amount of "steps" to scroll
    */
-  public async scrollUp(amount: number): Promise<MouseClass> {
+  public scrollUp = async (amount: number): Promise<MouseClass> => {
     try {
       await sleep(this.config.autoDelayMs);
       await this.providerRegistry.getMouse().scrollUp(amount);
@@ -168,7 +168,7 @@ export class MouseClass {
    * Please note that the actual scroll distance of a single "step" is OS dependent
    * @param amount The amount of "steps" to scroll
    */
-  public async scrollLeft(amount: number): Promise<MouseClass> {
+  public scrollLeft = async (amount: number): Promise<MouseClass> => {
     try {
       await sleep(this.config.autoDelayMs);
       await this.providerRegistry.getMouse().scrollLeft(amount);
@@ -187,7 +187,7 @@ export class MouseClass {
    * Please note that the actual scroll distance of a single "step" is OS dependent
    * @param amount The amount of "steps" to scroll
    */
-  public async scrollRight(amount: number): Promise<MouseClass> {
+  public scrollRight = async (amount: number): Promise<MouseClass> => {
     try {
       await sleep(this.config.autoDelayMs);
       await this.providerRegistry.getMouse().scrollRight(amount);
@@ -206,7 +206,7 @@ export class MouseClass {
    * In summary, {@link drag} presses and holds the left mouse button, moves the mouse and releases the left button
    * @param path The path of {@link Point}s to drag along
    */
-  public async drag(path: Point[] | Promise<Point[]>): Promise<MouseClass> {
+  public drag = async (path: Point[] | Promise<Point[]>): Promise<MouseClass> => {
     try {
       await sleep(this.config.autoDelayMs);
       await this.providerRegistry.getMouse().pressButton(Button.LEFT);
@@ -225,7 +225,7 @@ export class MouseClass {
    * {@link pressButton} presses and holds a mouse button
    * @param btn The {@link Button} to press and hold
    */
-  public async pressButton(btn: Button): Promise<MouseClass> {
+  public pressButton = async (btn: Button): Promise<MouseClass> => {
     try {
       await sleep(this.config.autoDelayMs);
       await this.providerRegistry.getMouse().pressButton(btn);
@@ -244,7 +244,7 @@ export class MouseClass {
    * {@link releaseButton} releases a mouse button previously pressed via {@link pressButton}
    * @param btn The {@link Button} to release
    */
-  public async releaseButton(btn: Button): Promise<MouseClass> {
+  public releaseButton = async (btn: Button): Promise<MouseClass> => {
     try {
       await sleep(this.config.autoDelayMs);
       await this.providerRegistry.getMouse().releaseButton(btn);
@@ -263,7 +263,7 @@ export class MouseClass {
    * {@link click} clicks a mouse button
    * @param btn The {@link Button} to click
    */
-  public async click(btn: Button): Promise<MouseClass> {
+  public click = async (btn: Button): Promise<MouseClass> => {
     try {
       await sleep(this.config.autoDelayMs);
       await this.providerRegistry.getMouse().click(btn);
@@ -282,7 +282,7 @@ export class MouseClass {
    * {@link doubleClick} performs a double click on a mouse button
    * @param btn The {@link Button} to click
    */
-  public async doubleClick(btn: Button): Promise<MouseClass> {
+  public doubleClick = async (btn: Button): Promise<MouseClass> => {
     try {
       await sleep(this.config.autoDelayMs);
       await this.providerRegistry.getMouse().doubleClick(btn);
