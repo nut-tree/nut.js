@@ -107,7 +107,7 @@ export default class KeyboardAction implements KeyboardProviderInterface {
     [Key.Backslash, "\\"],
     [Key.Semicolon, ";"],
     [Key.Quote, "'"],
-    [Key.Return, "enter"],
+    [Key.Return, "return"],
     [Key.Comma, ","],
     [Key.Period, "."],
     [Key.Slash, "/"],
