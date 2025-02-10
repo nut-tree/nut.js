@@ -94,9 +94,11 @@ export default class KeyboardAction implements KeyboardProviderInterface {
     [Key.Fn, "fn"],
 
     [Key.LeftShift, "shift"],
-    [Key.LeftSuper, "command"],
+    [Key.LeftSuper, "meta"],
+    [Key.LeftMeta, "meta"],
     [Key.RightShift, "right_shift"],
-    [Key.RightSuper, "command"],
+    [Key.RightSuper, "right_meta"],
+    [Key.RightMeta, "right_meta"],
 
     [Key.Grave, "`"],
     [Key.Minus, "-"],
