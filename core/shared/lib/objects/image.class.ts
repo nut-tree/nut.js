@@ -65,7 +65,7 @@ export class Image {
   }
 
   /**
-   * {@link toBGR} converts an {@link Image} from RGB color mode to RGB
+   * {@link toBGR} converts an {@link Image} from RGB color mode to BGR
    */
   public async toBGR(): Promise<Image> {
     if (this.colorMode === ColorMode.BGR) {

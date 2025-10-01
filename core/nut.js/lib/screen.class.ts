@@ -139,9 +139,9 @@ export class ScreenClass {
   }
 
   /**
-   * {@link width} returns the main screen width
+   * {@link width} returns the main screen width  
    * This refers to the hardware resolution.
-   * Screens with higher pixel density (e.g. retina displays in MacBooks) might have a higher width in in actual pixels
+   * Screens with higher pixel density (e.g. retina displays in MacBooks) might have a higher width in actual pixels
    */
   public width() {
     this.providerRegistry.getLogProvider().debug(`Fetching screen width`);
@@ -149,9 +149,9 @@ export class ScreenClass {
   }
 
   /**
-   * {@link height} returns the main screen height
+   * {@link height} returns the main screen height  
    * This refers to the hardware resolution.
-   * Screens with higher pixel density (e.g. retina displays in MacBooks) might have a higher height in in actual pixels
+   * Screens with higher pixel density (e.g. retina displays in MacBooks) might have a higher height in actual pixels
    */
   public height() {
     this.providerRegistry.getLogProvider().debug(`Fetching screen height`);

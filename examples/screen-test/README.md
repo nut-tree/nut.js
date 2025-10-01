@@ -52,7 +52,7 @@ Following this scheme loading of platform specific images would be possible with
 ## [`find`](https://nut-tree.github.io/apidoc/classes/screen.html#find)
 
 `find` takes a filename relative to the configured [resourceDirectory](#resourcedirectory) and tries to find a match on the main screen.
-It is possible to override the the [configured matching confidence](#confidence) and search region providing [LocationParameters](https://nut-tree.github.io/apidoc/classes/locationparameters.html).
+It is possible to override the [configured matching confidence](#confidence) and search region providing [LocationParameters](https://nut-tree.github.io/apidoc/classes/locationparameters.html).
 In case of a match, the corresponding [Region](https://nut-tree.github.io/apidoc/classes/region.html) on screen is returned.
 
 ```js
