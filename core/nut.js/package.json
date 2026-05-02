@@ -61,7 +61,7 @@
     "@nut-tree/libnut": "workspace:*",
     "@nut-tree/shared": "workspace:*",
     "@nut-tree/provider-interfaces": "workspace:*",
-    "jimp": "0.22.10",
+    "jimp": "1.1.2",
     "node-abort-controller": "3.1.1"
   },
   "devDependencies": {

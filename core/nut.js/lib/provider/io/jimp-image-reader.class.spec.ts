@@ -1,6 +1,6 @@
 import ImageReader from "./jimp-image-reader.class";
 import { join } from "path";
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 
 jest.mock("jimp", () => {
   class JimpMock {
@@ -15,7 +15,7 @@ jest.mock("jimp", () => {
 
   return {
     __esModule: true,
-    default: JimpMock,
+    Jimp: JimpMock,
   };
 });
 

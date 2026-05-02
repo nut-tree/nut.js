@@ -1,6 +1,6 @@
 import ImageWriter from "./jimp-image-writer.class";
 import { Image } from "@nut-tree/shared";
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 
 jest.mock("jimp", () => {
   class JimpMock {
@@ -15,7 +15,7 @@ jest.mock("jimp", () => {
 
   return {
     __esModule: true,
-    default: JimpMock
+    Jimp: JimpMock
   };
 });
 
@@ -37,7 +37,7 @@ describe("Jimp image writer", () => {
     const writeMock = jest.fn(() => Promise.resolve(new Jimp()));
     const scanMock = jest.fn();
     Jimp.prototype.scan = scanMock;
-    Jimp.prototype.writeAsync = writeMock;
+    Jimp.prototype.write = writeMock;
     const SUT = new ImageWriter();
 
     // WHEN
@@ -63,7 +63,7 @@ describe("Jimp image writer", () => {
     );
     const writeMock = jest.fn(() => Promise.reject("write error"));
     Jimp.prototype.scan = jest.fn();
-    Jimp.prototype.writeAsync = writeMock;
+    Jimp.prototype.write = writeMock;
     const SUT = new ImageWriter();
 
     // WHEN

@@ -6,7 +6,7 @@ export default class implements ImageWriter {
     return new Promise((resolve, reject) => {
       const jimpImage = imageToJimp(parameters.image);
       jimpImage
-        .writeAsync(parameters.path)
+        .write(parameters.path)
         .then((_) => resolve())
         .catch((err) => reject(err));
     });
