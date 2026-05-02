@@ -1,4 +1,4 @@
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 import { ImageReader } from "@nut-tree/provider-interfaces";
 import { ColorMode, Image } from "@nut-tree/shared";
 

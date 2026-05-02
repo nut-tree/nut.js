@@ -1,4 +1,4 @@
-import Jimp from "jimp";
+import { intToRGBA } from "jimp";
 import { Image, imageToJimp, Point, RGBA } from "@nut-tree/shared";
 import { ImageProcessor } from "@nut-tree/provider-interfaces";
 
@@ -20,9 +20,7 @@ export default class implements ImageProcessor {
       );
     }
     const jimpImage = imageToJimp(img);
-    const rgba = Jimp.intToRGBA(
-      jimpImage.getPixelColor(location.x, location.y)
-    );
+    const rgba = intToRGBA(jimpImage.getPixelColor(location.x, location.y));
     return new RGBA(rgba.r, rgba.g, rgba.b, rgba.a);
   }
 }

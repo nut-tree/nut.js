@@ -1,4 +1,4 @@
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 import { ColorMode } from "../enums/colormode.enum";
 import { Image } from "../objects/image.class";
 

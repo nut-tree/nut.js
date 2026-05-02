@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "node-abort-controller": "3.1.1",
-    "jimp": "0.22.10"
+    "jimp": "1.1.2"
   },
   "devDependencies": {
     "@nut-tree/configs": "workspace:*"

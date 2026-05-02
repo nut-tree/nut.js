@@ -1,5 +1,5 @@
 import { imageToJimp } from "./imageToJimp.function";
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 import { Image } from "../objects/image.class";
 
 jest.mock("jimp", () => {
@@ -15,7 +15,7 @@ jest.mock("jimp", () => {
 
   return {
     __esModule: true,
-    default: JimpMock
+    Jimp: JimpMock
   };
 });
 
