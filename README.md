@@ -259,6 +259,56 @@ Wayland is **NOT** supported!
 
 On e.g. Ubuntu you can switch to XWayland on your login screen as a workaround.
 
+#### WSL: control the Windows host
+
+When running in Windows Subsystem for Linux (WSL), the default mouse, keyboard,
+screen, clipboard and window providers target the Windows host. The existing
+nut.js API stays the same. Native Linux, macOS and Windows keep their current
+providers.
+
+The Windows host executable is built in
+[libnut-core](https://github.com/nut-tree/libnut-core) and shipped in
+`@nut-tree/libnut-win32`. It starts on the first desktop operation and handles
+subsequent commands over standard input/output. Windows does not need Node.js,
+PowerShell or a C# compiler at runtime, and the helper does not open a network
+port. Screen capture returns pixels directly as a nut.js `Image`; it does not
+write a screenshot file for the caller to open.
+
+Windows interoperability must be enabled in WSL. Run WSL from the signed-in
+Windows user's interactive session. Starting it through a Windows service or
+SSH does not give the helper access to that user's desktop. Input into elevated
+applications and the secure desktop remains subject to Windows restrictions.
+The helper uses physical pixel coordinates and captures the primary screen,
+matching `ScreenProviderInterface`.
+
+Set `NUT_JS_DISABLE_WSL=1` before importing nut.js to keep the Linux desktop
+providers inside WSL. Existing `NUT_JS_DISABLE_DEFAULT_*` settings still apply.
+For source development, `NUT_JS_WSL_HELPER` can point to the precompiled helper's
+path as seen from WSL:
+
+```sh
+export NUT_JS_WSL_HELPER=/mnt/c/path/to/build/Release/libnut-wsl-host.exe
+```
+
+This support requires the companion libnut-core release containing
+`libnut-wsl-host.exe`. Older native packages do not contain it; the library
+reports a missing-helper error rather than compiling it or silently controlling
+the Linux desktop. The native package pin must be updated to that release when
+the two contributions are integrated.
+
+Input command timeouts include the configured provider delay. A command timeout
+must fit Node.js's maximum timer delay of 2,147,483,647 ms. Highlight durations
+above 2,147,453,647 ms are rejected before sending the command, leaving 30 seconds
+for completion. String typing uses the public keyboard delay without an
+additional helper delay.
+
+The helper exits when its command pipe closes and attempts to release input
+that it held. Windows can reject those releases; failed releases remain tracked
+while the helper is running and shutdown failures are reported on standard error.
+Idle helpers do not keep completed Node.js scripts alive. A failed or timed-out
+command is not automatically repeated because a click or keystroke might
+already have reached Windows.
+
 ## Install `nut.js`
 
 ### Open Source
